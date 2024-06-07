@@ -1,0 +1,594 @@
+
+% MODES
+% article
+% beamer
+% trans
+% handout: one page per frame (no pauses)
+% presentation: not a mode, but can be used in <> commands to refer to beamer,
+%               trans and handout modes.
+
+% Zframe
+% ======
+% Un frame especial con coordenadas tikz estandarizadas
+% Necesita llamarse despues de \input{tikz.tex}
+
+% Evironment that read its content before processing
+\usepackage{environ}
+
+% No space on left
+\setbeamersize{text margin left=0cm}
+
+% Avoid ignorenonframetext
+\NewEnviron{zframe}[2][<1->]{%
+\begin{frame}#1[plain]
+\providecommand\CC{\path(se) node[anchor=south east]{\small\color{gray} S. A. Paz CC BY 4.0};}
+\begin{tikzpicture}[#2]% yscale=0.9, % with frametitle
+
+% Set relevant coordinates for the frame  
+\pcuad{\paperwidth}{\paperheight}
+\path(1,8.5) coordinate(t);
+
+
+% Include name/licence mark
+\CC  
+
+\BODY
+
+% Show relevant coordinates
+% \showcuad
+% \fill[gray,opacity=0.3](t) circle(.1) node[anchor=south east]{t};
+
+\end{tikzpicture}
+\end{frame}
+}
+
+% Peliculas
+% =========
+
+% \usepackage{movie15} % obsolete, superseed by media9 but not in gif.. puaj
+% \usepackage{media9} % use the Flash Player plugin.. puaj
+% \usepackage{animate} % uses a QuickTime sub-plugin.. puaj
+\usepackage{multimedia} % avi
+
+% Animaciones
+% -----------
+
+% Beamer tiene una forma de animar intrinseca.
+% Lastima que esto solo funciona con Acrobat Reader.. puaj
+%
+% \animate<2-9>
+% %\animatevalue<1-9>{\x}{0}{0.5} % Only for counters and dimensions
+% \foreach \x in {0.1,0.2,...,1.0} {\only{
+%   \path<+>(vu) ++(0,0) -- ++(0,3) node[pos=\x]{$\color{mcyellow}\text{bath at }T$};
+% }}
+ 
+
+
+%------------------------------------------------------------------------------
+%                             Bibliography
+%------------------------------------------------------------------------------
+
+
+  \setbeamertemplate{bibliography item}[triangle]
+  \setbeamercolor{bibliography entry author}{fg=white}
+  \setbeamercolor{bibliography entry title}{fg=white}
+  \setbeamercolor{bibliography entry journal}{fg=white}
+  \setbeamercolor{bibliography entry note}{fg=white}
+  \setbeamerfont{bibliography entry author}{size=\small}
+%  \setbeamertemplate{bibliography item}[triangle]
+%  \setbeamercolor{bibliography entry author}{fg=white}
+%  \setbeamerfont{bibliography entry author}{size=\small}
+%  {\tiny \color{black}\cite{Foiles011986} \cite{Johnson061989}}
+%  \bibliographystyle{Bibliografia/elsart-num.bst}
+%  \bibliography{alexispaz}
+
+  \setbeamertemplate{bibliography item}[default] %  little article icon as the reference
+
+
+% Margin size
+% -----------
+% \setbeamersize{sidebar width left=2cm}
+%  • sidebar width left= TEX dimension sets the size of the left sidebar. Currently, this command
+%    should be given before a shading is installed for the sidebar canvas.
+%  • sidebar width right= TEX dimension sets the size of the right sidebar.
+%  • description width= TEX dimension sets the default width of description labels, see Section 11.1.
+%  • description width of= text sets the default width of description labels to the width of the
+%      text , see Section 11.1.
+%  • mini frame size= TEX dimension sets the size of mini frames in a navigation bar. When two
+%    mini frame icons are shown alongside each other, their left end points are TEX dimension far
+%    apart.
+%  • mini frame offset= TEX dimension set an additional vertical oﬀset that is added to the mini
+%    frame size when arranging mini frames vertically.
+
+
+%http://tex.stackexchange.com/a/75651/28411
+%The default page size in a beamer presentation is 12.8cm x 9.6cm (a 4:3 aspect
+%ratio) with a font size of 11pt. The page size is set using geometry using the
+%following additional default settings:
+%
+%\RequirePackage[%
+%  papersize={\beamer@paperwidth,\beamer@paperheight},
+%  hmargin=1cm,%
+%  vmargin=0cm,%
+%  head=0.5cm,% might be changed later
+%  headsep=0pt,%
+%  foot=0.5cm% might be changed later
+%  ]{geometry}% http://ctan.org/pkg/geometry
+%In the above, \beamer@paperwidth and \beamer@paperheight is set based on the
+%required aspect ratio. Also as mentioned in comments above, the values of head
+%and foot may change, depending on the requirements provided by the
+%template/theme used.   
+%\DeclareOptionBeamer{aspectratio}[43]{%
+%  \ifnum#1=1610% 16:10
+%    \beamer@paperwidth 16.00cm%
+%    \beamer@paperheight 10.00cm%
+%  \else\ifnum#1=169% 16:9
+%    \beamer@paperwidth 16.00cm%
+%    \beamer@paperheight 9.00cm%
+%  \else\ifnum#1=149% 14:9
+%    \beamer@paperwidth 14.00cm%
+%    \beamer@paperheight 9.00cm%
+%  \else\ifnum#1=54% 5:4
+%    \beamer@paperwidth 12.50cm%
+%    \beamer@paperheight 10.00cm%
+%  \else\ifnum#1=43% 4:3
+%    \beamer@paperwidth 12.80cm%
+%    \beamer@paperheight 9.60cm%
+%  \else\ifnum#1=32% 3:2
+%    \beamer@paperwidth 13.50cm%
+%    \beamer@paperheight 9.00cm%
+%  \fi\fi\fi\fi\fi\fi%
+%}
+                      
+
+
+
+
+% Background 
+% ----------
+
+%Para cambiar la imagen de fondo, redefino el siguiente comando..
+%   usar asi:
+%   \framebg{Imagenes/blancosygrises.png} 
+\newcommand{\framebg}[1]{\setbeamertemplate{background canvas}{\includegraphics[width=\paperwidth,height=\paperheight]{#1}}}
+
+% \setbeamertemplate{background canvas} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{background canvas}[default] 
+% \setbeamertemplate{background canvas}[vertical shading][ color options ] installs a vertically shaded background. 
+%     – top= color speciﬁes the color at the top of the page. By default, 25% of the foreground of
+%       the beamer-color palette primary is used.
+%     – bottom= color speciﬁes the color at the bottom of the page. By default, the background of
+%       normal text at the moment of invocation of this command is used.
+%     – middle= color speciﬁes the color for the middle of the page. Thus, if this option is given, the
+%       shading changes from the bottom color to this color and then to the top color.
+%     – midpoint= factor speciﬁes at which point of the page the middle color is used. A factor of 0
+%       is the bottom of the page, a factor of 1 is the top. The default, which is 0.5 is in the middle.
+% \setbeamertemplate{background} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{background}[grid][step=1cm] % places a grid on the background. 
+%     – step= dimension speciﬁes the distance between grid lines. The default is 0.5cm.
+%     – color= color speciﬁes the color of the grid lines. The default is 10% foreground. 
+ 
+
+% Frames
+% ======
+
+% Title
+% -----
+
+% \setbeamertemplate{frametitle} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{frametitle}[default][left] % left, center, right 
+% \setbeamertemplate{frametitle}[shadow theme]
+% \setbeamertemplate{frametitle}[sidebar theme] 
+% \setbeamertemplate{frametitle}[smoothbars theme] 
+% \setbeamertemplate{frametitle}[smoothtree theme] 
+ 
+ 
+\setbeamercolor*{frametitle}{fg=black,bg=mcgreen}
+% Elemente deren Farbe veraendert werden kann
+
+\setbeamercolor{normal text}{fg=white,bg=black} % (NO TOCAR)
+% Cunado se establece esto, el beamer cambia el color
+% implicito por default de las cosas. 
+
+\defbeamertemplate<article>{frame begin}{lined}{\par\noindent\rule{\textwidth}{1pt}\par}
+\defbeamertemplate<article>{frame end}{lined}{\par\noindent\rule{\textwidth}{1pt}\par}
+
+\newcounter{framebox}
+\defbeamertemplate<article>{frame begin}{tikzed}{\par\noindent\stepcounter{framebox}\tikz[remember picture,overlay] \path (-1ex,0) coordinate (frame top \the\value{framebox});}
+\defbeamertemplate<article>{frame end}{tikzed}{\hspace*{\fill}\tikz[remember picture,overlay] \draw (frame top \the\value{framebox}) rectangle (1ex,0);\par}
+
+\defbeamertemplate<article>{frame begin}{centered}{\par\noindent\begin{center}\par}
+\defbeamertemplate<article>{frame end}{centered}{\par\noindent\end{center}\par}
+
+\defbeamertemplate<article>{frame begin}{minipage}{\par\noindent\begin{minipage}{0.8\textwidth}\par}
+\defbeamertemplate<article>{frame end}{minipage}{\par\noindent\end{minipage}\par}
+
+\setbeamertemplate{frame begin}[centered]
+\setbeamertemplate{frame end}[centered]
+ 
+% \setbeamercolor*{example text}
+% \setbeamercolor*{titlelike}
+
+
+% \setbeamercolor*{math text}
+% \setbeamercolor*{math text inlined}
+% \setbeamercolor*{math text displayed}
+% \setbeamercolor*{normal text in math text}
+
+% \usebeamercolor[fg]{normal text}
+% \setbeamercolor{normal text}{fg=black,bg=mylightgrey}
+
+% Palette:
+%\setbeamercolor{palette primary}{fg=red,bg=green}            
+%\setbeamercolor{palette secondary}{fg=orange,bg=verdecmyk!80!black} 
+%\setbeamercolor{palette tertiary}{fg=gray,bg=violet}          
+%\setbeamercolor{palette quaternary}{fg=lily,bg=red}        
+ 
+
+% Sidebar
+% -------
+%\useoutertheme[%
+%  left, % sidebar links
+%% right, % sidebar rechts
+%  height=25pt, % offset headline
+%  width=45pt, % sidebar rechts
+%% hideallsubsections, % nur sections werden angezeigt
+%% hideothersubsections, % nur subsections der aktuellen section werden angezeigt
+%]{sidebar}
+ 
+
+%\setbeamercolor*{sidebar}{fg=black,bg=verdecmyk}
+%\setbeamercolor*{author in sidebar}{fg=black}
+%\setbeamercolor*{title in sidebar}{fg=black}
+%\setbeamercolor*{section/subsection in sidebar}{fg=black,bg=blanco}
+
+% \setbeamertemplate{sidebar} % Beamer-Template/-Color/-Font (Parent)
+% \setbeamertemplate{sidebar left} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{sidebar right} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{sidebar canvas left} % Beamer-Template 
+% \setbeamertemplate{sidebar canvas right} % Beamer-Template 
+
+
+
+% \setbeamercolor{palette sidebar primary}{fg=verdeposter!50!verdecmyk,bg=black!70!verdecmyk}
+% \setbeamercolor{palette sidebar secondary}{fg=verdeposter,bg=black!90!verdecmyk}
+%\setbeamercolor{palette sidebar tertiary}{fg=black,bg=red}
+%\setbeamercolor{palette sidebar quaternary}{fg=black,bg=red} 
+
+
+\setbeamerfont*{sidebar}{size=\tiny}
+
+
+% Head/foot
+% ---------
+
+\setbeamercolor*{author in head/foot}{fg=yellow,bg=black}
+\setbeamercolor*{title in head/foot}{fg=black,bg=yellow}
+%\setbeamercolor*{date in head/foot}{parent=palette primary}
+%\setbeamercolor*{section in head/foot}{parent=palette secondary} %tertiary
+%\setbeamercolor*{subsection in head/foot}{parent=palette primary} 
+%\setbeamercolor*{separation line}{fg=red,bg=red,red}
+%\setbeamercolor*{upper separation line head}{fg=red,bg=red,red}
+%\setbeamercolor*{separation line}{fg=red,bg=red,red}
+%\setbeamercolor*{middle separation line head}{fg=red,bg=red,red}
+%\setbeamercolor*{separation line}{fg=red,bg=red,red}
+%\setbeamercolor*{lower separation line head}{fg=red,bg=red,red}
+%\setbeamercolor*{upper separation line foot}{fg=red,bg=red,red}
+%\setbeamercolor*{middle separation line foot}{fg=red,bg=red,red}
+%\setbeamercolor*{lower separation line foot} {fg=red,bg=red,red}
+
+
+% \useoutertheme{default}
+
+% \useoutertheme{infolines}
+
+
+% \useoutertheme[
+% % 	hooks, % Einruecken der Abschnittsueberschriften in der Kopfzeile
+% ]{tree}
+
+% wie tree, ohne die Linien
+% \useoutertheme{smoothtree}
+
+
+
+ % \useoutertheme[%
+% 	footline=empty, % suppressed the footline (default).
+% % 	footline=authorinstitute, %shows the author's name and the institute in the footline.
+% % 	footline=authortitle, % shows the author's name and the title in the footline.
+% % 	footline=institutetitle, % shows the institute and the title in the footline.
+% % 	footline=authorinstitutetitle, % shows the author's name, the institute, and the title in the footline.
+% ]{miniframes}
+
+% % This theme installs a headline in which, on the left, the sections of the talk are shown and, on the right,
+% % the subsections of the current section. If the class option compress has been given, the sections and
+% % subsections will be put in one line; normally there is one line per section or subsection.
+% \useoutertheme{split}
+% The colors are taken from palette primary and palette fourth.
+ 
+% \useoutertheme[%
+% % 	subsection= true,  % or false shows or suppresses line showing the subsection in the headline.
+% ]{smoothbars}
+
+% % This layout theme extends the split theme by putting a horizontal shading behind the frame title and
+% % adding a little 'shadow' at the bottom of the headline.
+% \useoutertheme{shadow}
+
+% \setbeamertemplate{headline} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{headline}
+% {%
+%   \begin{beamercolorbox}{section in head/foot}
+%     \vskip2pt\insertnavigation{\paperwidth}\vskip2pt
+%   \end{beamercolorbox}%
+% }
+% \setbeamertemplate{headline}[default] % The default is just an empty headline. 
+% \setbeamertemplate{headline}[infolines theme] 
+% \setbeamertemplate{headline}[miniframes theme] 
+% \setbeamertemplate{headline}[sidebar theme] 
+% \setbeamertemplate{headline}[smoothtree theme]
+% \setbeamertemplate{headline}[smoothbars theme]
+% \setbeamertemplate{headline}[tree] 
+% \setbeamertemplate{headline}[split theme] 
+% \setbeamertemplate{headline}[text line]{ text } % The headline is typeset with 'text' 
+
+% \setbeamertemplate{footline} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{footline}[default] 
+% \setbeamertemplate{footline}[infolines theme] 
+% \setbeamertemplate{footline}[miniframes theme] 
+% \setbeamertemplate{footline}[page number] 
+% \setbeamertemplate{footline}[frame number] 
+% \setbeamertemplate{footline}[split] 
+% \setbeamertemplate{footline}[text line]{ text } 
+
+% \setbeamertemplate{page number in head/foot} % Beamer-Color/-Font 
+ 
+
+
+%------------------------------------------------------------------------------
+%                             NAVIGATION
+%------------------------------------------------------------------------------ 
+
+
+%                                                                    HYPERLINKS
+%------------------------------------------------------------------------------
+%%% 10.1 Adding Hyperlinks and Buttons
+% \setbeamertemplate{button} % Beamer-Template/-Color/-Font
+% • \insertbuttontext inserts the text of the current button. Inside “Goto-Buttons” (see below)
+%   this text is preﬁxed by the insert \insertgotosymbol and similarly for skip and return buttons.
+% • \insertgotosymbol This text is inserted at the beginning of goto buttons. Redeﬁne this
+%   command to change the symbol.
+%   Example: \renewcommand{\insertgotosymbol}{\somearrowcommand}
+% • \insertskipsymbol This text is inserted at the beginning of skip buttons.
+% • \insertreturnsymbol This text is inserted at the beginning of return buttons. 
+
+
+
+
+
+%BAR (funktioniert nur mit miniframe Themes)
+
+% \setbeamertemplate{mini frames}[default] % shows small circles as mini frames.
+\setbeamertemplate{mini frames}[box] % shows small rectangles as mini frames.
+% \setbeamertemplate{mini frames}[tick] % shows small vertical bars as mini frames.
+
+% \setbeamertemplate{mini frame} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{mini frame in current subsection} % Beamer-Template 
+% \setbeamertemplate{mini frame in other subsection} % Beamer-Template 
+% \setbeamertemplate{mini frame in other subsection}[default][20]
+
+% \setbeamertemplate{section in head/foot} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{section in head/foot shaded} % Beamer-Template 
+% \setbeamertemplate{section in head/foot shaded}[default][20]
+% \setbeamertemplate{section in sidebar} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{section in sidebar}[sidebar theme]
+% \setbeamertemplate{subsection in head/foot} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{subsection in head/foot shaded} % Beamer-Template 
+% \setbeamertemplate{section in head/foot shaded}[default][20]
+% \setbeamertemplate{subsection in head/foot shaded}[default][20]
+% \setbeamertemplate{subsection in sidebar} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{subsection in sidebar shaded} % Beamer-Template 
+% \setbeamertemplate{subsubsection in head/foot} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{subsubsection in head/foot shaded} % Beamer-Template 
+% \setbeamertemplate{subsubsection in head/foot shaded}[default][20] 
+% \setbeamertemplate{subsubsection in sidebar} % Beamer-Template/-Color/-Font
+% \setbeamertemplate{subsubsection in sidebar shaded} % Beamer-Template 
+
+%SYMBOLS
+%%% Beamer-Template/-Color/-Font navigation symbols
+\setbeamertemplate{navigation symbols}{} % suppresses all navigation symbols:
+% \setbeamertemplate{navigation symbols}[horizontal] % Organizes the navigation symbols horizontally.
+% \setbeamertemplate{navigation symbols}[vertical] % Organizes the navigation symbols vertically.
+% \setbeamertemplate{navigation symbols}[only frame symbol] % Shows only the navigational symbol for navigating frames.
+
+%THE LOGO	
+% \setbeamertemplate{logo} % Beamer-Template/-Color/-Font 
+
+
+
+
+%------------------------------------------------------------------------------
+%                           ITEMIZE, ENUMERATE, BOXES
+%------------------------------------------------------------------------------
+
+% \setbeamertemplate{items} % parent template of itemize items and enumerate items
+% \setbeamertemplate{itemize items} % Parent Beamer-Template 
+%\setbeamertemplate{itemize items}[triangle]
+% \setbeamertemplate{itemize items}[circle] 
+% \setbeamertemplate{itemize items}[square] 
+%  \setbeamertemplate{itemize items}[ball] 
+%  \setbeamercolor{item}{fg=red}
+% \setbeamertemplate{itemize item} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{itemize subitem} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{itemize subsubitem} % Beamer-Template/-Color/-Font 
+% -------------------------------
+% \setbeamertemplate{enumerate items}[default] % Numbered 
+% \setbeamertemplate{enumerate items}[circle] % Places the numbers inside little circles. 
+% \setbeamertemplate{enumerate items}[square] % Places the numbers on little squares.
+%  \setbeamertemplate{enumerate items}[ball] % “Projects” the numbers onto little balls.
+% -------------------------------
+% \setbeamertemplate{enumerate items} % Parent Beamer-Template 
+% \setbeamertemplate{enumerate item} % Beamer-Template/-Color/-Font 
+%  • \insertenumlabel inserts the current number of the top-level enumeration (as an Arabic
+% 	   number). This insert is also available in the next two templates.
+% \setbeamertemplate{enumerate subitem} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{enumerate subitem}{\insertenumlabel-\insertsubenumlabel}
+%  • \insertsubenumlabel inserts the current number of the second-level enumeration (as an Ara-
+%   	bic number).
+% \setbeamertemplate{enumerate subsubitem} % Beamer-Template/-Color/-Font 
+%  • \insertsubsubenumlabel inserts the current number of the second-level enumeration (as an
+%     Arabic number).
+% \setbeamertemplate{enumerate mini template} % Beamer-Template/-Color/-Font 
+%  • \insertenumlabel inserts the current number rendered by this mini template. For example,
+%     if the mini template is (i) and this command is used in the fourth item, \insertenumlabel
+%     would yield (iv).
+% \setbeamertemplate{itemize/enumerate body begin} % Beamer-Template 
+% \setbeamertemplate{itemize/enumerate body end} % Beamer-Template 
+% -------------------------------
+% \setbeamertemplate{description item}[default] % Beamer-Template/-Color/-Font 
+%      • \insertdescriptionitem inserts the text of the current description item.
+% -------------------------------
+% \setbeamertemplate{item}  % Beamer-Color/-Font 
+% \setbeamertemplate{item projected}   % Beamer-Color/-Font 
+% \setbeamertemplate{subitem}  % Beamer-Color/-Font 
+% \setbeamertemplate{subitem projected}  % Beamer-Color/-Font 
+% \setbeamertemplate{subsubitem}  % Beamer-Color/-Font 
+% \setbeamertemplate{subsubitem projected}  % Beamer-Color/-Font 
+% -------------------------------
+%%% 11.2 Hilighting
+% \setbeamertemplate{structure}  % Beamer-Color/-Font 
+% \setbeamertemplate{local structure}  % Beamer-Color/-Font 
+% \setbeamertemplate{tiny structure}  % Beamer-Color/-Font 
+% \setbeamertemplate{structure begin} % Beamer-Template
+% \setbeamertemplate{structure end} % Beamer-Template
+% \setbeamertemplate{alerted text} % Beamer-Color/-Font 
+% \setbeamertemplate{alerted text begin} % Beamer-Template
+% \setbeamertemplate{alerted text end} % Beamer-Template
+
+%                                                                         BOXES 
+%------------------------------------------------------------------------------
+
+%Colores
+% \setbeamercolor{upcol}{bg=verdecmyk,fg=marron!20!negro}
+% \setbeamercolor{lowcol}{bg=naranja,fg=black}
+% \colorlet{shadow.fg}{verdecmyk}
+% \colorlet{shadow.bg}{black}
+
+% Conformo las sombras del bemaer box rounded (No tocar)
+%Declaro unas bolitas para redondear el roundedbox
+\pgfdeclareradialshading[shadow.fg,shadow.bg]{bmb@shadowball}{\pgfpointorigin}{%
+  color(0bp)=(shadow.fg!50!shadow.bg); color(4bp)=(shadow.bg)}
+\pgfdeclareradialshading[shadow.fg,shadow.bg]{bmb@shadowballlarge}{\pgfpointorigin}{%
+  color(0bp)=(shadow.fg!50!shadow.bg); color(4bp)=(shadow.fg!50!shadow.bg); color(8bp)=(shadow.bg)}
+%El shadin propiamentedicho
+\pgfdeclareverticalshading[shadow.fg,shadow.bg]{bmb@shadow}{200cm}{%
+  color(0bp)=(shadow.bg); color(4bp)=(shadow.fg!50!shadow.bg); color(8bp)=(shadow.fg!50!shadow.bg)}
+% Transition line
+\pgfdeclareverticalshading[lowcol.bg,upcol.bg]{bmb@transition}{200cm}{%
+  color(0pt)=(lowcol.bg); color(2pt)=(lowcol.bg); color(4pt)=(upcol.bg)}
+
+ 
+
+
+%\setbeamertemplate{blocks}[shadow=true,upper=red,lower=green]
+%\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true,shadow=true]
+% \setbeamertemplate{blocks} % Parent Beamer-Template
+ %\setbeamertemplate{blocks}[default] 
+%\setbeamertemplate{blocks}[rounded][shadow=true,upper=upcol,lower=lowcol]
+%\setbeamertemplate{blocks}[rounded][shadow=true,upper=upcol,lower=lowcol]
+% \setbeamertemplate{blocks}[rounded][shadow=false]
+% -------------------------------
+% \setbeamertemplate{block begin} % Beamer-Template
+% \setbeamertemplate{block end} % Beamer-Template
+% \setbeamertemplate{block title} % Beamer-Color/-Font 
+% \setbeamertemplate{block body} % Beamer-Color/-Font 
+% \setbeamertemplate{block alerted begin} % Beamer-Template
+% \setbeamertemplate{block alerted end} % Beamer-Template
+% \setbeamertemplate{block title alerted} % Beamer-Color/-Font 
+% \setbeamertemplate{block body alerted} % Beamer-Color/-Font 
+% \setbeamertemplate{block example begin} % Beamer-Template
+% \setbeamertemplate{block example end} % Beamer-Template
+% \setbeamertemplate{block title example} % Beamer-Color/-Font 
+% \setbeamertemplate{block body example} % Beamer-Color/-Font 
+% -------------------------------
+%%% 11.4 Theorem Environments
+% \setbeamertemplate{qed symbol} % Beamer-Template/-Color/-Font 
+% -------------------------------
+% \setbeamertemplate{theorems} % Parent Beamer-Template 
+% \setbeamertemplate{theorems}[default] 
+% \setbeamertemplate{theorems}[normal font] 
+% \setbeamertemplate{theorems}[numbered] 
+% \setbeamertemplate{theorems}[ams style]
+% -------------------------------
+% \setbeamertemplate{theorem begin} % Beamer-Template 
+% • \inserttheoremblockenv This will normally expand to block, but if a theorem that has theorem
+%   style example is typeset, it will expand to exampleblock. Thus you can use this insert to decide
+%   which environment should be used when typesetting the theorem.
+% • \inserttheoremheadfont This will expand to a font changing command that switches to the font
+%   to be used in the head of the theorem. By not inserting it, you can ignore the head font.
+% • \inserttheoremname This will expand to the name of the environment to be typeset (like “Theo-
+%   rem” or “Corollary”).
+% • \inserttheoremnumber This will expand to the number of the current theorem preceeded by a
+%   space or to nothing, if the current theorem does not have a number.
+% • \inserttheoremaddition This will expand to the optional argument given to the environment or
+%   will be empty, if there was no optional argument.
+% • \inserttheorempunctuation This will expand to the punctuation character for the current envi-
+%   ronment. This is usually a period.
+% -------------------------------
+% \setbeamertemplate{theorem end} % Beamer-Template 
+% -------------------------------
+%%% 11.6 Figures and Tables
+% \setbeamertemplate{caption} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{caption}[default] typesets the caption name (a word like “Figure” or “Abbildung” or “Table”)
+% \setbeamertemplate{caption}[numbered] adds the figure or table number to the caption. 
+% \setbeamertemplate{caption}[caption name own line] 
+% -------------------------------
+% \setbeamertemplate{caption name} % Beamer-Color/-Font 
+% -------------------------------
+%%% 11.10    Abstract
+% \setbeamertemplate{abstract} 		 % Beamer-Color/-Font 
+% \setbeamertemplate{abstract title} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{abstract begin} % Beamer-Template 
+% \setbeamertemplate{abstract end}   % Beamer-Template 
+% -------------------------------
+%%% 11.11 Verse, Quotations, Quotes
+% \setbeamertemplate{verse} 		 % Beamer-Color/-Font 
+% \setbeamertemplate{verse begin} % Beamer-Template 
+% \setbeamertemplate{verse end}   % Beamer-Template 
+% \setbeamertemplate{quotation}   % Beamer-Color/-Font 
+% \setbeamertemplate{quotation begin} % Beamer-Template 
+% \setbeamertemplate{quotation end}   % Beamer-Template 
+% \setbeamertemplate{quote}       % Beamer-Color/-Font 
+% \setbeamertemplate{quote begin} % Beamer-Template 
+% \setbeamertemplate{quote end}   % Beamer-Template 
+% -------------------------------
+%%% 11.12 Footnotes
+% \setbeamertemplate{footnote} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{mark}     % Beamer-Color/-Font footnote 
+% -------------------------------
+%%% 18.1 Specifying Note Contents
+% \setbeamertemplate{note page} % Beamer-Template/-Color/-Font 
+% \setbeamertemplate{note page}[default] 
+% \setbeamertemplate{note page}[compress] 
+% \setbeamertemplate{note page}[plain] 
+% -------------------------------
+%%% Specifying Which Notes and Frames Are Shown
+% \setbeameroption{hide notes}
+% \setbeameroption{show notes}
+% \setbeameroption{show notes on second screen= location }
+% \setbeameroption{show only notes}
+
+% Colores
+% =======
+
+% \mode<presentation>{\colorlet{resalta1}{green!70!blue}} 
+% \mode<article>{\colorlet{resalta1}{green!65!purple}}
+% \mode<presentation>{\colorlet{resalta2}{orange}} 
+% \mode<article>{\colorlet{resalta2}{orange!80!bg}}
+%
+% \setbeamercovered{
+%   still covered={\opaqueness<1->{50}},
+%   again covered={\opaqueness<1->{50}}
+% }
+%  
+
+\usefonttheme[onlymath]{serif}

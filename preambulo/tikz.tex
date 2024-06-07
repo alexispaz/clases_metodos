@@ -1,0 +1,930 @@
+% Estilos
+% =======
+% Estos estilos son mas portables si se pegan en cada tikzpicture
+
+% Control `blur shadow`
+% every shadow/.style={shadow xshift=-2ex, shadow yshift=-2ex}, 
+
+% El cuadro redondeado
+% cuadro/.style={rectangle, rounded corners=1mm,fill=white,inner sep=3,text opacity=1},
+
+% El recorte con tijera random 
+% recorte/.style={draw=azul,fill=white,thick,draw, minimum height=2cm, minimum width=3cm,
+%        decorate, decoration={random steps,segment length=3,amplitude=2}},
+
+% Flecha filosa
+% flecha/.style={->,>=stealth,verde,line width=1mm},
+
+% Teorema-like a mano
+% theo/.style={rectangle, rounded corners=1ex,draw=verde,fill=verde,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=center},
+% theohead/.style={theo,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}},
+
+% Otros del monton  
+% tit/.style={font=\Large\color{bg},anchor=north west,text width=\textwidth},
+% nube/.style={cloud, cloud puffs=10.8,cloud puff arc=110, aspect=2, fill=white
+%  ,double,double distance=1mm, inner sep=0mm,align=center,
+%  font=\small\color{bg}}
+% itema/.style={anchor=north west},
+% flecha/.style={ >=latex, ->, shorten <={-1.5} },
+% segmento/.style={ ultra thick,
+% {Circle[width=4,length=4]}-{Circle[width=4,length=4]}, shorten <={-2},
+% shorten >={-2} }, 
+% semirecta/.style={ {Circle[width=3,length=3]}-latex, shorten <={-1.5} },
+% def/.style={ anchor=north west, align=justify, text=fg, rectangle, rounded
+% corners=1ex, thick, draw=verde, % font={\baselineskip=3.6mm}, },
+% txt/.style={ anchor=north west, align=justify, text=fg, rectangle, }  
+
+% MANDE A ../TIKZ.BKP ALGUNAS COSAS QUE ME PARECIAN AL VICIO
+
+%
+%Se puede usar todas las keys en un \tikzset{}, empieze con tikz o con pgf
+%pudiendola escribr completa (i.e./tikz/..) o no.
+%si uno escribe mio./style uno esta definiendo un estilo
+\RequirePackage{tikz,pgf}
+
+\usepackage{xifthen}
+
+% Fixing the seed
+\pgfmathsetseed{\number\pdfrandomseed}
+
+% Avoid some dimension too large (but take longer)
+\usepackage{fp}
+\usetikzlibrary{fixedpointarithmetic}
+ 
+
+%\usepackage{setspace} % spacing environment
+
+% To avoid pading around figures in nodes with figures
+\tikzset{graphics/.style={inner sep=0,outer sep=0}}
+
+% To scale even linewidth and fonts
+%\tikzset{scaleall/.style={scale=#1, every node/.append style={scale=#1}}}
+\tikzset{scaleall/.style={scale=#1, transform shape}}
+
+%% Prefix the name of the nodes in a scope
+%% http://tex.stackexchange.com/a/128079/28411
+%\makeatletter
+%\tikzset{%
+%  prefix node name/.code={%
+%    \tikzset{name/.code={\edef\tikz@fig@name{#1 ##1}}}
+%  }%
+%}
+%\makeatother
+%The problem is that you can have to put the prefix when refers to internal
+%nodes inside the scope
+
+%\makeatletter
+%\tikzset{privatebbox/.style={
+%    %execute at begin scope={
+%    %    % save the bounding box
+%    %    \pgfpointanchor{current bounding box}{south west}
+%    %    \pgfgetlastxy\tsx@outerbb@minx\tsx@outerbb@miny
+%    %    \pgfpointanchor{current bounding box}{north east}
+%    %    \pgfgetlastxy\tsx@outerbb@maxx\tsx@outerbb@maxy
+%
+%    %    % clear the bounding box
+%    %    \pgfresetboundingbox
+%    %},
+%    %execute at end scope={
+%    %    % do something useful with the scope bounding box
+%    %    \draw (current bounding box.south west) rectangle (current bounding box.north east);
+%
+%    %    % reestablish the outer bounding box.
+%    %    \path (\tsx@outerbb@minx, \tsx@outerbb@miny) rectangle (\tsx@outerbb@maxx,\tsx@outerbb@maxy);
+%    %}
+%}}
+%\makeatother
+
+
+% How to proyect into a plane in 3D
+%http://tex.stackexchange.com/a/114266/28411
+
+
+
+%tikz nots
+\newcommand{\tkzn}[1]{\tikz[baseline=(#1.base),remember picture]\node(#1){};}
+\newcommand{\tkznt}[2]{\tikz[baseline=(#1.base),remember picture]\node(#1){#2};}
+\newcommand{\tkznot}[3]{\tikz[baseline=(#1.base),remember picture]\node(#1)[#2]{#3};}
+\newcommand{\tkzpnot}[4]{\tikz[remember picture]\path(#1) node(#2)[#3]{#4};}
+ 
+
+%use as {\paperwidth}{\paperheight}
+\newlength{\bbw}
+\newlength{\bbh}
+\newcommand{\pcuad}[3][]{
+  % First argument is an optional prefix for the coordinate names
+
+  \setlength{\bbw}{#2}
+  \setlength{\bbh}{#3}
+  \useasboundingbox(0,0) rectangle (\bbw,\bbh);
+
+  \path(.5\bbw,.5\bbh) coordinate(#1cp);
+  \path(\bbw,0)        coordinate(#1se);
+  \path(0,0)           coordinate(#1sw);
+  \path(0,\bbh)        coordinate(#1nw);
+  \path(\bbw,\bbh)     coordinate(#1ne);
+ 
+  
+  \path(\bbw,.5\bbh) coordinate(#1ep);
+  \path(.5\bbw,0)    coordinate(#1sp);
+  \path(.5\bbw,\bbh) coordinate(#1np);
+  \path(0,.5\bbh)    coordinate(#1wp);
+       
+  \path(.75\bbw,.5\bbh) coordinate(#1hr);
+  \path(.25\bbw,.5\bbh) coordinate(#1hl);
+  \path(.5\bbw,.25\bbh) coordinate(#1vl);
+  \path(.5\bbw,.75\bbh) coordinate(#1vu);
+
+  \path(.75\bbw,.75\bbh) coordinate(#1c1);
+  \path(.25\bbw,.75\bbh) coordinate(#1c2);
+  \path(.25\bbw,.25\bbh) coordinate(#1c3);
+  \path(.75\bbw,.25\bbh) coordinate(#1c4);
+
+
+%  +-----------------------------------------------+
+%  |nw                    np                     ne|
+%  |                                               |
+%  |                                               |
+%  |          c2          vu          c1           |
+%  |                                               |
+%  |                                               |
+%  |wp        hl          cp          hr         ep|
+%  |                                               |
+%  |                                               |
+%  |          c3          vl          c4           |
+%  |                                               |
+%  |                                               |
+%  |sw                    sp                     se|
+%  +-----------------------------------------------+
+}
+ 
+        
+\newcommand{\showcuad}[1][]{
+
+  \draw[help lines,xstep=.5,ystep=.5,dashed,gray,opacity=0.2] (#1sw) grid (#1ne);
+  \draw[help lines,xstep=1,ystep=1,gray,opacity=0.5]      (#1sw) grid (#1ne);
+
+  \foreach \x in {0,2,...,10} {
+      \node [anchor=north, gray,opacity=0.2,yshift=30] at (\x,0) {\tiny \bf \x};
+      \node [anchor=east,gray,opacity=0.2,xshift=30] at (0,\x) {\tiny \bf  \x};
+  }
+             
+  \fill[gray,opacity=0.2](#1se) circle(.1) node[anchor=south east]{#1se};
+  \fill[gray,opacity=0.2](#1sw) circle(.1) node[anchor=south west]{#1sw};
+  \fill[gray,opacity=0.2](#1ne) circle(.1) node[anchor=north east]{#1ne};
+  \fill[gray,opacity=0.2](#1nw) circle(.1) node[anchor=north west]{#1nw};
+
+  \fill[gray,opacity=0.2](#1hr) circle(.1) node[above]{#1hr};
+  \fill[gray,opacity=0.2](#1hl) circle(.1) node[above]{#1hl};
+  \fill[gray,opacity=0.2](#1vu) circle(.1) node[above]{#1vu};
+  \fill[gray,opacity=0.2](#1vl) circle(.1) node[above]{#1vl};
+
+  \fill[gray,opacity=0.2](#1sp) circle(.1) node[anchor=south]{#1sp};
+  \fill[gray,opacity=0.2](#1wp) circle(.1) node[anchor=west] {#1wp};
+  \fill[gray,opacity=0.2](#1np) circle(.1) node[anchor=north]{#1np};
+  \fill[gray,opacity=0.2](#1ep) circle(.1) node[anchor=east] {#1ep};
+
+  \fill[gray,opacity=0.2](#1cp) circle(.1) node[above]{#1cp};
+  \fill[gray,opacity=0.2](#1c1) circle(.1) node[above]{#1c1};
+  \fill[gray,opacity=0.2](#1c2) circle(.1) node[above]{#1c2};
+  \fill[gray,opacity=0.2](#1c3) circle(.1) node[above]{#1c3}; 
+  \fill[gray,opacity=0.2](#1c4) circle(.1) node[above]{#1c4};
+
+  %\fill[red](cp|-c1) circle(.1) node[anchor=north]{cp|-c1};
+
+}
+ 
+
+%\usepackage{eso-pic} % This give absolut positioning in the page:
+%\AddToShipoutPictureBG{}
+%  All the picture commands which are parameters of an \AddToShipoutPictureBG
+%  command will be added to the internal macro \ESO@HookIBG. This macro is part
+%  of a zero-length picture environment with basepoint at the lower left corner of
+%  the page (default) or at the upper left corner (package option ”texcoord”). The
+%  picture environment will be shipped out at every new page.
+%\AddToShipoutPictureBG* works like \AddToShipoutPictureBG but only for
+%  the current page. It used the internal macro \ESO@HookIIBG which contents will
+%  be removed automatically.
+
+% The problem with this is that only, uncover and hidden of beamer don't work
+%\newenvironment{frametikz}[1]{
+%\RequirePackage{envrion}
+%\NewEnviron{frametikz}{
+%  \AddToShipoutPictureFG*\bgroup\put(-3,0)\bgroup \begin{tikzpicture} [overlay,#1] \pcuad
+%  \BODY
+%  \end{tikzpicture}\egroup\egroup
+%}
+
+% This is the chosen one for now
+%\begin{frame}\par
+%\frametitle<presentation>{Coalescence of Au and Co}
+%\hspace*{-2pt}
+%\vspace*{-2pt}
+%\makebox[\linewidth][c]{
+%\begin{tikzpicture}
+%\pcuad{\paperwidth}{\paperheight}
+%\path<1>(hr)++(1.15,0)  node{\includegraphics[width=0.25\textwidth]{./Imagenes/hddm/diag1.png}};
+%\path<2>(hl)++(1.15,0)  node{\includegraphics[width=0.25\textwidth]{./Imagenes/hddm/diag1.png}};
+%\end{tikzpicture}}
+%\end{center} 
+%\end{frame}
+ 
+
+% It would be nice to have a library to mix tikz with the frames, and do the
+% svg trick and also allow a subnode command to change the colors with beamer
+% animations.
+
+% Deprecated, see tikzmark
+% Include a node for parts of an equation
+%\newcommand\mytikzmark[3][]{%
+%  \tikz[remember picture,baseline=(#2.base)]{\node(#2)[outer sep=0pt,#1]{#3};}%
+%}
+
+% Compatibilidad con babel 
+% http://tex.stackexchange.com/a/166775/28411  
+
+  % PGF/TikZ version 2.10
+  % \tikzset{
+  %   every picture/.append style={
+  %     execute at begin picture={\deactivatequoting},
+  %     execute at end picture={\activatequoting}
+  %   }
+  % }
+
+  % PGF/TikZ version 3.0.0
+  % \usetikzlibrary{babel}
+
+% LIBRERIAS 
+% ---------
+
+% Para usar span
+% \usetikzlibrary{positioning-plus}
+
+% Zoom con una lupa. 
+% NOTA: Hay que poner `spy using outline` en el tikzpicture
+\usetikzlibrary{spy}
+
+% Por alguna razon, spy cambia los colores foreground. Esto lo arregla.
+% https://tex.stackexchange.com/a/204296/28411
+\makeatletter
+  \tikzset{%
+    tikz@lib@reset@gs/.style={thin,solid,opaque,line cap=butt,line join=miter}
+  }
+\makeatother
+
+% Decoración de nodos
+\usetikzlibrary{
+  decorations,
+  decorations.fractals,
+  decorations.shapes,
+  decorations.text,
+  decorations.pathmorphing,
+  decorations.pathreplacing,
+  decorations.footprints,
+  decorations.markings,
+}
+
+%\usetikzlibrary{fpu} % Float point unit para operar
+\usetikzlibrary{%
+arrows,% Mas flechas que las de pgf
+calc,% Para operar con coordnadas. Por ejemplo: ($(0,1)+(1,0)$) es (1,1) 
+fit,%
+patterns,%
+plotmarks,%
+shapes, % Reconoce la notacion .north .30 en nodos de distintas formas(circulo, elipse, etc)
+% shapes.geometric,%
+% shapes.misc,%
+% shapes.symbols,%
+% shapes.arrows,%
+% shapes.callouts,%
+% shapes.multipart,%
+% shapes.gates.logic.US,%
+% shapes.gates.logic.IEC,%
+tikzmark, %the use of subnodes and tikzmarks, usefull to interconect tikz pictures
+er,%?
+automata,%?
+backgrounds,% Manejo del background canvas del tikz ?
+chains,%
+topaths,%
+trees,% Arboles, childs y esas cosas
+petri,%
+mindmap,% Arboles y childs con conexiones lindas, como neuronales
+matrix,% Para funcionalidades en matrices como matrix of nodes
+%calendar,%
+folding,%
+fadings,%
+through,%
+%positioning,%
+scopes,%
+hobby,%John Hobby’s algorithm, smooth curves as a list of cubic Bzier curves with endpoints at subsequent points in the list.
+calligraphy,
+% Al usar un text, tikz escribe caracter por caracter en un
+%hbox. Entonces is se quiere imprimir uno indicandolo con más de uno (e.g.
+%ó=\'{o}) es necesario encerrarlos entre braces.
+shadows,% Sombras y transparencias
+shadows.blur,
+external% Externalización de gráficos
+}
+
+% LAYERS
+
+% Creo una capa detras de la principal pero arriba del background
+% es util para cosas como los diagramas de gantt, para
+% que las flechas vayan por detras.
+\pgfdeclarelayer{behind}
+\pgfsetlayers{background,behind,main}
+
+% To get \begin{scope}[zlevel=main] .....
+\tikzset{zlevel/.style={%
+        execute at begin scope={\pgfonlayer{#1}},
+        execute at end scope={\endpgfonlayer}
+}}
+
+% to get \node[on layer=behind]....
+%%% see https://tex.stackexchange.com/a/20426
+\makeatletter
+\pgfkeys{%
+  /tikz/on layer/.code={
+    \pgfonlayer{#1}\begingroup
+    \aftergroup\endpgfonlayer
+    \aftergroup\endgroup
+  },
+  /tikz/node on layer/.code={
+    \gdef\node@@on@layer{%
+      \setbox\tikz@tempbox=\hbox\bgroup\pgfonlayer{#1}\unhbox\tikz@tempbox\endpgfonlayer\egroup}
+    \aftergroup\node@on@layer
+  },
+  /tikz/end node on layer/.code={
+    \endpgfonlayer\endgroup\endgroup
+  }
+}
+\def\node@on@layer{\aftergroup\node@@on@layer}
+\makeatother
+%%%
+             
+
+
+%                                                               Gantt charts
+%------------------------------------------------------------------------------
+% To perform Gantt Charts:
+% A chart in which a series of horizontal lines shows the amount of work done or
+% production completed in certain periods of time in relation to the amount
+% planned for those periods.
+\usepackage{pgfgantt}
+
+% Esto es una forma de alterar el estilo de ganttbar
+% \newganttchartelement{auxbar}{
+%   bar/.style={
+%   shape={chamfered rectangle},
+%   chamfered rectangle corners={north east,south east},
+%   inner sep=5pt,
+%   draw=cyan!60!black,
+%   very thick,
+%   top color=white,
+%   bottom color=cyan!50,
+%   }
+% }
+
+\newganttchartelement{code}{
+code/.style={
+  shape={rectangle},
+  inner sep=8pt,
+  draw=pink!70!black,
+  very thick,
+  top color=white,
+  bottom color=pink!50,
+  },
+}  
+ 
+\newganttchartelement{sim}{
+sim/.style={
+  shape={chamfered rectangle},
+  chamfered rectangle corners={north east,south east},
+  inner sep=5pt,
+  draw=cyan!60!black,
+  very thick,
+  top color=white,
+  bottom color=cyan!50,
+  },
+  sim label font=\slshape,
+  sim left shift=0,
+  sim right shift=0,
+}
+                
+\newganttchartelement{exp}{
+exp/.style={
+  shape={chamfered rectangle},
+  chamfered rectangle corners={north east,south east},
+  inner sep=5pt,
+  draw=verde!60!black,
+  very thick,
+  top color=verde!50,
+  bottom color=white,
+  },
+}  
+               
+\newganttchartelement{simexp}{
+simexp/.style={
+  shape={chamfered rectangle},
+  chamfered rectangle corners={north east,south east},
+  inner sep=7pt,
+  draw=verde!70!cyan!60!black,
+  ultra thick,
+  top color=verde!50, 
+  bottom color=cyan!50,
+  },
+}  
+   
+
+\newganttlinktype{mix}{
+\ganttsetstartanchor{south}
+\ganttsetendanchor{north}
+\path(\xLeft, \yUpper)  ++(0,0.06)coordinate(b);
+\path(\xRight, \yLower) ++(0,0.06) coordinate(e);
+\path($(b)!.5!(e)$) coordinate(m);
+\draw [on layer=behind,<-<,>=stealth,shorten >=-3,ultra thick, red] (b-|m) |- (m|-e) ;
+}
+ 
+\newganttlinktype{ston2}{
+\ganttsetstartanchor{south}
+\ganttsetendanchor{north}
+\path(\xLeft, \yUpper)  ++(0,0.06)coordinate(b);
+\path(\xRight, \yLower) ++(0,0.06) coordinate(e);
+\path($(b)!.5!(e)$) coordinate(m);
+\draw [on layer=behind,-<] (b-|m) |- (m|-e) ;
+}
+       
+
+\newganttlinktype{stow}{
+\ganttsetstartanchor{south}
+\ganttsetendanchor{west}
+  \draw[->,on layer=behind] (\xLeft, \yUpper) |- (\xRight, \yLower) ;
+}
+ 
+\newganttlinktype{eton}{
+\ganttsetstartanchor{east}
+\ganttsetendanchor{north}
+  \draw[->,on layer=behind] (\xLeft, \yUpper) -| (\xRight, \yLower) ;
+}
+                   
+
+
+
+         
+%                                                               EXTERNALIZACION
+%------------------------------------------------------------------------------
+
+% Updated picture message
+% \tikzset{external/verbose IO={false}}
+
+%Esta linea es para que los graficos sean actualizados solo cuando sea necesario
+%Esto se conoce como externalization graphics, y solo compila una vez los tikz
+%picture y luego los importa del pdf adecuado en la carpeta Externos 
+%\tikzsetexternalprefix{TikZ/} %%%%% NO, LO PONGO EN EL NAME DIRECTAMENTE
+
+% Esto es para cambiar el nombre de cada imagen externalizada
+  %\tikzsetnextfilename{AuPt300msErotEvib}
+
+% This avoid to externalize the tikzpicture environment
+\tikzset{/tikz/external/export={false}}
+
+% Resolution of a tikzpicture that uses bitmap files
+\def\tikzpngresolution{300 }
+% dejar espacio al final!!!!
+ 
+% Definition of the \includetikz.
+% Use a separate file to include a long tikzpicture trough this command.
+% It is better to have a folder with all this files togehter.
+% A counter will increase in each call to this command. For portability, the
+% important auxiliary files of the pgfplots and tikz externalization will be
+% moved to this folder. Non important auxiliaries files will be deleted.
+% The command admit two arguments. The first argmuent select one of the
+% following behavior:
+% *   this plot will be externalized and will not update any more (fast compilation).
+% r   the picture will be updated using the stored input files readed again.
+% R   the picture will be updated and all the input files readed again.
+% H   hide this plot (fast compilation).
+% h   this plot will be externalized and will not update any more (fast compilation).
+% png use pdftoppm to include a bitmap of the plot (faster compilation for many data plots)
+\def\includetikz[#1]#2{
+  {
+    % Activa la externalizacion
+    \tikzset{external/export={true}} 
+    \tikzsetnextfilename{#2}
+
+    % Cuando usamos "raw gnuplot" en pgfplots el script y la tabla para gnuplot tambien
+    %\pgfkeys{tikz/prefix={TikZ/}}
+    %Contador para los caption
+    %\setcounter{gnuplotcounter}{0}
+%    \def\externalname{#2}
+    
+
+    % FORMA DE CARGA DEL TIKZPICTURE SEGUN ARGUMENTO #1
+    \ifthenelse{\equal{#1}{\asterisco}}{
+      % (*) NO LA FUERZA NI LA ESCONDE
+      \input{#2.tex}
+    }{
+      \ifthenelse{\equal{#1}{H}}{
+      % (H) SOLO LA ESCONDE.. NO PUEDO ESCONDER BOUNDING BOX
+        \pgfkeys{/pgf/images/include external/.code={}}
+        \input{#2.tex}
+      }{
+        % (h) LA ESCONDE Y LA FUERZA
+        \ifthenelse{\equal{#1}{h}}{
+          \tikzset{/tikz/external/mode={only graphics}}
+          \input{#2.tex}
+        }{
+          % (R) REMARK, LA FUERZA Y BORRA LAS TABLAS O PNG SI LAS HUBIERA
+          \ifthenelse{\equal{#1}{R}}{
+            \tikzset{/tikz/external/force remake}
+            \immediate\write18{rm -f #2*.table #2*.png}
+            \input{#2.tex}
+          }{
+            % (r) REMARK, LA FUERZA
+            \ifthenelse{\equal{#1}{r}}{
+              \tikzset{/tikz/external/force remake}
+              \input{#2.tex}
+            }{
+              % (png) GRAPHIC, UN INCLUDE DEL PDF CONVERTIDO A PNG LA
+              % RESOLUCION ES \tikzpngresolution DPI. ESTO ES
+              % EQUIVALENTE A * EN QUE NO REMARKEA
+              \ifthenelse{\equal{#1}{png}}{
+                \immediate\write18{if [ ! -f #20-1.png ]; then pdftoppm -png -r \tikzpngresolution #20.pdf #20; fi}
+
+                \def\oldpdfimageresolution{\pdfimageresolution}
+                \pdfimageresolution \tikzpngresolution
+                \includegraphics{#20-1.png}
+                \pdfimageresolution \oldpdfimageresolution 
+
+                % La idea de esto es porque hay tikz que dan pdf que resulta lentisimo al
+                % visualizar (Ejemplo pgfplots 3d graphics).  Porque vuelvo a 72 dpi???
+                % porque parece que es la forma de mantener el tamaño en la conversion de
+                % manera tal que en el documento final sea lo mismo meter un pdf o un
+                % png. Es decir, cuando el latex lee un pdf le pone 72dpi de
+                % resolucion... es algo mas complicado pero se vee en este fragmetno
+                % googleado:
+                
+                %See pdftex manual:
+                %  \pdfimageresolution (integer)
+                %  The integer \pdfimageresolution parameter (unit: dots per inch, dpi) is
+                %  a last resort value, used only for bitmap (jpeg, png, jbig2) images,
+                %    but not for pdfs. The priorities are as follows: Often one image
+                %      dimension (width or height) is stated explicitely in the TEX file. Then
+                %      the image is properly scaled so that the aspect ratio is kept. If both
+                %      image dimensions are given, the image will be stretched accordingly,
+                %    whereby the aspect ratio might get distorted. Only if no image
+                %      dimension is given in the TEX file, the image size will be calculated
+                %      from its width and height in pixels, using the x and y resolution
+                %      values normally contained in the image file. If one of these resolution
+                %      values is missing or weird (either < 0 or > 65535), the
+                %      \pdfimageresolution value will be used for both x and y > resolution,
+                %    when calculating the image size. And if the \pdfimageresolution is
+                %      zero, finally a default resolution of 72 dpi would be taken. The
+                %      \pdfimageresolution is read when pdfTEX creates an image via
+                %      \pdfximage. The given value is clipped to the range 0..65535 [dpi].
+                %      Currently this parameter is used particularily for calculating the
+                %      dimensions of jpeg images in exif format (unless at least one dimension
+                %          is stated explicitely); the resolution values coming with exif files
+                %      are currently ignored.
+              }{
+               }
+             }
+           }
+         }
+       }
+     }
+    %Imprimo el final del log por posibles errores, borro el log
+    %\immediate\write18{cat #2#30.log | tail}
+    %\immediate\write18{rm -f #2.log}
+
+
+    \immediate\write18{rm -f #2*.vrb}
+    %\immediate\write18{rm -f #2*.gnuplot}
+    \immediate\write18{rm -f #2*.toc}
+    \immediate\write18{rm -f #2*.nav}
+    \immediate\write18{rm -f #2*.out}
+    \immediate\write18{rm -f #2*.snm}
+    \immediate\write18{rm -f #2*.dep}
+    \immediate\write18{rm -f #2*.dpth} 
+    %\immediate\write18{rm -f #2*.table} 
+    %\immediate\write18{rm -f #2*.log} 
+
+
+  } %To ensure group
+}   
+
+
+% DECORATION PATHS
+
+% Style to hglight arrows with a white shadow
+\tikzset{
+    halo/.style={
+        preaction={
+            draw,
+            white,
+            line width=4pt,
+            -
+        },
+        preaction={
+            draw,
+            white,
+            ultra thick,
+            shorten >=-2.5\pgflinewidth
+        }
+    }
+}
+
+
+% Sine function above a path (see http://tex.stackexchange.com/a/134516) this
+% code gives some dimension too large
+\tikzset{/pgf/decoration/.cd,
+    number of sines/.initial=10,
+    angle step/.initial=20,
+}
+
+\newdimen\tmpdimen
+\pgfdeclaredecoration{complete sines}{initial}
+{
+    \state{initial}[
+        width=+0pt,
+        next state=move,
+        persistent precomputation={
+            \pgfmathparse{\pgfkeysvalueof{/pgf/decoration/angle step}}%
+            \let\anglestep=\pgfmathresult%
+            \let\currentangle=\pgfmathresult%
+            \pgfmathsetlengthmacro{\pointsperanglestep}%
+                {(\pgfdecoratedremainingdistance/\pgfkeysvalueof{/pgf/decoration/number of sines})/360*\anglestep}%
+        }] {}
+    \state{move}[width=+\pointsperanglestep, next state=draw]{
+        \pgfpathmoveto{\pgfpointorigin}
+    }
+    \state{draw}[width=+\pointsperanglestep, switch if less than=1.25*\pointsperanglestep to final, % <- bit of a hack
+        persistent postcomputation={
+        \pgfmathparse{mod(\currentangle+\anglestep, 360)}%
+        \let\currentangle=\pgfmathresult%
+    }]{%
+        \pgfmathsin{+\currentangle}%
+        \tmpdimen=\pgfdecorationsegmentamplitude%
+        \tmpdimen=\pgfmathresult\tmpdimen%
+        \divide\tmpdimen by2\relax%
+        \pgfpathlineto{\pgfqpoint{0pt}{\tmpdimen}}%
+    }
+    \state{final}{
+        \ifdim\pgfdecoratedremainingdistance>0pt\relax
+            \pgfpathlineto{\pgfpointdecoratedpathlast}
+        \fi
+   }
+}
+
+
+
+%ON BEAMER
+
+% Daniel's code:
+% http://tex.stackexchange.com/questions/55806/tikzpicture-in-beamer/55827#55827
+  \tikzset{
+    invisible/.style={opacity=0},
+    visible on/.style={alt=#1{}{invisible}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+  }
+
+
+
+%% 3D coordinates rotation (http://tex.stackexchange.com/a/67588/28411)
+% The matrix rotation is:
+%$R=\begin{pmatrix}
+%    \cos \alpha \cos \beta
+%&   \textcolor{red}{\cos \alpha \sin \beta \sin \gamma - \sin \alpha \cos \gamma}
+%&   \cos \alpha \sin \beta \cos \gamma + \sin \alpha \sin \gamma \\
+%    \textcolor{red}{\sin \alpha \cos \beta}
+%&   \sin \alpha \sin \beta \sin \gamma + \cos \alpha \cos \gamma
+%&   \textcolor{red}{\sin \alpha \sin \beta \cos \gamma - \cos \alpha \sin \gamma} \\
+%    - \sin \beta
+%&   \textcolor{red}{\cos \beta \sin \gamma}
+%&   \cos \beta \cos \gamma
+%\end{pmatrix}\\p'=R\cdot p$
+
+\newcommand{\savedx}{0}
+\newcommand{\savedy}{0}
+\newcommand{\savedz}{0}
+ 
+\newcommand{\rotateRPY}[4][0/0/0]% point to be saved to \savedxyz, roll, pitch, yaw
+{   \pgfmathsetmacro{\rollangle}{#2}
+    \pgfmathsetmacro{\pitchangle}{#3}
+    \pgfmathsetmacro{\yawangle}{#4}
+
+    % to what vector is the x unit vector transformed, and which 2D vector is this?
+    \pgfmathsetmacro{\newxx}{cos(\yawangle)*cos(\pitchangle)}% a
+    \pgfmathsetmacro{\newxy}{sin(\yawangle)*cos(\pitchangle)}% d
+    \pgfmathsetmacro{\newxz}{-sin(\pitchangle)}% g
+    \path (\newxx,\newxy,\newxz);
+    \pgfgetlastxy{\nxx}{\nxy};
+
+    % to what vector is the y unit vector transformed, and which 2D vector is this?
+    \pgfmathsetmacro{\newyx}{cos(\yawangle)*sin(\pitchangle)*sin(\rollangle)-sin(\yawangle)*cos(\rollangle)}% b
+    \pgfmathsetmacro{\newyy}{sin(\yawangle)*sin(\pitchangle)*sin(\rollangle)+ cos(\yawangle)*cos(\rollangle)}% e
+    \pgfmathsetmacro{\newyz}{cos(\pitchangle)*sin(\rollangle)}% h
+    \path (\newyx,\newyy,\newyz);
+    \pgfgetlastxy{\nyx}{\nyy};
+
+    % to what vector is the z unit vector transformed, and which 2D vector is this?
+    \pgfmathsetmacro{\newzx}{cos(\yawangle)*sin(\pitchangle)*cos(\rollangle)+ sin(\yawangle)*sin(\rollangle)}
+    \pgfmathsetmacro{\newzy}{sin(\yawangle)*sin(\pitchangle)*cos(\rollangle)-cos(\yawangle)*sin(\rollangle)}
+    \pgfmathsetmacro{\newzz}{cos(\pitchangle)*cos(\rollangle)}
+    \path (\newzx,\newzy,\newzz);
+    \pgfgetlastxy{\nzx}{\nzy};
+
+    % transform the point given by #1
+    \foreach \x/\y/\z in {#1}
+    {   \pgfmathsetmacro{\transformedx}{\x*\newxx+\y*\newyx+\z*\newzx}
+        \pgfmathsetmacro{\transformedy}{\x*\newxy+\y*\newyy+\z*\newzy}
+        \pgfmathsetmacro{\transformedz}{\x*\newxz+\y*\newyz+\z*\newzz}
+        \xdef\savedx{\transformedx}
+        \xdef\savedy{\transformedy}
+        \xdef\savedz{\transformedz}     
+    }
+}
+
+\tikzset{RPY/.style={x={(\nxx,\nxy)},y={(\nyx,\nyy)},z={(\nzx,\nzy)}}}
+\tikzset{RPYxzy/.style={x={(\nxx,\nxy)},z={(\nyx,\nyy)},y={(\nzx,\nzy)}}}
+
+
+
+
+
+% HANDRAW
+
+% http://tex.stackexchange.com/a/218483/28411
+\pgfdeclaredecoration{penciline}{initial}{
+  \state{initial}[width=+\pgfdecoratedinputsegmentremainingdistance,
+    auto corner on length=1pt,
+  ]{
+    \ifthenelse
+        {\pgfkeysvalueof{/tikz/penciline/jag ratio}=0} {
+          \pgfpathcurveto%
+              {% 1st control point
+                \pgfpoint
+                    {\pgfdecoratedinputsegmentremainingdistance/2}
+                    {2*rnd*\pgfdecorationsegmentamplitude}
+              }
+              {%% 2nd control point
+                \pgfpoint
+                %% Make sure random number is always between origin and target points
+                    {\pgfdecoratedinputsegmentremainingdistance/2}
+                    {2*rnd*\pgfdecorationsegmentamplitude}
+              }
+              {% 2nd point (1st one is implicit)
+                \pgfpointadd
+                    {\pgfpointdecoratedinputsegmentlast}
+                    {\pgfpoint{0*rand*1pt}{0*rand*1pt}}
+              }          
+        } {
+          \pgfpathcurveto%
+              {% 1st control point
+                \pgfpoint
+                    {\pgfdecoratedinputsegmentremainingdistance*rnd*1pt}
+                    {\pgfkeysvalueof{/tikz/penciline/jag ratio}*
+                      rand*\pgfdecorationsegmentamplitude}
+              }
+              {%% 2nd control point
+                \pgfpoint
+                %% Make sure random number is always between origin and target points
+                    {(.5+0.25*rand)*\pgfdecoratedinputsegmentremainingdistance}
+                    {\pgfkeysvalueof{/tikz/penciline/jag ratio}*
+                      rand*\pgfdecorationsegmentamplitude}
+              }
+              {% 2nd point (1st one is implicit)
+                \pgfpointadd
+                    {\pgfpointdecoratedinputsegmentlast}
+                    {\pgfpoint{rand*1pt}{rand*1pt}}
+              }
+        }
+  }
+  \state{final}{}
+}
+
+\tikzset{
+  penciline/.code={\pgfqkeys{/tikz/penciline}{#1}},
+  penciline={
+    jag ratio/.initial=5,
+    decoration/.initial = penciline,
+  },
+  penciline/.style = {
+    decorate,
+    %%decoration={\pgfkeysvalueof{/tikz/penciline/decoration}},
+    penciline/.cd,
+    #1,
+    /tikz/.cd,
+  },
+  decorate,
+  decoration={\pgfkeysvalueof{/tikz/penciline/decoration}},
+}
+
+%Use as \draw[penciline={jag ratio=6}]...
+
+
+% The best is 
+%http://tex.stackexchange.com/a/39299/28411
+%pencildraw/.style={
+%  black!75,
+%  decorate,
+%  decoration={random steps,segment length=2pt,amplitude=0.5pt}
+%  } 
+
+%%% http://tex.stackexchange.com/questions/39296/simulating-hand-drawn-lines: Alain Matthes
+%\pgfdeclaredecoration{free hand}{start}
+%{
+%  \state{start}[width = +0pt,
+%                next state=step,
+%                persistent precomputation = \pgfdecoratepathhascornerstrue]{}
+%  \state{step}[auto end on length    = 3pt,
+%               auto corner on length = 3pt,               
+%               width=+2pt]
+%  {
+%    \pgfpathlineto{
+%      \pgfpointadd
+%      {\pgfpoint{2pt}{0pt}}
+%      {\pgfpoint{rand*0.15pt}{rand*0.15pt}}
+%    }
+%  }
+%  \state{final}
+%  {}
+%}
+% \tikzset{free hand/.style={
+%    decorate,
+%    decoration={free hand}
+%    }
+% } 
+%\def\freedraw#1;{\draw[free hand] #1;}
+
+% Line ends or Arrow styles
+
+\tikzset{cuota/.style={
+  postaction={decorate,
+    decoration={markings,
+      mark=at position 0 with  {
+            \begin{scope}[xslant=0.2]
+            \draw[line width=1pt,-] (0pt,-3pt) -- (0pt,3pt);
+            \end{scope}
+      },
+      mark=at position 1 with  {
+            \begin{scope}[xslant=0.2]
+            \draw[line width=1pt,-] (0pt,-3pt) -- (0pt,3pt);
+            \end{scope}
+      }
+    }
+  }
+}}
+   
+
+
+
+
+% To put a frame to an equation
+\newcommand{\tikzframeab}[4]{%
+  \tikz[remember picture,overlay] \path[#1]([shift={(-#2,#3)}] pic cs:a) rectangle ([shift={(#2,-#4)}] pic cs:b);
+}
+% Use:
+% \begin{equation}
+% \tikzmark{a} 2+2 \tikzmark{b}
+% \end{equation}
+% tikzframeab{draw}{2ex}{2.5ex}{1.5ex}
+                                
+
+
+
+
+
+% \usepackage[rows=10,cols=10]{beamersozi}
+\tikzset{% 
+  rec/.style={rectangle, draw=bg, rounded corners=1mm,fill=white,inner sep=3},
+  recorte/.style={draw=bg,fill=white,draw, minimum height=2cm, minimum width=3cm,
+         decorate, decoration={random steps,segment length=3,amplitude=2}},
+}
+ 
+
+\pgfdeclareradialshading{myshading}{\pgfpointorigin}{%
+color(0mm)=(pgftransparent!0);%
+color(5mm)=(pgftransparent!10);%
+color(8mm)=(pgftransparent!50);%
+color(15mm)=(pgftransparent!100)%
+}
+\pgfdeclarefading{myfading}{\pgfuseshading{myshading}}  
+\tikzset{ partial ellipse/.style args={#1:#2:#3}{insert path={+ (#1:#3) arc (#1:#2:#3)}}}
+
+
+\pgfdeclareradialshading{myshading2}{\pgfpointorigin}{%
+color(0mm)=(pgftransparent!0);%
+color(1mm)=(pgftransparent!50);%
+color(5mm)=(pgftransparent!70);%
+color(8mm)=(pgftransparent!80);%
+color(15mm)=(pgftransparent!90);%
+color(20mm)=(pgftransparent!100)%
+}
+\pgfdeclarefading{myfading2}{\pgfuseshading{myshading2}}  
+\tikzset{ partial ellipse/.style args={#1:#2:#3}{insert path={+ (#1:#3) arc (#1:#2:#3)}}}
+
+ 
+ 

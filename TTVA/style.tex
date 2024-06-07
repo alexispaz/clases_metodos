@@ -1,0 +1,110 @@
+% Here is defined the layout and the text intrinsic properties
+
+%% LAYOUT
+\usepackage[
+  a4paper,
+  margin=3cm,
+  %inner=2.8cm,
+  %outer=2cm,
+  %marginparwidth=2cm,
+  %right=2.5cm,
+  %marginparsep=-4mm,
+  %headheight=13.6pt,
+  %headheight=14.5pt,
+  %headheight=15.28pt,
+  %footnotesep=8mm,
+  %showframe
+]{geometry}
+
+% SECTION FORMATING
+
+\usepackage{titlesec}
+
+% \titleformat{\chapter}[display]
+% {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge} % default book
+% {\normalfont\bfseries\filcenter}{}{-2cm}{\LARGE}
+
+% \titleformat{\section}
+% {\normalfont\Large\bfseries}{\thesection}{1em}{} % default book
+% {\normalfont\Large\bfseries}{\thesection}{1em}{}
+
+% \titleformat{\subsection}
+% {\normalfont\large\bfseries}{\thesubsection}{1em}{} % default book
+
+% \titleformat{\subsubsection}
+% {\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{} % default book
+
+% \titleformat{\paragraph}[runin]
+% {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{} % default book
+
+% \titleformat{\subparagraph}[runin]
+% {\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{} % default book
+
+% default book titlesec spacing for book class:
+% \titlespacing*{\chapter} {0pt}{50pt}{40pt}
+% \titlespacing*{\section} {0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+% \titlespacing*{\subsection} {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+% \titlespacing*{\subsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+% \titlespacing*{\paragraph} {0pt}{3.25ex plus 1ex minus .2ex}{1em}
+% \titlespacing*{\subparagraph} {\parindent}{3.25ex plus 1ex minus .2ex}{1em
+
+
+  
+
+
+             
+% LINE SPACING
+
+%If you want to adjust the spacing of text you should avoid to change the
+%\baselinestretch as it changes the spacing for everything in the document,
+%including footnotes and tables, which is usually not desirable (of course,
+%if you want that effect then \renewcommand{\baselinestretch}{1.5} is
+%correct)
+%
+%If you want a typographically pleasing result use
+\usepackage{setspace}
+%as this changes only the spacing of body text and the bibliography. As
+%Paul Stanley noted, setting the document to \onehalfspace is less than a
+%baselinestretch of 1.5. If you want the same effect use \setstretch{1.5}
+%\onehalfspace
+\setstretch{1.1}
+
+%To get better control over the headers, one can use the package fancyhdr wich
+%provides several commands that allows to customize the header and footer lines
+%of your document.
+\usepackage{fancyhdr}
+% \renewcommand{\headrulewidth}{0.4pt}%
+\renewcommand{\headrulewidth}{0pt} % remove horizontal line
+
+\usepackage{lastpage}
+\pagestyle{fancy} 
+
+
+%PAGE BREAKS
+
+%En libros de dos paginas es para que las paginas esten alineadas
+%en el principio y el final .... pero puede generar espacios al medio.
+%\raggedbottom
+%opueesta a \flushbottom
+%\renewcommand{\headrulewidth}{0.5pt}
+ 
+%page breaks inside align are allowed, but avoided if possible
+\allowdisplaybreaks[1]
+%increase 1 to relax the hardness of the avoid.
+
+
+%FOOTNOTE
+
+% Footnotes with simbols, to avoid missunderstanid with powers
+%\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+\usepackage[perpage,symbol*]{footmisc}
+\DefineFNsymbolsTM{myfnsymbols}{% def. from footmisc.sty "bringhurst" symbols
+  \textdagger            \dagger  
+  \textdaggerdbl         \ddagger 
+  \textasteriskcentered  *        
+  \textsection           \mathsection
+  \textbardbl            \|%
+  \textparagraph         \mathparagraph
+}%
+\setfnsymbol{myfnsymbols}
+ 

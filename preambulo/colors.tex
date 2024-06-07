@@ -1,0 +1,165 @@
+% Modelos y espacio de colores
+
+%Colour spaces are immensely complicated beasts: Even RGB and RGB be
+%different things! There is sRGB, which is the standard colour profile
+%for computer monitors, and there is Adobe RGB, which allows for a
+%bigger gamut of colours (especially, more greens) and is more suited
+%for photos. It is my understanding that one should avoid CMYK
+%altogether unless the goal is to produce PDF for a specific printing
+%press and paper whose characteristics are known.
+
+%identify -verbose Present.pdf | grep Colorspace
+%can say what color space the pdf have (in each part)
+
+%PDF supports many colour spaces: gray, cmyk, rgb, indexed, LAB,
+%deviceN. This allows for things like spot colours (and tints thereof),
+%special metallic or varnish inks, 6-colour printing, duotone,
+%multitone, registration colours, and so on. You can have multiple such
+%colour spaces within the same PDF (although for printing you'll need
+%to convert to some common space, at least for each page). There can
+%even be multiple variants of the same colour space family (for example
+%sRGB and the variant of RGB that your scanner or digicam uses; cmyk
+%with different dot gains, etc). 
+
+%The situation gets even more complicated when you involve transparency
+%(see section 11.7 of the spec): in order to overlay one object on
+%another the PDF viewer needs to convert them to a common "blending"
+%colour space, which can be specified in various ways in the PDF
+%(including at the "page group" level: this explains why including
+%transparency on a page can change the appearance of other objects on
+%that page, because those objects now have to run through a colour
+%space conversion). There are various restrictions and special cases,
+%for example device colours cannot be converted reliably into CIE based
+%spaces (such as sRGB). Since transparency groups can nest, there can
+%be multiple rounds of colour space conversion during rendering.
+
+%Now for latex support via xcolor: If you load xcolor with the
+%(default) natural option there will be no colour space conversions,
+%and you will have access to the PDF "DeviceRGB", "DeviceCMYK" and
+%"DeviceGray" spaces. Eg, \textcolor[rgb]{1,0,0}{DeviceRGB red}, and
+%\textcolor[cmyk]{0,1,1,0}{DeviceCMYK Red}. Your PDF viewer (for
+%screen) or your printer driver (for hardcopy) will have to convert
+%colour spaces if necessary. If you load xcolor with options like rgb
+%or cmyk then xcolor will convert to that colour space, using the
+%formulas from section 6.3 of the xcolor manual (which are not very
+%sophisticated -- compare them to the formulas in 10.3 of the PDF spec,
+%with BG(k) and UCR(k) functions, etc). 
+
+%Remember that converting device colour spaces to the screen colour
+%space is in general not well defined, and different viewers may do it
+%slightly differently, resulting in the mismatches you've observed.
+
+%Regarding Inkscape: Since SVG doesn't support CMYK, Inkscape uses sRGB
+%internally. When you enter a CMYK value, it gets immediately converted
+%to sRGB and then converted back, which is lossy. (There is no
+%bijective mapping between the color spaces.)
+
+%One good solution with pdflatex is to use only deviceRGB (for screen)
+%or deviceCMYK (for most printers) and then set an "Output Intent" to
+%define the device space as, eg, sRGB IEC61966-2.1. See section 14.11.5
+%of the PDF spec. The pdfx package does this, for example (although
+%that package is pretty rough around the edges and you'll generally
+%need to edit it directly to get it to work). A more "proper" way to
+%use calibrated colour spaces would be the "Default Color Spaces"
+%mechanism (section 8.6.5.6) which specifies a way to remap DeviceRGB,
+%DeviceCMYK, DeviceGray into device-independent CIE-based colour
+%spaces. I'm not aware of any latex package that makes use of this
+%PDF1.1 feature, though.
+
+% Problema con colores en acrobat:
+\pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>} 
+% It's not that the PDF is erroneous - it's a perfectly valid PDF. However,
+% it isn't taking into account the fact that when transparency is present,
+% Acrobat (as per the PDF Reference) uses a different "path" to rendering
+% that involves an "transparency blending space". By default, that space is
+% DeviceCMYK and thus your RGB colors are being converted to CMYK when
+% rendered.If pdfTeX were to add a /Group dictionary to any page containing
+% transparency and specify in there to use /DeviceRGB instead as the
+% blending space - your colors wouldn't shift.
+          
+
+ 
+
+%COLORES
+%-----------------------------------------------------------------------DECLARACION DE COLORES
+
+\RequirePackage{color}
+\RequirePackage{xcolor}
+% \usepackage[dvips]{color}
+% \usepackage[svgnames]{xcolor}
+%\usepackage{fancybox} %Sirve para imagenes de fondo y demas recuadros
+
+
+% Mc'Donald has the yellow color of drexel.
+% therefore, can be usefull to have the mc gama here:
+\definecolor{mcblue}  {HTML}{05007B}
+\definecolor{mcred}   {HTML}{BF0C0C}
+\definecolor{mcyellow}{HTML}{FFC600}
+\definecolor{mcgreen} {HTML}{47BC00}
+\definecolor{mcorange}{HTML}{E76A05}
+\definecolor{mclily}  {HTML}{9748A8}
+\definecolor{mccyan}  {HTML}{2BB3F3}
+\definecolor{mcbrown} {HTML}{865200}
+
+% This document
+% \definecolor{amarill}{RGB}{243,255,52}
+% \definecolor{marino}{RGB}{140,219,193}
+% \definecolor{marron}{RGB}{120,91,32}
+% \definecolor{marronclaro}{RGB}{137,139,36}
+% \definecolor{verdecuco}{RGB}{69,156,11}
+% \definecolor{titulo2}{rgb}{1,0.86666,0.40392}
+% \definecolor{titulo2}{rgb}{1,0.86666,0.40392}
+% \definecolor{verduzco}{rgb}{0.0,0.55,0.18}
+% \definecolor{gato}{RGB}{197,198,82}
+% \definecolor{merlina}{rgb}{0.75,0.75,0.1}
+% \definecolor{verdecmyk}{cmyk}{1.0,0.0,1.0,0.0}
+% \definecolor{plateado}{rgb}{0.6,0.6,0.6}
+% \definecolor{blanco}{rgb}{1.0,1.0,1.0}
+% \definecolor{gris}{rgb}{0.35,0.35,0.35}
+% \definecolor{negro}{rgb}{0.0,0.0,0.0}
+% \definecolor{ocre}{rgb}{0.5,0.3,0.0}
+% \definecolor{purpura}{rgb}{0.65,0.0,0.65}
+% \definecolor{fuxia}{rgb}{1.0,0.0,0.5}
+% \definecolor{lila}{rgb}{0.5,0.0,1.0}
+% \definecolor{malva}{rgb}{0.9,0.4,0.7}
+% \definecolor{rojo}{rgb}{1.0,0.0,0.0}
+% \definecolor{rojuno}{rgb}{1.0,0.2,0.1}
+% \definecolor{rosa}{rgb}{1.0,0.6,0.6}
+% \definecolor{naranja}{rgb}{1.0,0.5,0.0}
+% \definecolor{lima}{rgb}{0.5,0.9,0.4}
+% \definecolor{verde}{rgb}{0.0,1.0,0.0}
+% \definecolor{cyan}{rgb}{0.25,0.75,0.75}
+% \definecolor{celeste}{rgb}{0.0,0.5,1.0}
+% \definecolor{azulhielo}{rgb}{0.5,0.5,0.75}
+% \definecolor{azul}{rgb}{0.0,0.0,1.0}
+% \definecolor{amarillo}{rgb}{1.0,1.0,0.0}
+% \definecolor{dorado}{rgb}{0.5,0.5,0.2}
+
+\convertcolorspec{named}{mcblue}          {rgb}\aux \definecolor{azul}{rgb}{\aux}
+\convertcolorspec{named}{mcred}           {rgb}\aux \definecolor{rojo}{rgb}{\aux}
+\convertcolorspec{named}{mcred!60!white}  {rgb}\aux \definecolor{rosa}{rgb}{\aux}
+\convertcolorspec{named}{mcyellow}        {rgb}\aux \definecolor{amarillo}{rgb}{\aux}
+\convertcolorspec{named}{mcgreen}         {rgb}\aux \definecolor{verde}{rgb}{\aux}
+\convertcolorspec{named}{mcorange}        {rgb}\aux \definecolor{naranja}{rgb}{\aux}
+\convertcolorspec{named}{mclily}          {rgb}\aux \definecolor{lila}{rgb}{\aux}
+\convertcolorspec{named}{mccyan}          {rgb}\aux \definecolor{celeste}{rgb}{\aux}
+\convertcolorspec{named}{mcbrown}         {rgb}\aux \definecolor{marron}{rgb}{\aux}
+
+% Test de colores
+% ---------------
+% \def\beamerzubtestcolors{
+%   \begin{frame}
+%   \begin{testcolors}[rgb,cmyk,gray] %,natural] (no conversion)
+%   \frametitle{frametitle}
+%   \testcolor{azul}
+%   \testcolor{rojo}
+%   \testcolor{amarillo}
+%   \testcolor{verde}
+%   \testcolor{naranja}
+%   \testcolor{lila}
+%   \testcolor{celeste}
+%   \testcolor{marron}
+%   \end{testcolors}  
+%   \end{frame}
+% }
+

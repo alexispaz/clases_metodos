@@ -1,0 +1,452 @@
+\usepackage[thicklines]{cancel}
+%\usepackage{cancel} %para simplificar en formulas
+\usepackage{array} %matrices
+
+\usepackage{amsmath} 
+%para elaborar teoremas
+
+% Environments Xmatrix with X={p, b, B, v, V} giving
+% matrices with ( ), [ ], { }, | |, and || || delimiters
+% There is also a matrix environment sans delimiters, and
+% an array environment that can be used to obtain left
+% alignment or other variations in the column specs. [ed.
+% To produce a matrix with parenthesis around it, use:] 
+
+\usepackage{amsfonts} %fuentes matematicas
+%\mathnormal{…}  normal math font              most mathematical notation
+%\mathrm{…}      normal font unitalicised      units of measurement, one word functions
+%\mathit{…}      italicised font               difiere mucho de la normal en los numeros
+%\mathbf{…}      bold font                     vectors
+%\mathsf{…}      Sans-serif      
+%\mathtt{…}      Monospace (fixed-width) font    
+%\mathcal{…}     Calligraphy (uppercase only)  often used for sheaves/schemes and categories, used to denote cryptological concepts like an alphabet of definition (\mathcal{A}), message space (\mathcal{M}), ciphertext space (\mathcal{C}) and key space (\mathcal{K}); Kleene's \mathcal{O}; naming convention in description logic
+%\mathfrak{…}**  Fraktur                       almost canonical font for Lie algebras, with superscript used to denote New Testament papyri, ideals in ring theory
+%\mathbb{…}**    Blackboard bold               used to denote special sets (e.g. real numbers)
+%\mathscr{…}*    Script                        an alternative font for categories and sheaves
+%*requires amsfonts or amssymb package
+%**require mathrsfs package
+
+\usepackage{amssymb} %simbolos matematicos
+
+
+\usepackage{fixmath} %simbolos matematicos arreglados??
+
+%\newtheorem{theorem}{Theorem}
+%\usepackage{dsfont}   %mathds para letras de conjuntos como R Z Q y N
+\usepackage{latexsym} %Some thinks like arrows
+ 
+% Shortcuts
+% ---------
+\newcommand{\ds}{\displaystyle}
+
+% Typesetting equations for physics made simpler
+\usepackage{physics2}
+
+\usephysicsmodule{ab}
+% \ab is an `automatic delimiter`.
+% 	works with (), [], \{\}, <>, || and \|\|.
+%   takes an optional argument that can be \big, \Big, etc
+% \ab* prevent the automatic resize of \ab.
+% \Xab{} with X={p, b, B, a, v, V} is \ab using {} syntax
+%   note the X follows amsmath convention
+%   i.e. \pab{a} is equal to \ab(a)
+
+\usephysicsmodule{ab.braket}
+% % NOTE: Conflicts with braket
+% % \bra, \ket, \braket and \ketbra
+
+% \usephysicsmodule{braket}
+% % NOTE: Conflicts with ab.braket
+% % \bra, \ket, \braket and \ketbra
+ 
+\usephysicsmodule{xmat}
+% Matrices with formatted entries:
+%   \xmat[⟨options⟩]{⟨entry⟩}{⟨rows⟩}{⟨cols⟩}
+% Options like showleft=X or showtop=Y serves to add dots afer X columns or
+% Y rows.
+% To add delimters follows amsmath convention:
+%   \pxmat, \bxmat, \Bxmat, \vxmat and \Vxmat 
+%   ( ), [ ], { }, | |, and || ||
+                    
+% \usephysicsmodule{ab.legacy} % Not recommended
+% % \abs, \norm, \eval, (\peval, \beval), \order
+% %   they use same syntax than \ab
+
+% \usephysicsmodule{nabla.legacy} % Not recommended
+% % \grad, \div, \curl
+
+% \usephysicsmodule{op.legacy} % Not recommended
+% \asin, \acos, \atan, ...
+
+% Bold math
+% ---------
+
+% TODO: ver physics2 module bm-um.legacy
+
+%BUG:
+%\newcommand\hmmax{0} % default 3
+\newcommand\bmmax{0} % default 4
+%Notice use of \newcommand (not \renewcommand), and that this is
+%inserted BEFORE the bm package.
+%
+%It's not actually the AMS packages that are involved in the solution
+%but they were part of the problem, as it were. The bm package is of
+%course the `Bold Math' package -- but because of its purpose, to
+%expand the number of fonts available, it also has the necessary
+%mechanism for coping with the message:
+%
+%          Too many math alphabets used in version normal.
+%
+% You may need to adjust the above value, see bm docs section 2, p.2.
+
+\usepackage{bm}
+% Replace amsmath \boldsymbol and provide \bm command.
+% 1. keeps the italic correction, i.e. \bm{T}_1^2 will look better than
+% \boldsymbol{T}_1^2. To compare be careful that bm redefines \boldsymbol. 
+% 2. avoid the spacing disruption of \boldsymbol.
+% NOTE: sometimes needs extra braces as \bm{{\dots}} to avoid error with amsmath. 
+% NOTE: math nesting works better with \boldsymbol. For example,
+%   \mathrm{g\boldsymbol{g}} work and \mathrm{g\bm{g}} does not.
+        
+% \usephysicsmodule{bm.legacy} % Not recommended
+% The \bm command from bm package uses \mathversion to
+% support its func- tion, but there are few OpenType math
+% fonts who released with a bold version.  The bm-um.legacy
+% module provides a \bm command too, but this \bm can only
+% take one math character or a series of math characters
+% sharing the same category code as its argument. If the
+% argument was Latin letters or Greek letters, \bm would
+% switch to the bold italic glyphs corresponding to them
+% (if there exists bold italic glyphs); else \bm would
+% switch to the bold upright glyphs.
+    
+
+ 
+% REVIZAR
+%--------
+
+\newlength{\unit} % La unidad fundamental (Para TikZ y lo que se necesite)
+
+%delimitadores
+%-------------
+
+%\usepackage{nath} %change the effect of left and right
+%\delimgrowth=1
+
+%maximum space not covered by a delimiter
+\delimitershortfall=0pt %from amsmath, default 5pt
+
+%ratio for variable delimiters, times 1000 
+%\delimiterfactor=901 %from amsmath, default 901
+
+% the last two command can be locally defined. Here the macro:
+\newcommand{\forcegrow}{
+ \setlength{\delimitershortfall}{-1pt}
+}
+
+% For brake line delimiters see
+% http://tex.stackexchange.com/a/124135/28411
+
+% \usepackage{mathtools}
+% % NOTE: Consider using physics2
+% \DeclarePairedDelimiter\ds{\displaystyle{#1}}%
+
+% In case of ccfonts uncomment this
+%\let\underbrace\LaTeXunderbrace
+%\let\overbrace\LaTeXoverbrace
+% In super or under scripts it is needed to add the \scriptstyle manually
+
+\newcommand{\soverbrace}[2][]{%
+{\everymath{\scriptstyle}%
+ \overbrace{\scriptstyle#2}^{#1}}%
+}
+ 
+\newcommand{\sunderbrace}[2][]{%
+{\everymath{\scriptstyle}%
+ \underbrace{\scriptstyle#2}_{#1}}%
+}
+
+% MATEMATICA
+% ----------
+
+% Math abreviations
+%Estan ya estan en alguno de los paquetes
+%BOLD {bb}{\mathbb}{ABCDEFGHIJKLMNOPQRSTUVWXYZ}
+%{bf}{\mathbf}{ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz}
+%{bit}{\boldsymbol}{ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz}
+%{cal}{\mathcal}{ABCDEFGHIJKLMNOPQRSTUVWXYZ}
+%{frak}{\mathfrak}{ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz}
+%{rm}{\mathrm}{ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz}
+%{scr}{\mathscr}{ABCDEFGHIJKLMNOPQRSTUVWXYZ}
+%{sf}{\mathsf}{ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz}
+ 
+
+
+\newcommand{\Evib}{\ensuremath{\mathrm{E_{vib}}}}
+\newcommand{\Erot}{\ensuremath{\mathrm{E_{rot}}}}
+\newcommand{\Ecin}{\ensuremath{\mathrm{E_{cin}}}}
+\newcommand{\Epot}{\ensuremath{\mathrm{E_{pot}}}}
+
+%\newcommand{\bwrb}{\ensuremath{\mathbf{w}^{cr}}}
+  
+\newcommand{\cdf}{\ensuremath{\text{cdf}}}
+\newcommand{\cdfsn}{\ensuremath{\text{cdf}_{\text{sn}}}}
+\newcommand{\erf}{\ensuremath{\mathrm{erf}}}
+\newcommand{\erfc}{\ensuremath{\mathrm{erfc}}}
+
+%Ecuations
+\newcommand{\dsum}{\displaystyle \sum}
+
+%Limite
+\newcommand{\lm}[2]{\lim_{#1\rightarrow #2}} 
+
+%Separadores
+\newcommand{\sep}{\ifhmode\par\fi\vskip6pt\hrule\vskip20pt}
+
+% Derivadas
+\usepackage{derivative}
+% \Xdv*[⟨keyval list⟩]{⟨function⟩}/!{⟨variables⟩}_{⟨point1⟩}^{⟨point2 \pdv ⟩}
+% with X={p,o,m,f,a,j} for partial, ordinary, material,
+% functional, average and jacobian derivatives. Also:
+%   * derivative as an operator (i.e. function outside the fraction)
+%   / using slash instead of frac (i.e. a/b) 
+%   ! subindex to indicate independent variable 
+%   /! like subindex, but with common letters
+% \Xdif for diferentials (e.g. try \odif{x,y})
+
+% derivative can be used also with:  
+% \usepackage{fixdif}
+
+
+% Functions in <physics.sty>
+
+% \def\drinline#1#2{\partial #1 \over \partial #2}  % primera derivada parcial en una linea
+% \def\Drinline#1#2{d #1/d #2}                      % primera total en una linea
+% \def\dr#1#2{\frac{\partial #1}{\partial #2}}      % primera derivada parcial
+% \def\ddr#1#2{\frac{\partial^2 #1}{\partial #2^2}} % segunda derivada parcial
+% \newcommand[3][{}]{\Dr}{\frac{d^{#1}#2}{d#3^{#1}}}                    % primera derivada total
+% \def\DDr#1#2{\frac{d^2 #1}{d #2^2}}               % segunda derivada total
+% \def\DDDr#1#2{\frac{d^3 #1}{d #2^3}}               % segunda derivada total
+% \def\drz#1#2#3{\left(\frac{\partial #1}{\partial #2}\right)_{#3}}
+%\newcommand{\bmdot}[1]{\ensuremath{\bm{{\dot{#1}}}}}
+%\newcommand{\bmddot}[1]{\ensuremath{\bm{{\ddot{#1}}}}}
+
+% Esto es para corregir desplazamientos en derivadas de punto de orden superior
+\makeatletter
+\renewcommand{\dddot}[1]{%
+  {\mathop{\kern\z@
+  {\mathop{\kern\z@
+  #1
+  }\limits^{\vbox to-1.4\ex@{\kern-\tw@\ex@
+     \hbox{\normalfont ..}\vss}}} 
+  }\limits^{\vbox to-2.0\ex@{\kern-\tw@\ex@
+     \hbox{\normalfont .}\vss}}} 
+}
+%\newcommand{\dddotvec}[1]{%
+%  {\mathop{\kern\z@
+%  {\mathop{\kern\z@
+%  \vec{#1}
+%  }\limits^{\vbox to-1.4\ex@{\kern-\tw@\ex@
+%     \hbox{\dot}\vss}}} 
+%  }\limits^{\vbox to-2.0\ex@{\kern-\tw@\ex@
+%     \hbox{\bf  .}\vss}}} 
+%}
+%\renewcommand{\ddddot}[1]{%
+%  {\mathop{\kern\z@
+%  {\mathop{\kern\z@
+%  #1
+%  }\limits^{\vbox to-1.4\ex@{\kern-\tw@\ex@
+%     \hbox{\normalfont ..}\vss}}} 
+%  }\limits^{\vbox to-1.4\ex@{\kern-\tw@\ex@
+%     \hbox{\normalfont ..}\vss}}} 
+%}
+%\newcommand{\dddddot}[1]{%
+%  {\mathop{\kern\z@
+%  {\mathop{\kern\z@
+%  #1
+%  }\limits^{\vbox to-1.4\ex@{\kern-\tw@\ex@
+%     \hbox{\normalfont ...}\vss}}} 
+%  }\limits^{\vbox to-1.4\ex@{\kern-\tw@\ex@
+%     \hbox{\normalfont ..}\vss}}}
+%}
+\makeatother 
+\renewcommand{\ddddot}[2]{\ensuremath{\overset{(#1)}{#2}}}
+
+\newcommand{\dotvec}[1]{\ensuremath{\bm{{\dot{#1}}}}} %Combiene usar este por si se desea cambiar la notacion a flechas
+\newcommand{\ddotvec}[1]{\ensuremath{\bm{{\ddot{#1}}}}}
+\newcommand{\dddotvec}[1]{\ensuremath{\bm{{\dot{\ddot{#1}}}}}}
+\newcommand{\ddddotvec}[2]{\ensuremath{{\overset{(#1)}{\vec{#2}}}}}
+
+\newcommand{\ver}[1]{\ensuremath{\bm{{\hat{#1}}}}} %Combiene usar este por si se desea cambiar la notacion a flechas
+                
+%\def\dotproduct#1#2{\left\langle #1\cdot#2 \right\rangle}
+\def\inner#1#2{\left\langle #1\middle|#2 \right\rangle}
+\def\dotproduct#1#2{\left( #1\cdot#2 \right)}
+\def\ddotproduct#1#2{#1\cdot#2}
+
+%	Integrales
+%	\def\oiint{\int\hspace{-2ex}\int\hspace{-3ex}\bigcirc~}
+%	\def\iint{\int\hspace{-1.5ex}\int}
+%	\def\iiint{\int\hspace{-1.5ex}\int\hspace{-1.5ex}\int}
+
+
+% Algebra
+% =======
+
+% Physics2 suggestion to replace old physics support
+\makeatletter
+\newcommand\vb{\@ifstar\boldsymbol\mathbf}
+\newcommand\va[1]{\@ifstar{\vec{#1}}{\vec{\mathrm{#1}}}}
+\newcommand\vu[1]{%
+\@ifstar{\hat{\boldsymbol{#1}}}{\hat{\mathbf{#1}}}}
+\makeatother
+% \vb means bold vector
+% \va means arrow vector
+% \vu means bold versor (unit vector)
+% However, the method above may not work well with unicode-math because there
+% are so many OpenType math fonts without a bold version. When using
+% unicode-math, it’s recommended to use \symbf and \symbfit for a separate
+% vector. This works for both Greek and Latin letters.
+
+% Different bold methods (deprecated)
+%\renewcommand{\vec}[1]{\mbox{\boldmath$#1$\unboldmath}} 
+%\renewcommand{\vec}[1]{\boldsymbol{#1}} % amsmath bold vectors.
+%\renewcommand{\vec}[1]{\ensuremath{\bm{{#1}}} % Uncomment for BOLD vectors.
+                                     
+ 
+% Puntos seguidos (\dots)
+% se puede usar \dots, \ldots, \vdots, \cdots, \ddots, pero
+% con el paquete AMS cuando el uso es matematicamente conocido
+% se puede aprovechar estos comandos cuya letra recuerda donde
+% matematicamente se usa
+%  \dotsc is for dots with commas    (a1,...,an)
+%  \dotsb is for dots with binary operators
+%  \dotsm is for multiplication dots
+%  \dotsi is for dots with integrals
+%  \dotso is for other dots
+
+
+% Complejos
+% ---------
+
+% Change default symbols to amsmath operators 
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+
+
+% Conjuntos
+% ---------
+
+\newcommand{\R}{\mathbb{R}}% negrita
+\newcommand{\N}{\mathbb{N}}% 
+\newcommand{\Z}{\mathbb{Z}}% 
+\newcommand{\Q}{\mathbb{Q}}
+
+%\newcommand{\R}{\mathds{R}}% vacia
+%\newcommand{\N}{\mathds{N}}
+%\newcommand{\Z}{\mathds{Z}}
+%\newcommand{\Q}{\mathds{Q}}
+
+%\newcommand{\set}{\mathds{Q}}
+
+%\newcommand{\en}[1]{\ensuremath{ \in \mathbb{#1}}}
+\newcommand{\cjSol}[2]{\ensuremath{\text{Sol}=\lbrace#1\en{R}/#2\rbrace}}
+% La ``y'' en conjuntos es \wedge
+% La ``o'' en conjuntos es \vee
+% No pertenece es \not \in
+ 
+
+
+% Matrices
+% --------
+
+%\newcommand{\arr}[1]{\bm{{#1}}} % Uncomment for BOLD vectors.
+
+% Operadores
+% ----------
+
+% Algunos fueron sacados de:
+% Physics Formulary by ir. J.C.A. Wevers <johanw@xs4all.nl>
+
+\newcommand{\op}[1]{\ensuremath{\hat{\mathrm{#1}}}} %con sombrerito
+%\newcommand{\op}[1]{\ensuremath{\bm{{#1}}}}         %con negrita
+
+%\newfont{\sfd}{cmssdc10 scaled\magstep0}
+%\newfont{\cmu}{cmu10 scaled\magstep0}
+
+%\def\jwline#1#2#3#4{%
+%\put(#1,#2){\special{em:moveto}}%
+%\put(#3,#4){\special{em:lineto}}}
+%\def\newpic#1{}
+
+%\def\npar{\par\medskip}
+%\def\LL{{\cal L}}
+%\def\RR{I\hspace{-1mm}R}
+%\def\TT{\mbox{\sfd T}}
+%\def\DD{\mbox{\sfd D}}
+%\def\half{\mbox{$\frac{1}{2}$}}
+%\def\kwart{\mbox{$\frac{1}{4}$}}
+%\def\dd{d\hspace{-1ex}\rule[1.25ex]{2mm}{0.4pt}}
+%\def\lrarrow{~\lower.2ex\hbox{$\rightarrow$}\kern-2.4ex\raise.7ex\hbox{$\leftarrow$}~}
+%\def\rlarrow{~\lower.2ex\hbox{$\leftarrow$}\kern-2.3ex\raise.7ex\hbox{$\rightarrow$}~}
+
+% Some aliases
+% -----------
+
+% Media 
+\newcommand{\avg}[1]{\overline{#1}} 
+
+       
+% Problema
+% --------
+
+\newcounter{problema}
+
+\newenvironment{problemasanwich}
+{
+  \flushleft
+  \stepcounter{problema}%
+  \rule{0.43\linewidth}{0.08ex}
+  \textbf{\noindent{Problema \theproblema}}
+  \rule{0.43\linewidth}{0.08ex}\\[0.5cm]
+}{
+\noindent
+\vspace{-1ex}\rule{\linewidth}{0.08ex}\\[0.5cm]
+}
+
+\newenvironment{problemasep}
+{
+  \flushleft
+  \stepcounter{problema}%
+  \rule{0.43\linewidth}{0.08ex}
+  \textbf{\noindent{Problema \theproblema}}
+  \rule{0.43\linewidth}{0.08ex}\\[0.5cm]
+}{
+}
+ 
+% Comentario
+\def\comment#1{{\scriptsize\bf\color{red}#1}}
+
+%Slanted frctions ?????
+% \[ \left. {}^{3} \right/ \! \left. _{4} \right. \]
+
+%Llaves de varios renglones
+\newenvironment{rcase}
+  {\left.\begin{aligned}}
+  {\end{aligned}\right\rbrace}
+
+\newenvironment{lcase}
+  {\left\lbrace \begin{aligned}}
+  {\end{aligned}\right.}
+
+% Simbolos   
+% --------
+% Para evitar romper el higliting del editor cuando se
+% necesita usar estos simbolos desapareados. Lo pongo aca
+% abajo, para mantener el higlighting en este archivo.
+\def\asterisco{*}
+\def\virguilla{~}
+\def\comillas{"}
+\def\comilla{'}
+\newcommand{\Amstr}{\textup \AA }
+\def\pesos{$} 

@@ -1,0 +1,170 @@
+\documentclass{beamer}
+
+\input{../preambulo/inputenc.tex}
+\input{../preambulo/fuente.tex}
+\input{../preambulo/spanish.tex}
+\input{../preambulo/tikz.tex}
+\input{../preambulo/matematica.tex}
+\input{../preambulo/colors.tex}
+\input{../preambulo/flotantes.tex}
+\input{../preambulo/beamer_zub.tex}
+\input{../preambulo/paquetes.tex}
+\input{../preambulo/macros.tex}
+
+\framebg{bg/pizarron3.png} 
+
+\begin{document}
+
+\newcommand\CC{}
+
+\begin{zframe}{}
+\path(vl) ++(0,1.2) node(I)[]{\includegraphics[width=11cm]{img/idiogram/holygrial.png}};
+\path(np-|c2) ++(1,-.5) node(A)[anchor=north,align=left]{
+  \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
+  \color{celeste} \textbf{Simplex}\\[2mm]  
+  \color{lila} \textit{Agosto 16, 2023}
+};
+\normalsize
+\path(c1) ++(0.5,0.7) node(B)[align=center]{
+  S. Alexis Paz\\[3mm]
+\includegraphics[width=3cm]{logos/DQTC_orange.png}};
+ 
+\path(I.south east) ++(0,.2) node[anchor=north east]{
+  \tiny hecho con \href{https://ideogram.ai/g/5VRNRDQmS4y1CWE0fLyV2Q/3}{idiogram}};
+                        
+\end{zframe}
+
+\renewcommand\CC{
+  \path(se) node[anchor=south east]{\tiny\color{gray} MC2023 - S.A.Paz};}
+
+          
+\begin{zframe}{
+  line cap=round,
+  flecha/.style={->,>=stealth,line width=1mm},
+  vector/.style={->,>=stealth,ultra thick},
+}
+               
+% Simplex
+\path(1,6) coordinate(B) +(30:2) coordinate(A) +(90:2) coordinate(C);
+
+% Reflexion
+\fill<2>[naranja] ($(A)!.5!(B)$) circle(.1) node[right]{Centro};
+\path<2->($(A)+(B)-(C)$) coordinate(D);
+\draw<2,3>[vector,naranja] (C) -- (D) node[right]{Reflexion};
+
+% Expansion
+\fill<3>[naranja] ($(A)!.5!(B)$) circle(.1) node[right]{Centro};
+\path<3->($(D)+(D)-(C)$) coordinate(D);
+\draw<3>[vector,naranja] (C) -- (D) node[right]{Expansion};
+\path<4->(B) coordinate(C);
+\path<4->(A) coordinate(B);
+\path<4->(D) coordinate(A);
+      
+% Reflexion
+\fill<5,6>[naranja] ($(A)!.5!(B)$) circle(.1) node[right]{Centro};
+\path<5->($(A)+(B)-(C)$) coordinate(D);
+\draw<5,6>[vector,naranja] (C) -- (D) node[right]{Reflexion};
+\path<7->(B) coordinate(C);
+\path<7->(A) coordinate(B);
+\path<7->(D) coordinate(A);
+                   
+% Rejected Expansion
+\path<6>($(D)+(D)-(C)$) coordinate(D);
+\draw<6>[vector,naranja] (C) -- (D) node[right]{Expansion};            
+             
+% Rejected Reflexion
+\path<8->($(A)!.5!(B)$) coordinate(x);
+\fill<8,9>[naranja] (x) circle(.1) node[right]{Centro};
+\path<8>($(A)+(B)-(C)$) coordinate(D);
+\draw<8>[vector,naranja] (C) -- (D) node[right]{Reflexion};
+
+% Contraccion
+\path<9->($(C)!.5!(x)$) coordinate(D);
+\draw<9>[vector,naranja] (C) -- (D) node[right]{Contracción};
+\path<10->(B) coordinate(C);
+\path<10->(D) coordinate(B);
+        
+% Reflexion
+\fill<11,12>[naranja] ($(A)!.5!(B)$) circle(.1) node[right]{Centro};
+\path<11->($(A)+(B)-(C)$) coordinate(D);
+\draw<11,12>[vector,naranja] (C) -- (D) node[right]{Reflexion};
+\path<13->(B) coordinate(C);
+\path<13->(A) coordinate(B);
+\path<13->(D) coordinate(A);
+          
+% Reflexion
+\fill<14,15>[naranja] ($(A)!.5!(B)$) circle(.1) node[right]{Centro};
+\path<14->($(A)+(B)-(C)$) coordinate(D);
+\draw<14,15>[vector,naranja] (C) -- (D) node[right]{Reflexion};
+\path<16->(B) coordinate(C);
+\path<16->(D) coordinate(B);
+            
+% Rejected Reflexion
+\path<17->($(A)!.5!(B)$) coordinate(x);
+\fill<17,18>[naranja] (x) circle(.1) node[right]{Centro};
+\path<17>($(A)+(B)-(C)$) coordinate(D);
+\draw<17>[vector,naranja] (C) -- (D) node[right]{Reflexion};
+
+% Contraccion
+\path<18->($(C)!.5!(x)$) coordinate(D);
+\draw<18>[vector,naranja] (C) -- (D) node[right]{Contracción};
+\path<19->(B) coordinate(C);
+\path<19->(A) coordinate(B);
+\path<19->(D) coordinate(A);
+
+% Rejected Reflexion
+\path<20->($(A)!.5!(B)$) coordinate(x);
+\fill<20,21>[naranja] (x) circle(.1) node[right]{Centro};
+\path<20>($(A)+(B)-(C)$) coordinate(D);
+\draw<20>[vector,naranja] (C) -- (D) node[right]{Reflexion};
+
+% Contraccion
+\path<21->($(C)!.5!(x)$) coordinate(D);
+\draw<21>[vector,naranja] (C) -- (D) node[right]{Contracción};
+\path<22->(B) coordinate(C);
+\path<22->(D) coordinate(B);
+             
+% Simplex
+\path(A) node[celeste,left]{Mejor};
+\path(C) node[celeste,left]{Peor};
+\draw[celeste,ultra thick] (A) -- (B) -- (C) -- cycle;
+\fill[celeste] (A) circle(.08)   (B) circle(.08)   (C) circle(.08);
+               
+% Rejected Reflexion
+\path<20->($(A)!.5!(B)$) coordinate(x);
+\fill<20,21>[naranja] (x) circle(.1) node[right]{Centro};
+\path<20>($(A)+(B)-(C)$) coordinate(D);
+\draw<20>[vector,naranja] (C) -- (D) node[right]{Reflexion};
+
+% Contraccion
+\path<21->($(C)!.5!(x)$) coordinate(D);
+\draw<21>[vector,naranja] (C) -- (D) node[right]{Contracción};
+\path<22->(B) coordinate(C);
+\path<22->(D) coordinate(B);
+                  
+% Contornos de la funcion  
+\foreach \x in {1,2,...,7} {
+\pgfmathsetmacro\lab{\x+0.2}
+\scriptsize\draw[rosa,thick] (cp) circle (\x) node[xshift=\lab cm]{\x};
+}
+
+
+\end{zframe}  
+
+\begin{zframe}{}
+ 
+\path<2>(cp) ++(0,-.5) node{\movie[loop,autostart,poster]
+  {\includegraphics[width=9cm]{peli/p1.png}}
+  {peli/p1.avi}};
+  
+\path<3>(cp) ++(0,-.5) node{\movie[loop,autostart,poster]
+  {\includegraphics[width=9cm]{peli/p2.png}}
+  {peli/p2.avi}};
+   
+\path<1>(cp) ++(0,-.5) node{\movie[loop,autostart,poster]
+  {\includegraphics[width=9cm]{peli/outland.png}}
+  {peli/outland.avi}};
+                    
+\end{zframe}  
+
+\end{document}

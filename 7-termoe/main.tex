@@ -1,0 +1,578 @@
+\documentclass{beamer}
+
+\input{../preambulo/inputenc.tex}
+\input{../preambulo/fuente.tex}
+\input{../preambulo/spanish.tex}
+\input{../preambulo/tikz.tex}
+\input{../preambulo/matematica.tex}
+\input{../preambulo/colors.tex}
+\input{../preambulo/flotantes.tex}
+\input{../preambulo/beamer_zub.tex}
+\input{../preambulo/paquetes.tex}
+\input{../preambulo/macros.tex}
+
+\framebg{bg/pizarron3.png} 
+
+\begin{document}
+
+\newcommand\CC{}
+
+\begin{zframe}{}
+\path(cp) ++(3,0) node(I)[]{\includegraphics[width=6cm]{img/forest.png}};
+\path(c2|-I.north) ++(0,-1) node(A)[anchor=north,align=left]{
+  \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
+  \color{celeste} \textbf{Mecánica Estadística}\\[2mm]  
+  \color{lila} \textit{Agosto 30, 2023}
+};
+\normalsize
+\path(A.west|-I.south) ++(0,1) node(B)[anchor=south west,align=left]{
+  S. Alexis Paz\\[5mm]
+\includegraphics[width=3cm]{logos/DQTC_orange.png}};
+
+\path(I.south east) ++(0,0) node[anchor=north east,inner sep=0]{
+  \tiny Virginia Gewin, \href{https://doi.org/10.1371/journal.pbio.0040278}{PLoS Biol 4(8)e278}.};
+\end{zframe}
+
+\renewcommand\CC{
+  \path(se) node[anchor=south east]{\tiny\color{gray} MC2023 - S.A.Paz};}
+
+         
+\begin{zframe}{}
+
+\large    
+
+\path(t) ++(0,0) node(A)[anchor=north west,align=left]{
+  { MECÁNICA}};
+      
+\path(t|-cp) ++(0,0) node(B)[anchor=north west,align=left]{
+  { TERMODINÁMICA} };
+
+\draw[->,ultra thick,verde](A.south) -- (A.south|-B.north) 
+  node[pos=0.48,left,align=right]{Propiedad\\ Mecánica}
+  node(X)[pos=0.5,right,align=left]{Promedio\\ Temporal};
+
+\draw[->,ultra thick,naranja](X.east) -- ++(1.2,0) node(X)[right]{Impracticable!! ($10^{20}$ moleculas)};
+
+\draw[->,ultra thick,celeste](X.south) -- ++(0,-1) node(X)[below,align=center]{Postulados + \\ Ensamble de Gibbs};
+
+\draw[->,ultra thick,celeste](X.south) -- ++(0,-1) node(X)[below,align=left,fg,text width=6cm]{Conjunto de sistemas con el \\ mismo estado termodinámico en\\ distintos estados mecánicos};
+
+
+% TODO: dibujar ensamble
+
+\end{zframe}
+        
+  
+  
+\begin{zframe}{remember picture,
+  block/.style={
+		rectangle, draw, fill=bg,
+		minimum height=4em, minimum width=4em,
+    outer sep=0pt,
+    font=\strut},
+  empty/.style={
+    execute at empty cell={\node[draw=none,fill=none]{};},
+    nodes in empty cells=false
+  },
+  overlap lines/.style={
+    row sep=-\pgflinewidth,
+    column sep=-\pgflinewidth}
+}
+
+\path(np) ++(0,-.1)  node[anchor=north,verde]{\huge Ensamble de Gibbs};
+
+\path(cp) ++(-1,0) coordinate(x);
+\matrix(mat) at (x) [matrix of nodes,ampersand replacement=\&,
+	 nodes=block, overlap lines, empty] {%
+   |(A)| \& |(B)| \& |(C)| \& |(D)| \\
+   |(E)| \& |(F)| \& |(G)| \& |(H)| \\
+   |(I)| \& |(J)| \& |(K)| \& |(L)| \\
+   |(M)| \& |(N)| \& |(O)| \& |(P)| \\
+};
+
+\fill[block](P.south west) rectangle (P.north east) node[pos=.5]{$\mathcal{N}$};
+\path(L) node{$\vdots$};
+\path(K) node{$\ddots$};
+\path(O) node{$\hdots$};
+
+\draw<2>[ultra thick,->,celeste](A.west) +(-.3,-.3) -- (A.west) -- +(-.3,.3) node[left]{Calor};
+\draw<2>[ultra thick,->,celeste](I.west) +(-.3,-.3) -- (I.west) -- +(-.3,.3) node[left]{Materia};
+
+\path<3->(A.south east) node[celeste,anchor=south east]{$NVE$};
+\path<3->(B.south east) node[celeste,anchor=south east]{$NVE$};
+\path<3->(P.south east) node[celeste,anchor=south east]{$NVE$};
+
+\path<1-3>(ep) ++(-1,0) node[anchor=east,align=center]{\LARGE Ejemplo \\[2mm] \LARGE Sistemas \\[2mm]\LARGE Aislados};
+
+\path<4>(ep) ++(0,0) node[anchor=east,align=center]{\LARGE Ensamble \\[2mm] \LARGE Microcanónico};
+
+\path(A.north west) node[anchor=north west]{$I$};
+\path(B.north west) node[anchor=north west]{$II$};
+\end{zframe}
+             
+\begin{zframe}[<2->]{remember picture,
+  block/.style={
+		rectangle, draw, fill=bg,
+		minimum height=4em, minimum width=4em,
+    outer sep=0pt,
+    font=\strut},
+  empty/.style={
+    execute at empty cell={\node[draw=none,fill=none]{};},
+    nodes in empty cells=false
+  },
+  overlap lines/.style={
+    row sep=-\pgflinewidth,
+    column sep=-\pgflinewidth}
+}
+
+\matrix(mat) at (cp) [matrix of nodes,ampersand replacement=\&,
+	 nodes=block, overlap lines, empty] {%
+   |(A)| \& |(B)| \& |(C)| \& |(D)| \\
+   |(E)| \& |(F)| \& |(G)| \& |(H)| \\
+   |(I)| \& |(J)| \& |(K)| \& |(L)| \\
+   |(M)| \& |(N)| \& |(O)| \& |(P)| \\
+};
+
+\fill[block](P.south west) rectangle (P.north east) node[pos=.5]{$\mathcal{N}$};
+\draw<-2>[ultra thick,<->,celeste](A.west) +(.3,0) -- ++(-.3,0) node[left]{Calor};
+\draw<-2>[ultra thick,<->,celeste](H.west) +(.3,0) -- ++(-.3,0) node[left]{Calor};
+\draw<-2>[ultra thick,<->,celeste](I.west) +(.3,0) -- ++(-.3,0) node[left]{Calor};
+\draw<-2>[ultra thick,<->,celeste](P.east) +(-.3,0) -- ++(.3,0) node[right]{Calor};
+\path(A.north west) node[anchor=north west]{$I$};
+\path(B.north west) node[anchor=north west]{$II$};
+\path(L) node{$\vdots$};
+\path(K) node{$\ddots$};
+\path(O) node{$\hdots$};
+
+\path<3->(A.south east) node[celeste,anchor=south east]{$NVT$};
+\path<3->(B.south east) node[celeste,anchor=south east]{$NVT$};
+\path<3->(P.south east) node[celeste,anchor=south east]{$NVT$};
+       
+\pgfmathsetseed{12345}
+\path<2->(mat.north west) ++(-.4, .3) ++(.5*rand,.5*rand) coordinate(w) ;
+\path<2->(mat.north)      ++( 0, .5)  ++(.5*rand,.5*rand) coordinate(wx) ;
+\path<2->(mat.north east) ++( .4, .3) ++(.5*rand,.5*rand) coordinate(x) ;
+\path<2->(mat.east)       ++( .4, 0)  ++(.5*rand,.5*rand) coordinate(xy) ;
+\path<2->(mat.south east) ++( .4,-.6) ++(.5*rand,.5*rand) coordinate(y) ;
+\path<2->(mat.south)      ++( 0,-.6)  ++(.5*rand,.5*rand) coordinate(yz) ;
+\path<2->(mat.south west) ++(-.4,-.6) ++(.5*rand,.5*rand) coordinate(z) ;
+\path<2->(mat.west)       ++(-.4, 0)  ++(.5*rand,.5*rand) coordinate(zw) ;
+
+\draw<2->[use Hobby shortcut,closed=true,ultra thick,celeste,fill, fill opacity=.3] 
+(w)..  (wx)..  (x)..  (xy)..  (y)..  (yz)..  (z)..  (zw);
+
+\path<2->(np) ++(0,0) node[celeste,anchor=north]{\LARGE Reservorio a $T$};
+
+\path<4>(ep) ++(0,0) node[anchor=east,align=right]{\LARGE Ensamble \\[2mm] \LARGE Canónico};
+
+\end{zframe}
+ 
+\begin{zframe}{}
+
+\LARGE    
+
+% \path(t) ++(0,-.5) coordinate(t);
+     
+\path(t|-cp) ++(0,0) node(A)[anchor=west,text width=8cm,align=left]{
+  {\color{verde} Ensambles}\\[2mm]
+  {\Large Microcanónico: $NVE$}\\[2mm]
+  {\Large Canónico: $NVT$}\\[2mm]
+  {\Large Gran Canónico: $\mu VT$}\\[2mm]
+  {\Large Isotérmico/Isobárico: $NPT$}
+};
+  
+\end{zframe}
+                 
+\begin{zframe}{}
+
+\large    
+
+\path(t) ++(0,-.5) coordinate(t);
+     
+\path(t) ++(0,0) node(A)[anchor=north west,text width=11cm,align=left]{
+  {\color{verde} POSTULADO 1:}\\
+  El promedio temporal de una propiedad mecánica es igual al promedio de
+    ensamble de $\mathcal{N}\to\infty$ réplicas con el mismo estado y entorno
+    termodinámico.
+};
+  
+\end{zframe}
+  
+
+      
+\begin{zframe}{remember picture,
+  block/.style={
+		rectangle, draw, fill=bg,
+		minimum height=4em, minimum width=4em,
+    outer sep=0pt,
+    font=\strut},
+  empty/.style={
+    execute at empty cell={\node[draw=none,fill=none]{};},
+    nodes in empty cells=false
+  },
+  overlap lines/.style={
+    row sep=-\pgflinewidth,
+    column sep=-\pgflinewidth}
+}
+
+\matrix(mat) at (cp) [matrix of nodes,ampersand replacement=\&,
+	 nodes=block, overlap lines, empty] {%
+   |(A)| \& |(B)| \& |(C)| \& |(D)| \\
+   |(E)| \& |(F)| \& |(G)| \& |(H)| \\
+   |(I)| \& |(J)| \& |(K)| \& |(L)| \\
+   |(M)| \& |(N)| \& |(O)| \& |(P)| \\
+};
+
+\fill[block](P.south west) rectangle (P.north east) node[pos=.5]{$\mathcal{N}$};
+\path(A.north west) node[anchor=north west]{$I$};
+\path(B.north west) node[anchor=north west]{$II$};
+\path(L) node{$\vdots$};
+\path(K) node{$\ddots$};
+\path(O) node{$\hdots$};
+
+\path(A.south east) node[celeste,anchor=south east]{$NVT$};
+\path(B.south east) node[celeste,anchor=south east]{$NVT$};
+\path(P.south east) node[celeste,anchor=south east]{$NVT$};
+       
+\pgfmathsetseed{12345}
+\path(mat.north west) ++(-.4, .3) ++(.5*rand,.5*rand) coordinate(w) ;
+\path(mat.north)      ++( 0, .5)  ++(.5*rand,.5*rand) coordinate(wx) ;
+\path(mat.north east) ++( .4, .3) ++(.5*rand,.5*rand) coordinate(x) ;
+\path(mat.east)       ++( .4, 0)  ++(.5*rand,.5*rand) coordinate(xy) ;
+\path(mat.south east) ++( .4,-.6) ++(.5*rand,.5*rand) coordinate(y) ;
+\path(mat.south)      ++( 0,-.6)  ++(.5*rand,.5*rand) coordinate(yz) ;
+\path(mat.south west) ++(-.4,-.6) ++(.5*rand,.5*rand) coordinate(z) ;
+\path(mat.west)       ++(-.4, 0)  ++(.5*rand,.5*rand) coordinate(zw) ;
+
+\draw[use Hobby shortcut,closed=true,ultra thick,celeste,fill, fill opacity=.3] 
+(w)..  (wx)..  (x)..  (xy)..  (y)..  (yz)..  (z)..  (zw);
+
+\path(np) ++(0,0) node[celeste,anchor=north]{\LARGE Reservorio a $T$};
+
+\path(ep) ++(0,0) node[anchor=east,align=right]{\LARGE Ensamble \\[2mm] \LARGE Canónico};
+
+\path(sp) ++(0,2) node[anchor=south,naranja,fill=bg,draw,thick,inner sep=7]{\Large ¿Cuál es la probabilidad de observar un sistema del ensamble?};
+
+\end{zframe}
+
+
+\begin{zframe}{}
+
+\large    
+
+\path(t) ++(0,-.5) coordinate(t);
+     
+\path(t) ++(0,0) node(A)[anchor=north west,text width=11cm,align=left]{
+  {\color{verde} POSTULADO 1:}\\
+  El promedio temporal de una propiedad mecánica es igual al promedio de
+    ensamble de $\mathcal{N}\to\infty$ réplicas con el mismo estado y entorno
+    termodinámico.
+};
+      
+\path(t|-cp) ++(0,0) node(A)[anchor=north west,text width=11cm,align=left]{
+  {\color{verde} POSTULADO 2:}\\
+  Los sistemas de un ensamble $\mathcal{N}\to\infty$ representativo de un sistema aislado
+  (i.e. $NVE$) tienen distribución uniforme.
+};
+\end{zframe}
+         
+\begin{zframe}{remember picture,
+  block/.style={
+		rectangle, draw, fill=bg,
+		minimum height=4em, minimum width=4em,
+    outer sep=0pt,
+    font=\strut},
+  empty/.style={
+    execute at empty cell={\node[draw=none,fill=none]{};},
+    nodes in empty cells=false
+  },
+  overlap lines/.style={
+    row sep=-\pgflinewidth,
+    column sep=-\pgflinewidth}
+}
+
+\matrix(mat) at (cp) [matrix of nodes,ampersand replacement=\&,
+	 nodes=block, overlap lines, empty] {%
+   |(A)| \& |(B)| \& |(C)| \& |(D)| \\
+   |(E)| \& |(F)| \& |(G)| \& |(H)| \\
+   |(I)| \& |(J)| \& |(K)| \& |(L)| \\
+   |(M)| \& |(N)| \& |(O)| \& |(P)| \\
+};
+
+\fill[block](F.north west) rectangle ++(2.3,-1) node[pos=.5]{};
+\fill[block](F.south) rectangle ++(1.536,.53) node[pos=.5]{};
+\fill[block](E.north west) rectangle (I.east) node[pos=.5]{};
+\fill[block](B.west) rectangle (C.north east) node[pos=.5]{};
+\fill[block](M.north west) rectangle (M) node[pos=.5]{};
+\fill[block](M.south east) rectangle (M) node[pos=.5]{};
+\fill[block](P.south west) rectangle (P.north east) node[pos=.5]{$\mathcal{N}$};
+\path(L) node{$\vdots$};
+\path(K) node{$\ddots$};
+\path(O) node{$\hdots$};
+\path(A.north west) node[anchor=north west]{$I$};
+\path(B.north west) node[anchor=north west]{$II$};
+
+\path<2>(mat.north west) ++(-.4, .3) ++(.5*rand,.5*rand) coordinate(w) ;
+\path<2>(mat.north)      ++( 0, .5)  ++(.5*rand,.5*rand) coordinate(wx) ;
+\path<2>(mat.north east) ++( .4, .3) ++(.5*rand,.5*rand) coordinate(x) ;
+\path<2>(mat.east)       ++( .4, 0)  ++(.5*rand,.5*rand) coordinate(xy) ;
+\path<2>(mat.south east) ++( .4,-.6) ++(.5*rand,.5*rand) coordinate(y) ;
+\path<2>(mat.south)      ++( 0,-.6)  ++(.5*rand,.5*rand) coordinate(yz) ;
+\path<2>(mat.south west) ++(-.4,-.6) ++(.5*rand,.5*rand) coordinate(z) ;
+\path<2>(mat.west)       ++(-.4, 0)  ++(.5*rand,.5*rand) coordinate(zw) ;
+
+\draw<2>[use Hobby shortcut,closed=true,ultra thick,celeste,fill, fill opacity=.3] 
+(w)..  (wx)..  (x)..  (xy)..  (y)..  (yz)..  (z)..  (zw);
+
+\path<2>(np) ++(0,0) node[celeste,anchor=north]{\LARGE Reservorio a $\mu,P,T$};
+
+\draw<3->[ultra thick,naranja,fill=celeste, fill opacity=.3] (A.north west) rectangle (P.south east);
+\path<3->(mat.north) ++(0,0) node[naranja,anchor=south]{\LARGE Sistema con $N_T,V_T,E_T$};
+
+\path<4->(sp) ++(0,4) node(xx)[anchor=south,amarillo,fill=bg,draw,thick,inner sep=7]{\Large $\ds H(N,V)\phi_k(N,V)=E_k(N,V)\phi_k(N,V)$};
+
+\draw<4->[<-,amarillo,ultra thick](xx) edge[bend left] (A.center);
+\draw<4->[<-,amarillo,ultra thick](xx) edge[bend left] (F.center);
+\draw<4->[<-,amarillo,ultra thick](xx) edge[bend left] (D.center);
+\draw<4->[<-,amarillo,ultra thick](xx) edge[bend right] (M.center);
+\draw<4->[<-,amarillo,ultra thick](xx) edge[bend left] (O.center);
+
+\path<5->(sp) ++(0,2.2) node(xx)[naranja,anchor=south,fill=bg,draw,thick,inner sep=7]{\huge$\ds\psi_j=\phi(I)\phi(II)\cdots\phi(\mathcal{N})$};
+
+\path<6->(sp) ++(0,.1) node(xx)[celeste,anchor=south,fill=bg,draw,thick,inner sep=7]{\huge$\ds\Psi=\sum^\Omega c_j\psi_j$ };
+
+
+\end{zframe}
+       
+\begin{zframe}{ampersand replacement=\&}
+
+\Large    
+
+% \path(t) ++(0,-.5) coordinate(t);
+     
+% \path(t-|np) ++(0,0) node(A)[anchor=north]{
+%   {\LARGE \color{verde} Ensamble Generalizado ($\mu$,$T$,$P$)}\\
+% };
+      
+        
+\path<1>(cp) ++(0,0) node(X)[fg,align=center,text width=11cm]{
+$\ds n_k(N,V)\rightarrow$ {\color{naranja} Número de estados $\phi$ con $k,N,V$}\\[5mm]
+$\ds\mathbf{n}\rightarrow$ Distribución de $n_k(N,V)$\\[8mm]
+$\left\lbrace \begin{array}{rclc}
+    n_1(V_1,N_1) & n_1(V_2,N_2) &  \hdots \\
+    n_1(V_2,N_2) & n_2(V_2,N_2) &  \hdots \\
+    \vdots       &   \vdots     &  \ddots \\
+\end{array} \right\rbrace = 
+\left\lbrace \begin{array}{rclc}
+    3 & 4 &  \hdots \\
+    2 & 1 &  \hdots \\
+    \vdots       &   \vdots     &  \ddots \\
+\end{array} \right\rbrace $
+  \\[5mm]
+¿Cuantos sistemas se pueden hacer con una cierta $\mathbf{n}$?\\[5mm]
+$\ds\Omega_{\mathbf{n}}=\dfrac{\mathcal{N}!}{\ds\prod_{k,N,V}n_k^{\mathbf{n}}(N,V)!}$\\[5mm]
+};     
+
+\draw[<-,ultra thick,naranja](cp) ++(1.9,.6) -- ++(0,1.1) node[above]{Ejemplo};
+  
+\end{zframe}
+       
+\begin{zframe}{remember picture,
+  block/.style={
+		rectangle, draw, fill=bg,
+		minimum height=4em, minimum width=4em,
+    outer sep=0pt,
+    font=\strut},
+  empty/.style={
+    execute at empty cell={\node[draw=none,fill=none]{};},
+    nodes in empty cells=false
+  },
+  overlap lines/.style={
+    row sep=-\pgflinewidth,
+    column sep=-\pgflinewidth}
+}
+
+\path(cp) ++(-2.5,0) coordinate(x);
+\matrix(mat) at (x) [matrix of nodes,ampersand replacement=\&,
+	 nodes=block, overlap lines, empty] {%
+   |(A)| \& |(B)| \& |(C)| \& |(D)| \\
+   |(E)| \& |(F)| \& |(G)| \& |(H)| \\
+   |(I)| \& |(J)| \& |(K)| \& |(L)| \\
+   |(M)| \& |(N)| \& |(O)| \& |(P)| \\
+};
+
+\fill[block](F.north west) rectangle ++(2.3,-1) node[pos=.5]{};
+\fill[block](F.south) rectangle ++(1.536,.53) node[pos=.5]{};
+\fill[block](E.north west) rectangle (I.east) node[pos=.5]{};
+\fill[block](B.west) rectangle (C.north east) node[pos=.5]{};
+\fill[block](M.north west) rectangle (M) node[pos=.5]{};
+\fill[block](M.south east) rectangle (M) node[pos=.5]{};
+\fill[block](P.south west) rectangle (P.north east) node[pos=.5]{$\mathcal{N}$};
+\path(L) node{$\vdots$};
+\path(K) node{$\ddots$};
+\path(O) node{$\hdots$};
+
+\draw[ultra thick,naranja,fill=celeste, fill opacity=.3] (A.north west) rectangle (P.south east);
+\path(mat.north) ++(0,0) node[naranja,anchor=south]{\LARGE Sistema con $N_T,V_T,E_T$};
+\path(A.north west) node[anchor=north west]{$I$};
+\path(B.north west) node[anchor=north west]{$II$};
+
+% \path<4->(sp) ++(0,2) node(xx)[anchor=south,amarillo,fill=bg,draw,thick,inner sep=7]{\Large $\ds H(N,V)\phi_k(N,V)=E_k(N,V)\phi_k(N,V)$};
+%
+% \draw<4->[<-,amarillo,ultra thick](xx) edge[bend left] (A.center);
+% \draw<4->[<-,amarillo,ultra thick](xx) edge[bend left] (F.center);
+% \draw<4->[<-,amarillo,ultra thick](xx) edge[bend left] (D.center);
+%
+% \path<5>(sp) ++(0,.1) node(xx)[naranja,anchor=south]{\Huge$\ds\psi=\phi(I)\phi(II)\cdots\phi(\mathcal{N})$};
+ 
+
+\path(mat.east) ++(-.3,.2) node(X)[fg,anchor=west,align=left,text width=6cm]{
+\begin{align*}
+\ds \mathcal{N} &= \sum_{k,N,V}n_k(N,V)\\
+\ds N_T &= \sum_{k,N,V}n_k(N,V)N\\
+\ds V_T &= \sum_{k,N,V}n_k(N,V)V\\
+\ds E_T &= \sum_{k,N,V}n_k(N,V)E_k(N,V)
+\end{align*}
+};    
+              
+\path(sp) ++(0,.1) node(xx)[celeste,anchor=south,fill=bg,draw,thick,inner sep=7]{\LARGE$\ds\Psi=\sum^\Omega c_j\psi_j$ };
+
+\end{zframe}
+       
+\begin{zframe}{ampersand replacement=\&}
+\Large
+\path(cp) ++(0,0) node(X)[fg,align=center,text width=11cm]{
+La probabilidiad de ver un $\left\lbrace k,N,V\right\rbrace$:\\[5mm]
+${\ds P_k(N,V)=\sum^\Omega_j \ab|c_j|^2\; \dfrac{n^{(j)}_k(N,V)}{\mathcal{N}}}$\\[5mm]
+pero por el postulado 2 \\[5mm]
+${\ds P_k(N,V)=\sum^\Omega_j \dfrac{n^{(j)}_k(N,V)}{\Omega\mathcal{N}}}$\\[5mm]
+y teniendo en cuenta la degeneración de $\mathbf{n}$ \\[5mm]
+${\ds P_k(N,V)=\sum_\mathbf{n} \dfrac{\Omega_\mathbf{n}n^{\mathbf{n}}_k(N,V)}{\Omega\mathcal{N}}}$\\[5mm]
+};     
+                
+\end{zframe}
+       
+\begin{zframe}{ampersand replacement=\&}
+\Large
+\path(cp) ++(0,-.5) node(X)[fg,align=center]{
+Considerando una expansión de {\color{amarillo} $\ln{\Omega_\mathbf{n}}$}\\[5mm]
+alrededor de un valor máximo {\color{amarillo} $n^{*}_k(N,V)$}\\[5mm]
+Se puede demostrar que {\color{amarillo} $\Omega_\mathbf{n}\sim\Omega$}, por lo que\\[8mm]
+\color{amarillo} ${\ds P_k(N,V)\sim \dfrac{n^{*}_k(N,V)}{\mathcal{N}}}$\\[5mm]
+};     
+
+\normalsize
+\path[celeste](X.north east) ++(.1,.1) node[draw,thick,ellipse,rotate=-30,align=center]{ Ver apunte \\ Ezequiel Leiva};
+        
+\end{zframe}
+
+\begin{zframe}{ampersand replacement=\&}
+
+\Large    
+       
+\path(cp) ++(0,0) node(X)[fg,align=center]{
+Entonces, maximicemos {\color{celeste} ${\ds\Omega_{\mathbf{n}}=\dfrac{\mathcal{N}!}{\ds\prod_{k,N,V}n_k^{\mathbf{n}}(N,V)!}}$}\\[5mm]
+o mejor, {\color{celeste} $\ds\ln\Omega_{\mathbf{n}}=\ln\ab(\mathcal{N}!)-\sum_{k,N,V}\ln\ab(n_k^{\mathbf{n}}(N,V)!)$}\\[5mm]
+que permite usar la fórmula de Stirling\\[5mm]
+\color{amarillo} $\ds\ln\Omega_{\mathbf{n}}=\mathcal{N}\ab[\ln\ab(\mathcal{N})-1]$\\[3mm]
+\color{amarillo} $\ds-\sum_{k,N,V}n_k^{\mathbf{n}}(N,V)\ab[\ln\ab(n_k^{\mathbf{n}}(N,V))-1]$\\[5mm]
+};     
+                                 
+\end{zframe}
+ 
+\begin{zframe}{ampersand replacement=\&}
+
+\Large
+
+\path(cp) ++(0,0) node(X)[align=center,text width=12cm]{
+Pero con restricciones $\rightarrow$ Multiplicadores de Lagrange\\[5mm]
+\large
+\begin{align*}
+\ds & \mathcal{L}\ab[n_k^{\mathbf{n}}(N,V)]=\mathcal{N}\ab[\ln\ab(\mathcal{N})-1]-\sum_{k,N,V}n_k^{\mathbf{n}}(N,V)\ab[\ln\ab(n_k^{\mathbf{n}}(N,V))-1]\\
+\ds &-\alpha \ab(\mathcal{N} - \sum_{k,N,V}n_k(N,V))-\gamma \ab(N_T - \sum_{k,N,V}n_k(N,V)N)\\
+\ds &-\nu    \ab(V_T - \sum_{k,N,V}n_k(N,V)V)-\beta  \ab(E_T - \sum_{k,N,V}n_k(N,V)E_k(N,V))
+\end{align*}
+};    
+      
+\end{zframe}
+      
+\begin{zframe}{}
+
+\LARGE
+\path(cp) ++(0,2) node(X)[fg,align=center,text width=12cm]{
+${\ds n_k^*(N,V)=e^{-\alpha}e^{-\gamma N}e^{-\nu V}e^{-\beta E_k(N,V)}}$\\[5mm]
+${\ds n_k^*(N,V)=\mathcal{N}\frac{e^{-\gamma N}e^{-\nu V}e^{-\beta E_k(N,V)}}{\color{amarillo}\dsum_{k,N,V}e^{-\gamma N}e^{-\nu V}e^{-\beta E_k(N,V)}}}$\\[5mm]
+};
+
+\path[amarillo,->,ultra thick](X.south) ++(0,.1) node[right]{\large Función de partición, $\mathcal{Z}$};
+ 
+\path(X.south) ++(0,-1) node(X)[fg,verde,ultra thick,draw,anchor=north]{
+${\ds P_k(N,V)=\frac{e^{-\gamma N}e^{-\nu V}e^{-\beta E_k(N,V)}}{\mathcal{Z}}}$
+};    
+      
+\end{zframe}
+              
+\begin{zframe}{}
+       
+\LARGE
+\path(np) ++(0,0) node(X)[anchor=north,align=center]{
+Luego de considerar\\[5mm]
+${\ds \odif{\ab<E>}=\sum_{k,N,V} E(k,N,V) \odif{P_k(N,V)}}$\\[5mm]
+y comparar con la termodinámica\\[5mm]
+${\ds \odif{U}=T\odif{S}+P\odif{V}+\mu \odif{N}}$\\[5mm]
+puedo ver que};
+ 
+\path(X.south) ++(0,-.3) node(X)[fg,verde,ultra thick,draw,anchor=north]{
+${\ds P_k(N,V)=\dfrac{e^{-\beta\mu N}e^{-\beta P V}e^{-\beta E_k(N,V)}}{\mathcal{Z}}}$
+};    
+
+\end{zframe}
+                     
+\begin{zframe}{}
+
+\large    
+
+\path(t) ++(0,0) node(A)[anchor=north west,align=left]{
+  { MECÁNICA}};
+      
+\path(t|-cp) ++(0,0) node(B)[anchor=north west,align=left]{
+  { TERMODINÁMICA} };
+
+\draw[->,ultra thick,verde](A.south) -- (A.south|-B.north) 
+  node[pos=0.48,left,align=right]{Propiedad\\ Mecánica}
+  node(X)[pos=0.5,right,align=left]{Promedio\\ Temporal};
+
+\draw[->,ultra thick,naranja](X.east) -- ++(1.2,0) node(X)[right]{Impracticable!! ($10^{20}$ moleculas)};
+
+\draw[->,ultra thick,celeste](X.south) -- ++(0,-1) node(X)[below,align=center]{Postulados + \\ Ensamble de Gibbs};
+
+\draw<1>[->,ultra thick,celeste](X.south) -- ++(0,-1) node(X)[below,align=left,fg,text width=6cm]
+{Conjunto de sistemas con el \\ mismo estado termodinámico en\\ distintos estados mecánicos};
+
+\draw<2>[->,ultra thick,celeste](X.south) -- ++(0,-1);
+
+\path<2>(X.south) ++(-2,-1) node(X)[fg,verde,ultra thick,draw,anchor=north]
+{\LARGE $P_k(N,V)=\dfrac{e^{-\beta\mu N}e^{-\beta P V}e^{-\beta E_k(N,V)}}{\mathcal{Z}}$};
+
+\path<2>(X.north west) ++(0,0) node(X)[verde,anchor=south west]
+{Promedio de Ensamble};
+
+\end{zframe}
+      
+% \begin{zframe}{}
+%        
+% \LARGE
+% \path(np) ++(0,0) node(X)[anchor=north,align=center]{
+% En general\\[5mm]
+% ${\ds \odif{\ab<E>}=\sum_{k,N,V} E(k,N,V) \odif{P_k(N,V)}}$\\[5mm]
+% y comparar con la termodinámica\\[5mm]
+% ${\ds \odif{U}=T\odif{S}+P\odif{V}+\mu \odif{N}}$\\[5mm]
+% puedo ver que};
+%  
+% \path(X.south) ++(0,-.3) node(X)[fg,verde,ultra thick,draw,anchor=north]{
+% ${\ds P_k(N,V)=\dfrac{e^{-\beta\mu N}e^{-\beta P V}e^{-\beta E_k(N,V)}}{\mathcal{Z}}}$
+% };    
+%
+% \end{zframe}
+%       
+\end{document}

@@ -1,0 +1,356 @@
+\documentclass{beamer}
+
+\input{../preambulo/inputenc.tex}
+\input{../preambulo/fuente.tex}
+\input{../preambulo/spanish.tex}
+\input{../preambulo/tikz.tex}
+\input{../preambulo/matematica.tex}
+\input{../preambulo/colors.tex}
+\input{../preambulo/flotantes.tex}
+\input{../preambulo/beamer_zub.tex}
+\input{../preambulo/paquetes.tex}
+\input{../preambulo/macros.tex}
+
+\framebg{bg/pizarron3.png} 
+
+\begin{document}
+
+\newcommand\CC{}
+
+\begin{zframe}{}
+\path(cp) ++(3,0) node(I)[]{\includegraphics[width=5cm]{img/idiogram/pendiente.png}};
+\path(c2|-I.north) ++(0,-1) node(A)[anchor=north,align=left]{
+  \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
+  \color{celeste} \textbf{Derivadas}\\[2mm]  
+  \color{lila} \textit{Agosto 14, 2023}
+};
+\normalsize
+\path(A.west|-I.south) ++(0,1) node(B)[anchor=south west,align=left]{
+  S. Alexis Paz\\[5mm]
+\includegraphics[width=3cm]{logos/DQTC_orange.png}};
+ 
+\path(I.south east) ++(0,.2) node[anchor=north east]{
+  \tiny hecho con \href{https://ideogram.ai/g/UEcg1_xvS9uI7gzhaTQMXQ/3}{idiogram}};
+                        
+\end{zframe}
+
+\renewcommand\CC{
+  \path(se) node[anchor=south east]{\tiny\color{gray} MC2023 - S.A.Paz};}
+\begin{zframe}{% yscale=0.9, % with frametitle
+theo/.style={rectangle, rounded corners=1ex,draw=verde,fill=verde,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=center},
+theohead/.style={theo,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}}}
+  
+\path(np) ++(0,-.6) node(A)[anchor=north,text width=12cm]{
+  \centerline{\huge \color{verde} ¿$f'(x)$?}
+};
+
+\path(A.south west) ++(0.,-.3) node(A)[align=left,anchor=north west,text width=11cm]{
+Podemos definir la derivada cómo \\[2mm]
+$$\ds{f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}}$$\\[2mm]
+En el método de la secante, hicimos la aproximación:\\[2mm]
+$$\ds{f'(x_n)\approx\frac{f(x+h)-f(x)}{\subnode{h}{h}}}$$\\[2mm]
+Este tipo de aproximaciones se conocen como {\color{naranja} ``diferencia finita''}.\\
+};
+
+\draw[naranja,<-,dashed](A.south) ++(1.3,1) to[bend right] ++(3,1) node[right]{paso};
+
+\path(A.south) ++(0.,-.5) node[verde,align=center,anchor=north]{
+\it ¿Que error tiene esta aproximación?\\[2mm]
+\it ¿Existen otras aproximaciones posibles?
+};
+
+
+\end{zframe}
+                                                      
+\begin{zframe}{% yscale=0.9, % with frametitle
+def/.style={rectangle,draw=verde,dashed, rounded corners=1ex, anchor=north,inner sep=6,align=center},
+defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}}}
+ 
+ 
+\path(np) ++(0,-.6) node(A)[anchor=north,text width=12cm]{
+  \centerline{\large\color{verde} Discretizar / Grillar / Teselar}};
+
+\small         
+\path(A.south west) ++(0.,-.3) node(A)[align=left,anchor=north west,text width=10cm]{
+  Si discretizamos $x$ {\color{naranja}\it uniformemente} entre $a$ y $b$\ldots};
+                    
+\path(A.south west) ++(0.,-.8) node(A)[align=left,anchor=north west,text width=8cm]{
+  \hspace{2mm} \ldots con $N$ puntos, entonces \\[2mm]
+  \hspace{2mm} $h=\dfrac{b-a}{N-1}$ es el paso de la grilla.};
+                    
+\path(A.south west) ++(0.,-.8) node(A)[align=left,anchor=north west,text width=8cm]{
+  \hspace{2mm} \ldots con un paso $h$, entonces \\[2mm]
+  \hspace{2mm} hay $N=\dfrac{b-a}{h}+1$ puntos en la grilla.};
+
+\path(A.south west) ++(0.2,-1.2) node(A)[align=left,anchor=north west,text width=12cm]{
+  \hspace{2mm} \it Ojo! $N\Leftarrow \text{int}\ab(\dfrac{b-a}{h}+1)$ pero entonces $b\Leftarrow (N-1)h+a$};
+
+\path(hr) ++(0,-.9) node(A)[def,align=left,text width=2.5cm]{\\[4mm]
+  $x_n=nh+a$\\[2mm]
+  $f_n=f(x_n)$\\[2mm]};
+\path(A.north) node(H)[defhead,verde]{\underline{Notación}};
+                 
+
+\path(hr) ++(-.1,.3) coordinate(scope);
+\newcommand\xmin{-2}
+\newcommand\xmax{2}
+\newcommand\xstp{1}
+\newcommand\xtra{1}
+\newcommand\ymin{0}
+\newcommand\ymax{3}
+\newcommand\ystp{1}
+\newcommand\nfra{1}
+\begin{scope}[x=.7cm,y=.7cm,shift=(scope), domain=\xmin:\xmax,yrange=\ymin:\ymax,thick]
+  \scriptsize
+  \input{frames/euler.tex}
+  \draw[verde,<->] (1,1) -- ++(1,0) node[pos=0.5,above]{$h$};
+  \draw[verde,->] (-2,0) to[bend left] ++(120:1.2) node[above]{$x_{\text{min}}$};
+  \draw[verde,->] (2,0) to[bend right] ++(60:1.2) node[above]{$x_{\text{max}}$};
+  \foreach \x in {-2,-1,...,2} {
+  \fill[verde] (-\x,0) circle(.1);}
+  \draw[verde,->] (2,0) to[bend right] ++(60:1.2) node[above]{$x_{\text{max}}$};
+
+  \draw[verde,decorate,decoration = {brace},yshift=-10] (2,0) -- (-2,0) node[pos=0.5,below]{$N$ puntos};
+
+\end{scope}                           
+\end{zframe}
+                            
+\begin{zframe}{% yscale=0.9, % with frametitle
+def/.style={rectangle,draw=verde,dashed, rounded corners=1ex, anchor=north,inner sep=6,align=center},
+defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}}}
+          
+\path(np) ++(1,-.3) node(A)[anchor=north]{\includegraphics[width=8cm]{finite/grids.png}};
+\path(A.north) ++(-0.9,-.6) node[anchor=south]{\tiny Silva \etal 10.13140/RG.2.1.5174.3124};
+
+
+\path(hl) ++(-.5,1.5) node{\includegraphics[width=5cm]{finite/grid1D.png}};
+% \path(A.south east) ++(-0.9,.3) node[anchor=north east]{\tiny boyfarrell, https://scicomp.stackexchange.com/q/8494/20194};
+                            
+\path(c4) ++(-.5,.6) node(A){\includegraphics[width=7cm]{finite/dientes.png}};
+\path(A.south east) ++(-0.9,.3) node[anchor=north east]{\tiny  Maintz \etal 10.5281/zenodo.4972578};
+
+\path(c3) ++(0,0) node(A){\includegraphics[width=3.5cm]{finite/plume.png}};
+\path(A.south west) ++(-1,0) node[anchor=north west]{\tiny Bacon \etal Mon. Weather Rev. 128 (2000) 2044}; 
+
+\end{zframe}
+                                                          
+\begin{zframe}{
+% \frametitle{\hfill Titulo}{% yscale=0.9, % with frametitle
+def/.style={rectangle,draw=verde,dashed, rounded corners=1ex, anchor=north,inner sep=6,align=center},
+defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}}}
+  
+ 
+\path(np) ++(0,-1) node(A)[def,align=left,text width=10cm]{\\[4mm]
+Si $h(x)$ es una cota superior de $f(x)$ para $x>x_0$, es decir:\\[2mm]
+\hspace{1cm} ${\left|f(x)\right|\leq M h(x)\quad;\forall x\geq x_0}$,\\[2mm]
+entonces se escribe: \\[2mm]
+\hspace{1cm} ${f(x)=O\ab(h(x))}$ cuando $x\to\infty$\\[2mm]
+y decimos que $f(x)$ es de orden de $h(x)$.
+};
+\path(A.north) node(H)[defhead,verde]{\underline{Notación de Landau / O-grande}};
+        
+\path(A.south west) ++(0.,-.5) node[align=left,anchor=north west]{
+Por ejemplo, expando $f(x)$ alrededor de $a$:\\[2mm]
+${\ds f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2}(x-a)^2+O\ab((x-a)^3)}$\\[3mm]
+o evalúo $f(x+h)$ usando una expansión desde $x$:\\[2mm]
+${\ds f(x+h)=f(x)+f'(x)h+\frac{f''(x)}{2}h^2+O\ab(h^3)}$};
+
+
+\path(se) ++(0,.4) node[rotate=30,anchor=south east]{\includegraphics[width=6mm]{marcadores.png}};
+
+\end{zframe}
+      
+       
+\begin{zframe}{} %yscale=0.9
+                      
+% \path(np) ++(0.,-.7) node(A)[align=left,anchor=north,text width=11cm]{
+% Notación: $f_n=f(x_n)$
+% };
+ 
+\path(nw) ++(0.2,-.7) node(A)[align=left,anchor=north west,text width=6cm]{
+{\color{verde} Hacia adelante:} $$\ds{f'(x)=\frac{f(x+h)-f(x)}{h}+O\ab(h)}$$
+};
+              
+\path(hr) ++(0,.7) coordinate(scope);
+\begin{scope}[x=1cm,y=1cm,shift=(scope),thick]
+  \newcommand\xmin{-2}
+  \newcommand\xmax{2}
+  \newcommand\xstp{1}
+  \newcommand\xtra{1}
+  \newcommand\ymin{0}
+  \newcommand\ymax{3}
+  \newcommand\ystp{1}
+  \newcommand\nfra{1}
+
+  {\scriptsize \input{frames/euler.tex}}
+
+    
+  % Atras
+  \pgfmathsetmacro\y{sin((-(\xtra))/3.1415*180)+2}
+  \pgfmathsetmacro\yy{sin((1-(\xtra))/3.1415*180)+2}
+  \draw[color=celeste, ultra thick, domain=\xmin:\xmax] plot[smooth] function{(x*(\yy-\y)+\y)};
+  \fill[celeste](0,\y) circle(.1);
+\end{scope}
+                 
+\path(wp) ++(0.2,-.7) node(A)[align=left,anchor=north west,text width=6cm]{
+{\color{verde} Hacia atrás:} $$\ds{f'(x)=\frac{f(x)-f(x-h)}{h}+O\ab(h)}$$\\[2mm]
+};
+              
+\path(hr|-sp) ++(0,1) coordinate(scope);
+\begin{scope}[x=1cm,y=1cm,shift=(scope),thick]
+  \newcommand\xmin{-2}
+  \newcommand\xmax{2}
+  \newcommand\xstp{1}
+  \newcommand\xtra{1}
+  \newcommand\ymin{0}
+  \newcommand\ymax{3}
+  \newcommand\ystp{1}
+  \newcommand\nfra{1}
+  {\scriptsize \input{frames/euler.tex}}
+
+    
+  % Atras
+  \pgfmathsetmacro\y{sin((-(\xtra))/3.1415*180)+2}
+  \pgfmathsetmacro\yy{sin((-1-(\xtra))/3.1415*180)+2}
+  \draw[color=celeste, ultra thick, domain=\xmin:\xmax] plot[smooth] function{(x*(-\yy+\y)+\y)};
+  \fill[celeste](0,\y) circle(.1);
+\end{scope}
+                 
+\end{zframe}
+                    
+
+\begin{zframe}{} %yscale=0.9
+                      
+% \path(np) ++(0.,-.7) node(A)[align=left,anchor=north,text width=11cm]{
+% Notación: $f_n=f(x_n)$
+% };
+ 
+\path(nw) ++(0.2,-.7) node(A)[align=left,anchor=north west,text width=6cm]{
+{\color{verde} Tres puntos:} $$\ds{f'(x)=\frac{f(x+h)-f(x-h)}{2h}+O\ab(h^2)}$$
+};
+              
+\path(hr) ++(0,.7) coordinate(scope);
+\newcommand\xmin{-2}
+\newcommand\xmax{2}
+\newcommand\xstp{1}
+\newcommand\xtra{1}
+\newcommand\ymin{0}
+\newcommand\ymax{3}
+\newcommand\ystp{1}
+\newcommand\nfra{1}
+\begin{scope}[x=1cm,y=1cm,shift=(scope), domain=\xmin:\xmax,thick]
+  {\scriptsize \input{frames/euler.tex}}
+    
+  % Atras
+  \pgfmathsetmacro\xo{-1}
+  \pgfmathsetmacro\ox{1}
+  \pgfmathsetmacro\yo{sin((\xo-(\xtra))/3.1415*180)+2}
+  \pgfmathsetmacro\oy{sin((\ox-(\xtra))/3.1415*180)+2}
+  \draw[color=celeste,dashed,domain=-1:1,ultra thick] plot[smooth] function{(x-1)*(\oy-\yo)/2+\oy};
+  \pgfmathsetmacro\y{sin((-(\xtra))/3.1415*180)+2}
+  \draw[color=celeste, ultra thick] plot[smooth] function{x*(\oy-\yo)/2+\y};
+  \fill[celeste](0,\y) circle(.1);
+\end{scope}
+        
+\path(nw) ++(0.2,-4.7) node(A)[align=left,anchor=north west,text width=6cm]{
+{\color{verde} Segunda derivada:} $$\ds{f'(x)=\frac{f(x+h)-2f(x)+f(x-h)}{h^2}+O\ab(h^2)}$$
+};
+           
+\end{zframe}
+
+\begin{zframe}{} %yscale=0.9
+                 
+\path(wp) ++(0.2,3.6) node(A)[align=left,anchor=north west,text width=11cm]{
+  {\color{verde} Cinco puntos:}
+$$\ds f'(x)=\frac{1}{12h}\left[f(x-2h)-8f(x-h)+8f(x+h)-f(x+2h)\right]+O\ab(h^4)$$
+};
+              
+\path(cp|-sp) ++(0,2) coordinate(scope);
+\newcommand\xmin{-3}
+\newcommand\xmax{3}
+\newcommand\xstp{1}
+\newcommand\xtra{1}
+\newcommand\ymin{0}
+\newcommand\ymax{3}
+\newcommand\ystp{1}
+\newcommand\nfra{1}
+\begin{scope}[x=1cm,y=1cm,shift=(scope), domain=\xmin:\xmax,yrange=\ymin:\ymax,thick]
+  {\scriptsize \input{frames/euler.tex}}
+
+    
+  % Atras
+  \pgfmathsetmacro\xxo{-2}
+  \pgfmathsetmacro\xo{-1}
+  \pgfmathsetmacro\ox{1}
+  \pgfmathsetmacro\oxx{2}
+  \pgfmathsetmacro\yyf{sin((\xxo-(\xtra))/3.1415*180)+2}
+  \pgfmathsetmacro\yf{sin((\xo-(\xtra))/3.1415*180)+2}
+  \pgfmathsetmacro\fy{sin((\ox-(\xtra))/3.1415*180)+2}
+  \pgfmathsetmacro\fyy{sin((\oxx-(\xtra))/3.1415*180)+2}
+  % \draw[color=celeste,dashed, ultra thick, domain=\xmin:\xmax] plot[smooth] function{(x-\xxo)*(\yyf-8*\yf+8*\fy-\fyy)/12+\yyf};
+  \pgfmathsetmacro\y{sin((-(\xtra))/3.1415*180)+2}
+  \draw[color=celeste, ultra thick, domain=\xmin:\xmax] plot[smooth] function{x*(\yyf-8*\yf+8*\fy-\fyy)/12+\y};
+  \fill[celeste](0,\y) circle(.1);
+\end{scope}
+         
+                     
+\end{zframe}
+       
+\begin{zframe}{% yscale=0.9, % with frametitle
+def/.style={rectangle,draw=verde,dashed, rounded corners=1ex, anchor=north,inner sep=6,align=center},
+defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}}}
+ 
+ 
+\path(np) ++(0,-.6) node(A)[anchor=north,text width=12cm]{
+  \centerline{\large\color{verde} ERROR}};
+
+\path(A.south west) ++(0.,-.3) node(A)[align=left,anchor=north west,text width=8cm]{
+{Para un algoritmo iterativo ($n$ es iteración)}\\[2mm]
+ \hspace{1cm}  {\small \color{naranja} ABSOLUTO:} \hspace{1cm} $\ds\epsilon_n=\left|x_n-L\right|$\\[2mm]
+ \hspace{1cm}  {\small \color{naranja} RELATIVO:} \hspace{1cm} $\ds\tilde\epsilon_n=\left|x_n-L\right|/x_n$\\
+};
+                        
+\path(A.south west) ++(0.,-.5) node(A)[align=left,anchor=north west,text width=8cm]{
+ Para una aproximación discreta\\[2mm]
+ \hspace{1cm}  {\small \color{naranja} TRUNCAMIENTO:} \\[2mm]
+  \hspace{2cm} ${f'(x)=\frac{f(x+h)-f(x)}{h}+\color{orange}O\ab(h)}$\\[1mm]
+};
+
+\path(A.south west) ++(0.,-.5) node(A)[align=left,anchor=north west]{
+ Por usar una compu \\[2mm]
+ \hspace{1cm}  {\small \color{naranja} PRECISIÓN / NUMÉRICO:} \\[2mm]
+ \hspace{1cm} ${\pi=3.141592653589793+\subnode{h}{\color{naranja}O(\epsilon_M)}}$\\[1mm]
+};        
+                          
+\path(hr) ++(.5,-3) node{${\epsilon_M=2^{-52}\approx 2.22\,10^{-16}}$};
+
+\draw[naranja,<-,dashed](h) to[bend right] ++(1,-1) node[right]{Épsilon de la máquina};
+
+\path(hr) ++(.3,0) node(A)[draw=naranja,text width=3cm]{\inputminted{python}{code/prec.py}};
+
+\end{zframe}
+
+\begin{zframe}{% yscale=0.9, % with frametitle
+def/.style={rectangle,draw=verde,dashed, rounded corners=1ex, anchor=north,inner sep=6,align=center},
+defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}}}
+
+\path(c1) ++(.6,.7) node(A)[draw=naranja,text width=3.8cm]{\vspace{-2mm}\inputminted{python}{code/float.py}};
+
+\path(nw) ++(.3,-.7) node(A)[anchor=north west,text width=7.5cm,align=left]{
+	Los floats de Python son números binarios de coma flotante de doble
+	precisión (IEEE 754) que ocupan 64 bits.
+};        
+           
+\path(A.south west) ++(1.,-.5)  node(A)[anchor=north west]{
+  \includegraphics[width=10cm]{ieee754.png}};
+
+\path(A.south west) ++(-1,-.2)  node[anchor=north west, ,text width=12cm,align=left]{
+  Si el error numérico de ${f(x+h)-f(x)}$ es $\leq2\epsilon_M$\\
+  Entonces el {\color{naranja}error total} de la aproximación
+  $${f'(x)=\ab(f(x+h)-f(x))/h+O(h)}$$ \\
+se puede estimar como $\sim 2\epsilon_M/h+ch$.
+};
+
+\end{zframe}
+
+\end{document}

@@ -1,0 +1,320 @@
+\documentclass{beamer}
+
+\input{../preambulo/inputenc.tex}
+\input{../preambulo/fuente.tex}
+\input{../preambulo/spanish.tex}
+\input{../preambulo/tikz.tex}
+\input{../preambulo/matematica.tex}
+\input{../preambulo/colors.tex}
+\input{../preambulo/flotantes.tex}
+\input{../preambulo/beamer_zub.tex}
+\input{../preambulo/paquetes.tex}
+\input{../preambulo/macros.tex}
+
+\framebg{bg/pizarron3.png} 
+
+\begin{document}
+
+\newcommand\CC{}
+
+\begin{zframe}{}
+\path(cp) ++(3,0) node(I)[]{\includegraphics[width=5cm]{img/idiogram/raices.png}};
+\path(c2|-I.north) ++(0,-1) node(A)[anchor=north,align=left]{
+  \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
+  \color{celeste} \textbf{Búsqueda de raíces}\\[2mm]  
+  \color{lila} \textit{Agosto 7, 2023}
+};
+\normalsize
+\path(A.west|-I.south) ++(0,1) node(B)[anchor=south west,align=left]{
+  S. Alexis Paz\\[5mm]
+\includegraphics[width=3cm]{logos/DQTC_orange.png}};
+ 
+\path(I.south east) ++(0,.2) node[anchor=north east]{
+  \tiny hecho con \href{https://ideogram.ai/g/D3j2DRuIR7W-Qz3f-qOLVg/1}{idiogram}};
+                        
+\end{zframe}
+
+\renewcommand\CC{
+  \path(se) node[anchor=south east]{\tiny\color{gray} MC2023 - S.A.Paz};
+}
+\begin{zframe}{
+theo/.style={rectangle, rounded corners=1ex,draw=verde,fill=verde,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=center},
+theohead/.style={theo,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}},
+}
+  
+\path(np) ++(0,-.6) node(T)[anchor=north,text width=11cm]{
+  \centerline{\large \color{naranja} ¿$f(L)=0$?}\\[2mm]
+ Si podemos determinar las raíces de una ecuación también podemos determinar
+   máximos y mínimos, valores propios de matrices, resolver sistemas de
+   ecuaciones lineales y diferenciales, etc...};
+
+\path(T.south-|wp) ++(.2,-1) node(T)[theo,text width=12cm]{\\[1mm]
+Sea ${f:\mathbb{R}\rightarrow\mathbb{R}}$ continua en ${[a,b]}$ y ${m\in\mathbb{R}}$
+  tal que ${f(a)<m<f(b)}$, entonces existe ${x\in(a,b)}$ tal que ${f(x)=m}$.};
+\path(T.north west) node(H)[theohead]{\color{black}Teorema del valor intermedio};
+
+           
+\path(T.south east) ++(0,-1) node(T)[theo,anchor=north east,align=left,text width=8cm]{\\[3mm]
+Si $f(a)$ y $f(b)$ tienen signos opuestos,\\ entonces $f$ tiene una raiz ${L\in(a,b)}$.
+};
+\path(T.north east) node(H)[theohead,anchor=north east,fill=black]{\color{white}\it corolario};
+ 
+\end{zframe}        
+
+\begin{zframe}{
+alg/.style={rectangle, rounded corners=1ex,draw=celeste,fill=celeste,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=center},
+alghead/.style={alg,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}}} %yscale=0.9
+ 
+\path(nw) ++(.2,-.6) node(T)[alg,text width=12cm]{\\[1mm]
+\begin{enumerate}[\color{rosa}1.]
+\item Elige $\ab[a,b]$ tal que $f(a)f(b)<0$ y una tolerancia $\epsilon_t$.\\
+\item Calcula $x\Leftarrow(a+b)/2$.
+\item Si $(b-a)<\epsilon_t$, terminar. La raíz es $x$.
+\item Si $f(a)f(x)\leq0$ entonces $b\Leftarrow x$, sino $a\Leftarrow x$.
+\item Volver al paso 2.
+\end{enumerate}};
+\path(T.north west) node(H)[alghead]{\color{black}Bisección};
+
+\input{frames/bisec.tex}
+\end{zframe}
+                                                                 
+\begin{zframe}{
+alg/.style={rectangle, rounded corners=1ex,draw=celeste,fill=celeste,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=center},
+alghead/.style={alg,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}}}
+  
+ 
+\path(nw) ++(.2,-.6) node(T)[alg,text width=12cm]{\\[1mm]
+\begin{enumerate}[\color{rosa}1.]
+\item Elige $\ab[a,b]$ tal que $f(a)f(b)<0$ y una tolerancia $\epsilon_t$.\\
+\item Calcula $x\Leftarrow(a+b)/2$.
+\item Si $(b-a)<\epsilon_t$, terminar. La raíz es $x$.
+\item Si $f(a)f(x)\leq0$ entonces $b\Leftarrow x$, sino $a\Leftarrow x$.
+\item Volver al paso 2.
+\end{enumerate}}; 
+\path(T.north west) node(H)[alghead]{\color{black}Bisección};
+ 
+\path(vl) ++(1,1) node(A)[draw=lila,fill=black,text width=5cm]{
+  \vspace{-2.5ex}\inputminted[bgcolor=black]{python}{code/bisec.py}\vspace{-4ex}};
+\path(A.west) ++(0,0) node[anchor=west,opacity=0.1]{\includegraphics[width=5cm]{python_logo.png}};
+
+\end{zframe}
+          
+\begin{zframe}[<1>]{
+alg/.style={rectangle, rounded corners=1ex,draw=celeste,fill=celeste,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=center},
+alghead/.style={alg,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}}} %yscale=0.9
+ 
+\path(nw) ++(.2,-.6) node(T)[alg,text width=12cm]{\\[1mm]
+\begin{enumerate}[\color{rosa}1.]
+\item Elige $\ab[a,b]$ tal que $f(a)f(b)<0$ y una tolerancia $\epsilon_t$.\\
+\item Calcula $x\Leftarrow(a+b)/2$.
+\item Si $(b-a)<\epsilon_t$, terminar. La raíz es $x$.
+\item Si $f(a)f(x)\leq0$ entonces $b\Leftarrow x$, sino $a\Leftarrow x$.
+\item Volver al paso 2.
+\end{enumerate}};  
+\path(T.north west) node(H)[alghead]{\color{black}Bisección};
+ 
+
+\path(T.south west) ++(2,-.5) node(A)[align=left,anchor=north west]{
+\Large ¿Error?\\
+  \only<2>{\hspace{1cm} {\small ABSOLUTO:} \hspace{1cm} $\ds\epsilon_n=\left|x_n-L\right|$}\\[1mm]
+  \only<2>{\hspace{1cm} {\small RELATIVO:} \hspace{1cm} $\ds\tilde\epsilon_n=\left|x_n-L\right|/x_n$ }\\
+};
+
+\path(A.south west) ++(0,.1) node[align=left,anchor=north west]{
+\Large ¿Convergencia?\\[1mm]
+};
+
+\end{zframe}
+  
+\begin{zframe}{
+alg/.style={rectangle, rounded corners=1ex,draw=celeste,fill=celeste,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=center},
+alghead/.style={alg,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}}} %yscale=0.9
+ 
+\path(nw) ++(.2,-.6) node(T)[alg,text width=12cm]{\\[1mm]
+\begin{enumerate}[\color{rosa}1.]
+\item Elige $\ab[a_{\color{verde}n},b_{\color{verde}n}]$ tal que $f(a_{\color{verde}n})f(b_{\color{verde}n})<0$ y una tolerancia $\epsilon_t$. {\hspace{1cm}\hfill\color{verde}${n\Leftarrow 0}$}\\
+\item Calcula $x\Leftarrow(a_{\color{verde}n}+b_{\color{verde}n})/2$. \\
+\item Si $(b_{\color{verde}n}-a_{\color{verde}n})<\epsilon_t$, terminar. La raíz es $x_{\color{verde}n}$.
+\item Si $f(a_{\color{verde}n})f(x_{\color{verde}n})\leq0$ entonces $b_{\color{verde}n}\Leftarrow x_{\color{verde}n}$, sino $a_{\color{verde}n}\Leftarrow x_{\color{verde}n}$.
+\item Volver al paso 2. \hfill{\hspace{1cm}\color{verde}${n\Leftarrow n+1}$}
+\end{enumerate}};
+\path(T.north west) node(H)[alghead]{\color{black}Bisección};
+ 
+
+\path(T.south west) ++(2,-.5) node(A)[align=left,anchor=north west]{
+\Large ¿Error?\\
+  \only<2>{\hspace{1cm} {\small\color{naranja} ABSOLUTO:} \hspace{1cm} $\ds\epsilon_n=\left|x_n-L\right|$}\\[1mm]
+  \only<2>{\hspace{1cm} {\small\color{naranja} RELATIVO:} \hspace{1cm} $\ds\tilde\epsilon_n=\left|x_n-L\right|/x_n$ }\\
+};
+
+\path(A.south west) ++(0,.1) node(A)[align=left,anchor=north west]{
+\Large ¿Convergencia?\\[1mm]
+  \only<2>{\hspace{1cm} $\ds\lim_{n\to\infty}x_n=L$}\\[2mm]
+  \only<2>{\hspace{1cm} $\ds\epsilon_{n+1}=C\epsilon_n^p\quad;\quad n\to\infty$}
+};
+
+\draw<2>[->,ultra thick](A.west) ++(.8,-.75) -- ++(-1.3,0) node[above left,rotate=30]{\includegraphics[width=6mm]{marcadores.png}};
+ 
+\path(A.east) ++(.4,-.2) node[align=left,anchor=west]{
+  \only<2>{$p\to${\small\color{naranja} ORDEN}}\\[2mm]
+  \only<2>{$C\to${\small\color{naranja} VELOCIDAD}}
+};
+ 
+          
+
+\end{zframe}
+     
+
+\begin{zframe}{
+theo/.style={rectangle, rounded corners=1ex,draw=verde,fill=verde,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=center},
+theohead/.style={theo,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}}}
+ 
+\path(nw) ++(.2,-2.7) node(T)[theo,text width=12cm]{\\[1mm]
+Sea ${f:\mathbb{R}\rightarrow\mathbb{R}}$ una función
+diferenciable $k$ veces en el punto ${a\in\mathbb{R}}$. Entonces
+existe ${R_k:\mathbb{R}\rightarrow\mathbb{R}}$ tal que
+\begin{equation*}
+\ds f(x)=f(a)+f'(a)(x-a)+\cdots+\frac{f^{(k)}(a)}{k!}(x-a)^{k}+\frac{f^{(k+1)}(\xi)}{(k+1)!}(x-a)^{k+1}
+\end{equation*}
+con $\xi$ entre $x$ y $a$.};
+\path(T.north west) node(H)[theohead]{\color{black}Teorema de Taylor};
+\path(T.north east) node(H)[theohead,anchor=east,fill=black]{\color{white}\it forma de Lagrange};
+
+\end{zframe} 
+                                                  
+\begin{zframe}{
+alg/.style={rectangle, rounded corners=1ex,draw=celeste,fill=celeste,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=center},
+alghead/.style={alg,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}}}
+   
+\path(nw) ++(.2,-.6) node(T)[alg,text width=12cm]{\\[1mm]
+\begin{enumerate}[\color{rosa}1.]
+\item Elige $x_n$ y una tolerancia $\epsilon_t$ para el resultado. ${n=0}$.\\
+\item Calcula ${x_{n+1}=x_n-f(x_n)/f'(x_n)}$.
+\item Si ${|x_{n+1}-x_n|<\epsilon_t}$, terminar. La raíz es: $x_{n+1}$.
+\item Volver al paso 2, ${n\Leftarrow n+1}$.
+\end{enumerate}};
+\path(T.north west) node(H)[alghead]{\color{black}Newton-Rapshon};
+           
+\path(T.south west) ++(0,-1) node(T)[alg,align=left,text width=12cm]{\\[1mm]
+\begin{enumerate}
+\item[\color{rosa}3.] Si $|x_{n+1}-x_n|/x_n<\epsilon_t$, terminar. La raíz es: $x_{n+1}$.
+\end{enumerate}};
+\path(T.north east) node(H)[alghead,anchor=north east,fill=black]{\color{white}\it variante};
+                     
+\path(T.south west) ++(0,-1) node(T)[alg,align=left,text width=12cm]{\\[1mm]
+\begin{enumerate}
+\item[\color{rosa}3.] Si $f(x_{n+1})<\epsilon_t$, terminar. La raíz es: $x_{n+1}$.
+\end{enumerate}};
+\path(T.north east) node(H)[alghead,anchor=north east,fill=black]{\color{white}\it variante};
+                             
+\end{zframe}     
+
+
+\begin{zframe}{}
+\ifundef{\globalxa}{\gdef\globalxa{-0.72}}{}
+\ifundef{\globalN}{\gdef\globalN{8}}{}
+\input{frames/nrapson.tex}
+\only<\globalN>{\global\let\globalN\undefined}
+\end{zframe}
+
+\begin{zframe}{
+theo/.style={rectangle, rounded corners=1ex,draw=verde,fill=verde,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=center},
+theohead/.style={theo,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}}}
+
+\path(nw) ++(1.2,-.2) node(A)[anchor=north west,text width=12cm]{\\[1mm]
+\begin{itemize}
+\item[\color{lila}$\bullet$] Necesitamos conocer la primera derivada de la funcion.
+\item[\color{lila}$\bullet$] Cuando converge, es más rápido que la bisección.
+\item[\color{lila}$\bullet$] No siempre converge:
+\end{itemize}
+};
+
+\path(A.south west) ++(.6,.1) node(A)[anchor=north west,text width=9cm]{\\[1mm]
+\begin{enumerate}[\color{rosa}1.]
+\item Empezamos ``lejos'' de la raiz \\(la función varía demasiado en la región).
+\item La derivada se hace cero en alguna iteración. 
+\item Se puede encontrar un ciclo infinito.
+\end{enumerate}
+};              
+
+\path(hl) ++(3.0,-2.5) coordinate(scope);
+\begin{scope}[x=1cm,y=0.8cm,shift=(scope),thick]
+
+% Definir
+\path(0,0) coordinate(O);
+\path(2,2) coordinate(K1);          % Esquina del cuadrante 1
+\path(K1-|{(-2,0)}) coordinate(K2); % Esquina del cuadrante 2
+\path(K2|-{(0,-2)}) coordinate(K3); % Esquina del cuadrante 3
+
+% Emergentes
+\path(K3-|K1) coordinate(K4); % Esquina del cuadrante 4
+\path(O-|K1) coordinate(xp);  % Punta de eje +x
+\path(O-|K2) coordinate(xn);  % Punta de eje -x
+\path(O|-K1) coordinate(yp);  % Punta de eje +y
+\path(O|-K3) coordinate(yn);  % Punta de eje -y
+
+% grid
+\draw[style=help lines, ystep=1, xstep=1] (K3) grid (K1);
+
+% axes
+\draw[->] (xn) -- (xp) node[right] {$x$};
+\draw[->] (yn) -- (yp) node[right] {$y$};
+
+% generate and plot another a curve y = 0.1 x^2 + 2.5
+% this generates the files figure.parabola.gnuplot and figure.parabola.table 
+\draw[color=amarillo, domain=-2:2] plot[smooth,id=parabola] function{(erf(x*3)+x)/2} node
+[above,yshift=-3,xshift=-5] {$f(x)=\erf(x)+x$};
+ 
+\draw[color=celeste, dashed, domain=-1:1] plot[smooth,id=parabola] function{((x-1)/2)};
+\draw[color=celeste, dashed, domain=-1:1] plot[smooth,id=parabola] function{((x+1)/2)};
+                                              
+% Punto b
+\pgfmathsetmacro\x{-1}
+\pgfmathsetmacro\y{(-1+\x)/2}
+\fill[verde] (\x,\y) circle(0.1cm);
+\draw[verde,dashed] (\x,0) -- (\x,\y);
+\draw[verde,dashed] (O|-{0,\y}) -- (\x,\y);
+  
+% Punto a
+\pgfmathsetmacro\xx{1}
+\pgfmathsetmacro\yy{(1+\xx)/2}
+\fill[verde] (\xx,\yy) circle(0.1cm);
+\draw[verde,dashed] (\xx,0) -- (\xx,\yy);
+\draw[verde,dashed] (O|-{0,\yy}) -- (\xx,\yy);
+ 
+\end{scope} 
+\end{zframe}
+
+\begin{zframe}{}
+\ifundef{\globalxa}{\gdef\globalxa{-0.8}}{}
+\ifundef{\globalN}{\gdef\globalN{4}}{}
+\input{frames/nrapson.tex}
+\only<\globalN>{\global\let\globalN\undefined}
+\end{zframe}
+                          
+\begin{zframe}{
+alg/.style={rectangle, rounded corners=1ex,draw=celeste,fill=celeste,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=center},
+alghead/.style={alg,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}}}
+
+\path(np) ++(.2,-.6) node(T)[anchor=north,align=left]{
+  $\ds{f'(x_n)=\lim_{x_{n-1}\to x_n}\frac{f(x_n)-f(x_{n-1})}{x_n-x_{n-1}}}$\\[5mm]
+  $\ds{f'(x_n)\approx\frac{f(x_n)-f(x_{n-1})}{x_n-x_{n-1}}}$
+};
+
+
+\path(nw) ++(.2,-4.6) node(T)[alg,text width=12cm]{\\[1mm]
+\begin{enumerate}[\color{rosa}1.]
+\item Elige $x_n$, $x_{n-1}$ y una tolerancia $\epsilon_t$ para el resultado. ${n=0}$.\\
+\item Calcula ${x_{n+1}=x_n-f(x_n)\dfrac{x_n-x_{n-1}}{f(x_n)-f(x_{n-1})}}$.
+\item Si ${|x_{n+1}-x_n|/x_n<\epsilon_t}$, terminar. La raíz es: $x_{n+1}$.
+\item Volver al paso 2, ${n\Leftarrow n+1}$.
+\end{enumerate}};
+\path(T.north west) node(H)[alghead]{\color{black}Secante};
+           
+\end{zframe}      
+
+\begin{zframe}{}
+\input{frames/secante.tex}
+\end{zframe}
+                      
+\end{document}

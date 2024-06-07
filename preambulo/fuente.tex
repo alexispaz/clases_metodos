@@ -1,0 +1,554 @@
+\usepackage{ulem}
+\usepackage{textcomp}
+\usepackage{bbding}
+
+% PROBLEMA DE VISUALIZACION DE LOS ACENTOS
+%
+% El problema aparece cuando se utiliza un tipo de letra que no utiliza la
+% codificación T1, y desaparece cuando se usa.
+% 
+% El tipo por omisión de LaTeX es el Computer Modern que no contiene vocales
+% acentuadas. Cuando el texto usa por ejemplo á, LaTeX crea esta letra
+% juntando dos caracteres, una a y un acento agudo. El aspecto en pantalla y
+% en papel es el correcto, pero al seleccionar ese texto en el Acrobat Reader,
+% lo que se obtiene es la secuencia 'a.
+% 
+% Otros tipos de letra sí contienen una letra á, y si se usa este tipo y se
+% indica a LaTeX que use la codificación T1, la selección de texto en Reader
+% ya funcionará bien. Así que el problema se soluciona siguiendo estos pasos:
+% 
+% Indicarle a LaTeX que use la codificación T1.  
+% Disponer de una fuente que realmente use esa codificación.
+% 
+% Si ponemos \usepackage[T1]{fontenc} sin más en un documento, entonces LaTeX
+% cambia el tipo por omisión, y en vez de Computer Modern, usará European
+% Computer Modern (EC). Si este tipo está instalado, el PDF se generará sin
+% problemas y el asunto de seleccionar texto quedará arreglado. Pero aparecerá
+% otro problema, y es que normalmente los tipos EC que vienen instaladas en
+% las distribuciones de LaTeX vienen sólo en formato PK, que es un formato que
+% después se ve muy mal en el Reader (como borroso y descolocado).
+% 
+% Para esto la solución típica solía ser usar el paquete ae, el cual instala
+% un tipo virtual, que aparentemente usa la codificación T1 (para que LaTeX
+% quede contento), pero que en realidad usa las fuentes CM en vez de las EC
+% (para poder usar los tipos postscript en vez de los PK y así tener un PDF
+% que se vea bien con el Reader). Sin embargo esta solución hace que el
+% problema de la selección de texto reaparezca, ya que, aunque desde el punto
+% de vista de LaTeX los tipos ae usan codificación T1, la realidad es que en
+% el PDF final no lo usa, y la á sigue siendo una combinación de a y ' (como
+% no podía ser de otra forma, ya que la fuente CM no tiene el carácter á).
+% 
+% Así que en este caso el truco de usar el paquete ae no sirve, y no queda más
+% remedio que recurrir a un tipo que realmente use la codificación T1, como
+% los tipos Postscript estándar (Times-Roman, Palatino, etc.)
+% 
+% Existe una versión postscript de los tipos EC, cuyo desarrollo tiene lugar
+% junto al del lenguaje de descripción musical lilypond y están disponibles en
+% http://www.lilypond.org/download/fonts/. Asimismo los tipos cm-super,
+% disponibles en CTAN:fonts/ps-type1/cm-super/ también aceptan la codificación
+% T1.
+% 
+% Resumiendo, la solución es bien buscar y usar los tipos EC que esten bien
+% renderizados o alguno que utilice la codificación T1, o si no compensa el
+% esfuerzo utilizar directamente los tipos Postscript estándar. Para ello basta
+% añadir al preámbulo del documento
+
+% \usepackage{times}          % Usar tipo Times-Roman, o
+% \usepackage{palatino}       % Usar pallatino
+
+\usepackage[T1]{fontenc}    % Usar la codificación T1
+
+% Con esto ya funcionará lo de cortar y pegar desde el Reader, aunque
+% utilizando otro tipo de letra con otra métrica que puede cambiar la
+% maquetación. En vez de times también pueden utilizarse palatino o bookman,
+% dependiendo de los gustos.
+
+
+
+% COMO LA CLASIFICO???
+% fontfamily                   
+% Times New Roman (ptm)        
+%\usepackage{textcomp}	 % additional symbols (Text Companion font extension)
+%\usepackage{mathptmx}              %% --- Times mit Matheschriften
+%\usepackage{bera}
+%\usepackage{tpslifonts}            %% --- (Font for Slides)
+%\usepackage{mathpazo}              %% --- Palantino
+%\usepackage{avant}      	     %% --- Avantgard
+%\usepackage[scaled=0.9]{luximono}   %% --- Luxi Mono
+
+
+
+%% DESCONOSCO QUE HACE ESTO
+%\usepackage{txfonts}
+
+%CAMBIO TAMAÑO
+% Font size: The default font size is 10 points. Similarly, you can change the
+% default font size for the document to 11 points or 12 points by changing the
+% top line to read
+% 
+%    \documentclass[12pt]{amsart}
+% 
+% If you want the default text to be a size other than the standard sizes of 10,
+% 11, or 12 points (72pt = 1 inch high capital letters) 
+%\usepackage{scalefnt}
+%\AtBeginDocument{\scalefont{2}}
+
+% Size font for sections
+%\usepackage{sectsty}
+%\sectionfont{\color{red}\scalefont{2}}
+%\subsectionfont{\color{green!80!black}\scalefont{2}}
+%\subsubsectionfont{\color{blue!50!white}\scalefont{2}}
+  
+% Manually adjust each font type
+% \renewcommand{\tiny}{\fontsize{12}{14}\selectfont}
+% \renewcommand{\scriptsize}{\fontsize{14.4}{18}\selectfont}   
+% \renewcommand{\footnotesize}{\fontsize{17.28}{22}\selectfont}
+% \renewcommand{\small}{\fontsize{20.74}{25}\selectfont}
+% \renewcommand{\normalsize}{\fontsize{24.88}{30}\selectfont}
+% \renewcommand{\large}{\fontsize{29.86}{37}\selectfont}
+% \renewcommand{\Large}{\fontsize{35.83}{45}\selectfont}
+% \renewcommand{\LARGE}{\fontsize{43}{54}\selectfont}
+% \renewcommand{\huge}{\fontsize{51.6}{64}\selectfont}
+% \renewcommand{\Huge}{\fontsize{61.92}{77}\selectfont}
+% \newcommand{\veryHuge}{\fontsize{74.3}{93}\selectfont}
+% \newcommand{\VeryHuge}{\fontsize{89.16}{112}\selectfont}
+% \newcommand{\VERYHuge}{\fontsize{107}{134}\selectfont}
+                                                           
+
+%TIPOS DE FUENTE
+% En este catalog trato de poner el paquete, el nombre y los codigos entre parentesis
+% de las fuetnes que fui usando, para que luego sea mas facil reusarlas.
+% Es extracto de wikipedia y "The LaTeX Font Catalogue", viendo ahi se puede
+% ver la muestra. 
+
+% Existen 2 tipografias fundamentales:
+% Serif
+%   Se refiere a pequeñas semi estructuras a la terminacion de cada letra. La
+%   sabiduria convencional dice que estas semi estructuras guian al ojo a
+%   travez de la linea (entiéndase aqui renglón) en los cuerpos de texto.
+%   
+% Sans Serif
+%   En frances ``sans'' es ``sin'', es utilizada mas comunmente para
+%   encabezados, aunque se usa en los cuerpos de texto en Europa y se volvio la
+%   letra ``de facto'' de los cuerpos de texto de internet, dado que se
+%   provocan ``twist'' de la serif cuando la usan dispositivos digitales chotos.
+%
+% Despues hay muchas otras como, tipo maquina de escribir, o escritura a mano, o etc..
+
+
+%Serif Fonts
+%
+% Antiqua 
+% Antykwa Poltawskiego 
+% Antykwa Torunska 
+% Antykwa Torunska Condensed 
+% Antykwa Torunska Light 
+% Antykwa Torunska Light Condensed 
+% Bera Serif 
+% Boisik 
+% Bookman                    (pbk)           
+% \usepackage{bookman}               %% Bookman (lädt Avant Garde !!)
+% Charter BT 
+% \usepackage{charter}               %% --- Charter
+% Computer Concrete 
+% Computer Modern            % FUENTE DEFAULT DE LATEX!!!! (knuth's)
+% Computer Modern Dunhill    (cmdh)          
+% Computer Modern Roman      (cmr) 
+% Computer Modern Fibonacci  (cmfib)               
+% Covington 
+% Day Roman 
+% Day Roman S 
+% Efont Serif 
+% GFS Artemisia 
+% GFS Artemisia with Euler math 
+% GFS Bodoni 
+% GFS Didot 
+% Garamond 
+% KP Serif 
+% Kerkis 
+% Latin Modern 
+% \usepackage{lmodern}               %% --- Latin Modern
+% Linux Libertine 
+% Literaturnaya 
+% New Century Schoolbook     (pnc)            
+% \usepackage{newcent}               %% New Century Schoolbook (lädt Avant Garde !!)
+% Nimbus Roman 
+% Palatino                   (ppl)
+% Pandora 
+% TeX Gyre Bonum 
+% TeX Gyre Pagella 
+% TeX Gyre Schola 
+% TeX Gyre Termes 
+% Times 
+% Utopia Regular with Fourier 
+% Utopia Regular with Math Design 
+% Venturis 
+% Venturis No2 
+% Venturis Old  
+%
+% \renewcommand{\rmdefault}{pasx}     % Adobe Aldus
+% \usepackage[scaled=1.05]{xagaramon} % Adobe Garamond
+% \renewcommand{\rmdefault}{pegx}     % Adobe Stempel Garamond
+% \renewcommand{\rmdefault}{pml}      % Adobe Melior
+% \renewcommand{\rmdefault}{pmnx}     % Adobe Minion
+% \renewcommand{\rmdefault}{psbx}     % Adobe Sabon
+% \renewcommand{\rmdefault}{lch}      % Linotype ITC Charter
+% \renewcommand{\rmdefault}{lmd}      % Linotype Meridien
+ 
+
+%Sans Serif Fonts
+% Para usar el default de latex de esta tipografia. Como se explico
+% arriba puede ser util para documentos planeados para dispositivos.
+% \renewcommand{\familydefault}{\sfdefault}. 
+%
+% Arev 
+% Arial 
+% Avantgarde                             (pag)
+% Bera Sans 
+% Computer Modern Bright 
+% \usepackage{cmbright}              %% --- CM-Bright (eigntlich eine Familie)
+% Computer Modern Sans Serif             (cmss)
+% Computer Modern Sans Serif Quotation 
+% Courier                                (courier)
+% \usepackage{courier}   
+% \renewcommand{\familydefault}{\sfdefault}  % Sans Serif Family
+% Cyklop 
+% Epigrafica 
+% GFS Neohellenic 
+%
+% \usepackage[scaled=0.90]{frutiger}  % Adobe Frutiger
+% \usepackage[scaled=0.94]{futura}    % Adobe Futura (=Linotype FuturaLT)
+% \usepackage{gillsans}               % Adobe Gill Sans
+% \renewcommand{\sfdefault}{pmy}      % Adobe Myriad  
+% \usepackage[scaled]{asyntax}        % Syntax
+% \usepackage[medium]{optima}         % Adobe Optima (Semi Sans Serif font
+% \renewcommand{\sfdefault}{lo9}      % Linotype ITC Officina Sans
+%  
+% \usepackage[scaled=.90]{helvet}  % Helvetica (phv) -- Sims Arial
+% \fontfamily{phv}\selectfont % Letra Arial tamaño 11
+% Iwona 
+% Iwona Condensed 
+% Iwona Light 
+% Iwona Light Condensed 
+% KP Sans-Serif 
+% Kurier 
+% Kurier Condensed 
+% Kurier Light 
+% Kurier Light Condensed 
+% LX Fonts 
+% Latin Modern Sans 
+% Latin Modern Sans Extended 
+% Libris ADF 
+% Malvern 
+% Nimbus Sans 
+% Optima 
+% Pandora Sans 
+% Tapir 
+% TeX Gyre Adventor 
+% TeX Gyre Heros 
+% URW Grotesk 
+% Universal 
+% Venturis Sans  
+
+
+%Typewriter Fonts % EL ESTILO DE LAS MAQUINAS DE ESCRIBIR
+%
+%      Ascii 
+%      Bera Mono 
+%      CM Pica 
+%      Computer Modern Teletype 
+%      Computer Modern Teletype L 
+%      Computer Modern Typewriter            (cmtt)               
+%      Computer Modern Typewriter Proportional 
+%      Courier          (pcr)
+%      Inconsolata 
+%      KP Monospaced 
+%      Latin Modern Typewriter 
+%      Latin Modern Typewriter Proportional 
+%      Letter Gothic 
+%      LuxiMono 
+%      OCR-A Optical Character Recognition Font A 
+%      OCR-B Optical Character Recognition Font B 
+%      Pandora Typewriter 
+%      TXTT 
+%      TeX Gyre Cursor 
+%
+% 
+%Calligraphical and Handwritten Fonts
+%
+%      Augie 
+%      Auriocus Kalligraphicus 
+%      BrushScriptX-Italic 
+%      Calligra 
+%      French Cursive 
+%      JD 
+%      Jana Skrivana 
+%      Lateinische Ausgangsschrift 
+%      Lukas Svatba 
+%      Osterreichische Schulschrift 
+%      PV Script 
+%      Schwell 
+%      Skeetch 
+%      Sutterlin 
+%      TW Cal 14 
+%      Tall Paul 
+%      TeX Gyre Chorus 
+%      Teen Spirit 
+%      Vereinfachten Ausgangsschrift 
+%      Vicentino 
+%      Zapf Chancery 
+%
+% 
+%Uncial Fonts
+%
+%      Artificial Uncial 
+%      Carolingan Miniscules 
+%      Eiad 
+%      Half Uncial 
+%      Humanist 
+%      Insular Majuscule 
+%      Insular Minuscule 
+%      Roman Rustic 
+%      Rotunda 
+%      Square Capitals 
+%      Uncial 
+%
+% 
+%Blackletter Fonts
+%
+%      Early Gothic 
+%      Fraktur 
+%      Fraktur 
+%      Gothic Textura Prescius 
+%      Gothic Textura Quadrata 
+%      Gotik 
+%      Hershey Old English Font 
+%      Schwabacher 
+%
+% 
+%Other Fonts
+%
+%      A Picture Alphabet 
+%      Computer Modern Funny Roman 
+%      Computer Modern Gray 
+%      Decadence 
+%      Flyspec 
+%      Intimacy 
+%      Movieola 
+%      Necker 
+%      Pookie 
+%      Punk 
+%      Segment Font 
+%      Simfon 
+%      Spankys Bungalow 
+%      Webster 
+%
+% 
+%Uppercase fonts
+%
+%      Capital Baseball 
+%      Durer 
+%      Durer Informal 
+%      Durer Sans Serif 
+%      Durer Typewriter 
+%      FoekFont 
+%      Logo 
+%      Pacioli 
+%      Trajan 
+%
+% 
+%Decorative Initials
+%
+%      Acorn Initials 
+%      Ann Stone 
+%      Art Nouveau Caps 
+%      Art Nouveau Initialen 
+%      Baroque Initials 
+%      Carrick Caps 
+%      Eichenlaubinitialen 
+%      Eileen Caps Black 
+%      Eileen Caps Reguler 
+%      Elzevier Caps Regular 
+%      Gotische Initialen 
+%      Goudy Initialen 
+%      Kinigstein Caps 
+%      Konanur Kaps 
+%      Kramer Regular 
+%      Morris Initialen 
+%      Nouveau Drop Caps 
+%      Romantik 
+%      Rothenburg Decorative 
+%      Royal Initialen 
+%      San Remo 
+%      Starburst Regular 
+%      Typographer Caps 
+%      Zallman Caps 
+
+ 
+
+%Font Attributes------------
+%Under the new font selection system (NFSS) employed by LaTeX2e, a font has five
+%attributes: encoding, family, series, shape, and size. 
+%LaTeX typesets using a particular encoding vector and a particular font metric
+%scaled to a particular size depending upon the values of these attributes. 
+
+%Specify the font attribute:
+%  \fontencoding{T1}
+%  \fontfamily{garamond}
+%  \fontseries{m}    %Medium weight
+%  \fontshape{it}    %Italic
+%  \fontsize{12}{15} %12pt type with 15pt leading in the T1 encoding scheme
+%  \selectfont       %causes LaTeX to look in its mapping scheme for a metric corresponding to these attributes.
+
+
+%Algunas variables intrinsecas de latex.
+%  variable              value       activated by
+%  \encodingdefault      OT1         \normalfont, \textnormal{}
+%  \familydefault    \rmdefault      \normalfont, \textnormal{}
+%  \rmdefault            cmr         \rmfamily, \textrm{}
+%  \ttdefault            cmtt        \ttfamily, \texttt{}
+%  \sfdefault            cmss        \sffamily, \textsf{}
+%  \seriesdefault        m           \normalfont, \textnormal{}
+%  \mddefault            m           \mdseries, \textmd{}
+%  \bfdefault            bx          \bfseries, \textbf{}
+%  \shapedefault         n           \normalfont, \textnormal{}
+%  \updefault            n           \upshape, \textup{}
+%  \itdefault            it          \itshape, \textit{}
+%  \scdefault            sc          \scshape, \textsc{}
+%  \sldefault            sl          \slshape, \textsl{}
+
+%  La columna activated by se puede entender con un ejemplo: the \normalfont
+%  command (essentially) executes the command sequence:
+%    \fontencoding{\encodingdefault}
+%    \fontfamily{\familydefault}
+%    \fontseries{\seriesdefault}
+%    \fontshape{\shapedefault}
+%    \selectfont
+
+%The values of these attribute variables may be changed using \renewcommand, for
+%example \renewcommand{\familydefault}{\sfdefault} causes the entire document to
+%be set in the default sans serif font. Changes to these defaults should be made
+%in the document preamble or in a package.
+
+
+%Change a font---------------------------------
+
+%LaTeX expects three font families as defaults.
+%        Font Family                                            Code    Command
+%Roman (serif, with tails on the uprights) as the default        rm      \textrm{text}
+%Sans-serif, with no tails on the uprights                       sf      \textsf{text}
+%Monospace (fixed-width or typewriter)                           tt      \texttt{text}
+
+
+%Uno puede cambiar momentaneamente una fuente asi:
+%{\fontfamily{phv}\selectfont Helvetica looks like this}
+%and {\fontencoding{OT1}\fontfamily{ppl} Palatino looks like this}.
+%}
+
+
+%ESCORIA QUE NO SE PARA QUE
+
+  %\mode<article>{ 
+  %\usepackage{sectsty} ! no se que es esto
+  %\sectionfont{\normalsize}
+  %}
+
+
+%ALGO QUE NO CREO USAR POR AHORA: DISEÑO DE FUENTES...creo
+
+  %Encoding Vectors
+  %An encoding vector is a set of instructions to LaTeX detailing how particular
+  %symbols are to be constructed. For example, the T1 encoding vector file
+  %T1enc.def contains the following commands, among many others:
+
+  %  \DeclareFontEncoding{T1}{}{}
+  %  \DeclareTextAccent{\'}{T1}{1}
+  %  \DeclareTextSymbol{\ae}{T1}{230}
+  %  \DeclareTextComposite{\"}{T1}{a}{228}
+    
+
+  %which declare that a T1 encoding vector exists, that, when this encoding vector
+  %is in effect, the \'{x} command should superimpose character 1 (accent acute)
+  %over the character x, that \ae should produce character 230 (the æ ligature),
+  %and that \"a should produce character 228 (the umlaut ä). Notice that an
+  %encoding vector implicitly associates a number with each character. The
+  %correspondence between characters and numbers used by TeX need not correspond
+  %with the correspondence defined by your platform or in your font; don't worry
+  %about that, yet.
+
+  %When a user requests a new encoding ENC, LaTeX looks for the file ENCenc.def,
+  %where it expects the encoding vector to be defined. You can read more about
+  %encoding vectors in the LaTeX companion, but initially you will likely want to
+  %use the standard T1 vector; the file T1enc.def should be a part of any LaTeX2e
+  %distribution, but for your convience we have also provided a link.
+
+  %Obviously, for a particular character to be accessable in TeX, it must appear
+  %in the encoding vector. The authors of the T1 standard chose to include a wide
+  %variety of symbols and characters which are used to typeset many languages;
+  %they may not, however, have included every character defined in your particular
+  %font: yen and copyright symbols, for example, are commonly included in
+  %postscript fonts, but do not appear in the T1 encoding. Conversely, the T1
+  %encoding may include characters not present in your particular font: most
+  %postscript fonts, for example, do not include the ff ligature, which occupies
+  %position 27 in the T1 encoding. The absence from your font of a character
+  %defined in T1 is not usually a problem; as long as you do not use that
+  %character, no difficulties will arise (if you do use a character in your
+  %document which is undefined in your font, it will simply appear as a blank
+  %space when viewed or printed). Conversely, the absence from the T1 encoding of
+  %characters which do exist in your font is a problem, inasmuch as you want to
+  %employ these characters. In that case you must define an encoding which
+  %includes all the characters you want. The encoding defined in LY1enc.def, used
+  %by Y&Y TeX systems, allows access to all the characters in a standard Adobe
+  %roman font.
+
+  %Mapping schemes
+  %Once a the relevent encoding vector is defined, you will want to set up a
+  %scheme which maps font attribute sets to font metrics. For example, the file
+  %T1garamond.fd contains the commands
+
+  %  \DeclareFontFamily{T1}{garamond}{}
+  %  \DeclareFontShape{T1}{garamond}{m}{n}{ <-> garrm }{}
+  %  \DeclareFontShape{T1}{garamond}{m}{it}{ <-> garit }{}
+
+  %which declare the existence of the garamond family with T1 encoding, and say
+  %that, when a T1 garamond medium normal font is requested, LaTeX should use the
+  %garrm.tfm metric scaled to the appropriate size, while the italic-shape font
+  %request used in our earlier example should call up the garit.tfm metric file.
+  %When a user requests an unknown font family FAMILY with encoding ENC, LaTeX
+  %look for the file ENCFAMILY.fd, where it expects to find a mapping scheme
+  %defined. You can read in more detail about font family decleration commands in
+  %the LaTeX Companion.
+
+  %To prepare a font family in which the typical LaTeX document can be typeset,
+  %you will need to map at least the medium-normal (m-n), medium-italic (m-it),
+  %and boldextended-normal (bx-n) series-shape combinations to extant font
+  %metrics, in order to set the body text, emphasized text, and section headings,
+  %respectively. Some other fonts that documents might request include:
+  %medium-smallcaps (m-sc) and medium-slanted (m-sl).
+
+  %Family style files Most of the time, when you prepare a font family for use
+  %with LaTeX, you will want to prepare a short file containing commands like
+
+  %  \renewcommand{\encodingdefault}{T1}
+  %  \renewcommand{\rmdefault}{garamond}
+
+  %Call it garamond.sty and place it in a directory searched by TeX so that users
+  %can call call it up simply by issuing the command \usepackage{garamond} in the
+  %document prologue, and have the entire document set in garamond without further
+  %ado.
+
+  %When setting up such a style file, you might also want to include declarations
+  %of accompanying \sffamily and \ttfamily fonts which are visually compatible
+  %with your \rmdefault font.
+
+
+
+
+
+
+
+
+% OTRAS COSAS
+
+% \usepackage{relsize} % Tamaño de fuente relativo mediante comando \relsize{#1}
+

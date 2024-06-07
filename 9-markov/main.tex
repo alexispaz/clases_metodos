@@ -1,0 +1,283 @@
+\documentclass{beamer}
+
+\input{../preambulo/inputenc.tex}
+\input{../preambulo/fuente.tex}
+\input{../preambulo/spanish.tex}
+\input{../preambulo/tikz.tex}
+\input{../preambulo/matematica.tex}
+\input{../preambulo/colors.tex}
+\input{../preambulo/flotantes.tex}
+\input{../preambulo/beamer_zub.tex}
+\input{../preambulo/paquetes.tex}
+\input{../preambulo/macros.tex}
+
+\framebg{bg/pizarron3.png} 
+
+\begin{document}
+
+\newcommand\CC{}
+
+\begin{zframe}{}% yscale=0.9, % with frametitle
+\path(cp) ++(3,0) node(I)[]{\includegraphics[angle=90,width=4.5cm]{img/ising3Dsplit.png}};
+\path(c2|-I.north) ++(0,-.5) node(A)[anchor=north,align=left]{
+  \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
+  \color{celeste} \textbf{Cadenas de Markov}\\[2mm]  
+  \color{lila} \textit{Octubre 18, 2023}
+};
+\normalsize
+\path(A.west|-I.south) ++(0,.5) node(B)[anchor=south west,align=left]{
+  S. Alexis Paz\\[5mm]
+\includegraphics[width=3cm]{logos/DQTC_orange.png}};
+
+\path(I.south east) ++(0,0) node[anchor=north east,inner sep=0]{
+  \tiny Leist \textit{et al.}, \href{https://doi.org/10.1016/j.jocs.2010.04.001}{J.Comp.Sc. 1(2010)33}};
+ 
+% Referencia de la Foto del Ising 3D
+% SP Singh, A Kumari Singh, Formation of liquid structures and investigation of
+% its interfacial properties using lattice based liquid-gas model, Proceedings of
+% International Conference on Nanoscience and Nanotechnology, 29th Nov.-01st Dec.
+% 2019, VIT, Vellore, Tamil Nadu, India
+ 
+\end{zframe}
+
+\renewcommand\CC{
+  \path(se) node[anchor=south east]{\tiny\color{gray} MC2023 - S.A.Paz};}
+
+\begin{zframe}{}
+                          
+\path<1-3>(cp) ++(0,0) node(A){\includegraphics[width=12cm]{louvre.png}};
+
+\only<2->{
+% Richelieu
+\fill[amarillo](3.1,5.3)                  circle(.1) coordinate(R1);
+\fill[amarillo,ultra thick](R1) ++(0:1)   circle(.1) coordinate(R2);
+\fill[amarillo,ultra thick](R1) ++(0:1.5) circle(.1) coordinate(R3);
+\fill[amarillo,ultra thick](R1) ++(0:2.0) circle(.1) coordinate(R4);
+\fill[amarillo,ultra thick](R1) ++(0:2.5) circle(.1) coordinate(R5);
+\fill[amarillo,ultra thick](R1) ++(0:3.1) circle(.1) coordinate(R6);
+\fill[amarillo,ultra thick](R1) ++(0:3.8) circle(.1) coordinate(R7);
+\fill[amarillo,ultra thick](R1) ++(0:4.3) circle(.1) coordinate(R8);
+                                        
+% Richelieu 2
+\fill[amarillo,ultra thick](R3) ++(0,-.6)  circle(.1) coordinate(R9);
+\fill[amarillo,ultra thick](R9) ++(2:0.7) circle(.1) coordinate(R10);
+\fill[amarillo,ultra thick](R9) ++(2:1.3) circle(.1) coordinate(R11);
+\fill[amarillo,ultra thick](R9) ++(2:2.3) circle(.1) coordinate(R12);
+\fill[amarillo,ultra thick](R9) ++(2:3.1) circle(.1) coordinate(R13);
+\fill[amarillo,ultra thick](R9) ++(2:3.5) circle(.1) coordinate(R14);
+\fill[amarillo,ultra thick](R9) ++(2:3.9) circle(.1) coordinate(R15);
+\fill[amarillo,ultra thick](R9) ++(2:4.9) circle(.1) coordinate(R16);
+\fill[amarillo,ultra thick](R9) ++(2:5.9) circle(.1) coordinate(R17);
+                                        
+% Denon
+\fill[amarillo,ultra thick](1.6,1.8)      circle(.1) coordinate(D1);
+\fill[amarillo,ultra thick](D1) ++(5:.7)  circle(.1) coordinate(D2);
+\fill[amarillo,ultra thick](D1) ++(5:2.2) circle(.1) coordinate(D3);
+\fill[amarillo,ultra thick](D1) ++(5:3.8) circle(.1) coordinate(D4);
+\fill[amarillo,ultra thick](D1) ++(5:5.9) circle(.1) coordinate(D5);
+\fill[amarillo,ultra thick](D1) ++(5:6.8) circle(.1) coordinate(D6);
+ 
+% Denon2
+\fill[amarillo,ultra thick](D4) ++(0,.8)  circle(.1) coordinate(D7);
+\fill[amarillo,ultra thick](D7) ++(5:1.1) circle(.1) coordinate(D8);
+\fill[amarillo,ultra thick](D7) ++(5:1.7) circle(.1) coordinate(D9);
+\fill[amarillo,ultra thick](D7) ++(5:2.8) circle(.1) coordinate(D10);
+\fill[amarillo,ultra thick](D7) ++(5:3.4) circle(.1) coordinate(D11);
+\fill[amarillo,ultra thick](D7) ++(5:4.3) circle(.1) coordinate(D12);
+\fill[amarillo,ultra thick](D7) ++(5:5.1) circle(.1) coordinate(D13);
+                                       
+% Mona
+\fill[amarillo,ultra thick](D8) ++(.1,-.5) circle(.1) coordinate(D14);
+}
+
+\only<3->{
+% \foreach \x in {1,2,...,7}{
+%   \pgfmathsetmacro\xx{\x+1)}
+%   \pgfmathsetmacro\xxx{\x+2)}
+%   \pgfmathsetmacro\xxxx{\x+9)}
+%   \pgfmathsetmacro\xxxxx{\x+10)}
+   \pgfmathsetmacro\tr{1}%random()}
+%   \foreach \y in {\x,\xx,\xxx,\xxxx,\xxxxx}{
+%     % \pgfmathsetmacro\y{\x+1)}
+%     \draw[thick,amarillo,opacity=\tr] (R\x) -- (R\y);
+%   }
+% }
+% \foreach \x in {1,2,...,7}{
+%     \pgfmathsetmacro\y{\x+1)}
+%     \draw[thick,amarillo,opacity=\tr] (R\x) -- (R\y);
+% }
+% \foreach \x in {9,10,...,16}{
+%     \pgfmathsetmacro\y{\x+1)}
+%     \draw[thick,amarillo,opacity=\tr] (R\x) -- (R\y);
+% }
+\draw[thick,verde,opacity=\tr] (R1) -- (R8);
+\draw[thick,verde,opacity=\tr] (R9) -- (R17);
+\draw[thick,verde,opacity=\tr] (D1) -- (D6);
+\draw[thick,verde,opacity=\tr] (D7) -- (D13);
+
+\draw[thick,verde,opacity=\tr] (D4) -- (D8);
+                   
+\foreach \x in {14,...,17}{
+  \foreach \y in {9,...,13}{
+    \draw[thick,verde,opacity=\tr] (R\x) -- (D\y);
+  }
+}                  
+\foreach \x in {4,...,9}{
+  \foreach \y in {4,14}{
+    \draw[thick,verde,opacity=\tr] (R\x) -- (D\y);
+  }
+}
+\foreach \x in {1,...,2}{
+  \foreach \y in {1,2,3,4,14}{
+    \draw[thick,verde,opacity=\tr] (R\x) -- (D\y);
+  }
+}
+\foreach \x in {4,...,6}{
+  \draw[thick,verde,opacity=\tr] (D\x) -- (D14);
+}
+}
+
+\path<6>(vu) ++(0,.5) node[text width=11cm, align=center]
+{En un instante $t$ la probabilidad de estar en $X_i$ es\\[2mm]
+  $\rho_i(t)=P\ab[X_i(t)]$\\[2mm]
+};
+
+\path<4->(R1) node[amarillo,above]{$X_1$};
+\path<4->(D1) node[amarillo,left]{$X_2$};
+\path<4->(R2) node[amarillo,above]{$X_3$};
+\path<4->(D2) node[amarillo,below]{$X_4$};
+\path<4->(D3) node[amarillo,below]{$X_5$};
+\path<4->(R8) node[amarillo,above]{$X_n$};
+
+\path<5>(vu) ++(0,.5) node[text width=11cm, align=center]
+{Un caminante forma una cadena de estados\\[2mm]
+  $X_1(t_0)\rightarrow X_2(t_1)\rightarrow X_1(t_2)\rightarrow X_3(t_3)\rightarrow X_3(t_4)\rightarrow \cdots$
+};
+ 
+% \path<5->(c2) ++(0,.5) node{$P_t(\rho_1,\rho_2,\cdots,\rho_n)$};
+\path<7>(vu) ++(0,.5) node[text width=11cm, align=center]{
+  Estando en $X_i$ a tiempo $t_0$, la probabilidad de pasar a $X_j$ en $t_1$ es\\[2mm] 
+  ${t_{i,j}^{(1)}=P[X_j(t_1)|X_i(t_0),X_k(t_{-1}),\cdots,X_m(t_{-n})]}$\\[2mm]
+};
+
+\path<8>(vu) ++(0,.5) node[text width=11cm, align=center]{
+  En un proceso de Markov, la probabilidad de transición no depende de estados pasados\\[2mm]
+  ${t_{i,j}^{(1)}=P[X_j(t_1)|X_i(t_0)]}$\\[2mm]
+   \textit{Como todo proceso determinista}
+};
+ 
+% \path<6->(R1) -- (D1) node[pos=.5,left,celeste]{$\rho_{1,2}^{(1)}$};
+% \path<6->(D2) -- (D3) node[pos=.5,below,amarillo]{$\rho_{4,5}^{(1)}$};
+
+
+
+
+% \path<7->(vu) ++(0,.5) node{¿Cuál es la probabilidad de 
+%   esta en el estado 1 pase al estado x?};
+
+% \path<6->(c1) ++(0,.5) node{$\pxmat[showleft=2,showtop=2]{\rho}{n}{n}$};
+                          
+                          
+\end{zframe}
+          
+\begin{zframe}{
+  titulo/.style={verde, align=center},
+  texto/.style={anchor=north west,align=left}
+}
+
+\path(cp|-t) ++(0,0) node(T)[titulo]{
+\LARGE Ecuación Maestra};
+
+\path(t|-T.south) ++(0,-.5) node(T)[texto]{
+  Puedo armar un vector con la probabilidad en cada estado\\[2mm]
+  y una matriz con las transiciones\ldots\\[4mm]
+  $\rho(t)=\begin{pmatrix}
+  \rho_1(t)\\
+  \rho_1(t)\\
+  \vdots\\
+  \rho_n(t)\end{pmatrix}
+    $
+};
+
+\path(hr) ++(-1,-.1) node(T)[]{
+  $\vb{T}=\pxmat[showleft=2,showtop=2]{t}{n}{n}$
+};
+ 
+\path(t|-T.south) ++(0,-.1) node(T)[texto,align=center]{
+  La evolución de las probabilidades siguen la ecuación maestra:\\[2mm]
+  $\ds\odv{\rho(t)}{t}=\vb{T}\rho(t)$\\[2mm]
+  $\vb{T}$ es independiente del tiempo en un proceso de Markov.
+};
+   
+\end{zframe}
+           
+\begin{zframe}{
+  titulo/.style={verde, align=center},
+  texto/.style={anchor=north west,align=center}
+}
+ \large 
+
+\path(cp|-t) ++(0,0) node(T)[titulo]{
+\LARGE En equilibrio\ldots};
+
+\path(t|-T.south) ++(0,-.5) node(T)[texto,text width=11cm]{
+  $${\ds\odv{\rho(t)}{t}=\vb{T}\rho(t)=0\quad\Rightarrow\quad\sum_kt_{ik}\rho_i=0}$$
+  El flujo de entrada y salida deben ser iguales
+};
+
+\path(t|-T.south) ++(0,-.5) node(T)[texto,text width=11cm]{
+  Esto también se cumple con un {\color{verde}balance detallado}:
+  \color{naranja}$${\ds t_{ji}\rho_i=t_{ij}\rho_j}$$
+};
+  
+\end{zframe}
+            
+\begin{zframe}{
+  titulo/.style={verde, align=center},
+  texto/.style={anchor=north west,align=center}
+}
+ \large 
+
+\path(cp|-t) ++(0,.3) node(T)[titulo]{
+\LARGE Metropolis–Hastings};
+
+\path(t|-T.south) ++(0,-.2) node(T)[texto]{
+  $X_1(t_0)\rightarrow X_2(t_1)\rightarrow X_1(t_2)\rightarrow X_3(t_3)\rightarrow X_3(t_4)\rightarrow \cdots$\\[2mm]
+\color{naranja}\textit{¡Caminar es una forma de generar estados aleatorios!}
+};
+ 
+\path(t|-T.south) ++(-.4,-.5) node(T)[texto,align=left]{
+  1. Considerando un proceso Markoviano.\\[2mm]
+  1. Elijo un estado inicial $X_i$.\\[2mm]
+  2. Perturbo aleatoriamente $X_i$ para generar otro estado posible $X_j$.\\[2mm]
+  3. Acepto ($X_i\rightarrow X_j$) con una cierta probabilidad, cumpliendo\\[2mm]
+  \ \  con el balance detallado de la distribución de interés.\\[2mm]
+  4. \textit{La cadena resultante converge a esta distribucíon}\\[2mm]
+  \ \ \color{naranja}independientemente del estado $X_i$ inicial.\\[2mm]
+  5.  Repito desde 2.};
+ 
+\end{zframe}
+              
+\begin{zframe}{
+  titulo/.style={verde, align=center},
+  texto/.style={anchor=north west,align=left}
+}
+ \large 
+
+\path(cp|-t) ++(0,.3) node(T)[titulo]{
+\LARGE Metropolis–Hastings};
+
+\path(T.south) ++(0,-.2) node(T)[texto,anchor=north,text width=11cm]{
+ ¿Cual es la probabildad de transición?
+  $${\ds t_{ji}=M(X_j|X_i)A(X_j|X_i)}$$\\
+  pero por balance detallado ${\ds t_{ji}\rho_i=t_{ij}\rho_j}$
+  $${\ds M(X_j|X_i)A(X_j|X_i)\rho_i=M(X_j|X_i)A(X_j|X_i)\rho_j}$$
+  Eligiendo ${\ds M(X_j|X_i)=M(X_i|X_j)}$
+  $${\ds A(X_j|X_i)\rho_i=A(X_j|X_i)\rho_j}$$
+  Lo cual es siempre cierto si elijo
+ \color{orange}$$\ds A(X_j|X_i)=\min\ab[1,\frac{\rho_j}{\rho_i}]$$
+};
+
+\end{zframe}
+
+\end{document}

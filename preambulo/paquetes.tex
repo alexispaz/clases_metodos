@@ -1,0 +1,122 @@
+
+%Redefine cleardoublepage to generate empty, blank, pages.
+\makeatletter
+\renewcommand*{\cleardoublepage}{\clearpage\if@twoside \ifodd\c@page\else
+\hbox{}%
+\thispagestyle{empty}%
+\newpage%
+\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
+
+% PROGRAMACION
+% ------------
+
+\usepackage{textcomp}
+
+%Para insertar codigo fuente y para comentarios multiplelinea 
+\usepackage{verbatim} 
+
+% Para resaltar código usando Pygments (software externo) 
+\usepackage{minted}
+% En tikz, usar text width (which insert an space on top) or minipage
+% see https://tex.stackexchange.com/q/673116
+
+\usemintedstyle{monokai}
+\setminted{fontsize=\scriptsize}
+
+% For printer unfriendly color themes see https://tex.stackexchange.com/a/374050
+% \definecolor{bg}{HTML}{282828} % from https://github.com/kevinsawicki/monokai
+% \setminted{bgcolor=bg}
+
+
+% Para resaltar código usando keyword detection
+% \usepackage{listings} 
+
+%\usepackage{listingsutf8}
+% \usepackage{listings} %Para resaltar los lenguajes:
+% ABAP,ACSL,Ada,Algol,Ant,Assembler,Awk,bash,Basic,C,C++,
+% Caml,Clean,Cobol,Comal,csh,Delphi,Eiffel,Elan,erlang,
+% Euphoria,Fortran,GCL,Gnuplot,Haskell,HTML,IDL,inform,Java,
+% JVMIS,ksh,Lisp,Logo,make,Mathematica1,Matlab,Mercury,
+% MetaPost,Miranda,Mizar,ML,Modula2,MuPAD,NASTRAN,
+% Oberon-1,OCL,Octave,Oz,Pascal,Perl,PHP,PL/I,Plasm,POV,
+% Prolog,Promela,Python,R,Reduce,Rexx,RSL,Ruby,S,SAS,
+% Scilab,sh,SHELXL,Simula,SQL,tcl,TeX,VBScript,Verilog,VHDL,
+% VRML,XML,XSLT
+
+% \lstset{
+%         backgroundcolor=\color{black},
+%         tabsize=4,
+%         rulecolor=,
+%         basicstyle=\scriptsize,
+%         upquote=true,
+%         % aboveskip={\baselineskip},
+%         belowskip={1.2\baselineskip},
+%         columns=fixed,
+%         showstringspaces=false,
+%         extendedchars=true,
+%         breaklines=true,
+%         prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+%         frame=single,
+%         showtabs=false,
+%         showspaces=false,
+%         showstringspaces=false,
+%         identifierstyle=\ttfamily,
+%          literate=%
+%          {á}{{\'a}}1
+%          {é}{{\'e}}1
+%          {í}{{\'i}}1
+%          {ó}{{\'o}}1
+%          {ú}{{\'u}}1
+% }
+% %\lstset{inputencoding=utf8/latin1}
+% \lstdefinestyle{smart}{
+%   basicstyle=\scriptsize,
+%   frame=l,
+%   columns=fullflexible,
+%   numbers=left,
+% }                         
+% \lstdefinestyle{frio}{
+%   style=smart,
+%   keywordstyle=\color{celeste},
+%   commentstyle=\color{lila},
+%   stringstyle=\color{verde},
+% }                      
+% \lstdefinestyle{calido}{
+%   style=smart,
+%   keywordstyle=\color{rosa},
+%   commentstyle=\color{lila},
+%   stringstyle=\color{orange},
+% }
+%
+% \lstdefinestyle{calidof}
+% {
+%     language = Fortran,
+%     style=calido,
+%     keywordstyle = [2]{\color{rojo}},
+%     keywordstyle = [3]{\color{amarillo}},
+%     otherkeywords = {=,*,_dp,+,/,-,**},
+%     morekeywords = [3]{=,*,+,/,-,**},
+% }
+
+
+% NOTA AL PIE
+% -----------
+%\renewcommand{\footnoterule}{\vspace*{1.5cm}
+%\noindent\rule{2in}{0.4pt}\vspace*{2.6pt}} %raya del footnote
+
+% INTERLINEADO
+% ------------
+%\usepackage{setspace}
+%use: \onehalfspace or \singlespace or \doublespace
+
+% QUIMICA
+% -------
+%\usepackage{mhchem} %simbolos quimicos
+%use: ce{H20 ->T[k] H2 + 0.5O2}
+%\usepackage{chemarr}
+%\usepackage{chemarrow}
+
+
+

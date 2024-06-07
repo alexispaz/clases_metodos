@@ -1,0 +1,175 @@
+% When including graphics, if not extension is given, the order of preference
+% when files with the same name and different extensions is
+% .png .pdf .jpg .mps .jpeg .jbig2 .jb2 .PNG .PDF .JPG .JPEG .JBIG2 .JB2
+% Below we can change the preference for pdf first
+% \DeclareGraphicsExtensions{
+%   .pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,
+%   .PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2}
+% See also http://tex.stackexchange.com/a/45502/28411 
+
+
+
+% CAPTIONS IN TABLES AND FIGURES
+
+% Siguiendo http://tex.stackexchange.com/a/2652/28411 agrego esto para el
+% centrado automatico de figuras
+%\makeatletter
+%\g@addto@macro\@floatboxreset\centering
+%\makeatother
+
+% Floatrow environment, automatic centering, caption position and width
+% \usepackage{floatrow}
+% \floatsetup[table]{style=plaintop} % put the caption of tables above
+% Some usefull commads are \fcapside, \fcapside[\FBwidth]
+% Use 
+% \begin{table} 
+%   \begin{floatrow} 
+%     \ttabbox
+%     {\caption{\ldots}\label{\ldots}}
+%     {\ldots}
+%     \ttabbox
+%     {\caption{\ldots}\label{\ldots}}
+%     {\ldots}
+%   \end{floatrow}
+% \end{table}
+% This package can give unexpected behavior in the float in not so frequent
+% uses. In that case the command \RawFloats will avoid the control of that
+% float by the package
+
+
+
+
+\RequirePackage[
+   font=small,
+   %format=plain,
+   singlelinecheck=off,
+   labelfont=bf,
+   %textfont=,
+   %justification=centering,
+   %justification=justified,
+   justification=centerlast,
+   up]{caption}
+       
+
+\RequirePackage{epsfig} %manejo de figuras eps
+\RequirePackage{sidecap} %caption in teh sides
+
+%\RequirePackage{floatpag} %Estilo de pagina de figuras
+%%\thisfloatpagestyle{empty} inside a figure/table environment clean the floatpage's style
+%\rotfloatpagestyle{empty} % to afect all sideways figure or tables (rotating package)
+
+\RequirePackage{lscape} % Pagina para leer en el lado largo, ejemplo:
+%\begin{landscape}
+%asd
+%\end{landscape}
+
+\RequirePackage{rotating} % Flotante para leer en el lado largo, ejemplo:
+%\begin{sidewaysfigure}
+%asd
+%\end{sidewaysfigure}
+
+
+  
+
+%\RequirePackage{capt-of} %caption fuera de figure
+%use: \captionof{figure}{me cacho en deiz} 
+
+% Preferiblemente en un ambiente (i.e. center)
+
+\RequirePackage{float} %anclar los flotantes
+%use: \begin{figure}[H]
+
+\RequirePackage{wrapfig} %figuras ancladas al lado del parrafo siguiente
+%use: \begin{wrapfigure}{r}{0.45\textwidth}
+\columnsep0.7cm %Separacion de columnas entre warpfig y texto
+
+
+%\RequirePackage[rflt]{floatflt} %figuras flotantes al lado del texto
+%use: \begin{floatingfigure}[r]{0.45\textwidth}
+
+%\RequirePackage{subfig} %fotos con caption individual en una figura
+%use: \begin{figure}
+%     \subfloat[]{\includegraphics[]{}}
+
+\RequirePackage[%
+   %final,
+   %draft % no incluye las imagenes (rapido)
+]{graphicx}
+
+\RequirePackage{graphics}
+
+
+%                                                                 TABLAS
+%-----------------------------------------------------------------------
+
+\usepackage{rotating} %para escribir en vertical
+\usepackage{multirow} %para escribir en vertical en las tablas
+% \usepackage{tabularx}   % Erweiterte Tabellen Optionen
+% \usepackage{booktabs}
+% \usepackage{multicol}
+
+
+\newcommand{\vc}[3]{\multirow{#1}{*}[-1mm]{\rotatebox{#2}{#3}}}
+\newcommand{\mr}[3]{\multirow{#1}{#2}{#3}}
+
+%Tablas
+\newcommand{\mc}[3]{\multicolumn{#1}{#2}{#3}}
+
+%\usepackage{booktabs}
+
+
+%The width and height of a cell in a tabular is controlled by many parameters: 
+  \renewcommand{\tabcolsep}{0.5cm}
+  \renewcommand{\arraystretch}{1.3}
+%\arraystretch is part of the LaTeX format it multiplies the height and depth of the "strut" used to space out table rows by the specified factor.
+%\extrarowheight is an extra parameter added by the array package which adds a specified length to the height of the strut used for padding table rows.
+%It's the difference between adding and multiplying.
+%If you want to keep text away from horizontal lines without disturbing everything else too much \extrarowheight is usually better.
+%  \begin{tabular}{|p{2cm}|p{3cm}|}
+%  \hline
+%  c & c \\
+%  \hline
+%  c & c \\
+%  \hline
+%  \end{tabular}
+%
+%You specify p{2cm} as part of your \begin{tabular}{} arguments, in the hope
+%that the first column in the table is 2cm wide. Unfortunately, it appears wider
+%than you think. The width of a cell in the table, without regard to the line
+%width of separators, is actually computed by
+%
+%\tabcolsep + p{length} + \tabcolsep.
+%
+%The length you specify, gives place to contain characters in the cell. Between
+%the left separator and the left side of the bounding box of the first
+%character, there is some room which is controlled by \tabcolsep, such that the
+%cell will not look too crowded. It is the same on the right side of the cell.
+%In other words, \tabcolsep governs such that the contents in the cell will not
+%be positioned right next to the boarders, which looks rather ugly.
+%
+%By default, \tabcolsep is set to 6pt, which equals to 2.12mm in digital
+%printing. In the above codes, we re-set it to 1cm. So the total width of the
+%first column in the table is 4cm, while the second column is 5cm wide.
+%
+%The mechanism of the height of a cell is a little bit different. In default
+%setting, the distance between the upper boarder and lower boarder of a cell is
+%\baselineskip, which is the line spacing in paragraphs. If you look at two
+%adjacent lines of texts in the paragraph, \baselineskip is the distance between
+%the two base lines of the texts. \baselineskip is specified at the font
+%selection stage. The primitive command \fontsize{size}{skip} sets this value.
+%Usually a 10pt font size is associated with 12pt line skip.
+%
+%The command \arraystretch scales the height of the cell by a factor. As in the
+%above codes, the spacing of a row in the table is 2 times the default.
+%
+%Note that the default height of a row in a tabular cannot be changed by
+%manually setting \baselineskip. As to my current knowledge, the height of a row
+%can only be changed by specifying a different \arraystretch factor. (Similarly,
+%if you want to change the line spacing in the texts, such as to double spacing,
+%do not change \baselineskip. Use \baselinestretch instead.)
+
+
+
+\graphicspath{{img/}}
+
+

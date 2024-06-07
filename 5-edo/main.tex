@@ -1,0 +1,645 @@
+\documentclass{beamer}
+
+\input{../preambulo/inputenc.tex}
+\input{../preambulo/fuente.tex}
+\input{../preambulo/spanish.tex}
+\input{../preambulo/tikz.tex}
+\input{../preambulo/matematica.tex}
+\input{../preambulo/colors.tex}
+\input{../preambulo/flotantes.tex}
+\input{../preambulo/beamer_zub.tex}
+\input{../preambulo/paquetes.tex}
+\input{../preambulo/macros.tex}
+
+\framebg{bg/pizarron3.png} 
+
+\begin{document}
+
+\newcommand\CC{}
+
+\begin{zframe}{}
+\path(cp) ++(3,0) node(I)[]{\includegraphics[width=5cm]{img/The_Wizard.jpg}};
+\path(c2|-I.north) ++(0,-1) node(A)[anchor=north,align=left]{
+  \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
+  \color{celeste} \textbf{Ec. Diferenciales Ordinarias}\\[2mm]  
+  \color{lila} \textit{Agosto 23, 2023}
+};
+\normalsize
+\path(A.west|-I.south) ++(0,1) node(B)[anchor=south west,align=left]{
+  S. Alexis Paz\\[5mm]
+\includegraphics[width=3cm]{logos/DQTC_orange.png}};
+
+\path(I.south east) ++(0,0) node[anchor=north east,inner sep=0]{
+  \tiny Sean McGrath, CC BY 2.0.};
+% \href{wikimedia}{https://commons.wikimedia.org/w/index.php?curid=6899990}.
+\end{zframe}
+\renewcommand\CC{
+\path(se) node[anchor=south east]{\tiny\color{gray} MC2023 - S.A.Paz};}
+
+               
+\begin{zframe}{}
+
+\Large
+
+\path[verde](t-|np) ++(0,0) node(T){Ecuaciones Diferenciales Ordinarias\hspace{1cm} \color{naranja} (vs Parciales)};
+
+\path(T.south east) ++(-4,-1) node(T1)[verde,anchor=north east]{¿$y(x)$?};
+\draw[verde,<-,ultra thick] (T1) -- (T1|-T.south);
+           
+\path(T.south east) ++(0,-1) node(T1)[naranja,anchor=north east]{¿$u(x,y,\dotsc,z)$?};
+\draw[naranja,<-,ultra thick] (T1) -- (T1|-T.south);
+         
+\path(t) ++(0,-3.2) node(T2)[anchor=west,align=left]{
+  Lineales\ldots\hspace{6mm} $\ds \sum_{i=0}^ka_k(x)\odv[order=k]{y}{x}=b(x)$
+};
+          
+\path(T2.south west) ++(0,-1.2) node(T3)[anchor=north west,align=left]{
+  y \ldots \color{verde}¡ No Lineales !
+};
+     
+\path(c4) ++(-.4,0) node(F)[]{
+  \includegraphics[width=6.5cm]{nocheestrellada.jpg}};
+% \rho \left( \frac{\partial \mathbf{v}}{\partial t} + (\mathbf{v} \cdot \nabla) \mathbf{v} \right) = -\nabla p + \mu \nabla^2 \mathbf{v} + \mathbf{f}
+    
+\end{zframe}  
+                 
+\begin{zframe}{}
+
+\Large
+
+\path(t-|np) ++(0,-.5) node(T)[align=left]{
+   Navier-Stokes:\\[3mm]
+$\ds \rho \left( \frac{\partial \mathbf{v}}{\partial t} + {\color{red}(\mathbf{v} \cdot \nabla) \mathbf{v} }\right) = -\nabla p + \mu \nabla^2 \mathbf{v} + \mathbf{f}$};
+    
+\path(vl) ++(-2,1) node(F)[]{
+  \includegraphics[width=8cm]{avion.png}};
+\path(F.south west) ++(0,0) node(F)[anchor=north west]{
+  \scriptsize\href{https://solaeringenieria.com/simulacion-fluidos/}{SOLAER Ingeniería} };
+
+
+\path(vl) ++(4.5,1.5) node(F)[rotate=90]{
+  \includegraphics[width=3.5cm]{bifurcacion_carotida.png}};
+\path(F.west) ++(0,0) node(F)[anchor=north,align=center]{
+  \scriptsize\href{http://dx.doi.org/10.1016/j.apcbee.2013.08.017}{Fojas \etal. (2013).}\\ 
+  \scriptsize APCBEE Procedia. 7. 86–92. };
+% CC BY-NC-ND 3.0
+
+\end{zframe}  
+                  
+\begin{zframe}{}
+
+\Large
+
+\path(t-|np) ++(-3,-.5) node(T)[align=left]{
+   Lotka-Volterra:\\[3mm]
+$\odv{x}{t} = \alpha x - \beta x y$ \\[2mm]
+$\odv{y}{t} = \delta x y - \gamma y$};
+   
+\path(vl) ++(-0.8,1) node(F)[]{
+  \includegraphics[width=10cm]{presa.jpg}};
+
+           
+\path(c1) ++(0,0) node(F){
+  \includegraphics[width=4.5cm]{BZ.png}};
+
+\end{zframe}  
+               
+\begin{zframe}{}
+
+\Large
+
+\path(t-|np) ++(-3,-1.2) node(T)[align=left]{
+   Atractor de Lorenz:\\[3mm]
+$\odv{x}{t} = \sigma (y - x)$ \\[2mm]
+$\odv{y}{t} = x (\rho - z) - y$ \\[2mm]
+$\odv{z}{t} = x y - \beta z$
+};
+
+\path(vl) ++(1.8,1) node(F)[rotate=90]{
+  \includegraphics[width=7cm]{lorenz.png}};
+           
+\end{zframe}  
+           
+\begin{zframe}{}
+
+% \path[verde](t-|np) node(T){\large Ecuaciones Diferenciales Ordinarias};
+
+\path(t) node(T1)[anchor=north west]{
+  $\ds F\ab(x,y,\odv{y}{x},\odv[order=2]{y}{x},\dotsc,\odv[order=k]{y}{x})=0$};
+
+\draw[verde,<-,ultra thick] (T1.east) ++(0.2,0) -- ++(1,0) node[right,shift={(.1,0)}]{
+  EDO de orden $k$};
+
+\path(T1.south west) ++(0,-1) node(T2)[anchor=north west,align=left]{
+  $\ds z_i\equiv\odv[order=i]{y}{x}\quad\quad i=1,\dotsc,k-1$\\[2mm]
+  $\ds F\ab(x,y,z_1,z_2,\dotsc,z_{k-1},\odv[order=k]{y}{x})=0$
+};
+   
+\path(T2.south west) ++(.5,-1) node(T3)[anchor=north west,align=left]{
+  $\ds \vb{F}\ab(x,\vb{y},\odv{\vb{y}}{x})=0$
+};
+\draw[verde,decorate, decoration={brace,raise=2,amplitude=5}, ultra thick] (T2.north east) --  (T2.south east) node[midway,right,shift={(.3,0)}]{
+  $k$ EDO de orden 1}; 
+     
+\path(T3.east) ++(3,0) node(T4)[draw=verde,inner sep=8,anchor=west,align=left]{
+  $\ds \odv{\vb{y}}{x}=\vb{F}\ab(x,\vb{y})$
+};
+\draw[verde,->,ultra thick] (T3) -- (T4);
+\path(T4.north) node[verde,anchor=south]{EXPLÍCITAS};
+     
+\end{zframe}  
+         
+\begin{zframe}{}
+
+\path(cp) coordinate(scope);
+\begin{scope}[
+  declare function={f(\x,\y)=\x+\y;},shift=(scope),
+  decoration={markings,
+    mark=between positions 0 and 1 step 2.cm with {\draw [-latex] (-0.2,0) -- (0.2,0);}}]
+
+  \input{frames/field.tex}
+
+  % a solution of y'=y+x is y=(yo+1)e^x-x-1
+  \def\yo{1}
+  \draw[naranja] plot[domain=\xmin:1] (\x,{(\yo+1)*exp(\x)-\x-1});
+
+  \def\yo{-1}
+  \draw[naranja] plot[domain=\xmin:2] (\x,{(\yo+1)*exp(\x)-\x-1});
+
+  \def\yo{-2}
+  \draw[naranja] plot[domain=\xmin:0.5] (\x,{(\yo+1)*exp(\x)-\x-1});
+\end{scope}
+
+\path(c2) ++(-1.3,1) node{$\ds \odv{y}{x}=y+x$};
+
+
+\end{zframe}  
+      
+\begin{zframe}{}
+
+\path(cp) coordinate(scope);
+\begin{scope}[
+  declare function={f(\x,\y)=\y;},shift=(scope),
+  declare function={g(\x,\y)=-\x;},shift=(scope),
+  decoration={markings,
+    mark=between positions 0 and 1 step 2.cm with {\draw [-latex] (-0.2,0) -- (0.2,0);}}]
+
+  \input{frames/phase.tex}
+  \draw[->] (\xmin-.5,0)--(\xmax+.5,0) node[below right] {$v$};
+  \draw[->] (0,\ymin-.5)--(0,\ymax+.5) node[above left] {$r$};
+
+  \def\yo{1}
+  \draw[naranja,postaction={decorate}] plot[samples=100,domain=-18:18] ({\yo*cos(10*\x)},{\yo*sin(10*\x)});
+
+  \def\yo{2}
+  \draw[naranja,postaction={decorate}] plot[samples=100,domain=-18:18] ({\yo*cos(10*\x)},{\yo*sin(10*\x)});
+
+  \def\yo{3}
+  \draw[naranja,postaction={decorate}] plot[samples=100,domain=-18:18] ({\yo*cos(10*\x)},{\yo*sin(10*\x)});
+\end{scope}
+
+\path(t-|np) ++(-4.5,-.5) node(T)[align=left]{
+Osc. Armónico:\\[3mm]
+$\ds \odv{r}{t} = v$ \\[2mm]
+$\ds \odv{v}{t} = -kr$};
+
+\end{zframe}  
+      
+         
+\begin{zframe}{}
+
+\Large
+
+\path(t-|np) ++(-4.5,-1.2) node(T)[align=left]{
+  Ejemplo:\\[3mm]
+$\odv{y}{x} = yx$ \\[2mm]
+};
+
+\path(vl) ++(0.8,2) node(F){
+  \includegraphics[width=8cm]{yx.png}};
+           
+\end{zframe}  
+ 
+\begin{zframe}{} %yscale=0.9
+                      
+% \path(np) ++(0.,-.7) node(A)[align=left,anchor=north,text width=11cm]{
+% Notación: $f_n=f(x_n)$
+% };
+ 
+\path(nw) ++(0.2,-.7) node(A)[align=left,anchor=north west,text width=6cm]{
+{\color{verde} \Large Euler hacia adelante:} $${\ds y_{n+1}=y_n+hF\ab(x_n,y_n)+O\ab(h^2)}$$
+};
+      
+\path(hr) ++(-1,.1) coordinate(scope);
+\begin{scope}[x=1cm,y=1cm,scale=1.2,shift=(scope),thick]
+  \newcommand\xmin{-1}
+  \newcommand\xmax{2}
+  \newcommand\xstp{1}
+  \newcommand\xtra{1}
+  \newcommand\ymin{0.5}
+  \newcommand\yorg{0.5}
+  \newcommand\ymax{3}
+  \newcommand\ystp{1}
+  \newcommand\nfra{1}
+
+  {\scriptsize \input{frames/euler.tex}}
+
+    
+  % yn
+  \pgfmathsetmacro\x{0}
+  \pgfmathsetmacro\y{sin((\x-(\xtra))/3.1415*180)+2}
+  \fill[celeste](\x,\y) circle(.1) node[fg,above=.1]{\scriptsize $y_{n}$};
+
+  % Pendiente
+  \pgfmathsetmacro\a{cos((\x-(\xtra))/3.1415*180)}
+  \draw[color=celeste, thick, domain=\xmin:\xmax] plot[smooth] function{(\a*(x-\x)+\y)};
+
+  % yn+1
+  \pgfmathsetmacro\xx{1}
+  \pgfmathsetmacro\y{(\a*(\xx-\x)+\y)}
+  \fill[naranja](\xx,\y) circle(.1) node[fg,below=.1]{\scriptsize $y_{n+1}$};
+
+
+\end{scope}
+                 
+\path(wp) ++(0.2,-.7) node(A)[align=left,anchor=north west,text width=6cm]{
+{\color{verde} \Large Euler hacia atrás:} $$\ds{\ds y_{n+1}=y_n+hF\ab(x_{n+1},y_{n+1})+O\ab(h^2)}$$\\[2mm]
+Resuelvo buscando la raiz $y_{n+1}$.
+};
+              
+\path(hr|-sp)  ++(-1,.5) coordinate(scope);
+\begin{scope}[x=1cm,y=1cm,scale=1.2,shift=(scope),thick]
+  \newcommand\xmin{-1}
+  \newcommand\xmax{2}
+  \newcommand\xstp{1}
+  \newcommand\xtra{1}
+  \newcommand\ymin{0.5}
+  \newcommand\yorg{0.5}
+  \newcommand\ymax{3}
+  \newcommand\ystp{1}
+  \newcommand\nfra{1}
+                       
+  { \input{frames/euler.tex}}
+
+    
+  % yn
+  \pgfmathsetmacro\x{0}
+  \pgfmathsetmacro\y{sin((\x-(\xtra))/3.1415*180)+2}
+  \draw[celeste](\x,\y) circle(.1) node[fg,above=.1]{ $y_{n}$};
+
+ 
+  % Pendiente
+  \pgfmathsetmacro\aini{cos((\x-(\xtra))/3.1415*180)}
+  \pgfmathsetmacro\a{\aini}
+  \only<2-6>{\pgfmathsetmacro\a{\globala}}
+  \draw[color=celeste, thick, domain=\xmin:\xmax] plot[smooth] function{(\a*(x-\x)+\y)};
+
+  % yn+1
+  \pgfmathsetmacro\xx{1}
+  \pgfmathsetmacro\yy{(\a*(\xx-\x)+\y)}
+  \fill[naranja](\xx,\yy) circle(.1) node[fg,below=.1]{\scriptsize $y_{n+1}$};
+            
+  % Pendiente
+  \pgfmathsetmacro\aa{cos((\xx-(\xtra))/3.1415*180+2)}
+  \pgfmathsetmacro\aux{\a-(\aini-\aa)/5}
+  \global\let\globala=\aux
+  \fill<-5>[celeste](\xx,\yy) circle(.1);
+  \fill<6>[naranja](\xx,\yy) circle(.1);
+  \draw[color=celeste,dashed, ultra thick, domain=0:2] plot[smooth] function{(\aa*(x-\xx)+\yy)};
+
+\end{scope}
+                 
+\end{zframe}
+     
+
+\begin{zframe}{} %yscale=0.9
+                      
+% \path(np) ++(0.,-.7) node(A)[align=left,anchor=north,text width=11cm]{
+% Notación: $f_n=f(x_n)$
+% };
+ 
+\path(nw) ++(1,-.7) node(A)[align=left,anchor=north west,text width=6cm]{
+{\color{verde} \Large Leap-Frog:} $${\ds y_{n+1}=y_{n-1}+2hF\ab(x_n,y_n)+O\ab(h^3)}$$
+};
+              
+\path(vl) ++(0,-1) coordinate(scope);
+\begin{scope}[x=1cm,y=1cm,scale=1.5,shift=(scope),thick]
+  \newcommand\xmin{-2}
+  \newcommand\xmax{2}
+  \newcommand\xstp{1}
+  \newcommand\xtra{1}
+  \newcommand\ymin{0.5}
+  \newcommand\yorg{0.5}
+  \newcommand\ymax{3}
+  \newcommand\ystp{1}
+  \newcommand\nfra{1}
+
+  { \input{frames/euler.tex}}
+
+  
+  % Pendiente
+  \pgfmathsetmacro\y{sin((-(\xtra))/3.1415*180)+2}
+  \pgfmathsetmacro\a{cos((0-(\xtra))/3.1415*180)}
+  \draw[color=celeste, dashed, thick, domain=-1:1] plot[smooth] function{(\a*(x)+\y)};
+               
+  % yn+1
+  \pgfmathsetmacro\xo{-1}
+  \pgfmathsetmacro\yo{sin((\xo-(\xtra))/3.1415*180)+2}
+  \draw[color=celeste,domain=-1:1,ultra thick] plot[smooth] function{(\a*(x-\xo)+\yo)};
+  \draw[celeste](\xo,\yo) circle(.1) node[fg,above=.1]{ $y_{n-1}$};
+  \pgfmathsetmacro\oy{(\a*(1-\xo)+\yo)};
+  \fill[naranja](1,\oy) circle(.1) node[fg,above=.1]{ $y_{n+1}$};
+ 
+  % yn-1
+  \fill[celeste](0,\y) circle(.1) node[fg,below=.1]{ $y_{n}$};
+  \pgfmathsetmacro\y{sin((-1-(\xtra))/3.1415*180)+2}
+ 
+\end{scope}
+          
+\end{zframe}
+           
+\begin{zframe}{} %yscale=0.9
+                      
+% \path(np) ++(0.,-.7) node(A)[align=left,anchor=north,text width=11cm]{
+% Notación: $f_n=f(x_n)$
+% };
+ 
+\path(nw) ++(1,-.7) node(A)[align=left,anchor=north west,text width=6cm]{
+{\color{verde} \Large Verlet:} $${\ds \vb{y}_{n+1}=2\vb{y}_{n}-\vb{y}_{n-1}+h^2\ab\ab[\pdv{\vb{F}\ab(x,\vb{y})}{\vb{y}}]_{(x_n,\vb{y}_n)}\vb{F}\ab(x_n,\vb{y}_n)+O\ab(h^4)}$$
+};
+              
+\path(vl) ++(0,-1) coordinate(scope);
+\begin{scope}[x=1cm,y=1cm,scale=1.5,shift=(scope),thick]
+  \newcommand\xmin{-2}
+  \newcommand\xmax{2}
+  \newcommand\xstp{1}
+  \newcommand\xtra{1}
+  \newcommand\ymin{0.5}
+  \newcommand\yorg{0.5}
+  \newcommand\ymax{3}
+  \newcommand\ystp{1}
+  \newcommand\nfra{1}
+
+  { \input{frames/euler.tex}}
+ 
+  \pgfmathsetmacro\xo{-1}
+  \pgfmathsetmacro\x{0}
+  \pgfmathsetmacro\ox{1}
+  \pgfmathsetmacro\yo{sin((\xo-(\xtra))/3.1415*180)+2}
+  \pgfmathsetmacro\y{sin((-(\xtra))/3.1415*180)+2}
+  \pgfmathsetmacro\oy{sin((\ox-(\xtra))/3.1415*180)+2}
+
+  \draw[celeste, dashed, ultra thick, domain=\xmin:\xmax] plot[smooth,id=parabola] 
+  function{\yo*(x-\x)*(x-\ox)/2-\y*(x-\xo)*(x-\ox)+\oy*(x-\xo)*(x-\x)/2};
+                        
+  
+  % Pendiente
+  \pgfmathsetmacro\y{sin((-(\xtra))/3.1415*180)+2}
+  \pgfmathsetmacro\a{cos((0-(\xtra))/3.1415*180)}
+               
+  % yn+1
+  \pgfmathsetmacro\xo{-1}
+  \pgfmathsetmacro\yo{sin((\xo-(\xtra))/3.1415*180)+2}
+  \draw[color=celeste,domain=-1:1,ultra thick] plot[smooth] function{(\a*(x-\xo)+\yo)};
+  \draw[celeste](\xo,\yo) circle(.1) node[fg,above=.1]{ $y_{n-1}$};
+  \pgfmathsetmacro\oy{(\a*(1-\xo)+\yo)};
+  \fill[naranja](1,\oy) circle(.1) node[fg,above=.1]{ $y_{n+1}$};
+ 
+  % yn-1
+  \fill[celeste](0,\y) circle(.1) node[fg,below=.1]{ $y_{n}$};
+  \pgfmathsetmacro\y{sin((-1-(\xtra))/3.1415*180)+2}
+   
+\end{scope}
+          
+\end{zframe}
+      
+\begin{zframe}{}
+ 
+\path(np) ++(0,-.6) node(A)[anchor=north,text width=12cm]{
+  \centerline{\Large\color{verde} ERROR}};
+
+\path(A.south west) ++(0.,-.3) node(A1)[align=left,anchor=north west,text width=8cm]{
+{\ldots total de la iteracion $n$}\\[2mm]
+ \hspace{5mm}  {\small \color{naranja} ABSOLUTO:} $\ds\epsilon_n=\left|x_n-L\right|$\\[2mm]
+ \hspace{5mm}  {\small \color{naranja} RELATIVO:} $\ds\tilde\epsilon_n=\left|x_n-L\right|/x_n$\\
+};
+                        
+\path(A1.south west) ++(0.,-.5) node(A2)[align=left,anchor=north west,text width=7cm]{
+ \ldots por la aproximación\\[2mm]
+ \hspace{1cm}  {\small \color{naranja} TRUNCAMIENTO: \textit{\color{celeste}- LOCAL}} \\[5mm]
+${\ds \odv{f(x_n)}{x}=\frac{f\ab(x_{n+1})-f\ab(x_n)}{2}+O\ab(h^3)}$\\[5mm]
+${\ds\int_{x_n}^{x_{n+1}} f(x)\odif{x}=f\ab(x+h/2)h+O\ab(h^2)}$\\[5mm]
+${\ds y_{n+1}=y_n+hF\ab(x_n,y_n)}+O\ab(h^3)$\\[5mm]
+};
+
+\path(c1|-A1.north) ++(-0.1,-0.1) node(A1)[align=left,anchor=north]{
+ \ldots por usar una compu \\[2mm]
+ {\small \color{naranja} PRECISIÓN / NUMÉRICO:} $O\ab(\epsilon_M)$
+};        
+                          
+\path(hr|-A2.north) ++(1,-.6) node[anchor=north,align=left]{
+  \textit{\color{celeste}GLOBAL:} \\[2mm]
+    ${(N-1)O\ab(h^x)}$\\[2mm]
+  ${=\dfrac{b-a}{h}O\ab(h^x)}$\\[2mm]
+  ${=O(h^{x-1})}$
+};
+
+\draw[ultra thick,celeste,->](A2.east) ++(-0.2,-0.8) -- ++(1.8,0)  node[midway,above]{$\times (N-1)$};
+\draw[ultra thick,celeste,->](A2.east) ++(-1,-2.2) -- ++(4,0) node[midway,below]{\ldots pero es recurrente!}  node[midway,above]{$\times (N-1)$} -- ++(0,1);
+
+
+\end{zframe}
+
+\begin{zframe}{
+def/.style={rectangle,draw=verde,dashed, rounded corners=1ex, anchor=north,inner sep=6,align=center},
+defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}}}
+ 
+           
+\path(np) ++(0,-.6) node(A)[anchor=north]{
+  \centerline{\Large\color{verde} CONVERGENCIA}};
+
+\path(A.south-|t) ++(0.,-.3) node(A)[align=left,anchor=north west,text width=11cm]{
+{Cuando buscamos aproximarnos a un valor (e.g. busqueda de raíces),
+si el error disminuye en cada iteración\ldots}\\[4mm]
+ \hspace{1cm}  {\small \color{naranja} CONVERGE:} $\ds\epsilon_{n+1}/\epsilon_n\leq1$\\[2mm]
+};
+             
+\path(np) ++(0,-5) node(A)[anchor=north]{
+  \centerline{\Large\color{verde} ESTABILIDAD}};
+
+\path(A.south-|t) ++(0.,-.3) node(A)[align=left,anchor=north west,text width=11cm]{
+{Si hacemos $(N-1)$ aproximaciones de forma recurrente,
+además del error global, hay que ver si una perturbación no se propaga por la recurrencia\ldots}\\[4mm]
+ \hspace{1cm}  {\small \color{naranja} ESTABLE:} $\ds\fdif{y_{n+1}}/\fdif{y_n}\leq1$\\[2mm]
+};
+\end{zframe}
+          
+\begin{zframe}{
+def/.style={rectangle,draw=verde,dashed, rounded corners=1ex, anchor=north,inner sep=6,align=center},
+defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}}}
+ 
+\path(t-|cp) node(T)[verde]{\Large Condiciones de estabilidad};
+
+\path(T.south-|t) ++(0,-1) node(A)[anchor=north west,align=left]{
+${\ds \ab|1+h\pdv{F(x,y)}{y}|\leq1}$ {\hspace{4mm}\color{verde} Euler hacia adelante}\\[5mm]
+${\ds \ab|1-h\pdv{F(x,y)}{y}|\geq1}$ {\hspace{4mm}\small\color{verde}Euler hacia atrás}\\[5mm]
+${\ds \Re\ab(\pdv{F(x,y)}{y})=0\wedge h\ab|\Im\ab(\pdv{F(x,y)}{y})|\leq1}$ {\hspace{4mm}\small\color{verde}Leap-Frog}\\[5mm]
+};
+
+\end{zframe} 
+
+\begin{zframe}{} %yscale=0.9
+                      
+% \path(np) ++(0.,-.7) node(A)[align=left,anchor=north,text width=11cm]{
+% Notación: $f_n=f(x_n)$
+% };
+ 
+\path<-4>(nw) ++(1,-.7) node(A)[align=left,anchor=north west]{
+{\color{verde} Euler de punto medio:}\\[2mm] 
+${\ds y_{n+1}=y_{n}+k_2+O\ab(h^3)}$\\[2mm]
+${\ds k_2=hF\ab(x_n+h/2,y_n+k_1/2)}$\\[2mm]
+${\ds k_1=hF\ab(x_n,y_n)}$
+};
+           
+\path<5>(nw) ++(1,-.7) node(A)[align=left,anchor=north west]{
+{\color{verde} Runge-Kutta (2\textsuperscript{do} orden):}\\[2mm] 
+${\ds y_{n+1}=y_{n}+\ab(1-\dfrac{1}{2\alpha})k_1+\dfrac{1}{2\alpha}k_2}$\\[2mm]
+${\ds k_2=hF\ab(x_{n}+\alpha h,y_{n}+\alpha k_1)}$\\[2mm]
+${\ds k_1=hF\ab(x_n,y_n)}$
+};
+ 
+ 
+\draw<-4>[celeste,decorate, decoration={brace,raise=2,amplitude=5}, ultra thick] (6.2,6.7) --  (4.4,6.7) node[midway,below=.2]{Euler}; 
+\draw<-4>[->,ultra thick,naranja] (6,7.7) -- ++(1,0) node[right=.2]{Leap-Frog}; 
+              
+              
+\path(vl) ++(-1.8,-4.0) coordinate(scope);
+\begin{scope}[x=2.5cm,y=2.5cm,scale=1.5,shift=(scope),thick]
+  \newcommand\xmin{-1}
+  \newcommand\xmax{2}
+  \newcommand\xstp{1}
+  \newcommand\xtra{1}
+  \newcommand\ymin{0.8}
+  \newcommand\yorg{0.8}
+  \newcommand\ymax{3}
+  \newcommand\ystp{1}
+  \newcommand\nfra{1}
+
+  \large \input{frames/euler.tex}
+
+  % Second solution
+  \draw<3->[color=rosa, domain=-0.6:1.6] plot[smooth,id=parabola] function{sin(x-(\xtra))+1.9};
+  \draw<3->[color=rosa, dashed,domain=\xmin:\xmax] plot[smooth,id=parabola] function{sin(x-(\xtra))+1.9};
+ 
+  % EULER
+  % yn
+  \pgfmathsetmacro\x{0}
+  \pgfmathsetmacro\y{sin((\x-(\xtra))/3.1415*180)+2}
+  \pgfmathsetmacro\xx{0}
+  \pgfmathsetmacro\yy{sin((\xx-(\xtra))/3.1415*180)+2}
+  \draw plot[only marks,mark=*,mark size=2,mark options={color=celeste}](\xx,\yy) node[fg,below right=.1]{$y_{n}$};
+
+  % Pendiente
+  \pgfmathsetmacro\a{cos((\x-(\xtra))/3.1415*180)}
+  \draw<2->[color=celeste,dashed,ultra thick, domain=-0.5:0.5] plot[smooth] function{(\a*(x-\x)+\y)};
+
+  % yn+1/2
+  \pgfmathsetmacro\xm{.5}
+  \pgfmathsetmacro\ym{(\a*(\xm-\x)+\y)}
+  \draw<2-> plot[only marks,mark=o,mark size=2,mark options={color=celeste}](\xm,\ym) node[fg,below right=.1]{$y_{n+1/2}$};
+      
+  % LEAP FROG
+
+  % Pendiente en yn+1/2
+  \pgfmathsetmacro\a{cos((\xm-(\xtra))/3.1415*180)}
+  \draw<3->[color=lila,dashed,ultra thick, domain=0:1] plot[smooth] function{(\a*(x-\xm)+\ym)};
+  \draw<3-> plot[only marks,mark=*,mark size=2,mark options={color=lila}](\xm,\ym);
+   
+  % yn+1
+  \pgfmathsetmacro\yyyy{\a*(1-\xx)+\yy}
+  \draw<4->[color=naranja,ultra thick, domain=0:1] plot[smooth] function{(\a*(x-\xx)+\yy)};
+  \draw<4-> plot[only marks,mark=*,mark size=2,mark options={color=naranja}](1,\yyyy);
+  
+  % % yn+1
+  % \pgfmathsetmacro\xx{1}
+  % \pgfmathsetmacro\yy{(\xx*(\oy-\yo)/2+\y)}
+  % \draw plot[only marks,mark=*,mark size=2,mark options={color=celeste}](\xx,\yy) node[fg,below right=.1]{\scriptsize $y_{n+1}$};
+  %
+  % % yn+1/2
+  % \pgfmathsetmacro\xx{.5}
+  % \pgfmathsetmacro\yy{(\xx*(\oy-\yo)/2+\y)}
+  % \draw plot[only marks,mark=*,mark size=2,mark options={color=celeste}](\xx,\yy) node[fg,below right=.1]{\scriptsize $y_{n+1/2}$};
+
+\end{scope}
+          
+\end{zframe}
+           
+
+\begin{zframe}{}
+
+\path(nw) ++(.6,-.7) node(A)[align=left,anchor=north west]{
+{\color{verde} Runge-Kutta (4\textsuperscript{to} orden):}\\[2mm] 
+${\ds y_{n+1}= y_n + \frac{1}{6}(k_1 + 2k_2 + 2k_3 + k_4)+O\ab(h^5)}$\\[2mm]
+${\ds k_4=hF\ab(x_n + h, y_n + k_3)}$\\[2mm]
+${\ds k_3=hF\ab(x_n + \frac{h}{2}, y_n + \frac{k_2}{2})}$\\[2mm]
+${\ds k_2=hF\ab(x_n + \frac{h}{2}, y_n + \frac{k_1}{2})}$\\[2mm]
+${\ds k_1=hF\ab(x_n,y_n)}$
+};
+   
+\path(cp) ++(3,-1) node(F){ \includegraphics[width=7cm]{RK4n.png}};
+\path(F.south west) ++(0,.1) node[anchor=north west,inner sep=0]{
+  \tiny HilberTraum, CC BY-SA 4.0.};
+
+\end{zframe}
+      
+         
+\begin{zframe}{
+def/.style={rectangle,draw=verde,dashed, rounded corners=1ex, anchor=north,inner sep=6,align=center},
+defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}}}
+ 
+\path(t-|cp) node(T)[verde]{\Large Algoritmos EDO (orden 1)};
+
+\path(T.south-|t) ++(-.5,-.5) node(A)[anchor=north west,align=left]{
+${\ds y_{n+1}=y_n+hF\ab(x_n,y_n)+O\ab(h^2)}$ {\hspace{4mm}\small\color{verde}Euler hacia adelante}\\[5mm]
+${\ds y_{n+1}=y_n+hF\ab(x_{n+1},y_{n+1})+O\ab(h^2)}$ {\hspace{4mm}\small\color{verde}Euler hacia atrás}\\[5mm]
+${\ds y_{n+1}= y_n + \frac{1}{6}(k_1 + 2k_2 + 2k_3 + k_4)+O\ab(h^5)}$ {\small\color{verde}RK4}\\[5mm]
+% ${\ds y_{n+1}=y_n+hF\ab(x_n,y_n)+\dfrac{h^2}{2}\ab[\pdv{F\ab(x,y)}{y}]_{(x_n,y_n)}F\ab(x_n,y_n)+O\ab(h^3)}$ {\small\color{verde}Taylor}\\[5mm]
+${\ds y_{n+1}=y_{n-1}+2hF\ab(x_n,y_n)+O\ab(h^3)}$ {\hspace{4mm}\small\color{verde}Leap-Frog}\\[5mm]
+${\ds y_{n+1}=2y_{n}-y_{n-1}+h^2\ab[\pdv{F\ab(x_n,y_n)}{y}F\ab(x_n,y_n)]+O\ab(h^4)}$ {\hspace{4mm}\small\color{verde}Verlet}\\[5mm]
+};
+
+\end{zframe}
+         
+\begin{zframe}{
+def/.style={rectangle,draw=verde,dashed, rounded corners=1ex, anchor=north,inner sep=6,align=center},
+defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}}}
+ 
+\path(t-|cp) node(T)[verde]{\Large Algoritmos EDO (orden $k$)};
+
+\path(T.south-|t) ++(-.7,-.5) node(A)[anchor=north west,align=left]{
+${\ds \vb{y}_{n+1}=\vb{y}_n+h\vb{F}\ab(x_n,\vb{y}_n)+O\ab(h^2)}$ {\hspace{4mm}\small\color{verde}Euler hacia adelante}\\[5mm]
+${\ds \vb{y}_{n+1}=\vb{y}_n+h\vb{F}\ab(x_{n+1},\vb{y}_{n+1})+O\ab(h^2)}$ {\hspace{4mm}\small\color{verde}Euler hacia atrás}\\[5mm]
+${\ds \vb{y}_{n+1}=\vb{y}_n + \frac{1}{6}(\vb{k}_1 + 2\vb{k}_2 + 2k_3 + \vb{k}_4)+O\ab(h^5)}$ {\small\color{verde}RK4}\\[5mm]
+% ${\ds \vb{y}_{n+1}=\vb{y}_n+h\vb{F}\ab(x_n,\vb{y}_n)+\dfrac{h^2}{2}\ab[\pdv{\vb{F}\ab(x,\vb{y})}{\vb{y}}]_{(x_n,\vb{y}_n)}\vb{F}\ab(x_n,\vb{y}_n)+O\ab(h^3)}$ {\small\color{verde}Taylor}\\[5mm]
+${\ds \vb{y}_{n+1}=\vb{y}_{n-1}+2h\vb{F}\ab(x_n,\vb{y}_n)+O\ab(h^3)}$ {\hspace{4mm}\small\color{verde}Leap-Frog}\\[5mm]
+${\ds \vb{y}_{n+1}=2\vb{y}_{n}-\vb{y}_{n-1}+h^2\ab\ab[\pdv{\vb{F}\ab(x,\vb{y})}{\vb{y}}]_{(x_n,\vb{y}_n)}\vb{F}\ab(x_n,\vb{y}_n)+O\ab(h^4)}$ {\hspace{4mm}\small\color{verde}Verlet}\\[5mm]
+};
+     
+\draw[verde,decorate, decoration={brace,raise=2,amplitude=5}, ultra thick] (9,1.1) --  (4,1.1) node[midway,below=.2]{¿?}; 
+ 
+\end{zframe}
+   
+% \begin{zframe}{}
+%  
+% \path(t-|cp) node(T)[verde]{Algoritmos EDO (orden $k$)};
+%  
+% \path(A.south-|t) ++(0.,-.3) node(A)[align=left,anchor=north west,text width=11cm]
+% {Comienza a ser conveniente considerar la forma de $\bf{F}(x,\bv{y})$}
+%
+% % \path(A.south-|t) ++(-.7,-.5) node(A)[anchor=north west,align=left]{
+% % ${\ds \vb{y}_{n+1}=2\vb{y}_{n}-\vb{y}_{n-1}+h^2\ab[\odv{\vb{F}\ab(x_n,\vb{y}_n)}{x}]_{(x_n,\vb{y}_n)}+O\ab(h^4)}$ {\hspace{4mm}\small\color{verde}Verlet}\\[5mm]
+% % };
+%
+% \end{zframe}
+                           
+\end{document}

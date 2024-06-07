@@ -1,0 +1,83 @@
+
+% CODIFICACION
+
+%\makeatletter
+%\newcommand\thefontsize[1]{{#1 The current font size is: \f@size pt\par}}
+%\makeatother
+
+%\usepackage[latin1]{inputenc} % Para UNIX iso-8889-1 (también conocida como latin1).
+\usepackage[utf8]{inputenc}  % utf-8, como en muchas distribuciones recientes de Linux
+%\usepackage{ucs}  soporte para utf-8 distro antigua de Linux
+%\usepackage[utf-8]{inputenc}
+%\usepackage[cp1252]{inputenc} % Para MS-Windog cp1252 (que es casi el latin1)
+%\usepackage[cp850]{inputenc}  % Para DOS
+%\usepackage[applemac]{inputenc}  % Para Macintosh (aunque hay editores de Mac que guardan como latin1 o utf8).
+ 
+% Errores de unicode!
+%Una forma de buscar caracteres extraños en vim es /[^\x00-\x7F] Luego
+%``ga'' sobre el caracter deseado brinda mas información  y luego usar la
+%representacion hexadecimal 00NN. Tambien sirve para buscar de la forma
+%/<ctrl-v>xNN
+%Igual hay caracteres muy dificiles de encontrar, entonces se recomienda:
+%Unhappily utf8.def does not show the numerical representation for the missing
+%Unicode character. The missing character <char> is shown directly in macro
+%\u8:<char>. The following example adds the numerical information in the error
+%message:
+\usepackage{stringenc}
+\usepackage{pdfescape}
+\makeatletter
+\renewcommand*{\UTFviii@defined}[1]{%
+  \ifx#1\relax
+    \begingroup
+      % Remove prefix "\u8:"
+      \def\x##1:{}%
+      % Extract Unicode char from command name
+      % (utf8.def does not support surrogates)
+      \edef\x{\expandafter\x\string#1}%
+      \StringEncodingConvert\x\x{utf8}{utf16be}% convert to UTF-16BE
+      % Hexadecimal representation
+      \EdefEscapeHex\x\x
+      % Enhanced error message
+      \PackageError{inputenc}{Unicode\space char\space \string#1\space
+                              (U+\x)\MessageBreak
+                              not\space set\space up\space
+                              for\space use\space with\space LaTeX}\@eha
+    \endgroup
+  \else\expandafter
+    #1%
+  \fi
+}
+\makeatother
+
+\DeclareUnicodeCharacter{2215}{/}
+%\DeclareUnicodeCharacter{fc}{\"u}
+%\DeclareUnicodeCharacter{0252}{\"u}
+%\DeclareUnicodeCharacter{0169}{\~u}
+\DeclareUnicodeCharacter{00A0}{ }
+\DeclareUnicodeCharacter{2210}{-}
+\DeclareUnicodeCharacter{2212}{--}
+\DeclareUnicodeCharacter{2013}{--}
+\DeclareUnicodeCharacter{2243}{$\simeq$}
+%\DeclareUnicodeCharacter{00A0}{~} ! NO, necesito controlar el brake line
+\DeclareUnicodeCharacter{0338}{ü}
+\DeclareUnicodeCharacter{0214}{ö}
+%\DeclareUnicodeCharacter{0144}{ń} 
+\DeclareUnicodeCharacter{2082}{$_2$}
+\DeclareUnicodeCharacter{00A9}{$\copyright$}
+\DeclareUnicodeCharacter{00D7}{x}
+\DeclareUnicodeCharacter{2018}{'}
+\DeclareUnicodeCharacter{2018}{´}
+\DeclareUnicodeCharacter{2032}{´}
+\DeclareUnicodeCharacter{00B1}{$\pm$}
+\DeclareUnicodeCharacter{00B0}{$^o$}
+\DeclareUnicodeCharacter{0142}{\l}
+\DeclareUnicodeCharacter{0131}{í} %acento en dos tiempos
+\DeclareUnicodeCharacter{0301}{}  %acento en dos tiempos
+\DeclareUnicodeCharacter{0300}{}  %acento en dos tiempos
+\DeclareUnicodeCharacter{221A}{$\sqrt$}
+\DeclareUnicodeCharacter{221E}{$\infty$}
+\DeclareUnicodeCharacter{2192}{$\rightarrow$}
+\DeclareUnicodeCharacter{2215}{/}
+\DeclareUnicodeCharacter{201C}{``}
+\DeclareUnicodeCharacter{201D}{''}
+                        

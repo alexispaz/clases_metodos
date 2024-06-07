@@ -1,0 +1,77 @@
+\ifundef{\gloxmin}{\gdef\gloxmin{-3}}{}
+\ifundef{\gloxmax}{\gdef\gloxmax{3}}{}
+\ifundef{\gloxstp}{\gdef\gloxstp{1}}{}
+\ifundef{\gloymin}{\gdef\gloymin{0}}{}
+\ifundef{\gloymax}{\gdef\gloymax{3}}{}
+\ifundef{\gloystp}{\gdef\gloystp{1}}{}
+\ifundef{\glonfra}{\gdef\glonfra{1}}{}
+
+\begin{scope}[x=.7cm,y=0.6cm,shift=(scope),thick]
+
+% Definir
+\path(0,0) coordinate(O);
+\path(\gloxmax,\gloymax) coordinate(K1);          % Esquina del cuadrante 1
+\path(K1-|{(\gloxmin,0)}) coordinate(K2); % Esquina del cuadrante 2
+\path(K2|-{(0,\gloymin)}) coordinate(K3); % Esquina del cuadrante 3
+
+% Emergentes
+\path(K3-|K1) coordinate(K4);       % Esquina del cuadrante 4
+\path(O-|K1) coordinate(xp);       % Punta de eje +x
+\path(O-|K2) coordinate(xn);       % Punta de eje -x
+\path(O|-K1) coordinate(yp);       % Punta de eje +y
+\path(O|-K3) coordinate(yn);       % Punta de eje -y
+
+
+% grid
+\draw[style=help lines, ystep=1, xstep=1] (K3) grid (K1);
+
+% axes
+\draw[->] (xn) -- (xp) node[right] {$x$};
+% \draw[->] (yn) -- (yp) node[right] {$y$};
+
+% xticks and yticks
+% {\scriptsize
+% \foreach \x in {-3,-2,...,3}  \path(O-|{(\x,0)}) node[below]{\x};
+% % \foreach \y in {-1,0,...,3} \path(O|-{(0,\y)}) node[left]{\y};
+% }
+
+% generate and plot another a curve y = 0.1 x^2 + 2.5
+% this generates the files figure.parabola.gnuplot and figure.parabola.table 
+\draw[color=amarillo, domain=\gloxmin:\gloxmax] plot[smooth,id=parabola] function{sin(x)+2};
+% \path[color=amarillo](0,3.5) node{$f(x)$};
+
+% Diferencias finitas
+\pgfmathsetmacro\xxmin{\gloxmin+(\gloxstp)}
+\pgfmathsetmacro\xxmax{\gloxmax-(\gloxstp)}
+\foreach \x in {\gloxmax,\xxmax,...,\gloxstp} {
+  \pgfmathsetmacro\xi{int(\x)}
+  \path(\x,0)  node[below]{\scriptsize $x_{n+\xi}$};
+  \pgfmathsetmacro\y{sin(\x/3.1415*180)+2}
+  \draw(\x,0) -- (\x,\y) [fill]circle(1mm) node[above=.2]{$f_{n+\xi}$};
+}
+
+\path(0,0) node[below]{\scriptsize $x_{n}$};
+\draw(0,0) -- (0,2) [fill]circle(1mm) node[above=.2]{$f_{n}$};
+
+\foreach \x in {\gloxmin,\xxmin,...,-\gloxstp} {
+  \pgfmathsetmacro\xi{int(\x)}
+  \path(\x,0) node[below]{\scriptsize $x_{n\xi}$};
+  \pgfmathsetmacro\y{sin(\x/3.1415*180)+2}
+  \draw(\x,0) -- (\x,\y) [fill]circle(1mm) node[above=.2]{$f_{n\xi}$};
+}
+
+\only<\glonfra>{
+  \global\let\gloxmin\undefined
+  \global\let\gloxmax\undefined
+  \global\let\gloxstp\undefined
+  \global\let\gloymin\undefined
+  \global\let\gloymax\undefined
+  \global\let\gloystp\undefined
+  \global\let\glonfra\undefined
+}
+ 
+% \path(-1,2.8) node[anchor=north west,align=left]{$x_r$=0};
+    
+\end{scope}
+ 
+

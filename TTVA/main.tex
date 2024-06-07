@@ -1,0 +1,137 @@
+\documentclass[12pt]{article}
+%
+% \input{matematica.tex}
+% \input{flotantes.tex}
+% \input{bibliografia.tex}
+% \input{paquetes.tex}
+%
+\input{../preambulo/inputenc.tex}
+\input{../preambulo/fuente.tex}
+\input{../preambulo/spanish.tex}
+\input{../preambulo/matematica.tex}
+\input{../preambulo/flotantes.tex}
+\input{../preambulo/bibliografia.tex}
+\input{../preambulo/paquetes.tex}
+\input{style.tex}
+
+\addbibresource{biblio.bib}
+                       
+\begin{document}
+
+\begin{center}
+\Large\vspace*{-8ex}
+\textbf{Transformación de variables aleatorias}\\[1ex]
+\normalsize S. Alexis Paz
+\end{center}
+
+Supongamos que $X$ es una variable aleatoria con una distribución $p(x)$. Al
+aplicar una cierta función $Z=f(X)$, obtendremos números aleatorios $Z$ con una
+distribución~\cite{gillespie_1983}:
+% TODO: Escribir eso usando el soporte para multidimensionales.
+% \begin{align}
+%   q(z)=\int_{S_X} \delta\ab(f(x)-z) p(x) dx=\ab<\delta\ab(f(x)-z)> \label{qz}
+% \end{align}
+% donde ${S_X=\operatorname{supp}(x)}$ es el soporte de $X$, \textit{i. e.} los valores
+\begin{align}
+  q(z)=\int_{x_{min}}^{x_{max}} \delta\ab(f(x)-z) p(x) dx=\ab<\delta\ab(f(x)-z)> \label{qz}
+\end{align}
+Esta integral utiliza la delta de Dirac para ``contar'' todos aquellos
+valores posibles de $X$ que generan un determinado valor de $Z$.
+
+Para el caso en que $f(x)$ es invertible podemos resolver la
+ecuación~\ref{qz} por sustitución con $x=f^{-1}(u)$:
+\begin{align}
+  q(z)&=\int_{f(x_{min})}^{f(x_{max})} \delta (u-z) p\ab(f^{-1}(u)) \odv{f^{-1}(u)}{u} du
+\end{align}
+aplicando la delta:
+\begin{align}
+  q(z)&=p\ab(f^{-1}(z)) \odv{f^{-1}(z)}{z} \label{e_TTVA2}
+\end{align}
+si además consideramos el caso de $p(x)$ uniforme en el intervalo $[0,1]$, esto es:
+% NOTA: Mejor dejo abierto el intervalo, pero podría hacer esto con el
+% intervalo cerrado tambien, pero en el ejemplo de abajo tendríoa que aclarar
+% que vale tambien con el intervalo abierto.
+\begin{align}
+   p(x)&=1 &&  x\in\ab[0,1]   \label{e_uniforme}
+\end{align} 
+% NOTA: No vale la pena definir x donde no existe. Ver más abajo.
+% \begin{align}
+%    p(x)&=\left\lbrace
+%      \begin{array}{cc}
+%       1 & 0\leq x\leq 1\\
+%       0 &  \text{de otra manera}
+%      \end{array}\right.   \label{e_histob}  
+% \end{align}  
+Entonces la ecuación \ref{e_TTVA2} queda
+\begin{align}
+  q(z)= \odv{f^{-1}(z)}{z}  &&  \forall z/f^{-1}(z)\in\ab[0,1] \label{e_EDO}
+\end{align} 
+que es una ecuación diferencial ordinaria de primer orden con variable
+independiente $z$ y variable dependiente $f^{-1}(z)$. Integrando y reordenando:
+\begin{align}
+  \int_{z_{min}}^{z} q(z') \odif{z'}=f^{-1}(z)-f^{-1}(z_{min})\\ 
+  f^{-1}(z)=\int_{z_{min}}^{z} q(z') \odif{z'}+f^{-1}(z_{min})\label{e_inv} 
+\end{align} 
+La constante $f^{-1}\ab(z_{min})$ corresponde a alguno de los extremos $x_{min}=0$
+o $x_{max}=1$, puesto que hemos considerado $f(x)$ invertible, lo que significa
+que es monotona creciente o decreciente.  Para algunas funciones de
+distribución $q(z)$, podremos resolver de forma analítica \ref{e_inv} y luego
+invertir $f^{-1}(z)$ para encontrar la función $f(x)$.  Por ejemplo,
+supongamos que queremos generar números aleatorios $Z$ con distribución:
+\begin{align}
+  q(z)=Ae^{-Az} && z\in[0,\infty)
+\end{align} 
+% NOTA: No vale la pena definir z donde no existe, porque esto genera un problema
+% en cuango a la definicion de f^{-1}(z). Entonces es mejor definir un dominio
+% para $z$ mediante un intervalo. En otras palabras, para definir una variable
+% aleatoria cualquiera tengo que definir su distribución y el dominio de esa
+% distribución.
+% \begin{align}
+%   q(z)&=\left\lbrace
+%      \begin{array}{cc}
+%       Ae^{-Az} & z\geq0\\
+%       0 &   z<0
+%      \end{array}\right.
+% \end{align} 
+Nótese que independientemente del valor que tome el parámetro $A$, la
+distribución $q(z)$ está correctamente normalizada:
+ \begin{align}
+  \int_{0}^{\infty}q(z)dz&=\int_{0}^{\infty}Ae^{-Az}dz=-e^{-Az}\bigg\rvert_0^\infty=1
+\end{align}  
+Entonces, reemplazando $q(z)$ en la ecuación \ref{e_inv}:
+\begin{align}
+  f^{-1}(z)&=\int_{z_{min}}^{z} q(z') \odif{z'}+f^{-1}(z_{min})\\
+            &=\int_{0}^{z} Ae^{-Az'} \odif{z'}+f^{-1}(0)\\
+            &=-e^{-Az}+1+f^{-1}(0)
+\end{align} 
+Y luego invirtiendo:
+\begin{align}
+  x=-e^{-Az}+1+f^{-1}(0)\\
+  x-1-f^{-1}(0)=-e^{-Az}\\
+  \ln\ab(-x+1+f^{-1}(0))=-Az\\
+  z=-\ln\ab(-x+1+f^{-1}(0))/A=f(x)
+\end{align}
+Finalmente el valor $f^{-1}(0)$ sólo puede corresponder a $x_{min}=0$ o
+$x_{max}=1$, ya que la fución $f(x)$ es monótona y los extremos de $x$ deben
+corresponderse a los extremos de $z$. Entonces hay dos opciones posibles:
+\begin{align}
+   f(x)=-\ln\ab(1-x)/A\quad &&\text{o}&& \quad f(x)=-\ln\ab(2-x)/A
+\end{align}
+Sin embargo los extremos de $z$ sólo se pueden recuperar soló cuando
+$f^{-1}(0)=0$, ya que en este caso $f(0)=0$ y cuando $x\rightarrow1$,
+$f(x)\rightarrow\infty$. Con lo que queda:
+\begin{align}
+   f(x)&=-\ln(1-x)/A  && x\in[0,1]
+\end{align}
+
+
+\printbibliography
+
+% Teorema: Una función es continua e inyectiva si y solo si es estrictamente
+% monotona
+% Teorema: Una función es continua y estrictamente monotona entonces existe su
+% inversa que es también continua y monotona
+
+\end{document}
+
+ 

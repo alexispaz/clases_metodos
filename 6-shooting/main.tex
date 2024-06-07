@@ -1,0 +1,354 @@
+\documentclass{beamer}
+
+\input{../preambulo/inputenc.tex}
+\input{../preambulo/fuente.tex}
+\input{../preambulo/spanish.tex}
+\input{../preambulo/tikz.tex}
+\input{../preambulo/matematica.tex}
+\input{../preambulo/colors.tex}
+\input{../preambulo/flotantes.tex}
+\input{../preambulo/beamer_zub.tex}
+\input{../preambulo/paquetes.tex}
+\input{../preambulo/macros.tex}
+
+\framebg{bg/pizarron3.png} 
+
+\begin{document}
+
+\newcommand\CC{}
+
+\begin{zframe}{}
+\path(cp) ++(3,0) node(I)[]{\includegraphics[width=5cm]{img/messi2.png}};
+\path(c2|-I.north) ++(0,-1) node(A)[anchor=north,align=left]{
+  \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
+  \color{celeste} \textbf{Condición de frontera}\\[2mm]  
+  \color{lila} \textit{Agosto 30, 2023}
+};
+\normalsize
+\path(A.west|-I.south) ++(0,1) node(B)[anchor=south west,align=left]{
+  S. Alexis Paz\\[5mm]
+\includegraphics[width=3cm]{logos/DQTC_orange.png}};
+\end{zframe}
+
+\renewcommand\CC{
+  \path(se) node[anchor=south east]{\tiny\color{gray} MC2023 - S.A.Paz};}
+
+\begin{zframe}{ampersand replacement=\&}
+      
+\path(t) ++(-.3,.5) coordinate(t);
+     
+\path(t-|np) ++(0,0) node(A){
+  \centerline{\Large\color{verde} Condiciones iniciales (orden $k$)}};
+
+\path(A.south-|t) ++(0.,-.3) node(A)[align=left,anchor=north west]{
+{Cauchy: $\ds \quad y(x_0)=a_0\,,\,\odv{y(x_0)}{x}=a_1\,,\,\dotsc\,,\,\odv[order=k]{y(x_0)}{x}=a_k$}\\[4mm]
+{\ldots o en notacion vectorial $\quad \vb{y}(x_0)=\vb{a}$}\\[4mm]
+};
+ 
+\path(ep) ++(-.6,1.4) node(A)[rotate=10,ellipse,celeste,ultra thick,inner sep=0,draw,align=center,anchor=south east]
+{Teorema de existencia\\ y unicidad};
+             
+\path(ep) ++(-1,-2) node(A)[rotate=-10,ellipse,celeste,ultra thick,inner sep=0,draw,align=center,anchor=south east]
+{Existencia\\ y unicidad};
+\draw[celeste,ultra thick](A.south west) -- (A.north east);
+
+\path(cp) ++(0,0) node(A){
+  \centerline{\Large\color{verde} Condiciones de frontera (e.g. 2\textsuperscript{do} orden)}};
+
+\path(A.south-|t) ++(0.,-.3) node(M)[anchor=north west,matrix,matrix of nodes,
+column sep=0 mm,row sep=2 mm]{
+Dirichlet:\& $\ds y(x_0)=a$ \;,\; $\ds y(x_N)=b$\\
+Neumann:	\& $\ds\odv{y(x)}{x}_{x_0}=a$\;,\; $\ds\odv{y(x)}{x}_{x_N}=b$\\
+Robin:    \& $\ds c_0y(x_0)+c_1\odv{y(x)}{x}_{x_0}=a$\;,\; $\ds c_2y(x_N)+c_3\odv{y(x)}{x}_{x_N}=a$\\
+};
+\end{zframe}
+                 
+\begin{zframe}{}
+
+\Large
+                  
+\path(t-|np) ++(0,-.5) node(A){
+  \centerline{\Large\color{verde} EDO 2\textsuperscript{do} orden}};
+                        
+\path(A.south) ++(0.,0) node(A)[align=left,anchor=north]{
+${\ds \odv[order=2]{y(x)}{x}=F\ab(x,y(x),\odv{y(x)}{x})}$};
+                  
+\path(t-|np) ++(0,-3) node(A){
+  \centerline{\Large\color{verde} Ecuación de onda}};
+                        
+\path(A.south) ++(0.,-.3) node(A)[align=left,anchor=north]{
+${\ds \frac{\partial^2 u(x, t)}{\partial t^2} = c^2 \frac{\partial^2 u(x, t)}{\partial x^2}}$};
+
+\path(A.south) ++(0.,-.3) node(A)[align=left,anchor=north]{
+  \centerline{\Large\color{verde} Ecuación del calor}};
+
+\path(A.south) ++(0.,-.3) node(A)[align=left,anchor=north]{
+${\ds \frac{\partial u(x, t)}{\partial t} = \alpha \frac{\partial^2 u(x, t)}{\partial x^2}}$};
+
+
+\end{zframe}  
+                   
+\begin{zframe}{} \Large
+ 
+\path(t-|np) ++(0,.2) node(A){
+  \centerline{\Large\color{verde} Schrödinger}};
+                        
+\path(A.south) ++(0.,-.1) node(A)[align=left,anchor=north]{
+${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\ab[-{\frac {\hbar ^{2}}{2m}}{\frac {\partial ^{2}}{\partial x^{2}}}+V(x,t)]\Psi (x,t).}$};
+                      
+\path(np|-t) ++(0,-2.8) node(A){
+  \centerline{\color{verde} Hamiltoniano independiente del tiempo}};
+
+\path(A.south) ++(0.,-.1) node(A)[anchor=north,align=center]{
+${\ds\Psi(x,t)={\color{celeste}\psi(x)\color{rosa}f(t)}}$\\[3mm]
+${\ds i\hbar \odv{f(t)}{t} = E f(t)\;\Rightarrow\; \color{rosa}f(t)=e^{-i E t/\hbar}}$\\[3mm]
+${\ds\color{celeste} \ab[-\frac {\hbar^2}{2m}\odv[order=2]{}{x}+V(x)]\psi(x)= E \psi(x) }$
+};
+
+\end{zframe}  
+                
+\begin{zframe}{} \Large
+
+\path(t-|np) ++(0,.2) node(A){
+  \centerline{\Large\color{verde} Schrödinger}};
+                        
+\path(A.south) ++(0.,-.1) node(A)[align=left,anchor=north]{
+${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\ab[-{\frac {\hbar ^{2}}{2m}}{\frac {\partial ^{2}}{\partial x^{2}}}+V(x,t)]\Psi (x,t).}$};
+                      
+\path(np|-t) ++(0,-2.8) node(A){
+  \centerline{\color{verde} Hamiltoniano independiente del tiempo}};
+                    
+\path(A.south) ++(0.,-.1) node(A)[anchor=north,align=center]{
+${\ds\Psi(x,t)=\sum_{n}{c_n\color{celeste}\psi_n(x)\color{rosa}f_n(t)}\quad c_n\in\mathbb{C}}$\\[3mm]
+${\ds i\hbar \odv{f_n(t)}{t}  = E_n f_n(t)\;\Rightarrow\; \color{rosa}f_n(t)=e^{-i E_n t/\hbar}}$\\[3mm]
+${\ds\color{celeste} \ab[-\frac {\hbar^2}{2m}\odv[order=2]{}{x}+V(x)]\psi_n(x)= E_n \psi_n(x) }$
+};
+
+\end{zframe}  
+                
+\begin{zframe}{}
+
+\path(t-|np) ++(0,-1) node(A){
+  \centerline{\Large\color{verde} EDO 2\textsuperscript{do} orden, lineal}};
+
+\path(A.south) ++(0.,-.2) node(A)[align=left,anchor=north]{
+${\ds a(x) \odv[order=2]{y}{x} + b(x) \odv{y}{x} + c(x)y = f(x)}\quad y(x_0)=a,\; y(x_N)=b$};
+
+\path(A.south) ++(0.,-1) node(A)[align=left,anchor=north]{
+  \centerline{\Large\color{verde} Diferenciacion Finita}};
+                        
+\path(A.south) ++(0.,-.2) node(A)[align=left,anchor=north]{
+{$\ds y_{n-1}\ab(\frac{a_n}{h^2}-\frac{b_n}{2h})+ y_n\ab(c_n-\frac{2a_n}{h^2})+y_{n+1}\ab(\frac{a_n}{h^2}+\frac{b_n}{2h})=f_n$}};
+           
+           
+\end{zframe}  
+         
+\begin{zframe}{ampersand replacement=\&}
+
+\path(t-|np) ++(0,.3) node(A){
+  \centerline{\color{naranja}1. Discretizar las Condiciones de Frontera (C. F.)}};
+
+\path(A.south-|t) ++(0.,.0) node(M)[anchor=north west,matrix,matrix of nodes,
+column sep=0 mm,row sep=2 mm]{
+$\ds c_0y_0+c_1\odv{y}{x}_0=a$ \& $\ds c_2y_N+c_3\odv{y}{x}_N=b$\\
+$\ds c_0y_0+c_1\ab(\dfrac{y_0-{\color{naranja}y_{-1}}}{h})=a\quad$ \& $\quad\ds c_2y_N+c_3\ab(\dfrac{{\color{naranja}y_{N+1}}-y_N}{h})=b$\\
+$\ds{\color{naranja} y_{-1}}=a'+y_0c_1'\quad$\&$\ds{\color{naranja}\quad y_{N+1}}=b'+y_Nc_2'$\\ };
+                   
+\path(M.south-|cp) ++(0,-.3) node(A)[anchor=north]{
+  \centerline{\color{naranja}2. Expresar Sistema de Ecuaciones}};
+                       
+\path<1>(A.south) ++(0,.1) node(A)[align=left,anchor=north,text width=12cm]{
+\begin{align*}
+\ds n & =0 &  & {\color{naranja}y_{-1}}A_0 &  & +y_0B_0 &  & +y_1                     A_0 & = & f_0\\
+\ds n & =k &  & y_{k-1}                A_k &  & +y_kB_k &  & +y_{k+1}                 A_k & = & f_k\\
+\ds n & =N &  & y_{N-1}                A_N &  & +y_NB_N &  & +{\color{naranja}y_{N+1}}A_N & = & f_N
+\end{align*}
+};    
+    
+\path<2>(A.south) ++(0,.1) node(A)[align=left,anchor=north,text width=12cm]{
+\begin{align*}
+\ds n & =0 &  &            &  & +y_0{\color{naranja}B_0'} & &  +y_1    A_0  & = & {\color{naranja}f'_0}\\
+\ds n & =k &  & y_{k-1}A_k &  & +y_kB_k  & &  +y_{k+1}A_k  & = & f_k\\
+\ds n & =N &  & y_{N-1}A_N &  & +y_N{\color{naranja}B'_N}  & &  +            & = & {\color{naranja}f'_N}
+\end{align*}
+};    
+      
+        
+\path<3>(A.south) ++(0.,.1) node(A)[align=left,anchor=north]{$
+\begin{pmatrix}
+{\color{naranja}B'_0} & A_0    &         &        &        & \\
+A_0  & B_1    & A_1     &        &        & \\
+     & \ddots & \ddots  & \ddots &        & \\
+     &        & A_{N-1} & B_N    & A_N \\
+     &        &         & A_N    & {\color{naranja}B'_N}
+\end{pmatrix}
+\begin{pmatrix}
+y_1\\
+y_2\\ 
+\vdots \\
+y_{N-1} \\
+y_N
+\end{pmatrix}
+=
+\begin{pmatrix}
+{\color{naranja}f'_1}\\
+f_2\\ 
+\vdots \\
+f_{N-1} \\
+{\color{naranja}f'_N}
+\end{pmatrix} 
+$};
+
+
+\end{zframe}  
+                    
+\begin{zframe}{}
+
+\path(t-|np) ++(0,-1) node(A){
+  \centerline{\Large\color{verde} EDO 2\textsuperscript{do} orden, lineal, $b(x)=0$}};
+
+\path(A.south) ++(0.,-.2) node(A)[align=left,anchor=north]{
+${\ds \odv[order=2]{y}{x} + P(x)y = R(x)}\quad \ds P(x)=\frac{c(x)}{a(x)},\; \ds R(x)=\frac{f(x)}{a(x)}$};
+                        
+\path(A.south) ++(0.,-1) node(A)[align=left,anchor=north]{
+  \centerline{\Large\color{verde} Numerov}};
+                        
+\path(A.south) ++(0.,-.2) node(A)[align=center,anchor=north]{
+{$\ds y_{n+1}\ab(1+\frac{h^2}{12}P_{n+1})-2y_{n}\ab(1-\frac{5h^2}{12}P_{n})+y_{n-1}\ab(1+\frac{h^2}{12}P_{n-1})$}\\[2mm]
+{$\ds =\frac{h^2}{12}\ab(R_{n+1}+10R_n+R_{n-1})$}\\[2mm]
+};
+           
+\end{zframe}  
+                          
+\begin{zframe}{
+ flecha/.style={->,>=stealth,ultra thick}
+}
+
+\path(t-|np) ++(0,-1) node(A){
+  \Large\color{verde} EDO 2\textsuperscript{do} orden, lineal, $b(x)=0$, $f(x)=0$ con \color{naranja}C. F.};
+
+\draw[celeste,flecha](A.north) -- ++(0,.4) node[above]{\large PROBLEMA DE AUTOVALORES};
+
+\path(A.south) ++(0,0) node(A)[align=left,anchor=north,text width=10cm]{
+\begin{align*}
+\ds            & \odv[order=2]{y}{x} + P(x)y = 0  & &  \color{celeste} \Rightarrow \odv[order=2]{y}{x} + P_E(x)y = 0 \\[2mm]
+\ds\Rightarrow & \odv[order=2]{y}{x} + P(x)y =Ey & & \quad \color{celeste}\Uparrow \\[2mm]
+\ds\Rightarrow & \vb{H}y = Ey                     & &  \color{celeste} \Rightarrow\text{¿}E\text{?}
+\end{align*}
+};
+
+\path(A.south) ++(0.,-.1) node(A)[align=left,anchor=north]{
+  \centerline{\Large\color{verde} Numerov}};
+                        
+\path(A.south) ++(0.,-.2) node(A)[align=center,anchor=north]{
+{$\ds y_{n+1}\ab(1+\frac{h^2}{12}P_{E,n+1})-2y_{n}\ab(1-\frac{5h^2}{12}P_{E,n})+y_{n-1}\ab(1+\frac{h^2}{12}P_{E,n-1}) = 0$}\\[2mm]
+};
+           
+\end{zframe}  
+           
+\begin{zframe}{}
+
+\path(t-|np) ++(0,-1) node(A){
+  \centerline{\Large\color{verde} EDO 2\textsuperscript{do} orden \color{naranja}(e.g. Dirichlet)}};
+
+\path(A.south) ++(0.,-.1) node(A)[align=left,anchor=north]{
+${\ds \odv[order=2]{y(x)}{x}=F\ab(x,y(x),\odv{y(x)}{x})}\quad \color{naranja} y(x_0)=a,\; y(x_n)=b$};
+
+% $\ds c_0y(x_0)+c_1\odv{y(x_0)}{x_0}=a$\;,\; $\ds c_2y(x_N)+c_3\odv{y(x_N)}{x_N}=a$\\
+
+\path(A.south) ++(0.,-1) node(A)[align=left,anchor=north]{
+  \centerline{\Large\color{verde} El método del disparo}};
+                        
+\path(A.south) ++(0.,-.2) node(A)[align=center,anchor=north]{
+{$\ds \odv[order=2]{u_\alpha(x)}{x}=F\ab(x,u_\alpha(x),\odv{u_\alpha(x)}{x})\quad \color{celeste} u_\alpha(x_0)=a,\; \odv{u_\alpha(x_0)}{x}=\alpha$}\\[4mm]
+{$\ds \color{verde} g(\alpha)=u_\alpha(x_N)-{\color{naranja}b}=0$}\\[2mm]
+};
+           
+\end{zframe}  
+ 
+\begin{zframe}{
+alg/.style={rectangle, rounded corners=1ex,draw=celeste,fill=celeste,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=center},
+alghead/.style={alg,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}}}
+ 
+\path(nw) ++(.2,-1.6) node(T)[alg,text width=12cm]{\\[1mm]
+\begin{enumerate}[\color{rosa}1.]
+\item Elige {\color{celeste}$\alpha_0$}\\
+\item Resuelve ${\color{verde}\ds\odv[order=2]{u_{\alpha_0}(x)}{x}=F\ab(x,u_{\alpha_0}(x),\odv{u_{\alpha_0}(x)}{x})}$ con $x_0={\color{naranja}a}$ y $\ds\odv{u_{\alpha_0}(x_0)}{x}=\color{celeste}\alpha_0$ hasta $x_N$. Puede usarse Euler, RK4, Numerov, etc.
+\item Calcula  $\color{verde}g(\alpha_0)=u_{\alpha_0}(x_N)-{\color{naranja}b}$
+\item Elige $\color{celeste}\alpha_1$, resuelve y calcula $g(\alpha_1)$
+\item Actualiza $\alpha_1$ hasta que $\color{celeste}g(\alpha_1)g(\alpha_0)<0$
+\item Realiza biseccion en el intervalo $[\alpha_0,\alpha_1]$ hasta encontrar $\color{verde}g(\alpha)=0$
+\end{enumerate}};
+\path(T.north west) node(H)[alghead]{\color{black}El método del disparo con bisección};
+          
+\end{zframe}  
+ 
+\begin{zframe}{
+alg/.style={rectangle, rounded corners=1ex,draw=celeste,fill=celeste,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=center},
+alghead/.style={alg,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}}}
+ 
+\path(nw) ++(.2,-1.6) node(T)[alg,text width=12cm]{\\[1mm]
+\begin{enumerate}[\color{rosa}1.]
+\item Elige  {\color{celeste}$E_0$} y\ldots {\color{celeste}$\alpha_0$} (no importa: EDO invariante con $cu(x) \;\forall c$ )\\
+\item Resuelve ${\color{verde}\ds \odv[order=2]{y}{x} = P_E(x)y}$ con $x_0={\color{naranja}a}$, $\ds\odv{u_{\alpha_0}(x_0)}{x}=\alpha_0$ y $\color{celeste}E=E_0$ hasta $x_N$. Puede usarse Euler, RK4, Numerov, etc.
+\item Calcula  $\color{verde}g(E_0)=u_{E_0}(x_N)-{\color{naranja}b}$
+\item Elige $\color{celeste}E_1$, resuelve y calcula $g(E_1)$
+\item Actualiza $E_1$ hasta que $\color{celeste}g(E_1)g(E_0)<0$
+\item Realiza biseccion en el intervalo $[E_0,E_1]$ hasta encontrar $\color{verde}g(E)=0$
+\end{enumerate}};
+\path(T.north west) node(H)[alghead]{\color{black}El método del disparo con bisección - AUTOVALORES};
+          
+\end{zframe}  
+        
+     
+\begin{zframe}{} \Large
+
+\path(t-|np) ++(0,.2) node(A){
+  \centerline{\Large\color{verde} Schrödinger}};
+                        
+\path(A.south) ++(0.,-.1) node(A)[align=left,anchor=north]{
+${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\ab[-{\frac {\hbar ^{2}}{2m}}{\frac {\partial ^{2}}{\partial x^{2}}}+V(x,t)]\Psi (x,t).}$};
+                      
+\path(np|-t) ++(0,-2.8) node(A){
+  \centerline{\color{verde} Hamiltoniano independiente del tiempo}};
+                    
+\path(A.south) ++(0.,-.1) node(A)[anchor=north,align=center]{
+${\ds\Psi(x,t)=\sum_{n}{c_n\color{celeste}\psi_n(x)\color{rosa}f_n(t)}\quad c_n\in\mathbb{C}}$\\[3mm]
+${\ds i\hbar \odv{f_n(t)}{t}  = E_n f_n(t)\;\Rightarrow\; \color{rosa}f_n(t)=e^{-i E_n t/\hbar}}$\\[3mm]
+${\ds\color{celeste} \ab[-\frac {\hbar^2}{2m}\odv[order=2]{}{x}+V(x)]\psi_n(x)= E_n \psi_n(x) }$
+};
+
+\end{zframe}  
+      
+\begin{zframe}{} \Large
+
+\path(t-|np) ++(0,.2) node(A){
+  \centerline{\Large\color{verde} Schrödinger}};
+                        
+\path(A.south) ++(0.,-.1) node(A)[align=left,anchor=north]{
+${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
+                      
+\path(np|-t) ++(0,-3.0) node(A)[align=center]{
+  Es un problema con condiciones iniciales \\[2mm]
+    en el tiempo $\Rightarrow$ necesito $\Psi(x,0)$};
+                    
+\path<1>(A.south) ++(0.,-.2) node(A)[anchor=north,align=center]{
+  {\color{naranja} Opción 1: }Si puedo expandirla en autofunciones\ldots\\[3mm]
+${\ds\Psi(x,0)=\sum_{n}c_n\color{celeste}\psi_n(x)}$\\[2mm]
+${\ds \Rightarrow\Psi(x,t)=\sum_{n}c_n\color{celeste}\psi_n(x)\color{rosa}e^{-i E_n t/\hbar}}$};
+                          
+\path<2>(A.south) ++(0.,-.2) node(A)[anchor=north,align=center]{
+  {\color{naranja} Opción 2: } Es de 1er orden! la resuelvo\ldots\\[3mm]
+${\ds\Psi(x,t)={\color{celeste}e^{-i\vb{H}t/\hbar}}}\Psi(x,0)\quad\quad$\color{celeste}(propagador)\\[2mm]
+1. Elegir una base.\\[2mm]
+2. Diagonalizar $\vb{H}$ para tomar la exponencial.};
+                              
+\path<3>(A.south) ++(0.,-.2) node(A)[anchor=north,align=center]{
+  {\color{naranja} Opción 3: }La trato como cualquier EDO con C. I.\\[3mm]
+\textit{Euler hacia adelante, Euler hacia atras, RK4, etc.} \\[2mm]
+Solo difieren en que debo discretizar tiempo y \textit{espacio}\\[2mm]
+Debo por tanto elegir una aproximacion para el Laplaciano};
+                           
+\end{zframe}  
+                   
+\end{document}
