@@ -1,0 +1,17 @@
+\providecommand\xmin{-3}
+\providecommand\xmax{3}
+\providecommand\xn{15}
+\providecommand\ymin{-3}
+\providecommand\ymax{3}
+\providecommand\yn{15}
+ 
+\pgfmathsetmacro{\hx}{(\xmax-\xmin)/\xn}
+\pgfmathsetmacro{\hy}{(\ymax-\ymin)/\yn}
+
+\foreach \i in {0,...,\xn}
+\foreach \j in {0,...,\yn}{
+  \pgfmathsetmacro{\xprime}{f({\xmin+\i*\hx},{\ymin+\j*\hy})}
+  \pgfmathsetmacro{\yprime}{g({\xmin+\i*\hx},{\ymin+\j*\hy})}
+  \draw[celeste,-stealth,shift={({\xmin+\i*\hx},{\ymin+\j*\hy})}] (0,0)--(.1*\xprime,.1*\yprime);
+}
+

@@ -1,0 +1,102 @@
+ 
+\begin{scope}[x=1cm,y=0.8cm,shift=(scope),thick]
+
+% Definir
+\path(-2,0) coordinate(O);
+\path(3,3) coordinate(K1);          % Esquina del cuadrante 1
+\path(K1-|{(-3,0)}) coordinate(K2); % Esquina del cuadrante 2
+\path(K2|-{(0,-2)}) coordinate(K3); % Esquina del cuadrante 3
+
+% Emergentes
+\path(K3-|K1) coordinate(K4);       % Esquina del cuadrante 4
+\path(O-|K1) coordinate(xp);       % Punta de eje +x
+\path(O-|K2) coordinate(xn);       % Punta de eje -x
+\path(O|-K1) coordinate(yp);       % Punta de eje +y
+\path(O|-K3) coordinate(yn);       % Punta de eje -y
+
+
+% grid
+\draw[style=help lines, ystep=1, xstep=1] (K3) grid (K1);
+
+% axes
+\draw[->] (xn) -- (xp) node[right] {$x$};
+% \draw[->] (yn) -- (yp) node[right] {$y$};
+
+% xticks and yticks
+% {\scriptsize
+% \foreach \x in {-3,-2,...,3}  \path(O-|{(\x,0)}) node[below]{\x};
+% \foreach \y in {-4,-3,...,4} \path(O|-{(0,\y)}) node[left]{\y};
+% }
+
+% generate and plot another a curve y = 0.1 x^2 + 2.5
+% this generates the files figure.parabola.gnuplot and figure.parabola.table 
+\draw[color=amarillo, domain=-3:3] plot[smooth,id=parabola] function{sin(2*x)+x} 
+node[above,yshift=-3,xshift=-30] {$f(x)=\sin(x)+x$};
+
+
+\ifundef{\globalxa}{\gdef\globalxa{-1.5}}{}
+\ifundef{\globalxb}{\gdef\globalxb{1.2}}{}
+\pgfmathsetmacro\mm{3}
+\pgfmathsetmacro\m{int(\mm-1)}
+                                              
+% Punto b
+\pgfmathsetmacro\x{\globalxb}
+\pgfmathsetmacro\y{sin(2*\x*180/3.1415)+\x}
+\pgfmathsetmacro\la{sign(\y)*(-7)}
+
+\fill[verde] (\x,\y) circle(0.1cm);
+\draw[verde,dashed] (\x,0) -- (\x,\y) node[pos=0,yshift=\la]{$b$};
+\draw[verde,dashed] (O|-{0,\y}) -- (\x,\y) node[pos=0,left]{$f(b)$};
+  
+% Punto a
+\pgfmathsetmacro\xx{\globalxa}
+\pgfmathsetmacro\yy{sin(2*\xx*180/3.1415)+\xx}
+\pgfmathsetmacro\lb{sign(\yy)*(-7)}
+
+\fill[verde] (\xx,\yy) circle(0.1cm);
+\draw[verde,dashed] (\xx,0) -- (\xx,\yy) node[pos=0,yshift=\lb]{$a$};
+\draw[verde,dashed] (O|-{0,\yy}) -- (\xx,\yy) node[pos=0,left]{$f(a)$};
+
+% Etiquetas
+\path(4,3) node[anchor=north west,align=left]{
+  a=\xx\\
+  b=\x};
+\pgfmathsetmacro\iter{int((\mm-1)/2)}
+\path(6,3) node[circle,draw=white,anchor=north west,align=left]{
+  \iter};
+
+% Distancia
+\pgfmathsetmacro\d{\x-\xx}
+\path<3->(4,-2) node[anchor=south west,align=left]{
+  Convergencia: ($\epsilon=0.4$)\\
+  $b-a=\d$
+};
+% Punto c
+\pgfmathsetmacro\xc{(\xx+\x)*.5}
+\pgfmathsetmacro\yc{sin(2*\xc*180/3.1415)+\xc}
+\pgfmathsetmacro\lc{sign(\yc)*(-7)}
+
+\fill[celeste] (\xc,\yc) circle(0.1cm);
+\draw[celeste,dashed] (\xc,\yc) -- (\xc,0) node[pos=1,yshift=\lc]{$x$};
+\draw[celeste,dashed] (O|-{0,\yc}) -- (\xc,\yc) node[pos=0,left,yshift=-5]{$f(x)$};
+
+\pgfmathsetmacro\test{sign(\yc*\yy)}
+\ifthenelse{\test>0}{
+  \global\let\globalxa=\xc
+  \path(4,0.5) node[anchor=west,align=left]{
+    $x=\xc$\\$f(a)f(x)>0$};
+}{
+  \path(4,0.5) node[anchor=west,align=left]{
+    $f(a)f(x)<0$\\$x=\xc$};
+  \global\let\globalxb=\xc
+}
+
+
+\global\let\globalxa\undefined
+\global\let\globalxb\undefined
+
+\path(-1,1.6) node(B)[anchor=north west,align=left]{
+  raíz};
+\draw[->,dashed,shorten >=5](B) to[bend left] (0,0);
+     
+\end{scope}

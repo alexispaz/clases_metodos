@@ -1,0 +1,66 @@
+\providecommand\xorg{0}
+\providecommand\yorg{0}
+\providecommand\xmin{-3}
+\providecommand\xmax{3}
+\providecommand\xstp{5}
+\providecommand\xtra{0}
+\providecommand\ymin{0}
+\providecommand\ymax{3}
+\providecommand\ystp{1}
+\providecommand\nfra{1}
+
+% Definir
+\path(\xorg,\yorg) coordinate(O);
+\path(\xmax,\ymax) coordinate(K1);          % Esquina del cuadrante 1
+\path(K1-|{(\xmin,\yorg)}) coordinate(K2); % Esquina del cuadrante 2
+\path(K2|-{(\xorg,\ymin)}) coordinate(K3); % Esquina del cuadrante 3
+
+% Emergentes
+\path(K3-|K1) coordinate(K4);       % Esquina del cuadrante 4
+\path(O-|K1) coordinate(xp);       % Punta de eje +x
+\path(O-|K2) coordinate(xn);       % Punta de eje -x
+\path(O|-K1) coordinate(yp);       % Punta de eje +y
+\path(O|-K3) coordinate(yn);       % Punta de eje -y
+
+
+% grid
+\draw[style=help lines, ystep=\ystp, xstep=\xstp] (K3) grid (K1);
+
+% axes
+\draw[->] (xn) -- (xp) node[right] {$x$};
+\draw[->] (yn) -- (yp) node[right] {$y$};
+
+% xticks and yticks
+% {\scriptsize
+% \foreach \x in {-3,-2,...,3}  \path(O-|{(\x,0)}) node[below]{\x};
+% % \foreach \y in {-1,0,...,3} \path(O|-{(0,\y)}) node[left]{\y};
+% }
+
+% Diferencias finitas
+\pgfmathsetmacro\xxmin{\xmin+(\xstp)}
+\pgfmathsetmacro\xxmax{\xmax-(\xstp)}
+
+\foreach \x in {0,1,2,5} {
+
+  % Parse \nxi
+  \pgfmathsetmacro\xi{int(\x)}
+  \pgfmathparse{ifthenelse(\xi>0,1,0)}
+  \ifdim\pgfmathresult pt= 1 pt
+    \def\nxi{\xi}
+  \else
+    \def\nxi{\xi}
+  \fi
+  \pgfmathparse{ifthenelse(\xi==0,1,0)}
+  \ifdim\pgfmathresult pt= 1 pt
+    \def\nxi{0}
+  \fi
+   
+  \path(\x,\yorg) node[below right]{\small\color{gray} $\nxi$};
+}
+% \path(0,0) node[above right]{\small\color{gray} $0$};
+\path(0,-1) node[above right]{\small\color{gray} $-1$};
+\path(0,-2) node[above right]{\small\color{gray} $-2$};
+
+% \path(-1,2.8) node[anchor=north west,align=left]{$x_r$=0};
+    
+

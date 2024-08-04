@@ -18,11 +18,12 @@
 \newcommand\CC{}
 
 \begin{zframe}{}
-\path(cp) ++(3,0) node(I)[]{\includegraphics[width=5cm]{img/messi2.png}};
+\path(cp) ++(3,0) node(I)[]{\includegraphics[width=5cm]{img/idiogram/PVF2.png}};
 \path(c2|-I.north) ++(0,-1) node(A)[anchor=north,align=left]{
   \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
-  \color{celeste} \textbf{Condición de frontera}\\[2mm]  
-  \color{lila} \textit{Agosto 30, 2023}
+  \color{celeste} \textbf{Problemas con Valores}\\[2mm]  
+  \color{celeste} \textbf{en la Frontera}\\[3mm]  
+  \color{lila} \textit{Abril 16, 2024}
 };
 \normalsize
 \path(A.west|-I.south) ++(0,1) node(B)[anchor=south west,align=left]{
@@ -32,100 +33,254 @@
 
 \renewcommand\CC{
   \path(se) node[anchor=south east]{\tiny\color{gray} MC2023 - S.A.Paz};}
-
+         
 \begin{zframe}{ampersand replacement=\&}
       
 \path(t) ++(-.3,.5) coordinate(t);
+                
+\path(t-|np) ++(0,0) node(x){
+  \centerline{\Large\color{verde} Problema con Valores Iniciales (PVI)}};
+                
+\path(x.south-|t) ++(0.,-.3) node(B)[align=left,anchor=north west]{
+  ${\ds \odv[order=n]{y(x)}{x}=F\ab(x,y,\cdots,\odv[order=n-1]{y}{x})}\quad;$};
+                
+\path(B.south-|t) ++(0.,-1.3) node(A)[align=left,anchor=north west]{
+  $\ds \odv{\vb{y}(x)}{x}=\vb{F}\ab(x,\vb{y})\quad;\;\quad \vb{y}(a)={\boldsymbol\alpha}$};
+              
+\draw[<->,ultra thick, naranja](B) -- (B|-A.north);
+ 
+\path(A.east) ++(1.2,1) node(A)[align=left,anchor=west,text width=3cm]{
+\begin{align*}
+  \ds \quad y(a)&=\alpha_0\\
+  \odv{y}{x}_a&=\alpha_1\\
+  \vdots\\
+  \odv[order=n-1]{y}{x}_a&=\alpha_{n-1}
+ \end{align*}
+};
+
+\path(A.north east) ++(0,-.5) coordinate(r);
+\draw<2>[verde,ultra thick](A.south west) ++(0,2) rectangle (r);
+               
+\path(c1) ++(0,1) node(A)[naranja]
+{Condiciones de Cauchy};
+
+\path(c3) ++(-.8,1.1) node[naranja]
+{Euler, RK4, Leap-Frog, \ldots};
+
+\path(c4) ++(.3,-.2) node(A)[ellipse,celeste,ultra thick,inner sep=1,draw,align=center]
+{Teorema de existencia\\ y unicidad};
+               
+\path(sp) ++(-3.5,0.3) coordinate(scope);
+\begin{scope}[x=1cm,y=1cm,scale=1.2,shift=(scope),thick]
+  \newcommand\xmin{-1}
+  \newcommand\xmax{3}
+  \newcommand\xstp{1}
+  \newcommand\xtra{1}
+  \newcommand\ymin{0.5}
+  \newcommand\yorg{0.5}
+  \newcommand\ymax{3}
+  \newcommand\ystp{1}
+  \newcommand\nfra{1}
+
+  {\scriptsize \input{frames/euler0.tex}}
+
+    
+  % yn
+  \pgfmathsetmacro\x{0}
+  \pgfmathsetmacro\y{sin((\x-(\xtra))/3.1415*180)+2}
+  \fill[celeste](\x,\y) circle(.1) node[fg,above=.1]{\scriptsize $y_{0}$};
+  \path(0,.5) ++(1,.5) node(x){$a$};
+  \draw[thick,dashed,<-,shorten <=0.2] (0,.5) to[bend left] (x);
+  \draw[thick,celeste](\x,\y) +(-153:0.5) -- ++(27:0.5) node[right]{\scriptsize $y'_{0}$};
+
+  % % Pendiente
+  % \pgfmathsetmacro\a{cos((\x-(\xtra))/3.1415*180)}
+  % \draw[color=celeste, thick, domain=\xmin:\xmax] plot[smooth] function{(\a*(x-\x)+\y)};
+  %
+  % % yn+1
+  % \pgfmathsetmacro\xx{1}
+  % \pgfmathsetmacro\y{(\a*(\xx-\x)+\y)}
+  % \fill[naranja](\xx,\y) circle(.1) node[fg,below=.1]{\scriptsize $y_{1}$};
+\end{scope}
+      
+
+% \begin{scope}[
+%   declare function={f(\x,\y)=\x+\y;},shift=(scope),
+%   decoration={markings,
+%     mark=between positions 0 and 1 step 2.cm with {\draw [-latex] (-0.2,0) -- (0.2,0);}}]
+%      
+%   \providecommand\xmin{-2}
+%   \providecommand\xmax{0.3}
+%   \providecommand\xn{15}
+%   \providecommand\ymin{-0}
+%   \providecommand\ymax{2}
+%   \providecommand\yn{15}
+%  
+%
+%   \draw[->] (\xmin-.5,1)--(\xmax+.5,1) node[below right] {$x$};
+%   \draw[->] (-1,\ymin-.5)--(-1,\ymax+.5) node[above left] {$y$};
+%
+%   % a solution of y'=y+x is y=(yo+1)e^x-x-1
+%  
+%   \def\yo{2}
+%   \draw[->,naranja] plot[domain=\xmin:\xmax] (\x,{(\yo+1)*exp(\x)-\x-1});
+%   \fill[celeste](0,\yo) circle(.1) node[fg,right]{\scriptsize $y(x_0)$};
+%  
+%   \def\yo{1}
+%   \draw[->,naranja] plot[domain=\xmin:\xmax] (\x,{(\yo+1)*exp(\x)-\x-1});
+%
+%   \def\yo{0}
+%   \draw[->,naranja] plot[domain=\xmin:\xmax] (\x,{(\yo+1)*exp(\x)-\x-1});
+%
+%   % \def\yo{-1}
+%   % \draw[->,naranja] plot[domain=\xmin:\xmax] (\x,{(\yo+1)*exp(\x)-\x-1});
+% \end{scope}
+
+% \begin{scope}[
+%   declare function={f(\x,\y)=\x+\y;},shift=(scope),
+%   decoration={markings,
+%     mark=between positions 0 and 1 step 2.cm with {\draw [-latex] (-0.2,0) -- (0.2,0);}}]
+%      
+%   \providecommand\xmin{-2}
+%   \providecommand\xmax{0.3}
+%   \providecommand\xn{15}
+%   \providecommand\ymin{-0}
+%   \providecommand\ymax{2}
+%   \providecommand\yn{15}
+%  
+%
+%   \draw[->] (\xmin-.5,1)--(\xmax+.5,1) node[below right] {$x$};
+%   \draw[->] (-1,\ymin-.5)--(-1,\ymax+.5) node[above left] {$y$};
+%
+%   % a solution of y'=y+x is y=(yo+1)e^x-x-1
+%  
+%   \def\yo{2}
+%   \draw[->,naranja] plot[domain=\xmin:\xmax] (\x,{(\yo+1)*exp(\x)-\x-1});
+%   \fill[celeste](0,\yo) circle(.1) node[fg,right]{\scriptsize $y(x_0)$};
+%  
+%   \def\yo{1}
+%   \draw[->,naranja] plot[domain=\xmin:\xmax] (\x,{(\yo+1)*exp(\x)-\x});
+%
+%   \def\yo{0}
+%   \draw[->,naranja] plot[domain=\xmin:\xmax] (\x,{(\yo+1)*exp(\x)-\x+1});
+%
+% \end{scope}
+                                             
+      
+\end{zframe}
+           
+\begin{zframe}{ampersand replacement=\&}
+
+\large
+
+\path(t) ++(-.3,.5) coordinate(t);
      
 \path(t-|np) ++(0,0) node(A){
-  \centerline{\Large\color{verde} Condiciones iniciales (orden $k$)}};
+  \centerline{\color{verde} \Large Problema con Valores en la Frontera (PVF)}};
 
-\path(A.south-|t) ++(0.,-.3) node(A)[align=left,anchor=north west]{
-{Cauchy: $\ds \quad y(x_0)=a_0\,,\,\odv{y(x_0)}{x}=a_1\,,\,\dotsc\,,\,\odv[order=k]{y(x_0)}{x}=a_k$}\\[4mm]
-{\ldots o en notacion vectorial $\quad \vb{y}(x_0)=\vb{a}$}\\[4mm]
+\path(A.south-|t) ++(-.0,-.1) node(A)[anchor=north west,amarillo]{
+  \centerline{$\ds y''(x)=F\ab(x,y,y')\quad;\quad a\leq x\leq b$}
 };
+
+\begin{scope}
+\path<2>[clip] (wp|-c1) ++(0,-.3) rectangle (ne);
+\path(A.south-|t) ++(-.0,-.1) node(A)[anchor=north west,matrix,matrix of nodes,
+column sep=3 mm,row sep=3mm]{
+Dirichlet \& $\ds y(a)=\alpha$ \& $\ds y(b)=\beta$\\
+Neumann \& $\ds\odv{y}{x}_{a}=\alpha$\& $\ds\odv{y}{x}_{b}=\beta$\\
+Mixta	\& $\ds y(a)=\alpha$ \& $\ds\odv{y}{x}_{b}=\beta$\\
+Robin  \& $\ds c_0y(a)+c_1\odv{y}{x}_{a}=\alpha$\& $\ds c_2y(b)+c_3\odv{y}{x}_{b}=\beta$\\
+};
+\end{scope}
+
+\path<2>(A.north-|t) ++(0,-1.2) node(A)[theo,anchor=north west, text width=11cm, execute at begin node=\setlength{\baselineskip}{4ex}]{
+  % \hfill$\ds y''(x)=F\ab(x,y',y'')$
+  \\[4mm]
+  \begin{itemize}
+  \item[\color{rosa}$\bullet$] $F$ continua en $D = \ab\{ (x, y, y' ) | a \leq x \leq b, -\infty <  y <\infty  y, -\infty < y' <\infty \}$\\
+  \item[\color{rosa}$\bullet$] $\ds\pdv{F}{y}(x, y, y' )>0$ \\
+  \item[\color{rosa}$\bullet$] $\ds\ab|\pdv{F}{y'}(x, y, y' )|\leq M$
+  \end{itemize}
+};
+\path<2>(A.north west) node(H)[theohead,anchor=north west]{\color{black}Teorema de existencia y unicidad};
+\path<2>(A.north east) ++(-2,-4.5) node(H)[draw=celeste,very thick, inner sep=0,rotate=-5,anchor=east]{\includegraphics[width=2.9cm]{img/burden.png}};
  
-\path(ep) ++(-.6,1.4) node(A)[rotate=10,ellipse,celeste,ultra thick,inner sep=0,draw,align=center,anchor=south east]
-{Teorema de existencia\\ y unicidad};
-             
-\path(ep) ++(-1,-2) node(A)[rotate=-10,ellipse,celeste,ultra thick,inner sep=0,draw,align=center,anchor=south east]
-{Existencia\\ y unicidad};
-\draw[celeste,ultra thick](A.south west) -- (A.north east);
+\path<1>(A.south) ++(0.,-.3) node(A)[anchor=north,ellipse,celeste,ultra thick,inner sep=1,draw,align=center]{
+  La existencia y unicidad \\ no son triviales.}; 
 
-\path(cp) ++(0,0) node(A){
-  \centerline{\Large\color{verde} Condiciones de frontera (e.g. 2\textsuperscript{do} orden)}};
-
-\path(A.south-|t) ++(0.,-.3) node(M)[anchor=north west,matrix,matrix of nodes,
-column sep=0 mm,row sep=2 mm]{
-Dirichlet:\& $\ds y(x_0)=a$ \;,\; $\ds y(x_N)=b$\\
-Neumann:	\& $\ds\odv{y(x)}{x}_{x_0}=a$\;,\; $\ds\odv{y(x)}{x}_{x_N}=b$\\
-Robin:    \& $\ds c_0y(x_0)+c_1\odv{y(x)}{x}_{x_0}=a$\;,\; $\ds c_2y(x_N)+c_3\odv{y(x)}{x}_{x_N}=a$\\
-};
 \end{zframe}
-                 
+                           
+\begin{zframe}{}
+\path<1->(cp) ++(0,0) node(x)[]{ \includegraphics[width=14cm]{img/messi3.png}};
+\path<3->(nw) ++(1,-3) node[verde,fill=black,draw, thick, anchor=north west]{\Large PVF};
+
+\path<2>(cp) ++(0,0) node(x)[inner sep=0, draw, thick, celeste]{ \includegraphics[width=10cm]{img/messi4.png}};
+\begin{scope}
+\path<2>(hl) ++(-0.7,-.3) coordinate(A);
+\path<2>(c1) ++(1,-1.4) coordinate(B);
+\path<2>[clip](A) circle(1.2);
+\draw<2>[rojo,->, ultra thick](A) to[bend left=22] (B);
+\end{scope}
+\draw<2>[thick,rojo](A) circle(.2) node[below,align=center]{Condiciones\\ Iniciales};
+\path<2>(x.north west) node[verde,fill=black,draw, thick, anchor=north west]{\Large PVI};
+\begin{scope}
+\path<2>(hl) ++(-0.7,-.3) coordinate(A);
+\path<2>(c1) ++(1,-1.4) coordinate(B);
+\path<2>[clip](B) circle(6.8);
+\draw<2>[rojo,->, ultra thick](A) to[bend left=22] (B);
+\end{scope}
+ 
+\path<3,4>(c3) ++(1.7,-.8) coordinate(A);
+\path<3,4>(c2) ++(.8,-.7) coordinate(B);
+\draw<3>[thick,rojo](A) circle(.2) node[below,inner sep=11,align=center]{\bf Valores\\ \bf Iniciales};
+\draw<4>[thick,rojo](A) circle(.2) node[below,inner sep=11,align=center]{\bf Posición\\ \bf Inicial};
+\draw<3>[thick,rojo](B) circle(.2) node[fill=verde,fill opacity=0.2,text opacity=1,below right=.3,align=center]{\bf Valores\\ \bf Finales};
+\draw<4>[thick,rojo](B) circle(.2) node[fill=verde,fill opacity=0.2,text opacity=1,below right=.3,align=center]{\bf Posición\\ \bf Final};
+\draw<4>[rojo,->, ultra thick](A) to[bend left=20] (B);
+\draw<4>[rojo,->, ultra thick](A) to[bend left=40] (B);
+\draw<4>[rojo,-, ultra thick,shorten >=3cm](A) -- (B);
+\draw<4>[rojo,->, ultra thick,shorten <=3.2cm](A) -- (B);
+ 
+\end{zframe}
+                     
 \begin{zframe}{}
 
 \Large
-                  
-\path(t-|np) ++(0,-.5) node(A){
-  \centerline{\Large\color{verde} EDO 2\textsuperscript{do} orden}};
+
+\path(t) ++(-.5,.5) node(x)[anchor=north west]{
+  \color{verde} Ecuación de onda};
                         
-\path(A.south) ++(0.,0) node(A)[align=left,anchor=north]{
-${\ds \odv[order=2]{y(x)}{x}=F\ab(x,y(x),\odv{y(x)}{x})}$};
-                  
-\path(t-|np) ++(0,-3) node(A){
-  \centerline{\Large\color{verde} Ecuación de onda}};
-                        
-\path(A.south) ++(0.,-.3) node(A)[align=left,anchor=north]{
+\path(x.south west) ++(0.,-.2) node(A)[align=left,anchor=north west]{
 ${\ds \frac{\partial^2 u(x, t)}{\partial t^2} = c^2 \frac{\partial^2 u(x, t)}{\partial x^2}}$};
+             
+\path($(x)!.5!(A)$) coordinate(m);
+\path(m-|A.east) ++(0.4,0) node(z)[align=left,anchor=west]{\includegraphics[width=4cm]{img/idiogram/cuerdas2.png}};
 
-\path(A.south) ++(0.,-.3) node(A)[align=left,anchor=north]{
-  \centerline{\Large\color{verde} Ecuación del calor}};
-
-\path(A.south) ++(0.,-.3) node(A)[align=left,anchor=north]{
+\path(A.south west) ++(0.,-.7) node(x)[align=left,anchor=north west]{
+  \color{verde} Ecuación del calor};
+                                
+\path(x.south west) ++(0.,-.2) node(A)[align=left,anchor=north west]{
 ${\ds \frac{\partial u(x, t)}{\partial t} = \alpha \frac{\partial^2 u(x, t)}{\partial x^2}}$};
+   
+\path($(x)!.5!(A)$) coordinate(m);
+\path(m-|A.east) ++(2,.1) node(x)[align=left,anchor=west]{\includegraphics[width=5cm]{img/idiogram/fourier.png}};
+\path(z) node{\includegraphics[width=4cm]{img/idiogram/cuerdas2.png}};
 
+\path(A.south west) ++(0.,-.7) node(x)[align=left,anchor=north west]{
+  \color{verde} Ecuación elástica};
+
+\path(x.south west) ++(0.,-.2) node(A)[align=left,anchor=north west]{
+${\ds \odv[order=2]{v(x)}{x}= \dfrac{M(x)}{EI}}$};
+   
+\path($(x)!.5!(A)$) coordinate(m);
+\path(m-|x.east) ++(.1,-.2) node(x)[align=left,anchor=west]{\includegraphics[width=4cm]{img/lunchatop.jpg}}; 
+\path(x.base) node[cc]{\by{domínio público}{https://en.wikipedia.org/wiki/File:Lunch\_atop\_a\_Skyscraper\_-\_Charles\_Clyde\_Ebbets.jpg}};
+\path(x.east) ++(-.7,.4) node(x)[align=left,anchor=west]{\includegraphics[width=4cm]{img/CC/Tacoma.png}}; 
+% CC0 - Dominio Publico - https://es.wikipedia.org/wiki/Archivo:Tacoma_Narrows_Bridge_destruction.ogv
+\path(x.base) node[cc]{\by{domínio público}{https://es.wikipedia.org/wiki/Archivo:Tacoma\_Narrows\_Bridge\_destruction.ogv}};
 
 \end{zframe}  
-                   
-\begin{zframe}{} \Large
- 
-\path(t-|np) ++(0,.2) node(A){
-  \centerline{\Large\color{verde} Schrödinger}};
                         
-\path(A.south) ++(0.,-.1) node(A)[align=left,anchor=north]{
-${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\ab[-{\frac {\hbar ^{2}}{2m}}{\frac {\partial ^{2}}{\partial x^{2}}}+V(x,t)]\Psi (x,t).}$};
-                      
-\path(np|-t) ++(0,-2.8) node(A){
-  \centerline{\color{verde} Hamiltoniano independiente del tiempo}};
-
-\path(A.south) ++(0.,-.1) node(A)[anchor=north,align=center]{
-${\ds\Psi(x,t)={\color{celeste}\psi(x)\color{rosa}f(t)}}$\\[3mm]
-${\ds i\hbar \odv{f(t)}{t} = E f(t)\;\Rightarrow\; \color{rosa}f(t)=e^{-i E t/\hbar}}$\\[3mm]
-${\ds\color{celeste} \ab[-\frac {\hbar^2}{2m}\odv[order=2]{}{x}+V(x)]\psi(x)= E \psi(x) }$
-};
-
-\end{zframe}  
-                
-\begin{zframe}{} \Large
-
-\path(t-|np) ++(0,.2) node(A){
-  \centerline{\Large\color{verde} Schrödinger}};
-                        
-\path(A.south) ++(0.,-.1) node(A)[align=left,anchor=north]{
-${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\ab[-{\frac {\hbar ^{2}}{2m}}{\frac {\partial ^{2}}{\partial x^{2}}}+V(x,t)]\Psi (x,t).}$};
-                      
-\path(np|-t) ++(0,-2.8) node(A){
-  \centerline{\color{verde} Hamiltoniano independiente del tiempo}};
-                    
-\path(A.south) ++(0.,-.1) node(A)[anchor=north,align=center]{
-${\ds\Psi(x,t)=\sum_{n}{c_n\color{celeste}\psi_n(x)\color{rosa}f_n(t)}\quad c_n\in\mathbb{C}}$\\[3mm]
-${\ds i\hbar \odv{f_n(t)}{t}  = E_n f_n(t)\;\Rightarrow\; \color{rosa}f_n(t)=e^{-i E_n t/\hbar}}$\\[3mm]
-${\ds\color{celeste} \ab[-\frac {\hbar^2}{2m}\odv[order=2]{}{x}+V(x)]\psi_n(x)= E_n \psi_n(x) }$
-};
-
-\end{zframe}  
-                
 \begin{zframe}{}
 
 \path(t-|np) ++(0,-1) node(A){
@@ -219,136 +374,635 @@ ${\ds \odv[order=2]{y}{x} + P(x)y = R(x)}\quad \ds P(x)=\frac{c(x)}{a(x)},\; \ds
 };
            
 \end{zframe}  
-                          
-\begin{zframe}{
- flecha/.style={->,>=stealth,ultra thick}
-}
-
-\path(t-|np) ++(0,-1) node(A){
-  \Large\color{verde} EDO 2\textsuperscript{do} orden, lineal, $b(x)=0$, $f(x)=0$ con \color{naranja}C. F.};
-
-\draw[celeste,flecha](A.north) -- ++(0,.4) node[above]{\large PROBLEMA DE AUTOVALORES};
-
-\path(A.south) ++(0,0) node(A)[align=left,anchor=north,text width=10cm]{
-\begin{align*}
-\ds            & \odv[order=2]{y}{x} + P(x)y = 0  & &  \color{celeste} \Rightarrow \odv[order=2]{y}{x} + P_E(x)y = 0 \\[2mm]
-\ds\Rightarrow & \odv[order=2]{y}{x} + P(x)y =Ey & & \quad \color{celeste}\Uparrow \\[2mm]
-\ds\Rightarrow & \vb{H}y = Ey                     & &  \color{celeste} \Rightarrow\text{¿}E\text{?}
-\end{align*}
-};
-
-\path(A.south) ++(0.,-.1) node(A)[align=left,anchor=north]{
-  \centerline{\Large\color{verde} Numerov}};
-                        
-\path(A.south) ++(0.,-.2) node(A)[align=center,anchor=north]{
-{$\ds y_{n+1}\ab(1+\frac{h^2}{12}P_{E,n+1})-2y_{n}\ab(1-\frac{5h^2}{12}P_{E,n})+y_{n-1}\ab(1+\frac{h^2}{12}P_{E,n-1}) = 0$}\\[2mm]
-};
-           
-\end{zframe}  
-           
+    
+                 
 \begin{zframe}{}
-
-\path(t-|np) ++(0,-1) node(A){
-  \centerline{\Large\color{verde} EDO 2\textsuperscript{do} orden \color{naranja}(e.g. Dirichlet)}};
-
-\path(A.south) ++(0.,-.1) node(A)[align=left,anchor=north]{
-${\ds \odv[order=2]{y(x)}{x}=F\ab(x,y(x),\odv{y(x)}{x})}\quad \color{naranja} y(x_0)=a,\; y(x_n)=b$};
-
-% $\ds c_0y(x_0)+c_1\odv{y(x_0)}{x_0}=a$\;,\; $\ds c_2y(x_N)+c_3\odv{y(x_N)}{x_N}=a$\\
-
-\path(A.south) ++(0.,-1) node(A)[align=left,anchor=north]{
-  \centerline{\Large\color{verde} El método del disparo}};
-                        
-\path(A.south) ++(0.,-.2) node(A)[align=center,anchor=north]{
-{$\ds \odv[order=2]{u_\alpha(x)}{x}=F\ab(x,u_\alpha(x),\odv{u_\alpha(x)}{x})\quad \color{celeste} u_\alpha(x_0)=a,\; \odv{u_\alpha(x_0)}{x}=\alpha$}\\[4mm]
-{$\ds \color{verde} g(\alpha)=u_\alpha(x_N)-{\color{naranja}b}=0$}\\[2mm]
+ 
+\path(np) ++(0,-.6) node(T)[proc,anchor=north,text width=10cm]{
+ Considerando el PVF:
+ $${\ds \odv[order=2]{y(x)}{x}=F\ab(x,y,\odv{y}{x})}\quad;\quad a\leq x \leq b$$
+ $$y(a)=\alpha, {\color{amarillo}y(b)=\beta} $$
+ Resolver una {\color{celeste}\textbf{sucesión} $k=1,2,\ldots$} de PVIs de la forma:
+ $${\ds \odv[order=2]{y_{t_k}(x)}{x}=F\ab(x,y_{t_k},\odv{y_{t_k}}{x})}\quad;\quad a\leq x \leq b$$
+ $$y(a)=\alpha, {\color{amarillo}\odv{y_{t_k}}{x}_a=t_k}$$
+ Donde $t_k$ es un parámetro introducido para producir\\
+ variaciones en $\odv{y_{t_k}}{x}_a$ hasta que $y_{t_k}(b)=\beta$
 };
+
+\path<2>(c4) ++(-.7,-.5) node(o)[cuadro,ultra thick,ellipse,rosa,draw,fill=black, fill opacity=1,inner sep=1,align=center]{Raíces de\\ $D(t)=y_{t}(b)-\beta$};
+\draw<2>[rosa,ultra thick,<-] (o.-175) to[bend left] ++(-.7,.2);
+
+\path(T.north east) node(H)[prochead]{\color{black}El método del disparo};
+\path(H.south) node(H)[anchor=north]{\bfseries \color{verde} \textit{EDO 2$^\text{do}$, Dirichlet}};
+          
+\end{zframe}  
            
-\end{zframe}  
- 
-\begin{zframe}{
+\begin{zframe}[<1>]{
 alg/.style={rectangle, rounded corners=1ex,draw=celeste,fill=celeste,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=center},
-alghead/.style={alg,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}}}
+alghead/.style={alg,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}}} %yscale=0.9
  
-\path(nw) ++(.2,-1.6) node(T)[alg,text width=12cm]{\\[1mm]
+\path<1>(nw) ++(.2,-.6) node(T)[alg,text width=12cm]{\\[1mm]
 \begin{enumerate}[\color{rosa}1.]
-\item Elige {\color{celeste}$\alpha_0$}\\
-\item Resuelve ${\color{verde}\ds\odv[order=2]{u_{\alpha_0}(x)}{x}=F\ab(x,u_{\alpha_0}(x),\odv{u_{\alpha_0}(x)}{x})}$ con $x_0={\color{naranja}a}$ y $\ds\odv{u_{\alpha_0}(x_0)}{x}=\color{celeste}\alpha_0$ hasta $x_N$. Puede usarse Euler, RK4, Numerov, etc.
-\item Calcula  $\color{verde}g(\alpha_0)=u_{\alpha_0}(x_N)-{\color{naranja}b}$
-\item Elige $\color{celeste}\alpha_1$, resuelve y calcula $g(\alpha_1)$
-\item Actualiza $\alpha_1$ hasta que $\color{celeste}g(\alpha_1)g(\alpha_0)<0$
-\item Realiza biseccion en el intervalo $[\alpha_0,\alpha_1]$ hasta encontrar $\color{verde}g(\alpha)=0$
+\item Elige $\ab[a,b]$ tal que $f(a)f(b)<0$ y una tolerancia $\epsilon_T$.\\
+\item Calcula $x\Leftarrow(a+b)/2$.
+\item Si $|b-a|<\epsilon_T$, terminar. La raíz es $x$.
+\item Si $f(a)f(x)\leq0$ entonces $b\Leftarrow x$, sino $a\Leftarrow x$.
+\item Volver al paso 2.
 \end{enumerate}};
-\path(T.north west) node(H)[alghead]{\color{black}El método del disparo con bisección};
-          
-\end{zframe}  
+\path<2>(c4) ++(-.7,-.5) node(o)[cuadro,ultra thick,ellipse,rosa,draw,fill=black, fill opacity=1,inner sep=1,align=center]{Raíces de\\ $D(t)=y_{t}(b)-\beta$};
+\path(T.north west) node(H)[alghead]{\color{black}Bisección};
+
+\path(hl) ++(0.4,-2.5) coordinate(scope);
+\only<1>{\input{frames/bisec.tex}}
+\only<2->{\input{frames/bisec2.tex}}
+  
+\path(c4) ++(.3,1) node(A)[draw=lila,fill=black,text width=5cm]{
+  \vspace{-2.5ex}\inputminted[bgcolor=black]{python}{code/bisec.py}\vspace{-4ex}};
+\path(A.west) ++(0,0) node[anchor=west,opacity=0.1]{\includegraphics[width=5cm]{code/python_logo.png}};
  
-\begin{zframe}{
+                
+\path<3->(np) ++(-.7,-.2) node(o)[cuadro,ultra thick,ellipse,rosa,draw,fill=black, fill opacity=1,inner sep=1,align=center]{$a\Leftarrow t_{k-1}$\\[-2mm]$b\Leftarrow t_{k}$};
+\draw<3->[rosa,ultra thick,->] (o.west) to[bend right] ++(-3,-.5);
+                
+\path<4->(np) ++(.3,-1.3) node(o)[cuadro,ultra thick,ellipse,rosa,draw,fill=black, fill opacity=1,inner sep=1,align=center]{$k\Leftarrow k+1$\\[-2mm]$t_{k}\Leftarrow x$};
+\draw<4->[rosa,ultra thick,->] (o.west) -- ++(-1.2,-.2);
+                
+\path<5->(np) ++(3.3,-2.55) node(o)[rosa,align=center]{$y_{t_k}$ es solución del PVF};
+% \draw<5->[rosa,ultra thick,<-] (o.west) -- ++(-1.2,-.2);
+
+% \path<2->(ne) ++(-.7,-.5) node(o)[cuadro,anchor=north east,ultra thick,ellipse,rosa,draw,fill=black, fill opacity=1,inner sep=1,align=center]{$f=D(t_k)=y_{t_k}(b)-\beta$};
+% \draw<2->[rosa,ultra thick,<-] (o.-175) to[bend left] ++(-.7,.2);
+
+\path(ne) +(-1.7,-1.0) node[align=center,rectangle,red,draw,fill=white,text width=5cm,rotate=-30, ultra thick]{\bfseries CLASE ANTERIOR};
+
+\end{zframe}
+ 
+\begin{zframe}[<1>]{
 alg/.style={rectangle, rounded corners=1ex,draw=celeste,fill=celeste,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=center},
-alghead/.style={alg,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}}}
+alghead/.style={alg,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}}} %yscale=0.9
  
-\path(nw) ++(.2,-1.6) node(T)[alg,text width=12cm]{\\[1mm]
+\path<1>(nw) ++(.2,-.6) node(T)[alg,text width=12cm]{\\[1mm]
 \begin{enumerate}[\color{rosa}1.]
-\item Elige  {\color{celeste}$E_0$} y\ldots {\color{celeste}$\alpha_0$} (no importa: EDO invariante con $cu(x) \;\forall c$ )\\
-\item Resuelve ${\color{verde}\ds \odv[order=2]{y}{x} = P_E(x)y}$ con $x_0={\color{naranja}a}$, $\ds\odv{u_{\alpha_0}(x_0)}{x}=\alpha_0$ y $\color{celeste}E=E_0$ hasta $x_N$. Puede usarse Euler, RK4, Numerov, etc.
-\item Calcula  $\color{verde}g(E_0)=u_{E_0}(x_N)-{\color{naranja}b}$
-\item Elige $\color{celeste}E_1$, resuelve y calcula $g(E_1)$
-\item Actualiza $E_1$ hasta que $\color{celeste}g(E_1)g(E_0)<0$
-\item Realiza biseccion en el intervalo $[E_0,E_1]$ hasta encontrar $\color{verde}g(E)=0$
+\item Elige $\ab[a,b]$ tal que $f(a)f(b)<0$ y una tolerancia $\epsilon_T$.\\
+\item Calcula $x\Leftarrow(a+b)/2$.
+\item Si $|b-a|<\epsilon_T$, terminar. La raíz es $x$.
+\item Si $f(a)f(x)\leq0$ entonces $b\Leftarrow x$, sino $a\Leftarrow x$.
+\item Volver al paso 2.
 \end{enumerate}};
-\path(T.north west) node(H)[alghead]{\color{black}El método del disparo con bisección - AUTOVALORES};
+\path(T.north west) node(H)[alghead]{\color{black}Bisección};
+
+\path(hl) ++(0.4,-2.5) coordinate(scope);
+\only<1>{\input{frames/bisec.tex}}
+\only<2->{\input{frames/bisec2.tex}}
+  
+\path(c4) ++(.3,1) node(A)[draw=lila,fill=black,text width=5cm]{
+  \vspace{-2.5ex}\inputminted[bgcolor=black]{python}{code/bisec.py}\vspace{-4ex}};
+\path(A.west) ++(0,0) node[anchor=west,opacity=0.1]{\includegraphics[width=5cm]{code/python_logo.png}};
+ 
+                
+\path<3->(np) ++(-.7,-.2) node(o)[cuadro,ultra thick,ellipse,rosa,draw,fill=black, fill opacity=1,inner sep=1,align=center]{$a\Leftarrow t_{k-1}$\\[-2mm]$b\Leftarrow t_{k}$};
+\draw<3->[rosa,ultra thick,->] (o.west) to[bend right] ++(-3,-.5);
+                
+\path<4->(np) ++(.3,-1.3) node(o)[cuadro,ultra thick,ellipse,rosa,draw,fill=black, fill opacity=1,inner sep=1,align=center]{$k\Leftarrow k+1$\\[-2mm]$t_{k}\Leftarrow x$};
+\draw<4->[rosa,ultra thick,->] (o.west) -- ++(-1.2,-.2);
+                
+\path<5->(np) ++(3.3,-2.55) node(o)[rosa,align=center]{$y_{t_k}$ es solución del PVF};
+% \draw<5->[rosa,ultra thick,<-] (o.west) -- ++(-1.2,-.2);
+
+% \path<2->(ne) ++(-.7,-.5) node(o)[cuadro,anchor=north east,ultra thick,ellipse,rosa,draw,fill=black, fill opacity=1,inner sep=1,align=center]{$f=D(t_k)=y_{t_k}(b)-\beta$};
+% \draw<2->[rosa,ultra thick,<-] (o.-175) to[bend left] ++(-.7,.2);
+
+\path(ne) +(-1.7,-1.0) node[align=center,rectangle,red,draw,fill=white,text width=5cm,rotate=-30, ultra thick]{\bfseries CLASE ANTERIOR};
+\path(cp) ++(-6,.5) node[cuadro,ultra thick,rojo,draw,fill=white, fill opacity=1,align=center]{$D(t)=y_{t}(b)-\beta$};
+\path(cp) ++(1.5,.7) node[align=left,text width=4cm,cuadro,ultra thick,celeste,fill=black, fill opacity=1]{$D(t)$};
+
+\end{zframe}
+%     
+% \begin{zframe}[<1>]{
+% alg/.style={rectangle, rounded corners=1ex,draw=celeste,fill=celeste,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=center},
+% alghead/.style={alg,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}}} %yscale=0.9
+%  
+% \path<1>(nw) ++(.2,-.6) node(T)[alg,text width=12cm]{\\[1mm]
+% \begin{enumerate}[\color{rosa}1.]
+% \item Elige $\ab[a,b]$ tal que $f(a)f(b)<0$ y una tolerancia $\epsilon_T$.\\
+% \item Calcula $x\Leftarrow(a+b)/2$.
+% \item Si $(b-a)<\epsilon_T$, terminar. La raíz es $x$.
+% \item Si $f(a)f(x)\leq0$ entonces $b\Leftarrow x$, sino $a\Leftarrow x$.
+% \item Volver al paso 2.
+% \end{enumerate}};
+% \path<2->(nw) ++(.2,-.6) node(T)[alg,text width=12cm]{\\[1mm]
+% \begin{enumerate}[\color{rosa}1.]
+% \item Elige $\ab[a,b]$ tal que $D(a)D(b)<0$ y una tolerancia $\epsilon_T$.\\
+% \item Calcula $t\Leftarrow(a+b)/2$.
+% \item Si $(b-a)<\epsilon_T$, terminar. La raíz es $\sim t$.
+% \item Si $D(a)D(t)\leq0$ entonces $b\Leftarrow t$, sino $a\Leftarrow t$.
+% \item Volver al paso 2.
+% \end{enumerate}}; 
+% \path(T.north west) node(H)[alghead]{\color{black}Bisección};
+%
+% \path(hl) ++(0.4,-2.5) coordinate(scope);
+% \only<1>{\input{frames/bisec.tex}}
+% \only<2->{\input{frames/bisec2.tex}}
+%   
+% \path(c4) ++(.3,1) node(A)[draw=lila,fill=black,text width=5cm]{
+%   \vspace{-2.5ex}\inputminted[bgcolor=black]{python}{code/bisec.py}\vspace{-4ex}};
+% \path(A.west) ++(0,0) node[anchor=west,opacity=0.1]{\includegraphics[width=5cm]{code/python_logo.png}};
+%  
+%                 
+% \path<3->(np) ++(-.7,-.2) node(o)[cuadro,ultra thick,ellipse,rosa,draw,fill=black, fill opacity=1,inner sep=1,align=center]{$a\Leftarrow t_{k-1}$\\[-2mm]$b\Leftarrow t_{k}$};
+% \draw<3->[rosa,ultra thick,->] (o.west) to[bend right] ++(-3,-.5);
+%                 
+% \path<4->(np) ++(.3,-1.3) node(o)[cuadro,ultra thick,ellipse,rosa,draw,fill=black, fill opacity=1,inner sep=1,align=center]{$k\Leftarrow k+1$\\[-2mm]$t_{k}\Leftarrow x$};
+% \draw<4->[rosa,ultra thick,->] (o.west) -- ++(-1.2,-.2);
+%                 
+% \path<5->(np) ++(3.3,-2.55) node(o)[rosa,align=center]{$y_{t_k}$ es solución del PVF};
+% % \draw<5->[rosa,ultra thick,<-] (o.west) -- ++(-1.2,-.2);
+%
+% % \path<2->(ne) ++(-.7,-.5) node(o)[cuadro,anchor=north east,ultra thick,ellipse,rosa,draw,fill=black, fill opacity=1,inner sep=1,align=center]{$f=D(t_k)=y_{t_k}(b)-\beta$};
+% % \draw<2->[rosa,ultra thick,<-] (o.-175) to[bend left] ++(-.7,.2);
+%
+%
+% \end{zframe}
+%
+% \begin{zframe}{
+% alg/.style={rectangle, rounded corners=1ex,draw=celeste,fill=celeste,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=center},
+% alghead/.style={alg,inner sep=4,fill opacity=1,anchor=west,font={\bfseries}}} %yscale=0.9
+%  
+% \path(nw) ++(.2,-.6) node(T)[alg,text width=12cm]{\\[1mm]
+% \begin{enumerate}[\color{rosa}1.]
+% \item Elige $\ab[a,b]$ tal que $f(a)f(b)<0$ y una tolerancia $\epsilon_T$.\\
+% \item Calcula $x\Leftarrow(a+b)/2$.
+% \item Si $(b-a)<\epsilon_T$, terminar. La raíz es $x$.
+% \item Si $f(a)f(x)\leq0$ entonces $b\Leftarrow x$, sino $a\Leftarrow x$.
+% \item Volver al paso 2.
+% \end{enumerate}}; 
+% \path(T.north west) node(H)[alghead]{\color{black}Bisección};
+%
+% \path(hl) ++(0.4,-2.5) coordinate(scope);
+% \input{frames/bisec2.tex}
+%
+%   
+% \path(c4) ++(.3,1) node(A)[draw=lila,fill=black,text width=5cm]{
+%   \vspace{-2.5ex}\inputminted[bgcolor=black]{python}{code/bisec.py}\vspace{-4ex}};
+% \path(A.west) ++(0,0) node[anchor=west,opacity=0.1]{\includegraphics[width=5cm]{code/python_logo.png}};
+%  
+% \end{zframe}
+%                  
+\begin{zframe}{} %yscale=0.9
+
+\path(ne) ++(-.2,-.4) node(T)[def,anchor=north east,text width=11cm]{
+Dado el PVF con $y(a)=\alpha,\, y(b)=\beta$,\\  integrar el PVI equivalente
+con $\odv{y}{x}_a=t$ usando Euler, RK4, Numerov, o cualquier otro algoritmo hasta obtener
+$y_{t}(b)$};
+\path(T.north east) node(H)[defhead, anchor=north east]{\color{black}Definición de disparo};
+
+\scriptsize
+
+\path(nw|-c1) ++(.7,-.5) node(T)[scale=1.1,alg,text width=9.5cm]{\\[1mm]
+\begin{enumerate}[\color{rosa}1.]
+\item Disparo con $t_i$ y calculo $D(t_i)=y_{t_i}(b)-\beta$. \\ 
+  Si $|D(t_i)|<\epsilon_T$, {\color{verde} $y_{t_i}\sim$ solución del PVF.} 
+\item Disparo con $t_d$ y calculo $D(t_d)=y_{t_d}(b)-\beta$. \\ 
+  Si $|D(t_d)|<\epsilon_T$, {\color{verde} $y_{t_d}\sim$ solución del PVF.} 
+\item Si $D(t_i)D(t_d)>0$, variar $t_d$ y volver al paso 2. {\color{celeste}$k\Leftarrow 0$}.
+\item {\color{celeste}$k\Leftarrow k+1$}. Disparo con {\color{celeste}$t_{k}=\dfrac{t_i+t_d}{2}$} y calculo $D(t_k)=y_{t_k}(b)-\beta$. \\
+  Si $|D(t_k)|<\epsilon_T$, {\color{verde} $y_{t_k}\sim$ solución del PVF.} 
+\item Si $D(t_k)D(t_i)\leq0$ entonces $t_{d}\Leftarrow t_k$, sino $t_i\Leftarrow t_k$.
+\item Volver al paso 4.
+\end{enumerate}};
+\path(T.north west) node(H)[alghead, anchor=north west]{\color{black}El método del disparo con bisección};
           
+\path<2>(c4) ++(2.8,1)  node(H)[draw=naranja,very thick, inner sep=0,rotate=-5,anchor=east]{\includegraphics[width=2.5cm]{img/izaacwang.png}};
+\path<2>(H.north) ++(-.1,0) node(H)[anchor=south,naranja]{\normalsize \textbf{Newton-Raphson}};
+
 \end{zframe}  
         
-     
-\begin{zframe}{} \Large
+\begin{zframe}{}
+
+\path(t-|np) ++(0,.2) node(A){
+  \centerline{\Large\color{verde} Ejemplo}};
+
+\pgfkeys{/pgf/number format/.cd,fixed,precision=2}
+
+
+\path(wp) ++(.2,-1.6) node(I)[anchor=west]{\includegraphics[width=2cm]{img/messi2.png}};
+
+\path(A.south) ++(0.,-.1) node(A)[align=left,anchor=north]{
+${\ds \odv[order=2]{y(x)}{x}=-5\odv{y}{x}-x\quad;\quad y(0)=1 \quad;\quad y(5)=-1}$};
+                                   
+\path(cp) ++(-4,-.6) coordinate(scope);
+\begin{scope}[y=1.2cm,x=1.2cm,
+  shift=(scope),
+  decoration={markings,
+    mark=between positions 0 and 1 step 2.cm with {\draw [-latex] (-0.2,0) -- (0.2,0);}}]
+
+  \providecommand\xmin{0}
+  \providecommand\xmax{5}
+  \providecommand\ymin{-2}
+  \providecommand\xstp{1}
+  \providecommand\ymax{2}
+  \input{frames/euler.tex}
+              
+  \pgfmathsetmacro{\a}{-2}
+  \pgfmathsetmacro{\n}{1}
+  \pgfmathsetmacro{\c}{-(\a-1./25)/5}
+  \pgfmathsetmacro{\b}{1-\c}
+  \draw<\n->[amarillo,dashed] plot[domain=\xmin:\xmax] (\x,{\b+\c*exp(-5*\x)-\x*\x/10+\x/25});
+  \pgfmathsetmacro{\x}{5}
+  \pgfmathsetmacro{\y}{\b+\c*exp(-5*\x)-\x*\x/10+\x/25}
+  \draw<\n->[amarillo] (5,\y) circle(.1) node[right=.3]{$\pgfmathprintnumber{\y}$};
+  \pgfmathsetmacro{\ad}{atan(\a)}
+  \draw<\n->[amarillo,thick] (0,1) -- ++(\ad:.5) node[left=.5]{$t_i=\a$};
+  \pgfmathsetmacro{\d}{\y+1}
+  \draw<\n-5>[amarillo,thick,decoration={brace,amplitude=6},decorate]  (5,\y) -- (5,-1) node[pos=.5,left=.5]{$D(t_i)=\pgfmathprintnumber{\d}$};
+  \path<\n>(c1) ++(1,-1) node[align=center]{PVI con \\[2mm] $\ds\odv{y}{x}_{0}=\a$\\[2mm] $\epsilon_T=0.25$};
+  
+  \pgfmathsetmacro{\a}{8}
+  \pgfmathsetmacro{\n}{2}
+  \pgfmathsetmacro{\c}{-(\a-1./25)/5}
+  \pgfmathsetmacro{\b}{1-\c}
+  \draw<\n->[amarillo,dashed] plot[domain=\xmin:\xmax] (\x,{\b+\c*exp(-5*\x)-\x*\x/10+\x/25});
+  \pgfmathsetmacro{\x}{5}
+  \pgfmathsetmacro{\y}{\b+\c*exp(-5*\x)-\x*\x/10+\x/25}
+  \draw<\n->[amarillo] (5,\y) circle(.1) node[right=.3]{$\pgfmathprintnumber{\y}$};
+  \pgfmathsetmacro{\ad}{atan(\a)}
+  \draw<\n-4>[amarillo,thick] (0,1) -- ++(\ad:.5) node[left=.5]{$t_d=\a$};
+  \pgfmathsetmacro{\d}{\y+1}
+  \draw<\n-4>[amarillo,thick,decoration={brace,amplitude=6},decorate] (5,-1) -- (5,\y) node[pos=.5,left=.5]{$D(t_d)=\pgfmathprintnumber{\d}$};
+  \path<\n>(c1) ++(1,-1) node[align=center]{PVI con \\[2mm] $\ds\odv{y}{x}_{0}=\a$\\[2mm] $\epsilon_T=0.25$};
+  
+                                
+  \pgfmathsetmacro{\a}{3}
+  \pgfmathsetmacro{\n}{4}
+  \pgfmathsetmacro{\c}{-(\a-1./25)/5}
+  \pgfmathsetmacro{\b}{1-\c}
+  \draw<\n->[celeste,dashed] plot[domain=\xmin:\xmax] (\x,{\b+\c*exp(-5*\x)-\x*\x/10+\x/25});
+  \pgfmathsetmacro{\x}{5}
+  \pgfmathsetmacro{\y}{\b+\c*exp(-5*\x)-\x*\x/10+\x/25}
+  \draw<\n->[celeste] (5,\y) circle(.1) node[right=.3]{$\pgfmathprintnumber{\y}$};
+  \pgfmathsetmacro{\ad}{atan(\a)}
+  \draw<\n-4>[celeste,thick] (0,1) -- ++(\ad:.5) node[below left=.2]{$t_1=\a$};
+  \draw<5->[celeste,thick] (0,1) -- ++(\ad:.5) node[below left=.2]{$t_d=\a$};
+  \pgfmathsetmacro{\d}{\y+1}
+  \draw<\n->[celeste,thick,decoration={brace,amplitude=6},decorate] (5,-1) -- (5,\y) node[pos=.5,left=.5]{$D(t_1)=\pgfmathprintnumber{\d}$};
+  \path<\n>(c1) ++(1,-1) node[align=center]{PVI con \\[2mm] $\ds\odv{y}{x}_{0}=\a$\\[2mm] $\epsilon_T=0.25$};;
+  
+                          
+  \pgfmathsetmacro{\a}{1./2}
+  \pgfmathsetmacro{\n}{6}
+  \pgfmathsetmacro{\c}{-(\a-1./25)/5}
+  \pgfmathsetmacro{\b}{1-\c}
+  \draw<\n->[verde,ultra thick,dashed] plot[domain=\xmin:\xmax] (\x,{\b+\c*exp(-5*\x)-\x*\x/10+\x/25});
+  \pgfmathsetmacro{\x}{5}
+  \pgfmathsetmacro{\y}{\b+\c*exp(-5*\x)-\x*\x/10+\x/25}
+  \draw<\n->[verde] (5,\y) circle(.1) node[right=.3]{$\pgfmathprintnumber{\y}$};
+  \pgfmathsetmacro{\ad}{atan(\a)}
+  \draw<\n>[verde,thick] (0,1) -- ++(\ad:.5) node[right=.1]{$t_2=\a$};
+  \pgfmathsetmacro{\d}{\y+1}
+  \draw<\n>[verde,thick,decoration={brace,amplitude=6},decorate] (5,\y) -- (5,-1) node[pos=.5,left=.5]{$D(t_2)=\pgfmathprintnumber{\d}$};
+  \path<\n>(c1) ++(1,-1) node[align=center]{PVI con \\[2mm] $\ds\odv{y}{x}_{0}=\a$\\[2mm] $\epsilon_T=0.25$};;
+                        
+  \draw[thick] (4.9,-1) -- (5.1,-1) node[right]{$\beta$};
+  \draw[thick] (-.1,1) -- (.1,1) node[right]{$\alpha$};
+
+
+\end{scope}
+
+\begin{scope}
+\scriptsize
+\path<1-2,4,6->(se) ++(0,.5) coordinate(z);
+\path<5>(se) ++(0,.4) coordinate(z);
+\path<3>(se) ++(0,1.0) coordinate(z);
+\path<1-3,5>[clip](sw) ++(0,1.5) rectangle (z);
+\path<4,6>[clip](sw) ++(0,1.7) rectangle (z);
+\path<1>(nw|-c1) ++(.7,-5) coordinate(x);
+\path<2>(nw|-c1) ++(.7,-3.78) coordinate(x);
+\path<3>(nw|-c1) ++(.7,-2.56) coordinate(x);
+\path<4,6>(nw|-c1) ++(.7,-1.90) coordinate(x);
+\path<5>(nw|-c1) ++(.7,-0.68) coordinate(x);
+\path(x) node(T)[scale=1.1,alg,text width=9.5cm]{\\[1mm]
+\begin{enumerate}[\color{rosa}1.]
+\item Disparo con $t_i$ y calculo $D(t_i)=y_{t_i}(b)-\beta$. \\ 
+  Si $|D(t_i)|<\epsilon_T$, {\color{verde} $y_{t_i}\sim$ solución del PVF.} 
+\item Disparo con $t_d$ y calculo $D(t_d)=y_{t_d}(b)-\beta$. \\ 
+  Si $|D(t_d)|<\epsilon_T$, {\color{verde} $y_{t_d}\sim$ solución del PVF.} 
+\item Si $D(t_i)D(t_d)>0$, variar $t_d$ y volver al paso 2. {\color{celeste}$k\Leftarrow 0$}.
+\item {\color{celeste}$k\Leftarrow k+1$}. Disparo con {\color{celeste}$t_{k}=\dfrac{t_i+t_d}{2}$} y calculo $D(t_k)=y_{t_k}(b)-\beta$. \\
+  Si $|D(t_k)|<\epsilon_T$, {\color{verde} $y_{t_k}\sim$ solución del PVF.} 
+\item Si $D(t_k)D(t_i)\leq0$ entonces $t_{d}\Leftarrow t_k$, sino $t_i\Leftarrow t_k$.
+\item Volver al paso 4.
+\end{enumerate}};
+\path(T.north west) node(H)[alghead, anchor=north west]{\color{black}El método del disparo con bisección};
+\end{scope}       
+
+
+\end{zframe}  
+
+\begin{zframe}{} \large
 
 \path(t-|np) ++(0,.2) node(A){
   \centerline{\Large\color{verde} Schrödinger}};
                         
 \path(A.south) ++(0.,-.1) node(A)[align=left,anchor=north]{
-${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\ab[-{\frac {\hbar ^{2}}{2m}}{\frac {\partial ^{2}}{\partial x^{2}}}+V(x,t)]\Psi (x,t).}$};
+${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\ab[{\frac {-\hbar ^{2}}{2m}}{\frac {\partial ^{2}}{\partial x^{2}}}+V(x,t)]\Psi (x,t).}$};
                       
-\path(np|-t) ++(0,-2.8) node(A){
+\path(np|-t) ++(-1.5,-2.5) node(A){
   \centerline{\color{verde} Hamiltoniano independiente del tiempo}};
                     
 \path(A.south) ++(0.,-.1) node(A)[anchor=north,align=center]{
-${\ds\Psi(x,t)=\sum_{n}{c_n\color{celeste}\psi_n(x)\color{rosa}f_n(t)}\quad c_n\in\mathbb{C}}$\\[3mm]
-${\ds i\hbar \odv{f_n(t)}{t}  = E_n f_n(t)\;\Rightarrow\; \color{rosa}f_n(t)=e^{-i E_n t/\hbar}}$\\[3mm]
-${\ds\color{celeste} \ab[-\frac {\hbar^2}{2m}\odv[order=2]{}{x}+V(x)]\psi_n(x)= E_n \psi_n(x) }$
+Asumiendo ${\ds\Psi(x,t)=\color{celeste}\psi(x)\color{rosa}f(t)}$\\[4mm]
+${\ds {\color{rosa}\frac{i\hbar}{f(t)} \odv{f(t)}{t}} = {\color{celeste}\frac {-\hbar^2}{2m\psi(x)}\odv[order=2]{\psi(x)}{x}+V(x)} = E}$\\[4mm]
+${\ds f(t)=e^{-i E t/\hbar}}$\\[3mm]
+${\ds \ab[\frac {-\hbar^2}{2m}\odv[order=2]{}{x}+V(x)]\psi(x)= E \psi(x) }$
 };
 
+\draw[dashed,->,ultra thick](hl) ++(-0.8,-1.3) to[bend right] ++(1,-.6);
+\draw[dashed,->,ultra thick](cp) ++(.4,-1.2) to[bend left] ++(-.5,-1.6);
+
+\path(c4) ++(0.,1.5) node(x)[align=left,anchor=west]{\includegraphics[width=2.5cm]{img/CCadaptado/orbitales3b.png}};
+\path(x.base) ++(0,-0.05) node[cc]{\by{Adaptado de Vmaiamir, CC SA 4.0}{https://commons.m.wikimedia.org/wiki/File:Atomic\_orbitals\_examples.png}};
+
 \end{zframe}  
-      
-\begin{zframe}{} \Large
+        
+\begin{zframe}{} \large
 
 \path(t-|np) ++(0,.2) node(A){
-  \centerline{\Large\color{verde} Schrödinger}};
+  \centerline{\Large\color{verde} Problema de autovalores}};
+
+\path(A.south) ++(0.,-.1) node(x)[anchor=north,align=center]{
+${\ds \frac {-\hbar^2}{2m}\odv[order=2]{\psi(x)}{x}+\ab(V(x)-E)\psi(x)= 0 \quad}$ \bfseries \color{celeste} \textit{Lineal, Homogénea.}
+};
+
+\path<1->(x.south) ++(-3,-.3) node(A)[anchor=north,align=center]{
+¿Partícula en caja \\ de ancho $L$? 
+};
+            
+\path(A.south east) ++(2,0) coordinate(o);
+\draw[->,ultra thick](o) -- ++(0,1) node[pos=0,below]{\color{amarillo}$\phi(0)=0$};
+\draw[->,ultra thick](o) -- ++(3,0) node(y)[pos=.5,above]{$V(x)=0$}  node[pos=1,below]{\color{amarillo}$\phi(L)=0$} -- ++(0,1);
+                                    
+\path<2>(x.south) ++(-3,-.3) node[ellipse,anchor=north,align=center,draw,celeste,fill=black,ultra thick]{
+Partícula confinada \\ cualquier $V(x)$
+};                                        
+\path<2>(y.east) ++(.3,0) node[inner sep=1,circle,anchor=east,align=center,draw,celeste,fill=black,ultra thick]{
+$\checkmark$
+};
+                                          
+                                          
+\path(cp) ++(0.,-.1) node(A)[anchor=north,align=center]{
+¿Resolvamos el PVI con ${\ds \psi_t'(x)=t}$?
+};                                  
+\path(A.south-|t) ++(0.,-.1) node(A)[anchor=north west,align=left, execute at begin node=\setlength{\baselineskip}{4ex}]{
+¡Un momento! ${\ds c\psi(x)}$ es también solución.\\
+Entonces ${\ds \psi_t'(0)=c_t\psi'(0)}$ y ${\ds\psi_t(x)=c_t\psi(x)}$.\\
+Además ${\ds c_t\psi_t(L)=\psi(L)=0}$ y ${\ds c_t\neq0}$\ldots
+};
+
+
+\path(A.south-|cp) ++(0.,-.1) node(A)[anchor=north,align=center]{
+ \Large\color{celeste}Cualquier disparo resuelve el PVF.
+};
+
+
+
+\end{zframe}  
+
+\begin{zframe}{} \large
+
+\path(t-|np) ++(0,.2) node(A){
+  \centerline{\Large\color{verde} Problema de autovalores}};
+
+\path(A.south) ++(0.,-.1) node(x)[anchor=north,align=center]{
+${\ds \frac {-\hbar^2}{2m}\odv[order=2]{\psi(x)}{x}+\ab(V(x)-E)\psi(x)= 0 \quad}$ \bfseries \color{celeste} \textit{Lineal, Homogénea.}
+};
+
+\path<1->(x.south) ++(-3,-.3) node(A)[anchor=north,align=center]{
+¿Partícula en caja \\ de ancho $L$? 
+};
+            
+\path(A.south east) ++(2,0) coordinate(o);
+\draw[->,ultra thick](o) -- ++(0,1) node[pos=0,below]{\color{amarillo}$\phi(0)=0$};
+\draw[->,ultra thick](o) -- ++(3,0) node(y)[pos=.5,above]{$V(x)=0$}  node[pos=1,below]{\color{amarillo}$\phi(L)=0$} -- ++(0,1);
+                                    
+\path(x.south) ++(-3,-.3) node(z)[ellipse,anchor=north,align=center,draw,celeste,fill=black,ultra thick]{
+Partícula confinada \\ cualquier $V(x)$
+};                                        
+\path(y.east) ++(.3,0) node[inner sep=1,circle,anchor=east,align=center,draw,celeste,fill=black,ultra thick]{
+$\checkmark$
+};
+
+\draw[amarillo,thick,->](z.south) -- ++(0,-.5) node[pos=1,below]{¡Obvio! es numérico};
+
+\path(ne) ++(-.4,-.3) node[rotate=-5,anchor=north east,align=center,amarillo]{
+¡Nos interesa \\ conocer E!
+};                                  
+                                          
+
+\path(A.south-|cp) ++(0.,-2.5) node(A)[anchor=north,align=left, execute at begin node=\setlength{\baselineskip}{4ex}]{
+Cada disparo tiene el mismo ${\ds \psi_t'(x)=c}$ pero \color{amarillo}$E=t_k$\\
+Luego podemos normalizar $\psi_t$ para aproximar la función de onda.
+};                                  
+
+
+
+
+\end{zframe}  
+
+
+\begin{zframe}{} \large
+
+\path(t-|np) ++(-1.5,.2) node(A){
+  \centerline{\Large\color{verde} Dinámica Cuántica}};
                         
 \path(A.south) ++(0.,-.1) node(A)[align=left,anchor=north]{
 ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
                       
-\path(np|-t) ++(0,-3.0) node(A)[align=center]{
-  Es un problema con condiciones iniciales \\[2mm]
-    en el tiempo $\Rightarrow$ necesito $\Psi(x,0)$};
+\path(np|-t) ++(-.5,-2) node(A)[align=center]{
+  Es EDO 1$^\text{er}$ en $t\Rightarrow$ PVI, necesito $\Psi(x,0)$};
                     
-\path<1>(A.south) ++(0.,-.2) node(A)[anchor=north,align=center]{
-  {\color{naranja} Opción 1: }Si puedo expandirla en autofunciones\ldots\\[3mm]
-${\ds\Psi(x,0)=\sum_{n}c_n\color{celeste}\psi_n(x)}$\\[2mm]
-${\ds \Rightarrow\Psi(x,t)=\sum_{n}c_n\color{celeste}\psi_n(x)\color{rosa}e^{-i E_n t/\hbar}}$};
-                          
-\path<2>(A.south) ++(0.,-.2) node(A)[anchor=north,align=center]{
-  {\color{naranja} Opción 2: } Es de 1er orden! la resuelvo\ldots\\[3mm]
-${\ds\Psi(x,t)={\color{celeste}e^{-i\vb{H}t/\hbar}}}\Psi(x,0)\quad\quad$\color{celeste}(propagador)\\[2mm]
-1. Elegir una base.\\[2mm]
-2. Diagonalizar $\vb{H}$ para tomar la exponencial.};
-                              
-\path<3>(A.south) ++(0.,-.2) node(A)[anchor=north,align=center]{
-  {\color{naranja} Opción 3: }La trato como cualquier EDO con C. I.\\[3mm]
-\textit{Euler hacia adelante, Euler hacia atras, RK4, etc.} \\[2mm]
-Solo difieren en que debo discretizar tiempo y \textit{espacio}\\[2mm]
-Debo por tanto elegir una aproximacion para el Laplaciano};
-                           
+\path(A.south) ++(.5,-.5) node(A)[anchor=north,align=left, execute at begin node=\setlength{\baselineskip}{4ex}]{
+  {\color{naranja} Opción 1:} Euler, RK4, Leap-Frog\ldots\\[3mm]
+{\color{naranja} Opción 2:} ${\ds\Psi(x,t)={\color{celeste}e^{-i\vb{H}t/\hbar}}}\Psi(x,0)\quad\quad$\color{celeste}(propagador)\\[2mm]
+ \hspace{1cm} Elegir una base para $\vb{H}$ y diagonalizar.\\[2mm]
+{\color{naranja} Opción 3:} Aproximo por diferencias finitas (Crank-Nicolson).\\[2mm]
+{\color{naranja} Opción 4:} ${\ds\Psi(x,0)=\sum_{n}c_n\color{celeste}\psi_n(x) \Rightarrow\Psi(x,t)=\sum_{n}c_n\color{celeste}\psi_n(x)\color{rosa}e^{-i E_n t/\hbar}}$};
+
+% \path(ne) ++(-1,-2) node(A)[anchor=north east,rotate=-10]{\includegraphics[width=2cm]{img/gente/belen.png}}; 
+% \path(A.south) ++(0.,0.) node[anchor=north,rotate=-10]{Prof. Oviedo}; 
+% \path(A.north) ++(0.,0.) node(A)[anchor=south,rotate=-10]{Nos visita}; 
+\path(A.north) ++(4.,2.) node(A)[anchor=south,rotate=-10,align=center]{\color{amarillo}Nos visita \\\color{amarillo}un/una especialista}; 
+
 \end{zframe}  
-                   
+
+\begin{zframe}{
+ energy/.style= {thick, mcyellow,dashed},
+ axis/.style= {thick,white,dashed},
+ label/.style= {verde},
+ potential/.style= {ultra thick, white},
+ funcion/.style={color=mcorange,ultra thick}
+}
+
+\path(sw) ++(0,0) node[anchor=south west]{Peacock-López \etal\ Chem. Educator 2006(11)383};
+         
+\path(c2) ++(-0.9,-1.3) coordinate(base);
+\begin{scope}[shift={(base)},scale=0.5]
+% The distances
+\path(0,6) node{$n=1$};
+
+\draw[potential] (-3,4) -- (-2,4) -- (-2,0) -- (-0.5,0) -- (-0.5,2) -- (0.5,2) -- (0.5,0) -- (2,0) -- (2,4) -- (3,4);
+\path(-3,4.5) node[label](VD){$V_D$};
+\path(-0.5,2) node[label,left](V0){$V_0$};
+
+\draw[energy] (-2.5,0.15) -- (2.5,0.15) node(E)[energy,pos=1,right]{E};;
+% \draw[axis] (0,0) -- (0,4);
+
+\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {img/curves/curva1.dat};
+\end{scope}
+
+
+\path(base) ++(0,-4) coordinate(scope);
+\begin{scope}[shift={(scope)},scale=0.5]
+
+\draw[potential] (-3,4) -- (-2,4) -- (-2,0) -- (-0.5,0) -- (-0.5,2) -- (0.5,2) -- (0.5,0) -- (2,0) -- (2,4) -- (3,4);
+\path(-3,4.5) node[label](VD){$V_D$};
+\path(-0.5,2) node[label,left](V0){$V_0$};
+
+\draw[energy] (-2.5,0.15) -- (2.5,0.15) node(E)[energy,pos=1,right]{E};;
+% \draw[axis] (0,0) -- (0,4);
+
+\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {img/curves/curva2.dat};
+
+\end{scope}
+                          
+
+
+\path(base) ++(4,0) coordinate(scope);
+\begin{scope}[shift={(scope)},scale=0.5]
+\path(0,6) node{$n=2$};
+
+\draw[potential] (-3,4) -- (-2,4) -- (-2,0) -- (-0.5,0) -- (-0.5,2) -- (0.5,2) -- (0.5,0) -- (2,0) -- (2,4) -- (3,4);
+\path(-3,4.5) node[label](VD){$V_D$};
+\path(-0.5,2) node[label,left](V0){$V_0$};
+
+\draw[energy] (-2.5,0.298) -- (2.5,0.298) node(E)[energy,pos=1,right]{E};;
+% \draw[axis] (0,0) -- (0,4);
+
+\draw[funcion,y=0.002cm,x=1.5cm] plot[smooth] file {img/curves/curva3.dat};
+
+\end{scope}
+
+
+\path(base) ++(4,-4) coordinate(scope);
+\begin{scope}[shift={(scope)},scale=0.5]
+
+\draw[potential] (-3,4) -- (-2,4) -- (-2,0) -- (-0.5,0) -- (-0.5,2) -- (0.5,2) -- (0.5,0) -- (2,0) -- (2,4) -- (3,4);
+\path(-3,4.5) node[label](VD){$V_D$};
+\path(-0.5,2) node[label,left](V0){$V_0$};
+
+\draw[energy] (-2.5,0.298) -- (2.5,0.298) node(E)[energy,pos=1,right]{E};;
+% \draw[axis] (0,0) -- (0,4);
+
+\draw[funcion,y=0.002cm,x=1.5cm] plot[smooth] file {img/curves/curva4.dat};
+
+\end{scope}
+
+
+\path(base) ++(8,0) coordinate(scope);
+\begin{scope}[shift={(scope)},scale=0.5]
+
+\path(0,6) node{$n=8$};
+\draw[potential] (-3,4) -- (-2,4) -- (-2,0) -- (-0.5,0) -- (-0.5,2) -- (0.5,2) -- (0.5,0) -- (2,0) -- (2,4) -- (3,4);
+\path(-3,4.5) node[label](VD){$V_D$};
+\path(-0.5,2) node[label,left](V0){$V_0$};
+
+\draw[energy] (-2.5,0.953) -- (2.5,0.953) node(E)[energy,pos=1,right]{E};;
+% \draw[axis] (0,0) -- (0,4);
+
+\draw[funcion,y=0.3cm,x=1.5cm] plot[smooth] file {img/curves/curva5.dat};
+
+\end{scope}
+
+
+                       
+\path(base) ++(8,-4) coordinate(scope);
+\begin{scope}[shift={(scope)},scale=0.5]
+
+\draw[potential] (-3,4) -- (-2,4) -- (-2,0) -- (-0.5,0) -- (-0.5,2) -- (0.5,2) -- (0.5,0) -- (2,0) -- (2,4) -- (3,4);
+\path(-3,4.5) node[label](VD){$V_D$};
+\path(-0.5,2) node[label,left](V0){$V_0$};
+
+\draw[energy] (-2.5,0.953) -- (2.5,0.953) node(E)[energy,pos=1,right]{E};;
+% \draw[axis] (0,0) -- (0,4);
+
+\draw[funcion,y=0.3cm,x=1.5cm] plot[smooth] file {img/curves/curva6.dat};
+
+\end{scope}
+
+\end{zframe}                   
+
+\begin{zframe}{
+ energy/.style= {thick, mcyellow,dashed},
+ axis/.style= {thick,white,dashed},
+ label/.style= {verde},
+ potential/.style= {ultra thick, white},
+ funcion/.style={color=mcorange,ultra thick}
+}
+
+\path(sw) ++(0,0) node[anchor=south west]{Peacock-López \etal\ Chem. Educator 2006(11)383};
+         
+\path(c2) ++(-0.9,-1.3) coordinate(base);
+\begin{scope}[shift={(base)},scale=0.5]
+% The distances
+\path(0,6) node{$n=1$};
+
+\draw[potential] (-3,4) -- (-2,4) -- (-2,0) -- (-0.5,0) -- (-0.5,2) -- (0.5,2) -- (0.5,0) -- (2,0) -- (2,4) -- (3,4);
+\path(-3,4.5) node[label](VD){$V_D$};
+\path(-0.5,2) node[label,left](V0){$V_0$};
+
+\draw[energy] (-2.5,0.15) -- (2.5,0.15) node(E)[energy,pos=1,right]{E};;
+% \draw[axis] (0,0) -- (0,4);
+
+\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {img/curves/curva1.dat};
+\end{scope}
+
+
+\path(base) ++(0,-4) coordinate(scope);
+\begin{scope}[shift={(scope)},scale=0.5]
+
+\draw[potential] (-3,4) -- (-2,4) -- (-2,0) -- (-0.5,0) -- (-0.5,2) -- (0.5,2) -- (0.5,0) -- (2,0) -- (2,4) -- (3,4);
+\path(-3,4.5) node[label](VD){$V_D$};
+\path(-0.5,2) node[label,left](V0){$V_0$};
+
+\draw[energy] (-2.5,0.15) -- (2.5,0.15) node(E)[energy,pos=1,right]{E};;
+% \draw[axis] (0,0) -- (0,4);
+
+\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {img/curves/curva2.dat};
+
+\end{scope}
+                          
+ 
+\path(hr) ++(-1,-3) coordinate(base);
+\begin{scope}[shift={(base)},scale=0.5,
+      funcion/.style={color=mcorange,ultra thick},
+      axis/.style= {thick,white,dashed}]
+  \draw[ultra thick, white] (-3,4) -- (-2,4) -- (-2,0) -- (-0.5,0) -- (-0.5,2) -- (0.5,2) -- (0.5,0) -- (2,0) -- (2,4) -- (3,4);
+  \path(-3,4.5) node[verde](VD){$V_D$};
+  \path(-0.5,2) node[verde,left](V0){$V_0$};
+  \draw[axis] (1.3,0) -- ++(0,4);
+  \path(0,2) node[above]{$a$};
+  \path(-1.3,0) node[below]{$L$};
+
+  \draw[funcion,y=2cm,x=1.5cm] plot[smooth] file {img/dinamica/paquete.dat};
+\end{scope}                         
+
+
+ \path(c1) ++(-1.2,1.3) node(D){Shcrödinger:};
+ \path(D.south) ++(-0.1,0.1) node[anchor=north]{$i \hbar \odv{\Psi({x},t)}{t} =- H(x)\Psi({x},t)$};
+
+ \path(D.south west) ++(-0.1,-1.2) node(D)[anchor=north west]{Solucion general:};
+ \path(D.south) ++(-0.1,0.1) node(D)[anchor=north]{$\Psi\left( x,t\right) :=\dsum_i^{\color{orange}2}c_i\psi_i(x)e^{-iE_it/\hbar}$};
+
+\end{zframe}                   
+
+                                                   
 \end{document}
