@@ -11,6 +11,7 @@
 \input{../preambulo/paquetes.tex}
 \input{../preambulo/macros.tex}
 
+\graphicspath{{../img/}{img/}}
 \framebg{bg/pizarron3.png} 
 
 \begin{document}
@@ -18,27 +19,24 @@
 \newcommand\CC{}
 
 \begin{zframe}{}
-\path(np) ++(0,-1.) node(A)[anchor=north,align=center]{
-  \color{verde} \huge\textbf{Métodos Computacionales}\\[3mm]  
-  \color{celeste} \huge \textbf{2023}\\[2mm]  
+\path(cp) ++(3,0) node(I)[]{\includegraphics[width=5cm]{idiogram/cover.png}};
+\path(c2|-I.north) ++(0,-1) node(A)[anchor=north,align=left]{
+  \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
+  % \color{celeste} \textbf{2024}\\[2mm]  
+  \color{celeste} \textit{Agosto 5, 2024}
 };
-\path(A.-90) ++(0,-1.) node(A)[anchor=north]{S. Alexis Paz};
-% \path(A.-90) ++(0,-0.5) node(A)[anchor=north]{\color{lila} Agosto 7, 2023};
-\path(vl) ++(0,0) node(A)[anchor=north]{\includegraphics[width=4cm]{logos/DQTC_orange.png}};
-
+\normalsize
+\path(A.west|-I.south) ++(0,1) node(B)[anchor=south west,align=left]{
+  S. Alexis Paz\\[5mm]
+\includegraphics[width=3cm]{logos/DQTC_orange.png}};
+ 
+\path(I.south east) ++(0,.2) node[anchor=north east]{
+  \tiny hecho con \href{https://ideogram.ai/g/D3j2DRuIR7W-Qz3f-qOLVg/1}{idiogram}};
+                        
 \end{zframe}
 
 \renewcommand\CC{
   \path(se) node[anchor=south east]{\tiny\color{gray} MC2023 - S.A.Paz};}
-
-\begin{zframe}{}
-
-\path(cp) ++(-1.5,0.) node[rotate=10]{\includegraphics[width=5cm]{bib/Koonin.png}};
-\path(cp) ++(1.5,0.) node[rotate=-10]{\includegraphics[width=5cm]{bib/Izaac.png}};
-% TODO: \path(cp) ++(1.5,0.) node[rotate=-10]{\includegraphics[width=5cm]{bib/Allen.png}};
-% TODO: TERELL HILL};
-
-\end{zframe}
 
 \begin{zframe}{
   itema/.style={anchor=north west},
@@ -47,8 +45,8 @@
     align=justify,
     text=white,
     font={\baselineskip=3.6mm}}}
-\path(np) ++(0.,-0.2) node(inv)[inner sep=4,anchor=north]{\textbf{Métodos Computacionales}};
-    
+\path(t-|np) ++(0.,0.6) node(inv)[inner sep=4,anchor=north,verde]{\Large\textbf{Sobre la materia\ldots}};
+
 \scriptsize
 % \path(nw) ++(.2,-.1) node(A)[enum]{
 % \renewcommand{\tabcolsep}{0.1cm}
@@ -57,22 +55,20 @@
 % Cuadratura numérica.  Búsqueda de raíces. Extremos de funciones.
 % \end{tabularx}
 % };
-                           
-\path(np) ++(.0,-1.5) node{
-19 teóricos (24hs) / 9 prácticos (36h)
-};
-                           
+
+\path(np) ++(.0,-1.5) node{19 teóricos (24hs) / 9 prácticos (36h)};
+
 \path(nw) ++(.17,-2.2) node(itema)[itema]{\color{mcgreen} \textbf{Objetivos:}};
 \path(itema.north east) ++(.0,.0) node(itemb)[itemb]{
-  Proveer a los alumnos de una {\bf\color{naranja}experiencia directa en el uso de computadoras para resolver
+  Proveer una {\bf\color{naranja}experiencia directa en el uso de computadoras para resolver
 modelos de sistemas físicos y químicos}. De este modo, se incluye en el mismo el mínimo de
 técnicas numéricas que son necesarias para la realización de física y química computacional.
 Si bien la perspectiva del curso es físico-matemática, la creciente difusión de la computación
 en todas las áreas de la química hará que el mismo redunde en beneficio de las diferentes
 ramas de la química que se desarrollan en nuestra Facultad. Se provee además una
-introducción a técnicas de simulación de dinámica molecular y Monte Carlo.
+introducción a técnicas de simulación de Dinámica Molecular y Electrónica, Monte Carlo y Cálculos de Alto Rendimiento.
 };
- 
+
 \path(itema.west |- itemb.south) ++(-0.17,-.5) node(itema)[itema]{\color{mcgreen} \textbf{Contenidos:}};
 \path(itema.north east) ++(-.05,.0) node(itemb)[itemb]{
 Operaciones matemáticas básicas. Métodos de diferenciación numérica. Cuadratura
@@ -85,8 +81,8 @@ valores en el contorno y problemas de autovalores. Métodos de Monte Carlo. La e
 básica de Monte Carlo.
 };
 
-\end{zframe}            
-       
+\end{zframe}
+
 \begin{zframe}{
   itema/.style={anchor=north west},
   itemb/.style={anchor=north west, text
@@ -94,8 +90,8 @@ básica de Monte Carlo.
     align=justify,
     text=white,
     font={\baselineskip=3.6mm}}}
-\path(np) ++(0.,-0.2) node(inv)[inner sep=4,anchor=north]{\textbf{Programa}};
-    
+\path(t-|np) ++(0.,0.6) node(inv)[inner sep=4,anchor=north,verde]{\Large\textbf{Programa}};
+
 \scriptsize
 % \path(nw) ++(.2,-.1) node(A)[enum]{
 % \renewcommand{\tabcolsep}{0.1cm}
@@ -105,53 +101,50 @@ básica de Monte Carlo.
 % \end{tabularx}
 % };
 
-\path(nw) ++(.2,-1.5) node(t1)[itema]{\color{mcgreen} \textbf{Tema 1:}};
+\path(nw) ++(.2,-2.) node(t1)[itema]{\color{mcgreen} \textbf{Tema 1:}};
 \path(t1.north east) ++(.0,.0) node(itemb)[itemb]{
   Operaciones matemáticas básicas. Métodos de diferenciación numérica.
     Cuadratura numérica.  Búsqueda de raíces. Extremos de funciones.
 };
- 
-\path(t1.west |- itemb.south) ++(0,-.1) node(t2)[itema]{\color{mcgreen} \textbf{Tema 2:}};
+
+\path(t1.west |- itemb.south) ++(0,-.3) node(t2)[itema]{\color{mcgreen} \textbf{Tema 2:}};
 \path(t2.north east) ++(.0,.0) node(itemb)[itemb]{
   Ecuaciones diferenciales ordinarias. Métodos simples. Métodos de pasos
   múltiples e implícitos. Métodos de Runge-Kutta.
 };
-  
-\path(t2.west |- itemb.south) ++(0,-.1) node(t3)[itema]{\color{mcgreen} \textbf{Tema 3:}};
+
+\path(t2.west |- itemb.south) ++(0,-.3) node(t3)[itema]{\color{mcgreen} \textbf{Tema 3:}};
 \path(t3.north east) ++(.0,.0) node(itemb)[itemb]{
  Métodos con valores en el contorno y problemas de autovalores. El algoritmo de Numerov. Integración
- directa del problema con valores en el contorno. Autovalores de la función de onda.
+ directa del problema con valores en el contorno. Solución de la ecuación de Schrödinger para un potencial monodimensional.
 };
 
-\path(t3.west |- itemb.south) ++(0,-.1) node(t4)[itema]{\color{mcgreen} \textbf{Tema 4:}};
+\path(t3.west |- itemb.south) ++(0,-.3) node(t4)[itema]{\color{mcgreen} \textbf{Tema 4:}};
 \path(t4.north east) ++(.0,.0) node(itemb)[itemb]{
  Introducción Mecánica Estadística, Métodos de Monte Carlo. La
  estrategia básica de Monte Carlo. Generando variables aleatorias con una
- distribución especficada. El algoritmo de Metrópolis. Templado simulado. El
- modelo de Ising unidimensional y bidimensional.
+ distribución especficada. El algoritmo de Metrópolis. El modelo de Ising.
 };
-          
-\path(t4.west |- itemb.south) ++(0,-.1) node(t5)[itema]{\color{mcgreen} \textbf{Tema 5:}};
+
+\path(t4.west |- itemb.south) ++(0,-.3) node(t5)[itema]{\color{mcgreen} \textbf{Tema 5:}};
 \path(t5.north east) ++(.0,.0) node(itemb)[itemb]{
- Introducción a la dinámica atómica y molecular. Generalidades sobre las
- simulaciones. Modelos de sistemas y potenciales de interacción. Sistemas
- atómicos de muchas partículas. Dinámica molecular. Estructura básica de un
- programa de simulación. Obtención de valores medios. Algoritmos para integrar
- las ecuaciones de movimiento. Cálculo de la fuerza para un Potencial de
- Lennard-Jones. 
+ Introducción a la dinámica molecular. Generalidades sobre las simulaciones.
+ Modelos de sistemas y potenciales de interacción. Estructura básica de un
+ programa de dinámica molecular. Algoritmos para integrar las ecuaciones de
+ movimiento.  Obtención de valores medios.
 };
-          
+
 % \draw[naranja,->,thick] (c1) ++(2,1) to[bend right] (t5);
 % \draw[naranja,<->,ultra thick] (t1) to[bend right] (t2);
- 
+
 \end{zframe}
 
 \begin{frame}<1>[plain,label=teorias]
 \providecommand\CC{\path(se) node[anchor=south east]{\small\color{gray} S. A. Paz CC BY 4.0};}
 \begin{tikzpicture}
 \pcuad{\paperwidth}{\paperheight}
-\CC 
-            
+\CC
+
 \path(nw) ++(.2,-.3) node(A)[anchor=north west]{
   \bf Op. Mat. Basicas};
 
@@ -163,21 +156,21 @@ básica de Monte Carlo.
 
 \path(vu) ++(.2,0) node(B)[align=center]{
   \bf E.D.O.\\[1ex]
-  \includegraphics[width=2.8cm]{img/teorias/clasica.png}};
-                    
+  \includegraphics[width=2.8cm]{teorias/clasica.png}};
+
 \path(vl) ++(-3.6,-.5) node(C)[align=center]{
   \bf Cuántica\\[1ex]
-  \includegraphics[width=4.5cm]{img/teorias/cuantica.png}};
-                     
+  \includegraphics[width=4.5cm]{teorias/cuantica.png}};
+
 \path(vl) ++(0.8,.8) node(D)[align=center]{
    \bf \hspace{-4ex} Montecarlo\\[1ex]
-  \includegraphics[width=3.0cm]{img/teorias/ensemble_n.png}};
-                      
+  \includegraphics[width=3.0cm]{teorias/ensemble_n.png}};
+
 \path(hr) ++(1.1,2.2) node(E)[align=center]{
    \bf Dinámca \\
-   \bf Molecular\\[1ex]    
-  \includegraphics[width=3.0cm]{img/teorias/kinetics_low.png}};
-                    
+   \bf Molecular\\[1ex]
+  \includegraphics[width=3.0cm]{teorias/kinetics_low.png}};
+
 \draw[->,dashed,ultra thick] (A) ++(2,0) to[bend left] (B.north) to[->,bend left] (E);
 
 \draw<1>[<-,dashed] (C.north) ++(.1,0) to[bend left] (B.south west);
@@ -187,11 +180,11 @@ básica de Monte Carlo.
 \draw<2>[->,naranja,dashed,ultra thick] (A.south) ++(0,-3) to[bend right] (C.north);
 
 \draw[->,dashed,ultra thick] (A.south east) ++(0.4,-3) to[bend right] (D.150);
- 
+
 \path<2>(se) ++(-.2,.2) node(F)[anchor=south east,align=center]{
    \bf \hspace{-4ex} Aceleración\\[1ex]
-  \includegraphics[width=3.0cm]{img/teorias/advanced.jpg}};
-                             
+  \includegraphics[width=3.0cm]{teorias/advanced.jpg}};
+
 \draw<2>[->,naranja,dashed,ultra thick] (E.south) ++(0,0) to[bend left] (F.north);
 \draw<2>[->,naranja,dashed,ultra thick] (D.30) ++(0,0) to[bend left] (F.95);
 
@@ -200,21 +193,36 @@ básica de Monte Carlo.
 
 
 \begin{zframe}{}
+\path(t-|np) ++(0,.2) node(A){\Large\bf Bibliografía};
+\path(cp) ++(-1.3,0.) node[rotate=8]{\includegraphics[width=4cm]{bib/Koonin.png}};
+\path(cp) ++(1.8,0.) node[rotate=-8]{\includegraphics[width=4cm]{bib/Izaac.png}};
+\path(c4) ++(1.5,0) node[rotate=0]{\includegraphics[width=2.5cm]{bib/Burden.png}};
+\path(c3) ++(-1.5,0) node[rotate=0]{\includegraphics[width=2.5cm]{bib/Allen.png}};
+\path(c1) ++(1.5,0) node[rotate=0]{\includegraphics[width=2.5cm]{bib/Landau.png}};
+\path(c2) ++(-1.5,0) node[rotate=0]{\includegraphics[width=2.5cm]{bib/Hill.png}};
+\end{zframe}
+ 
+\begin{zframe}{}
+\path(hl) ++(-2,0) node(A)[rotate=90]{\Large\bf Cronograma};
+\path(cp) ++(0,0.) node{\includegraphics[width=8cm]{cronograma.png}};
+\end{zframe}
+                
+\begin{zframe}{}
 
 \path(c2) ++(0,-1) node(A){\includegraphics[width=4cm]{gente/io.png}};
-\path(A.north east) ++(.1,.1) node[anchor=north east]{\includegraphics[width=1cm]{fortran_logo.png}};
+\path(A.north east) ++(.1,.1) node[anchor=north east]{\includegraphics[width=1cm]{logos/fortran.png}};
 \path(c3) ++(0,.5) node[rotate=10]{\includegraphics[width=5cm]{gente/warning.png}};
 
-\path(c1) ++(0,-1) node(A){\includegraphics[width=4cm]{gente/pancho.png}};
-\path(A.north east) ++(.1,.1) node[anchor=north east]{\includegraphics[width=1cm]{python_logo.png}};
+\path(c1) ++(0,-1) node(A){\includegraphics[width=4cm]{gente/natha.png}};
+\path(A.north east) ++(.1,.1) node[anchor=north east]{\includegraphics[width=1cm]{logos/python.png}};
 \path(c4) ++(0,.5) node[rotate=-10]{\includegraphics[width=5cm]{gente/warning.png}};
 % \path(c4) ++(0,1) node[]{Jueves de 9 a 13hs.};
 
 \path(vl) ++(0,-1) node[]{\includegraphics[width=1.5cm]{gente/siren.png}};
 
 \end{zframe}
-             
-            
+
+
 \begin{zframe}{}
 
 \path(c2) ++(1,-2) node(A){\includegraphics[width=4cm]{humor/perroferoz.png}};
@@ -226,50 +234,50 @@ básica de Monte Carlo.
 \path(A.south) ++(.1,.1) node[anchor=north,align=center]{Necesito una libreria \\ para hacer 2+2.};
 
 \end{zframe}
-             
-        
+
+
 \begin{zframe}{}
 
 % \path(c1) ++(0,2) node(A)[anchor=north]{\includegraphics[width=4cm]{fortran_logo.png}};
 
 \path(hl) ++(0,-.4) node(A)[text width=5.5cm]{\inputminted{fortran}{code/rxp.f90}};
-\path(A.west) ++(0,0) node[anchor=west,opacity=0.06]{\includegraphics[width=5.5cm]{fortran_logo.png}};
+\path(A.west) ++(0,0) node[anchor=west,opacity=0.06]{\includegraphics[width=5.5cm]{logos/fortran.png}};
 \path(A.north)  node(C){\large Fortran};
-    
+
 \path(hr) ++(0,0) node(A)[text width=5cm]{\inputminted{python}{code/rxp.py}};
-\path(A.west) ++(0,0) node[anchor=west,opacity=0.1]{\includegraphics[width=5cm]{python_logo.png}};
+\path(A.west) ++(0,0) node[anchor=west,opacity=0.1]{\includegraphics[width=5cm]{logos/python.png}};
 \path(A.north|-C)  node{\large Python};
 
 \end{zframe}
- 
-                                                                
+
+
 \begin{zframe}{}
 
 % \path(c1) ++(0,2) node(A)[anchor=north]{\includegraphics[width=4cm]{fortran_logo.png}};
 
 \path(cp) ++(-.5,-0.5) node(A)[align=left,text width=5.5cm]{\inputminted{bash}{code/rxp.sh}};
-\path(A.west) ++(0,0) node[anchor=west,opacity=0.06]{\includegraphics[width=5.5cm]{bash_logo.png}};
-    
+\path(A.west) ++(0,0) node[anchor=west,opacity=0.06]{\includegraphics[width=5.5cm]{logos/bash.png}};
+
 \draw[<-,thick](A.north) ++(-1.5,-.5) -- ++(0,1) node[above]{Compilo};
 \draw[<-,thick](A.west) ++(0,1.6) -- ++(-.4,0) node[left]{Ejecuto};
 \draw[<-,thick](A.west) ++(0,-.4) -- ++(-.4,0) node[left,align=right]{Ejecuto\\s/compilar};
 
 \end{zframe}
-                                                            
+
 \begin{zframe}{}
 
 % \path(c1) ++(0,2) node(A)[anchor=north]{\includegraphics[width=4cm]{fortran_logo.png}};
 
 \path(hl) ++(-.1,-.4) node(A)[text width=5.5cm]{\inputminted{fortran}{code/rxp.f90}};
-\path(A.west) ++(0,0) node[anchor=west,opacity=0.06]{\includegraphics[width=5.5cm]{fortran_logo.png}};
+\path(A.west) ++(0,0) node[anchor=west,opacity=0.06]{\includegraphics[width=5.5cm]{logos/fortran.png}};
 \path(A.north)  node(C){\large Fortran};
-    
+
 \path(cp) ++(-2,-.5) node(A)[draw=lila,fill=black,text width=5cm]{\inputminted[bgcolor=black]{python}{code/rxp.py}};
-\path(A.west) ++(0,0) node[anchor=west,opacity=0.1]{\includegraphics[width=5cm]{python_logo.png}};
+\path(A.west) ++(0,0) node[anchor=west,opacity=0.1]{\includegraphics[width=5cm]{logos/python.png}};
 \path(A.north)  node[anchor=north]{\large Python};
-     
+
 \path(hr) ++(.3,.5) node(A)[draw=naranja,text width=5cm]{\vspace{3mm}\inputminted{python}{code/rxp2.py}};
-\path(A.west) ++(0,0) node[anchor=west,opacity=0.1]{\includegraphics[width=5cm]{python_logo.png}};
+\path(A.west) ++(0,0) node[anchor=west,opacity=0.1]{\includegraphics[width=5cm]{logos/python.png}};
 \path(A.north)  node[anchor=north]{\large NumPy };
 
 \path<2>(A.south) ++(0.1,-.3) node(A)[anchor=north,align=left]{
@@ -280,7 +288,7 @@ básica de Monte Carlo.
 
 
 \end{zframe}
- 
+
 \begin{zframe}{}
 
 \path(c2) ++(0,-1) node(A){\includegraphics[width=4cm]{fortran_tool.png}};
@@ -305,7 +313,7 @@ básica de Monte Carlo.
    \item[\color{lila}$\bullet$]  Legible, simple.\\
    \item[\color{lila}$\bullet$]  Universo de librerías.
   \end{itemize}
-}; 
+};
 
 \end{zframe}
 

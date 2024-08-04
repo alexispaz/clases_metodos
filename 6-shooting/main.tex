@@ -11,6 +11,7 @@
 \input{../preambulo/paquetes.tex}
 \input{../preambulo/macros.tex}
 
+\graphicspath{{../img/}{img/}}
 \framebg{bg/pizarron3.png} 
 
 \begin{document}
@@ -18,7 +19,7 @@
 \newcommand\CC{}
 
 \begin{zframe}{}
-\path(cp) ++(3,0) node(I)[]{\includegraphics[width=5cm]{img/idiogram/PVF2.png}};
+\path(cp) ++(3,0) node(I)[]{\includegraphics[width=5cm]{idiogram/PVF2.png}};
 \path(c2|-I.north) ++(0,-1) node(A)[anchor=north,align=left]{
   \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
   \color{celeste} \textbf{Problemas con Valores}\\[2mm]  
@@ -203,7 +204,7 @@ Robin  \& $\ds c_0y(a)+c_1\odv{y}{x}_{a}=\alpha$\& $\ds c_2y(b)+c_3\odv{y}{x}_{b
   \end{itemize}
 };
 \path<2>(A.north west) node(H)[theohead,anchor=north west]{\color{black}Teorema de existencia y unicidad};
-\path<2>(A.north east) ++(-2,-4.5) node(H)[draw=celeste,very thick, inner sep=0,rotate=-5,anchor=east]{\includegraphics[width=2.9cm]{img/burden.png}};
+\path<2>(A.north east) ++(-2,-4.5) node(H)[draw=celeste,very thick, inner sep=0,rotate=-5,anchor=east]{\includegraphics[width=2.9cm]{burden.png}};
  
 \path<1>(A.south) ++(0.,-.3) node(A)[anchor=north,ellipse,celeste,ultra thick,inner sep=1,draw,align=center]{
   La existencia y unicidad \\ no son triviales.}; 
@@ -211,10 +212,10 @@ Robin  \& $\ds c_0y(a)+c_1\odv{y}{x}_{a}=\alpha$\& $\ds c_2y(b)+c_3\odv{y}{x}_{b
 \end{zframe}
                            
 \begin{zframe}{}
-\path<1->(cp) ++(0,0) node(x)[]{ \includegraphics[width=14cm]{img/messi3.png}};
+\path<1->(cp) ++(0,0) node(x)[]{ \includegraphics[width=14cm]{messi3.png}};
 \path<3->(nw) ++(1,-3) node[verde,fill=black,draw, thick, anchor=north west]{\Large PVF};
 
-\path<2>(cp) ++(0,0) node(x)[inner sep=0, draw, thick, celeste]{ \includegraphics[width=10cm]{img/messi4.png}};
+\path<2>(cp) ++(0,0) node(x)[inner sep=0, draw, thick, celeste]{ \includegraphics[width=10cm]{messi4.png}};
 \begin{scope}
 \path<2>(hl) ++(-0.7,-.3) coordinate(A);
 \path<2>(c1) ++(1,-1.4) coordinate(B);
@@ -254,7 +255,7 @@ Robin  \& $\ds c_0y(a)+c_1\odv{y}{x}_{a}=\alpha$\& $\ds c_2y(b)+c_3\odv{y}{x}_{b
 ${\ds \frac{\partial^2 u(x, t)}{\partial t^2} = c^2 \frac{\partial^2 u(x, t)}{\partial x^2}}$};
              
 \path($(x)!.5!(A)$) coordinate(m);
-\path(m-|A.east) ++(0.4,0) node(z)[align=left,anchor=west]{\includegraphics[width=4cm]{img/idiogram/cuerdas2.png}};
+\path(m-|A.east) ++(0.4,0) node(z)[align=left,anchor=west]{\includegraphics[width=4cm]{idiogram/cuerdas2.png}};
 
 \path(A.south west) ++(0.,-.7) node(x)[align=left,anchor=north west]{
   \color{verde} Ecuación del calor};
@@ -263,8 +264,8 @@ ${\ds \frac{\partial^2 u(x, t)}{\partial t^2} = c^2 \frac{\partial^2 u(x, t)}{\p
 ${\ds \frac{\partial u(x, t)}{\partial t} = \alpha \frac{\partial^2 u(x, t)}{\partial x^2}}$};
    
 \path($(x)!.5!(A)$) coordinate(m);
-\path(m-|A.east) ++(2,.1) node(x)[align=left,anchor=west]{\includegraphics[width=5cm]{img/idiogram/fourier.png}};
-\path(z) node{\includegraphics[width=4cm]{img/idiogram/cuerdas2.png}};
+\path(m-|A.east) ++(2,.1) node(x)[align=left,anchor=west]{\includegraphics[width=5cm]{idiogram/fourier.png}};
+\path(z) node{\includegraphics[width=4cm]{idiogram/cuerdas2.png}};
 
 \path(A.south west) ++(0.,-.7) node(x)[align=left,anchor=north west]{
   \color{verde} Ecuación elástica};
@@ -273,9 +274,9 @@ ${\ds \frac{\partial u(x, t)}{\partial t} = \alpha \frac{\partial^2 u(x, t)}{\pa
 ${\ds \odv[order=2]{v(x)}{x}= \dfrac{M(x)}{EI}}$};
    
 \path($(x)!.5!(A)$) coordinate(m);
-\path(m-|x.east) ++(.1,-.2) node(x)[align=left,anchor=west]{\includegraphics[width=4cm]{img/lunchatop.jpg}}; 
+\path(m-|x.east) ++(.1,-.2) node(x)[align=left,anchor=west]{\includegraphics[width=4cm]{lunchatop.jpg}}; 
 \path(x.base) node[cc]{\by{domínio público}{https://en.wikipedia.org/wiki/File:Lunch\_atop\_a\_Skyscraper\_-\_Charles\_Clyde\_Ebbets.jpg}};
-\path(x.east) ++(-.7,.4) node(x)[align=left,anchor=west]{\includegraphics[width=4cm]{img/CC/Tacoma.png}}; 
+\path(x.east) ++(-.7,.4) node(x)[align=left,anchor=west]{\includegraphics[width=4cm]{CC/Tacoma.png}}; 
 % CC0 - Dominio Publico - https://es.wikipedia.org/wiki/Archivo:Tacoma_Narrows_Bridge_destruction.ogv
 \path(x.base) node[cc]{\by{domínio público}{https://es.wikipedia.org/wiki/Archivo:Tacoma\_Narrows\_Bridge\_destruction.ogv}};
 
@@ -572,7 +573,7 @@ $y_{t}(b)$};
 \end{enumerate}};
 \path(T.north west) node(H)[alghead, anchor=north west]{\color{black}El método del disparo con bisección};
           
-\path<2>(c4) ++(2.8,1)  node(H)[draw=naranja,very thick, inner sep=0,rotate=-5,anchor=east]{\includegraphics[width=2.5cm]{img/izaacwang.png}};
+\path<2>(c4) ++(2.8,1)  node(H)[draw=naranja,very thick, inner sep=0,rotate=-5,anchor=east]{\includegraphics[width=2.5cm]{izaacwang.png}};
 \path<2>(H.north) ++(-.1,0) node(H)[anchor=south,naranja]{\normalsize \textbf{Newton-Raphson}};
 
 \end{zframe}  
@@ -585,7 +586,7 @@ $y_{t}(b)$};
 \pgfkeys{/pgf/number format/.cd,fixed,precision=2}
 
 
-\path(wp) ++(.2,-1.6) node(I)[anchor=west]{\includegraphics[width=2cm]{img/messi2.png}};
+\path(wp) ++(.2,-1.6) node(I)[anchor=west]{\includegraphics[width=2cm]{messi2.png}};
 
 \path(A.south) ++(0.,-.1) node(A)[align=left,anchor=north]{
 ${\ds \odv[order=2]{y(x)}{x}=-5\odv{y}{x}-x\quad;\quad y(0)=1 \quad;\quad y(5)=-1}$};
@@ -719,7 +720,7 @@ ${\ds \ab[\frac {-\hbar^2}{2m}\odv[order=2]{}{x}+V(x)]\psi(x)= E \psi(x) }$
 \draw[dashed,->,ultra thick](hl) ++(-0.8,-1.3) to[bend right] ++(1,-.6);
 \draw[dashed,->,ultra thick](cp) ++(.4,-1.2) to[bend left] ++(-.5,-1.6);
 
-\path(c4) ++(0.,1.5) node(x)[align=left,anchor=west]{\includegraphics[width=2.5cm]{img/CCadaptado/orbitales3b.png}};
+\path(c4) ++(0.,1.5) node(x)[align=left,anchor=west]{\includegraphics[width=2.5cm]{CCadaptado/orbitales3b.png}};
 \path(x.base) ++(0,-0.05) node[cc]{\by{Adaptado de Vmaiamir, CC SA 4.0}{https://commons.m.wikimedia.org/wiki/File:Atomic\_orbitals\_examples.png}};
 
 \end{zframe}  
@@ -827,7 +828,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
 {\color{naranja} Opción 3:} Aproximo por diferencias finitas (Crank-Nicolson).\\[2mm]
 {\color{naranja} Opción 4:} ${\ds\Psi(x,0)=\sum_{n}c_n\color{celeste}\psi_n(x) \Rightarrow\Psi(x,t)=\sum_{n}c_n\color{celeste}\psi_n(x)\color{rosa}e^{-i E_n t/\hbar}}$};
 
-% \path(ne) ++(-1,-2) node(A)[anchor=north east,rotate=-10]{\includegraphics[width=2cm]{img/gente/belen.png}}; 
+% \path(ne) ++(-1,-2) node(A)[anchor=north east,rotate=-10]{\includegraphics[width=2cm]{gente/belen.png}}; 
 % \path(A.south) ++(0.,0.) node[anchor=north,rotate=-10]{Prof. Oviedo}; 
 % \path(A.north) ++(0.,0.) node(A)[anchor=south,rotate=-10]{Nos visita}; 
 \path(A.north) ++(4.,2.) node(A)[anchor=south,rotate=-10,align=center]{\color{amarillo}Nos visita \\\color{amarillo}un/una especialista}; 
@@ -856,7 +857,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
 \draw[energy] (-2.5,0.15) -- (2.5,0.15) node(E)[energy,pos=1,right]{E};;
 % \draw[axis] (0,0) -- (0,4);
 
-\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {img/curves/curva1.dat};
+\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {curves/curva1.dat};
 \end{scope}
 
 
@@ -870,7 +871,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
 \draw[energy] (-2.5,0.15) -- (2.5,0.15) node(E)[energy,pos=1,right]{E};;
 % \draw[axis] (0,0) -- (0,4);
 
-\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {img/curves/curva2.dat};
+\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {curves/curva2.dat};
 
 \end{scope}
                           
@@ -887,7 +888,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
 \draw[energy] (-2.5,0.298) -- (2.5,0.298) node(E)[energy,pos=1,right]{E};;
 % \draw[axis] (0,0) -- (0,4);
 
-\draw[funcion,y=0.002cm,x=1.5cm] plot[smooth] file {img/curves/curva3.dat};
+\draw[funcion,y=0.002cm,x=1.5cm] plot[smooth] file {curves/curva3.dat};
 
 \end{scope}
 
@@ -902,7 +903,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
 \draw[energy] (-2.5,0.298) -- (2.5,0.298) node(E)[energy,pos=1,right]{E};;
 % \draw[axis] (0,0) -- (0,4);
 
-\draw[funcion,y=0.002cm,x=1.5cm] plot[smooth] file {img/curves/curva4.dat};
+\draw[funcion,y=0.002cm,x=1.5cm] plot[smooth] file {curves/curva4.dat};
 
 \end{scope}
 
@@ -918,7 +919,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
 \draw[energy] (-2.5,0.953) -- (2.5,0.953) node(E)[energy,pos=1,right]{E};;
 % \draw[axis] (0,0) -- (0,4);
 
-\draw[funcion,y=0.3cm,x=1.5cm] plot[smooth] file {img/curves/curva5.dat};
+\draw[funcion,y=0.3cm,x=1.5cm] plot[smooth] file {curves/curva5.dat};
 
 \end{scope}
 
@@ -934,7 +935,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
 \draw[energy] (-2.5,0.953) -- (2.5,0.953) node(E)[energy,pos=1,right]{E};;
 % \draw[axis] (0,0) -- (0,4);
 
-\draw[funcion,y=0.3cm,x=1.5cm] plot[smooth] file {img/curves/curva6.dat};
+\draw[funcion,y=0.3cm,x=1.5cm] plot[smooth] file {curves/curva6.dat};
 
 \end{scope}
 
@@ -962,7 +963,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
 \draw[energy] (-2.5,0.15) -- (2.5,0.15) node(E)[energy,pos=1,right]{E};;
 % \draw[axis] (0,0) -- (0,4);
 
-\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {img/curves/curva1.dat};
+\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {curves/curva1.dat};
 \end{scope}
 
 
@@ -976,7 +977,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
 \draw[energy] (-2.5,0.15) -- (2.5,0.15) node(E)[energy,pos=1,right]{E};;
 % \draw[axis] (0,0) -- (0,4);
 
-\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {img/curves/curva2.dat};
+\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {curves/curva2.dat};
 
 \end{scope}
                           
@@ -992,7 +993,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
   \path(0,2) node[above]{$a$};
   \path(-1.3,0) node[below]{$L$};
 
-  \draw[funcion,y=2cm,x=1.5cm] plot[smooth] file {img/dinamica/paquete.dat};
+  \draw[funcion,y=2cm,x=1.5cm] plot[smooth] file {dinamica/paquete.dat};
 \end{scope}                         
 
 

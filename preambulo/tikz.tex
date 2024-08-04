@@ -1,6 +1,3 @@
-%Se puede usar todas las keys en un \tikzset{}, empieze con tikz o con pgf
-%pudiendola escribr completa (i.e./tikz/..) o no.
-%si uno escribe mio./style uno esta definiendo un estilo
 \RequirePackage{tikz,pgf}
 
 \usepackage{xifthen}
@@ -14,13 +11,6 @@
  
 
 %\usepackage{setspace} % spacing environment
-
-% To avoid pading around figures in nodes with figures
-\tikzset{graphics/.style={inner sep=0,outer sep=0}}
-
-% To scale even linewidth and fonts
-%\tikzset{scaleall/.style={scale=#1, every node/.append style={scale=#1}}}
-\tikzset{scaleall/.style={scale=#1, transform shape}}
 
 %% Prefix the name of the nodes in a scope
 %% http://tex.stackexchange.com/a/128079/28411
@@ -890,8 +880,15 @@ color(20mm)=(pgftransparent!100)%
  
 % Estilos
 % =======
-% Estos estilos son mas portables si se pegan en cada tikzpicture
+% Estos estilos son mas portables si se pegan en cada tikzpicture.
 
+% To avoid pading around figures in nodes with figures
+\tikzset{graphics/.style={inner sep=0,outer sep=0}}
+
+% To scale even linewidth and fonts
+%\tikzset{scaleall/.style={scale=#1, every node/.append style={scale=#1}}}
+\tikzset{scaleall/.style={scale=#1, transform shape}}
+  
 % Control `blur shadow`
 % every shadow/.style={shadow xshift=-2ex, shadow yshift=-2ex}, 
 
