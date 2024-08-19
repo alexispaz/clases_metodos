@@ -58,6 +58,53 @@
 \newcommand{\tkznot}[3]{\tikz[baseline=(#1.base),remember picture]\node(#1)[#2]{#3};}
 \newcommand{\tkzpnot}[4]{\tikz[remember picture]\path(#1) node(#2)[#3]{#4};}
  
+% Define coordenadas utiles en cuadrantes
+\newcommand{\zcuad}[4][]{
+  % First argument is an optional prefix for the coordinate names
+  % Then arguments are xmin, xmax, ymin, ymax and O
+  
+  \path(#2) coordinate(#1o);
+  \path(#3) coordinate(#1sw);         
+  \path(#4) coordinate(#1ne);         
+
+  \path(#1ne-|#1sw) coordinate(#1nw);   
+  \path(#1ne|-#1sw) coordinate(#1se);   
+  \path($(#1nw)!.5!(#1se)$) coordinate(#1cp);
+
+  \path(#1nw|-#1cp) coordinate(#1wp);   
+  \path(#1nw-|#1cp) coordinate(#1np);   
+  \path(#1se|-#1cp) coordinate(#1ep);   
+  \path(#1se-|#1cp) coordinate(#1sp);   
+
+  \path($(#1nw)!.5!(#1cp)$) coordinate(#1c2);   
+  \path($(#1cp)!.5!(#1se)$) coordinate(#1c4);   
+  \path(#1c2|-#1c4) coordinate(#1c3);   
+  \path(#1c2-|#1c4) coordinate(#1c1);  
+ 
+  \path(#1c2|-#1cp) coordinate(#1hl);   
+  \path(#1c2-|#1cp) coordinate(#1vu);   
+  \path(#1c4|-#1cp) coordinate(#1hr);   
+  \path(#1c4-|#1cp) coordinate(#1vl);   
+
+  \path(#1o-|#1ne) coordinate(#1e); 
+  \path(#1o-|#1nw) coordinate(#1w); 
+  \path(#1o|-#1ne) coordinate(#1n); 
+  \path(#1o|-#1sw) coordinate(#1s); 
+   
+% Asterisk are input parameters   
+% +---------------------------+
+% |nw        n np          *ne|
+% |                           |
+% |     c2     vu     c1      |
+% |w        *o               e|
+% |wp   hl     cp     hr    ep|
+% |                           |
+% |     c3     vl     c4      |
+% |                           |
+% |*sw       s sp           se|
+% +---------------------------+ 
+
+}
 
 %use as {\paperwidth}{\paperheight}
 \newlength{\bbw}
@@ -91,22 +138,19 @@
   \path(.25\bbw,.25\bbh) coordinate(#1c3);
   \path(.75\bbw,.25\bbh) coordinate(#1c4);
 
-
-%  +-----------------------------------------------+
-%  |nw                    np                     ne|
-%  |                                               |
-%  |                                               |
-%  |          c2          vu          c1           |
-%  |                                               |
-%  |                                               |
-%  |wp        hl          cp          hr         ep|
-%  |                                               |
-%  |                                               |
-%  |          c3          vl          c4           |
-%  |                                               |
-%  |                                               |
-%  |sw                    sp                     se|
-%  +-----------------------------------------------+
+   
+%  +---------------------------+
+%  |nw          np           ne|
+%  |                           |
+%  |     c2     vu     c1      |
+%  |                           |
+%  |wp   hl     cp     hr    ep|
+%  |                           |
+%  |     c3     vl     c4      |
+%  |                           |
+%  |sw          sp           se|
+%  +---------------------------+ 
+ 
 }
  
         
@@ -905,14 +949,14 @@ color(20mm)=(pgftransparent!100)%
 % Teorema, definiciones, algoritmos
 \tikzset{
  cuadro/.style={execute at begin node=\setlength{\baselineskip}{4ex},rectangle, rounded corners=1ex,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=left},
- def/.style={cuadro,draw=amarillo,fill=verde},
- defhead/.style={def,inner sep=4,fill opacity=1,anchor=east,font={\bfseries}},
+ def/.style={cuadro,draw=amarillo,fill=amarillo},
+ defhead/.style={def,inner sep=4,fill opacity=1,font={\bfseries\color{bg}}},
  proc/.style={cuadro,draw=verde,fill=verde},
- prochead/.style={proc,inner sep=4,fill opacity=1,anchor=east,font={\bfseries}},
+ prochead/.style={proc,inner sep=4,fill opacity=1,font={\bfseries\color{bg}}},
  theo/.style={cuadro,draw=naranja,fill=naranja},
- theohead/.style={theo,inner sep=4,fill opacity=1,anchor=east,font={\bfseries}},
+ theohead/.style={theo,inner sep=4,fill opacity=1,font={\bfseries\color{bg}}},
  alg/.style={cuadro,draw=celeste,fill=celeste},
- alghead/.style={alg,inner sep=4,fill opacity=1,anchor=east,font={\bfseries}},
+ alghead/.style={alg,inner sep=4,fill opacity=1,anchor=west,font={\bfseries\color{bg}}},
 }
 
 \tikzset{cc/.style={anchor=north, inner sep=1, scale=0.8}}

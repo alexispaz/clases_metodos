@@ -1,5 +1,8 @@
 \documentclass{beamer}
 
+% TODO 2025: Sacar el x_n-1,x_n,x_n+1 y dejar x_0, x_1, x_2
+% TODO 2025: Llevar lagrange a derivadas
+
 \input{../preambulo/inputenc.tex}
 \input{../preambulo/fuente.tex}
 \input{../preambulo/spanish.tex}
@@ -11,6 +14,7 @@
 \input{../preambulo/paquetes.tex}
 \input{../preambulo/macros.tex}
 
+\graphicspath{{../img/}{img/}}
 \framebg{bg/pizarron3.png} 
 
 \begin{document}
@@ -22,7 +26,7 @@
 \path(c2|-I.north) ++(0,-1) node(A)[anchor=north,align=left]{
   \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
   \color{celeste} \textbf{Cuadraturas}\\[2mm]  
-  \color{lila} \textit{Agosto 16, 2023}
+  \color{lila} \textit{Agosto 15, 2024}
 };
 \normalsize
 \path(A.west|-I.south) ++(0,1) node(B)[anchor=south west,align=left]{
@@ -35,8 +39,85 @@
 \end{zframe}
 
 \renewcommand\CC{
-  \path(se) node[anchor=south east]{\tiny\color{gray} MC2023 - S.A.Paz};
+  \path(se) node[anchor=south east]{\tiny\color{gray} MC2024 - S.A.Paz};
 }
+                                           
+\begin{zframe}{}
+ 
+\path(np) ++(0,-.6) node(A)[anchor=north,text width=12cm]{
+  \centerline{\large\color{verde} Discretizar / Grillar / Teselar}};
+
+\small         
+\path(A.south west) ++(0.,-.3) node(A)[align=left,anchor=north west,text width=10cm]{
+  Si discretizamos $x$ {\color{naranja}\it uniformemente} entre $a$ y $b$\ldots};
+                    
+\path(A.south west) ++(0.,-.8) node(A)[align=left,anchor=north west,text width=8cm]{
+  \hspace{2mm} \ldots con $N$ puntos, entonces \\[2mm]
+  \hspace{2mm} $h=\dfrac{b-a}{N-1}$ es el paso de la grilla.};
+                    
+\path(A.south west) ++(0.,-.8) node(A)[align=left,anchor=north west,text width=8cm]{
+  \hspace{2mm} \ldots con un paso $h$, entonces \\[2mm]
+  \hspace{2mm} hay $N=\dfrac{b-a}{h}+1$ puntos en la grilla.};
+
+\path(A.south west) ++(0.2,-1.2) node(A)[align=left,anchor=north west,text width=12cm]{
+  \hspace{2mm} \it Ojo! $N\Leftarrow \text{int}\ab(\dfrac{b-a}{h}+1)$ pero entonces $b\Leftarrow (N-1)h+a$};
+
+\path(hr) ++(-1.5,-1) node(A)[def,align=left,text width=2.5cm]{\\
+  $x_n=nh+a$\\[2mm]
+  $f_n=f(x_n)$\\[2mm]};
+\path(A.north west) node(H)[defhead,anchor=west]{Notación};
+                 
+
+\path(hr) ++(-.1,.3) coordinate(scope);
+\newcommand\xmin{-2}\newcommand\xmax{2}
+\newcommand\ymin{0}\newcommand\ymax{3}
+\begin{scope}[x=.8cm,y=.8cm,shift=(scope), domain=\xmin:\xmax,yrange=\ymin:\ymax,thick]
+  \scriptsize
+  \zcuad{0,0}{\xmin,\ymin}{\xmax,\ymax} %\showcuad
+  \draw[style=help lines, ystep=1, xstep=1] (sw) grid (ne);
+  \draw[<-] (e) ++(.5,0) node[right] {$x$} -- (w);
+
+  \foreach \x [count=\i] in {-2,...,2} {
+    \pgfmathsetmacro\n{int(\i-1)}
+    \pgfmathsetmacro\y{sin((\x-1)/3.1415*180)+2}
+    \path(\x,0) node[below]{\scriptsize $x_{\n}$};
+    \draw(\x,0) -- (\x,\y) [fill]circle(.05) node[above=.2]{$f_{\n}$};
+  } 
+
+  \draw[color=amarillo] plot[smooth,id=parabola] function{sin(x-1)+2};
+
+  \draw[verde,<->] (1,1) -- ++(1,0) node[pos=0.5,above]{$h$};
+  \draw[verde,<-,shorten <=6] (-2,0) to[bend left] ++(120:1.2) node[above]{$a$};
+  \draw[verde,<-,shorten <=6] (2,0) to[bend right] ++(60:1.2) node[above]{$b$};
+  \foreach \x in {-2,-1,...,2} {
+  \fill[verde] (-\x,0) circle(.1);}
+
+  \draw[verde,decorate,decoration = {brace},yshift=-10] (2,0) -- (-2,0) node[pos=0.5,below]{$N$ puntos};
+
+\end{scope}
+
+\end{zframe}
+                            
+\begin{zframe}{% yscale=0.9, % with frametitle
+def/.style={rectangle,draw=verde,dashed, rounded corners=1ex, anchor=north,inner sep=6,align=center},
+defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}}}
+          
+\path(np) ++(1,-.3) node(A)[anchor=north]{\includegraphics[width=8cm]{finite/grids.png}};
+\path(A.north) ++(-0.9,-.6) node[anchor=south]{\tiny Silva \etal 10.13140/RG.2.1.5174.3124};
+
+
+\path(hl) ++(-.5,1.5) node{\includegraphics[width=5cm]{finite/grid1D.png}};
+% \path(A.south east) ++(-0.9,.3) node[anchor=north east]{\tiny boyfarrell, https://scicomp.stackexchange.com/q/8494/20194};
+                            
+\path(c4) ++(-.5,.6) node(A){\includegraphics[width=7cm]{finite/dientes.png}};
+\path(A.south east) ++(-0.9,.3) node[anchor=north east]{\tiny  Maintz \etal 10.5281/zenodo.4972578};
+
+\path(c3) ++(0,0) node(A){\includegraphics[width=3.5cm]{finite/plume.png}};
+\path(A.south west) ++(-1,0) node[anchor=north west]{\tiny Bacon \etal Mon. Weather Rev. 128 (2000) 2044}; 
+
+\end{zframe}
+      
+
 \begin{zframe}{
 def/.style={rectangle,draw=verde,dashed, rounded corners=1ex, anchor=north,inner sep=6,align=center},
 defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}}}
@@ -45,53 +126,61 @@ defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}}}
   \centerline{\large\color{verde} Trapecio}};
  
 \path(nw) ++(0.2,-1.2) node(A)[align=left,anchor=north west,text width=12cm]{
-$$\ds{\int_x^{x+h} f(\xi)d\xi=\frac{h}{2}\ab(f(x+h)+f(x))+O\ab(h^3)}$$
+$$\ds{\int_{x_0}^{x_0+h} f(x)dx=\frac{h}{2}\ab(f(x_0+h)+f(x_0))+O\ab(h^3)}$$
 };
  
 \path(hr) ++(-1,-1.6) coordinate(scope);
-\newcommand\xmin{-1}
-\newcommand\xmax{2}
-\newcommand\xstp{1}
-\newcommand\xtra{-.5}
-\newcommand\ymin{0}
-\newcommand\ymax{3}
-\newcommand\ystp{1}
-\newcommand\nfra{1}
+\newcommand\xmin{-1}\newcommand\xmax{2}
+\newcommand\ymin{0}\newcommand\ymax{3}
 \begin{scope}[x=1cm,y=1cm,shift=(scope), domain=\xmin:\xmax,yrange=\ymin:\ymax,thick]
+  \scriptsize
+  \zcuad[z]{0,0}{\xmin,\ymin}{\xmax,\ymax} %\showcuad
+  \draw[style=help lines, ystep=1, xstep=1] (zsw) grid (zne);
+  \draw[<-] (ze) ++(.5,0) node[right] {$x$} -- (zw);
      
   \pgfmathsetmacro\ox{1}
-  \pgfmathsetmacro\oy{sin((\ox-(\xtra))/3.1415*180)+2}
-  \pgfmathsetmacro\y{sin((-(\xtra))/3.1415*180)+2}
+  \pgfmathsetmacro\oy{sin((\ox+.5)/3.1415*180)+2}
+  \pgfmathsetmacro\y{sin(.5)/3.1415*180)+2}
   \pgfmathsetmacro\y{(\oy+\y)/2}
-
   \fill[celeste,opacity=.5](0,0) -- (0,\y) -- (\ox,\y) -- (\ox,0) -- cycle;
-
-  {\scriptsize \input{frames/euler.tex}}
-  % \draw[color=celeste,dashed, ultra thick, domain=\xmin:\xmax] plot[smooth] function{(x-\xxo)*(\yyo-8*\yo+8*\oy-\oyy)/12+\yyo};
   
-\end{scope}
+  \foreach \x [count=\i] in {\xmin,...,\xmax} {
+    \pgfmathsetmacro\n{int(\i-2)}
+    \pgfmathsetmacro\y{sin((\x+.5)/3.1415*180)+2}
+    \path(\x,0) node[below]{\scriptsize $x_{\n}$};
+    \draw(\x,0) -- (\x,\y) [fill]circle(.05) node[above=.2]{$f_{\n}$};
+  } 
+  
+  \draw[color=amarillo] plot[smooth,id=parabola] function{sin(x+.5)+2};
 
+\end{scope}
+ 
 \path(hl) ++(0,-1.6) coordinate(scope);
-\renewcommand\xmin{-1}
-\renewcommand\xmax{2}
-\renewcommand\xstp{1}
-\renewcommand\xtra{-.5}
-\renewcommand\ymin{0}
-\renewcommand\ymax{3}
-\renewcommand\ystp{1}
-\renewcommand\nfra{1}
+\renewcommand\xmin{-1}\renewcommand\xmax{2}
+\renewcommand\ymin{0}\renewcommand\ymax{3}
 \begin{scope}[x=1cm,y=1cm,shift=(scope), domain=\xmin:\xmax,yrange=\ymin:\ymax,thick]
+  \scriptsize
+  \zcuad[z]{0,0}{\xmin,\ymin}{\xmax,\ymax} %\showcuad
+  \draw[style=help lines, ystep=1, xstep=1] (zsw) grid (zne);
+  \draw[<-] (ze) ++(.5,0) node[right] {$x$} -- (zw);
      
   \pgfmathsetmacro\ox{1}
-  \pgfmathsetmacro\oy{sin((\ox-(\xtra))/3.1415*180)+2}
-  \pgfmathsetmacro\y{sin((-(\xtra))/3.1415*180)+2}
-
+  \pgfmathsetmacro\oy{sin((\ox+.5)/3.1415*180)+2}
+  \pgfmathsetmacro\y{sin(.5)/3.1415*180)+2}
   \fill[celeste,opacity=.5](0,0) -- (0,\y) -- (\ox,\oy) -- (\ox,0) -- cycle;
-
-  {\scriptsize \input{frames/euler.tex}}
-  % \draw[color=celeste,dashed, ultra thick, domain=\xmin:\xmax] plot[smooth] function{(x-\xxo)*(\yyo-8*\yo+8*\oy-\oyy)/12+\yyo};
+      
+  \foreach \x [count=\i] in {\xmin,...,\xmax} {
+    \pgfmathsetmacro\n{int(\i-2)}
+    \pgfmathsetmacro\y{sin((\x+.5)/3.1415*180)+2}
+    \path(\x,0) node[below]{\scriptsize $x_{\n}$};
+    \draw(\x,0) -- (\x,\y) [fill]circle(.05) node[above=.2]{$f_{\n}$};
+  } 
   
+  \draw[color=amarillo] plot[smooth,id=parabola] function{sin(x+.5)+2};
+
 \end{scope}
+           
+
 \end{zframe}  
 
 
@@ -104,7 +193,8 @@ defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}}}
   \centerline{\large\color{verde} Trapecio}};
  
 \path(nw) ++(0.2,-1.2) node(A)[align=left,anchor=north west,text width=12cm]{
-$$\ds{\int_x^{x+h} f(\xi)d\xi=\frac{h}{2}\ab(f(x+h)+f(x))+O\ab(h^3)}$$
+$$\ds{\int_{x_0}^{x_0+h} f(x)dx=\frac{h}{2}\ab(f(x_0+h)+f(x_0))+O\ab(h^3)}$$
+% $$\ds{\int_x^{x+h} f(\xi)d\xi=\frac{h}{2}\ab(f(x+h)+f(x))+O\ab(h^3)}$$
 };
                
 \path(A.south west) ++(0,-5.1)  node[anchor=north west,text width=12cm,align=left]{
@@ -112,39 +202,41 @@ $$\ds{\int_x^{x+h} f(\xi)d\xi=\frac{h}{2}\ab(f(x+h)+f(x))+O\ab(h^3)}$$
 };
            
 \path(hr) ++(-3,-1.6) coordinate(scope);
-\newcommand\xmin{-3}
-\newcommand\xmax{3}
-\newcommand\xstp{1}
-\newcommand\xtra{1}
-\newcommand\ymin{0}
-\newcommand\ymax{3}
-\newcommand\ystp{1}
-\newcommand\nfra{1}
+\newcommand\xmin{-3}\newcommand\xmax{3}
+\newcommand\ymin{0}\newcommand\ymax{3}
 \begin{scope}[x=1cm,y=1cm,shift=(scope), domain=\xmin:\xmax,yrange=\ymin:\ymax,thick]
+  \scriptsize
+  \zcuad[z]{0,0}{\xmin,\ymin}{\xmax,\ymax} %\showcuad
+  \draw[style=help lines, ystep=1, xstep=1] (zsw) grid (zne);
+  \draw[<-] (ze) ++(.5,0) node[right] {$x$} -- (zw);
      
   \pgfmathsetmacro\xxo{-2}
   \pgfmathsetmacro\xo{-1}
   \pgfmathsetmacro\ox{1}
   \pgfmathsetmacro\oxx{2}
-  \pgfmathsetmacro\yyo{sin((\xxo-(\xtra))/3.1415*180)+2}
-  \pgfmathsetmacro\yo{sin((\xo-(\xtra))/3.1415*180)+2}
-  \pgfmathsetmacro\y{sin((-(\xtra))/3.1415*180)+2}
-  \pgfmathsetmacro\oy{sin((\ox-(\xtra))/3.1415*180)+2}
-  \pgfmathsetmacro\oyy{sin((\oxx-(\xtra))/3.1415*180)+2} 
+  \pgfmathsetmacro\yyo{sin((\xxo-1)/3.1415*180)+2}
+  \pgfmathsetmacro\yo{sin((\xo-1)/3.1415*180)+2}
+  \pgfmathsetmacro\y{sin((-1)/3.1415*180)+2}
+  \pgfmathsetmacro\oy{sin((\ox-1)/3.1415*180)+2}
+  \pgfmathsetmacro\oyy{sin((\oxx-1)/3.1415*180)+2} 
 
   \fill[celeste,opacity=.5](0,0) -- (0,\y) -- (\ox,\oy) -- (\ox,0) -- cycle;
   \fill[celeste,opacity=.5](0,0) -- (0,\y) -- (\xo,\yo) -- (\xo,0) -- cycle;
   \fill[celeste,opacity=.5](\ox,0) -- (\ox,\oy) -- (\oxx,\oyy) -- (\oxx,0) -- cycle;
   \fill[celeste,opacity=.5](\xo,0) -- (\xo,\yo) -- (\xxo,\yyo) -- (\xxo,0) -- cycle;
-
-
-
-  {\scriptsize \input{frames/euler.tex}}
-
-    
-  % \draw[color=celeste,dashed, ultra thick, domain=\xmin:\xmax] plot[smooth] function{(x-\xxo)*(\yyo-8*\yo+8*\oy-\oyy)/12+\yyo};
+   
+  \foreach \x [count=\i] in {\xmin,...,\xmax} {
+    \pgfmathsetmacro\n{int(\i-2)}
+    \pgfmathsetmacro\y{sin((\x-1)/3.1415*180)+2}
+    \path(\x,0) node[below]{\scriptsize $x_{\n}$};
+    \draw(\x,0) -- (\x,\y) [fill]circle(.05) node[above=.2]{$f_{\n}$};
+  } 
   
+  \draw[color=amarillo] plot[smooth,id=parabola] function{sin(x-1)+2};
+
 \end{scope}
+         
+
 \end{zframe}     
    
 \begin{zframe}{
@@ -198,63 +290,66 @@ defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}}}
   \centerline{\large\color{verde} Punto Medio}};
  
 \path(nw) ++(0.2,-1.2) node(A)[align=left,anchor=north west,text width=12cm]{
-$$\ds{\int_x^{x+h} f(\xi)d\xi=f(x+h/2)h+O\ab(h^3)}$$
+$$\ds{\int_{x_0}^{x_0+h} f(x)dx=f\ab(x_0+\dfrac{h}{2})h+O\ab(h^3)}$$
 };
                      
 \path(A.south west) ++(0,-5.1)  node[anchor=north west,text width=12cm,align=left]{
-  $${\ds\int_{a}^{b} f(\xi)d\xi=h\sum_{i=0}^{N-2}f\ab(\dfrac{x_{i+1}+x_{i}}{2})+O\ab(h^2)}$$
+  $${\ds\int_{a}^{b} f(x)dx=h\sum_{i=0}^{N-2}f\ab(\dfrac{x_{i+1}+x_{i}}{2})+O\ab(h^2)}$$
 };
        
 \path(hl) ++(0,-1.6) coordinate(scope);
-\newcommand\xmin{-1}
-\newcommand\xmax{2}
-\newcommand\xstp{1}
-\newcommand\xtra{-.5}
-\newcommand\ymin{0}
-\newcommand\ymax{3}
-\newcommand\ystp{1}
-\newcommand\nfra{1}
+\newcommand\xmin{-1}\newcommand\xmax{2}
+\newcommand\ymin{0}\newcommand\ymax{3}
 \begin{scope}[x=1cm,y=1cm,shift=(scope), domain=\xmin:\xmax,yrange=\ymin:\ymax,thick]
+  \scriptsize
+  \zcuad[z]{0,0}{\xmin,\ymin}{\xmax,\ymax} %\showcuad
+  \draw[style=help lines, ystep=1, xstep=1] (zsw) grid (zne);
+  \draw[<-] (ze) ++(.5,0) node[right] {$x$} -- (zw);
      
+
   \pgfmathsetmacro\ox{0.5}
-  \pgfmathsetmacro\oy{sin((\ox-(\xtra))/3.1415*180)+2}
-
+  \pgfmathsetmacro\oy{sin((\ox+.5)/3.1415*180)+2}
   \fill[amarillo,opacity=.5](0,0) -- (0,\oy) -- (1,\oy) -- (1,0) -- cycle;
-  % \fill[celeste](\ox,\oy) circle(.1);
-
-  {\scriptsize \input{frames/euler.tex}}
-  % \draw[color=celeste,dashed, ultra thick, domain=\xmin:\xmax] plot[smooth] function{(x-\xxo)*(\yyo-8*\yo+8*\oy-\oyy)/12+\yyo};
   
+  \foreach \x [count=\i] in {\xmin,...,\xmax} {
+    \pgfmathsetmacro\n{int(\i-2)}
+    \pgfmathsetmacro\y{sin((\x+.5)/3.1415*180)+2}
+    \path(\x,0) node[below]{\scriptsize $x_{\n}$};
+    \draw(\x,0) -- (\x,\y) [fill]circle(.05) node[above=.2]{$f_{\n}$};
+  } 
+  
+  \draw[color=amarillo] plot[smooth,id=parabola] function{sin(x+.5)+2};
+
 \end{scope}
+ 
 
 \path(hr) ++(-1,-1.6) coordinate(scope);
-\renewcommand\xmin{-1}
-\renewcommand\xmax{2}
-\renewcommand\xstp{1}
-\renewcommand\xtra{-.5}
-\renewcommand\ymin{0}
-\renewcommand\ymax{3}
-\renewcommand\ystp{1}
-\renewcommand\nfra{1}
+\renewcommand\xmin{-1}\renewcommand\xmax{2}
+\renewcommand\ymin{0}\renewcommand\ymax{3}
 \begin{scope}[x=1cm,y=1cm,shift=(scope), domain=\xmin:\xmax,yrange=\ymin:\ymax,thick]
+  \scriptsize
+  \zcuad[z]{0,0}{\xmin,\ymin}{\xmax,\ymax} %\showcuad
+  \draw[style=help lines, ystep=1, xstep=1] (zsw) grid (zne);
+  \draw[<-] (ze) ++(.5,0) node[right] {$x$} -- (zw);
      
   \pgfmathsetmacro\ox{1}
-  \pgfmathsetmacro\oy{sin((\ox-(\xtra))/3.1415*180)+2}
-  \pgfmathsetmacro\y{sin((-(\xtra))/3.1415*180)+2}
+  \pgfmathsetmacro\oy{sin((\ox+.5)/3.1415*180)+2}
+  \pgfmathsetmacro\y{sin(.5)/3.1415*180)+2}
   \pgfmathsetmacro\oy{\oy+0.1}
   \pgfmathsetmacro\y{\y+0.1}
-
-
   \fill[amarillo,opacity=.5](0,0) -- (0,\y) -- (\ox,\oy) -- (\ox,0) -- cycle;
-
-  % \pgfmathsetmacro\ox{0.5}
-  % \pgfmathsetmacro\oy{sin((\ox-(\xtra))/3.1415*180)+2}
-  % \fill[celeste](\ox,\oy) circle(.1);
-
-  {\scriptsize \input{frames/euler.tex}}
-  % \draw[color=celeste,dashed, ultra thick, domain=\xmin:\xmax] plot[smooth] function{(x-\xxo)*(\yyo-8*\yo+8*\oy-\oyy)/12+\yyo};
+      
+  \foreach \x [count=\i] in {\xmin,...,\xmax} {
+    \pgfmathsetmacro\n{int(\i-2)}
+    \pgfmathsetmacro\y{sin((\x+.5)/3.1415*180)+2}
+    \path(\x,0) node[below]{\scriptsize $x_{\n}$};
+    \draw(\x,0) -- (\x,\y) [fill]circle(.05) node[above=.2]{$f_{\n}$};
+  } 
   
+  \draw[color=amarillo] plot[smooth,id=parabola] function{sin(x+.5)+2};
+
 \end{scope}
+      
 \end{zframe}  
          
 \begin{zframe}{
@@ -266,40 +361,37 @@ spy using outlines}
   \centerline{\large{\color{amarillo} Punto Medio} vs \color{celeste} Trapecios}};
  
 \path(hl) ++(0,-1.9) coordinate(scope);
-\newcommand\xmin{-1}
-\newcommand\xmax{2}
-\newcommand\xstp{1}
-\newcommand\xtra{-.5}
-\newcommand\ymin{0}
-\newcommand\ymax{3}
-\newcommand\ystp{1}
-\newcommand\nfra{1}
+\newcommand\xmin{-1}\newcommand\xmax{2}
+\newcommand\ymin{0}\newcommand\ymax{3}
 \begin{scope}[x=1cm,y=1cm,shift=(scope), domain=\xmin:\xmax,yrange=\ymin:\ymax,thick]
-     
-                   
+  \scriptsize
+  \zcuad[z]{0,0}{\xmin,\ymin}{\xmax,\ymax} %\showcuad
+  \draw[style=help lines, ystep=1, xstep=1] (zsw) grid (zne);
+  \draw[<-] (ze) ++(.5,0) node[right] {$x$} -- (zw);
+      
   \pgfmathsetmacro\ox{1}
-  \pgfmathsetmacro\oy{sin((\ox-(\xtra))/3.1415*180)+2}
-  \pgfmathsetmacro\y{sin((-(\xtra))/3.1415*180)+2}
+  \pgfmathsetmacro\oy{sin((\ox+.5)/3.1415*180)+2}
+  \pgfmathsetmacro\y{sin((.5)/3.1415*180)+2}
   \pgfmathsetmacro\oy{\oy+0.1}
   \pgfmathsetmacro\y{\y+0.1}
-                 
   \fill[amarillo,opacity=.5](0,0) -- (0,\y) -- (\ox,\oy) -- (\ox,0) -- cycle;
                
   \pgfmathsetmacro\ox{1}
-  \pgfmathsetmacro\oy{sin((\ox-(\xtra))/3.1415*180)+2}
-  \pgfmathsetmacro\y{sin((-(\xtra))/3.1415*180)+2}
-                  
+  \pgfmathsetmacro\oy{sin((\ox+.5)/3.1415*180)+2}
+  \pgfmathsetmacro\y{sin((.5)/3.1415*180)+2}
   \fill[celeste!50!bg](0,0) -- (0,\y) -- (\ox,\oy) -- (\ox,0) -- cycle;
-             
-  % \pgfmathsetmacro\ox{0.5}
-  % \pgfmathsetmacro\oy{sin((\ox-(\xtra))/3.1415*180)+2}
-  % \fill[celeste](\ox,\oy) circle(.1);
-
-  {\scriptsize \input{frames/euler.tex}}
-  % \draw[color=celeste,dashed, ultra thick, domain=\xmin:\xmax] plot[smooth] function{(x-\xxo)*(\yyo-8*\yo+8*\oy-\oyy)/12+\yyo};
+                   
+  \foreach \x [count=\i] in {\xmin,...,\xmax} {
+    \pgfmathsetmacro\n{int(\i-2)}
+    \pgfmathsetmacro\y{sin((\x+.5)/3.1415*180)+2}
+    \path(\x,0) node[below]{\scriptsize $x_{\n}$};
+    \draw(\x,0) -- (\x,\y) [fill]circle(.05) node[above=.2]{$f_{\n}$};
+  } 
   
+  \draw[color=amarillo] plot[smooth,id=parabola] function{sin(x+.5)+2};
+
 \end{scope}
- 
+  
 \spy[verde, circle, size=6cm, magnification=4, connect spies] 
   on (3.7,5.65) in node(z) at ($(hr)-(.5,.5)$);
                       
@@ -311,29 +403,19 @@ spy using outlines}
 %
 
 \end{zframe}  
-          
-\begin{zframe}{
-def/.style={rectangle,draw=verde,dashed, rounded corners=1ex, anchor=north,inner sep=6,align=center},
-defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}}}
-               
-\path(np) ++(0,-.4) node(A)[anchor=north,text width=12cm]{
-  \centerline{\large\color{verde} Interpolacion de Lagrange}};
- 
-\path(cp) ++(2.,.8) node(A)[fill=white]{
-\includegraphics[width=7cm]{lagrange_polynomial_n.png}
-};
- \path(A.west) ++(0,.1)  node[anchor=east,text width=4cm,align=center]{
-  $$P_k(x)=\dsum^k_{j=0}c_jl_j(x)$$
-  El polinomio de menor \\ grado que interpola.
-};
-                     
-\path(vl) ++(0,-.1)  node[anchor=north,text width=10cm,align=center]{
-  $P_2(\xi)=\dfrac{f_{n-1}}{2}(\xi-x_n)(\xi-x_{n+1})-f(\xi-x_{n-1})(\xi-x_{n+1})$\\
-            $+\dfrac{f_{n+1}}{2}(\xi-x_{n-1})(\xi-x_n)$
-};
-       
+     
+\begin{zframe}{}
+
+\path(nw) ++(0,0) node(A)[graphics,anchor=north west]{
+  \includegraphics[width=11cm]{forum.png}};
+
+\path(A.south east) ++(0,0) node[anchor=north east]{
+   \tiny \href{https://math.stackexchange.com/q/603830}{https://math.stackexchange.com/q/603830}};
+
+\path(sw) ++(0,0) node(A)[inner sep=1,draw=amarillo,ultra thick,anchor=south west]{
+  \includegraphics[width=7cm]{mycomment.png}};
+
 \end{zframe}  
-      
 
 \begin{zframe}{
 def/.style={rectangle,draw=verde,dashed, rounded corners=1ex, anchor=north,inner sep=6,align=center},
@@ -342,47 +424,113 @@ defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}},spy usin
 \path(np) ++(0,-.4) node(A)[anchor=north,text width=12cm]{
   \centerline{\large\color{verde} Simpson}};
  
-\path(nw) ++(0.2,-1.2) node(A)[align=left,anchor=north west,text width=12cm]{
-$$\ds{\int_x^{x+2h} f(\xi)d\xi=\dfrac{h}{3}\ab[f(x+2h)+4f(x+h)+f(x)]+O\ab(h^5)}$$
+\path(nw) ++(0.2,-0.6) node(A)[align=left,anchor=north west,text width=12cm]{
+$$\ds{\int_{x_0}^{x_0+2h} f(x)dx=\dfrac{h}{3}\ab[f(x_0+2h)+4f(x_0+h)+f(x_0)]+O\ab(h^5)}$$
 };
         
-\path(hl) ++(0,-1.6) coordinate(scope);
-\newcommand\xmin{-2}
-\newcommand\xmax{2}
-\newcommand\xstp{1}
-\newcommand\xtra{1}
-\newcommand\ymin{0}
-\newcommand\ymax{3}
-\newcommand\ystp{1}
-\newcommand\nfra{1}
+\path(hl) ++(0,-1.4) coordinate(scope);
+\newcommand\xmin{-2}\newcommand\xmax{2}
+\newcommand\ymin{0}\newcommand\ymax{3}
 \begin{scope}[x=1cm,y=1cm,shift=(scope), domain=\xmin:\xmax,yrange=\ymin:\ymax,thick]
-     
+  \scriptsize
+  \zcuad[z]{0,0}{\xmin,\ymin}{\xmax,\ymax} %\showcuad
+  \draw[style=help lines, ystep=1, xstep=1] (zsw) grid (zne);
+  \draw[<-] (ze) ++(.5,0) node[right] {$x$} -- (zw);
+
   \pgfmathsetmacro\xo{-1}
   \pgfmathsetmacro\x{0}
   \pgfmathsetmacro\ox{1}
-  \pgfmathsetmacro\yo{sin((\xo-(\xtra))/3.1415*180)+2}
-  \pgfmathsetmacro\y{sin((-(\xtra))/3.1415*180)+2}
-  \pgfmathsetmacro\oy{sin((\ox-(\xtra))/3.1415*180)+2}
+  \pgfmathsetmacro\yo{sin((\xo-1)/3.1415*180)+2}
+  \pgfmathsetmacro\y{sin((-1)/3.1415*180)+2}
+  \pgfmathsetmacro\oy{sin((\ox-1)/3.1415*180)+2}
 
   \draw[rosa, ultra thick, domain=\xmin:\xmax] plot[smooth,id=parabola] 
   function{\yo*(x-\x)*(x-\ox)/2-\y*(x-\xo)*(x-\ox)+\oy*(x-\xo)*(x-\x)/2};
 
   \draw[rosa, fill,fill opacity=.5, ultra thick] plot[smooth,id=parabola, domain=-1:1] 
   function{\yo*(x-\x)*(x-\ox)/2-\y*(x-\xo)*(x-\ox)+\oy*(x-\xo)*(x-\x)/2} -- (1,0) -- (-1,0) -- cycle;
+    
+  \foreach \x [count=\i] in {\xmin,...,\xmax} {
+    \pgfmathsetmacro\n{int(\i-2)}
+    \pgfmathsetmacro\y{sin((\x+.5)/3.1415*180)+2}
+    \path(\x,0) node[below]{\scriptsize $x_{\n}$};
+    \draw(\x,0) -- (\x,\y) [fill]circle(.05) node[above=.2]{$f_{\n}$};
+  } 
+  
+  \draw[color=amarillo] plot[smooth,id=parabola] function{sin(x-1)+2};
 
-
-  {\scriptsize \input{frames/euler.tex}}
-
-\end{scope} 
-
-\spy[verde, circle, ultra thick, size=5.5cm, magnification=2.3, connect spies] 
-  on (3.2,4.65) in node(z) at ($(hr)-(.5,.5)$);
+\end{scope}
+ 
+\spy[draw=verde, circle, ultra thick, size=5.5cm, magnification=2.3, connect spies] 
+  on (3.2,4.9) in node(z) at ($(hr)-(.5,.5)$);
                       
 \path(A.south west) ++(0,-5.1)  node[anchor=north west,text width=12cm,align=left]{
-  $${\ds\int_{a}^{b} f(\xi)d\xi=\dfrac{h}{3}\ab[f_0+2\sum_{i=1}^{N/2-1}f_{2i}+4\sum_{i=1}^{N/2}f_{2i-1}]+f_{N-1}+O\ab(h^4)}$$
+  $${\ds\int_{a}^{b} f(x)dx=\dfrac{h}{3}\ab[f_0+2\sum_{i=1}^{N/2-1}f_{2i}+4\sum_{i=1}^{N/2}f_{2i-1}]+f_{N-1}+O\ab(h^4)}$$
 };
        
 \end{zframe}  
           
 
+\begin{zframe}{
+def/.style={rectangle,draw=verde,dashed, rounded corners=1ex, anchor=north,inner sep=6,align=center},
+defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}}}
+               
+
+\path(np|-t) ++(0,.6) node(A)[anchor=north,align=center]{
+  \Large\color{verde} ¿Interpretación geométrica? $\rightarrow$ \color{naranja}Interpolación de Lagrange};
+ 
+% \path(cp) ++(2.,.8) node(A)[fill=white]{
+%   \includegraphics[width=7cm]{lagrange_polynomial_n.png}};
+
+\path(t) ++(-.2,-1)  node[anchor=north west,align=left]{
+  $P_k(x)=\dsum^{k-1}_{j=0}f_jl_j(x)$\\[2mm]
+  $\ds l_j(x)=\prod_{i=0,\,i\neq j}^{k}{\frac{x-x_{i}}{x_{j}-x_{i}}}$\\[2mm]
+  El polinomio de menor \\ grado que interpola.};
+             
+\path(vl) ++(0,-.1)  node[anchor=north,text width=14cm,align=center]{
+  ${P_3(x)=f_0\dfrac{(x-x_1)(x-x_2)}{2h^2}
+          -f_1\dfrac{(x-x_0)(x-x_2)}{h^2}
+          +f_2\dfrac{(x-x_0)(x-x_1)}{2h^2}}$};
+                                        
+\path(cp) ++(-.6,-1.5) coordinate(scope);
+\begin{scope}[x=3cm,y=1.5cm,shift=(scope),thick]
+  \pgfmathsetmacro\xa{0.}\pgfmathsetmacro\ya{2.}
+  \pgfmathsetmacro\xb{1.}\pgfmathsetmacro\yb{1.}
+  \pgfmathsetmacro\xc{2.}\pgfmathsetmacro\yc{3.}
+
+  \zcuad{0,0}{-.1,-.5}{2.1,3.1} %\showcuad
+  \draw[style=help lines, ystep=1, xstep=1] (sw) grid (ne);
+  \draw[->] (w) -- (e) node[right] {$x$};
+      
+  \foreach \x [count=\i] in {0,...,3} {
+    \pgfmathsetmacro\n{int(\i-1)}
+    \path(\x,0) node[below]{\normalsize $x_{\n}$};} 
+     
+  \draw[thick,dashed,color=celeste, domain=\xa:\xc] 
+    plot[smooth,id=parabola] function{\ya*(x-\xb)/(\xa-\xb)*(x-\xc)/(\xa-\xc)};
+  \draw[thick,dashed,color=lila, domain=\xa:\xc] 
+    plot[smooth,id=parabola] function{\yb*(x-\xa)/(\xb-\xa)*(x-\xc)/(\xb-\xc)};
+  \draw[thick,dashed,color=rojo, domain=\xa:\xc] 
+    plot[smooth,id=parabola] function{\yc*(x-\xa)/(\xc-\xa)*(x-\xb)/(\xc-\xb)};
+
+  \fill[celeste](\xa,\ya) circle(3pt) node[above] {$f_0$};
+  \fill[lila](\xb,\yb)    circle(3pt) node[above] {$f_1$};
+  \fill[rojo](\xc,\yc)    circle(3pt) node[left] {$f_2$};
+
+  \draw[color=verde, ultra thick, domain=\xa:\xc] 
+    plot[smooth,id=parabola] function{
+      \ya*(x-\xb)/(\xa-\xb)*(x-\xc)/(\xa-\xc)
+      +\yb*(x-\xa)/(\xb-\xa)*(x-\xc)/(\xb-\xc)
+      +\yc*(x-\xa)/(\xc-\xa)*(x-\xb)/(\xc-\xb)}; 
+
+  \path(1,2) node[verde]{$P_3(x)$};
+  \path(.1,1) node[celeste] {$l_0(x)$};
+  \path(3,1) node[lila] {$l_1(x)$};
+  \path(3,2) node[rojo] {$l_2(x)$};
+                   
+\end{scope}
+            
+\end{zframe}  
+      
+      
 \end{document}
