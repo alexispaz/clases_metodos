@@ -11,7 +11,9 @@
 \input{../preambulo/paquetes.tex}
 \input{../preambulo/macros.tex}
 
+\graphicspath{{../img/}{img/}}
 \framebg{bg/pizarron3.png} 
+\hypersetup{colorlinks=true, urlcolor=azul!40!white}
 
 \begin{document}
 
@@ -22,7 +24,7 @@
 \path(c2|-I.north) ++(0,-1) node(A)[anchor=north,align=left]{
   \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
   \color{celeste} \textbf{Mecánica Estadística}\\[2mm]  
-  \color{lila} \textit{Agosto 30, 2023}
+  \color{lila} \textit{Septiembre 9, 2023}
 };
 \normalsize
 \path(A.west|-I.south) ++(0,1) node(B)[anchor=south west,align=left]{
@@ -53,7 +55,7 @@
 
 \draw[->,ultra thick,naranja](X.east) -- ++(1.2,0) node(X)[right]{Impracticable!! ($10^{20}$ moleculas)};
 
-\draw[->,ultra thick,celeste](X.south) -- ++(0,-1) node(X)[below,align=center]{Postulados + \\ Ensamble de Gibbs};
+\draw[->,ultra thick,celeste](X.south) -- ++(0,-1) node(X)[below,align=center]{Postulados + \\ Ensamble (Gibbs)};
 
 \draw[->,ultra thick,celeste](X.south) -- ++(0,-1) node(X)[below,align=left,fg,text width=6cm]{Conjunto de sistemas con el \\ mismo estado termodinámico en\\ distintos estados mecánicos};
 
@@ -169,17 +171,29 @@
  
 \begin{zframe}{}
 
-\LARGE    
+% \LARGE    
+% \path(t-|np) ++(0,.6) node(T){
+%   \centerline{\Large\color{verde} Ensambles Estadísticos}};
 
+\path(t-|wp) ++(.5,.2) node(T)[def,anchor=north west,text width=8.5cm]{\\
+  Conjunto hipotético de sistemas termodinámicos de características similares que
+nos permiten realizar un análisis estadístico de dicho conjunto.};
+\path(T.north east) ++(0,0.2) node(H)[defhead, anchor=north east]{\color{black}Ensamble Estadístico (1879)};
+  
+\path(T.east-|ep) ++(-.5,0) node(x)[anchor=east]{\includegraphics[width=2.5cm]{img/Gibbs.png}};
+\path(x.base) node[cc]{\by{domínio público}{https://commons.wikimedia.org/wiki/File:Josiah_Willard_Gibbs_-from_MMS-.jpg}};
+  
 % \path(t) ++(0,-.5) coordinate(t);
      
-\path(t|-cp) ++(0,0) node(A)[anchor=west,text width=8cm,align=left]{
-  {\color{verde} Ensambles}\\[2mm]
-  {\Large Microcanónico: $NVE$}\\[2mm]
-  {\Large Canónico: $NVT$}\\[2mm]
-  {\Large Gran Canónico: $\mu VT$}\\[2mm]
-  {\Large Isotérmico/Isobárico: $NPT$}
-};
+% \path(t|-cp) ++(0,0) node(A)[anchor=west,text width=8cm,align=left]{
+%   {\color{verde} Ensambles}\\[2mm]
+%   {\Large Microcanónico: $NVE$}\\[2mm]
+%   {\Large Canónico: $NVT$}\\[2mm]
+%   {\Large Gran Canónico: $\mu VT$}\\[2mm]
+%   {\Large Isotérmico/Isobárico: $NPT$}
+% };
+\path(cp) ++(0,-1.5) node(I)[]{\includegraphics[width=12cm]{img/ensambles.png}};
+\path(I.base-|I.west) ++(0,-.5) node[cc,anchor=west]{\by{Nzjacobmartin, CC BY-SA 4.0.}{https://commons.wikimedia.org/wiki/File:Statistical_Ensembles.png}};
   
 \end{zframe}
                  
@@ -187,95 +201,49 @@
 
 \large    
 
-\path(t) ++(0,-.5) coordinate(t);
-     
-\path(t) ++(0,0) node(A)[anchor=north west,text width=11cm,align=left]{
-  {\color{verde} POSTULADO 1:}\\
-  El promedio temporal de una propiedad mecánica es igual al promedio de
+% \path(t) ++(0,-.5) coordinate(t);
+% \path(t) ++(0,0) node(A)[anchor=north west,text width=11cm,align=left]{
+%   {\color{verde} POSTULADO 1:}\\
+%   El promedio temporal de una propiedad mecánica es igual al promedio de
+%     ensamble de $\mathcal{N}\to\infty$ réplicas con el mismo estado y entorno
+%     termodinámico.
+% };
+\path(t-|np) ++(0,.6) node(T){
+  \centerline{\Large\color{verde} Mecánica Estadística}};
+
+\path(T.south) ++(0,-.4) node(T)[def,anchor=north,text width=11cm]{\\
+  El promedio temporal de una propiedad mecánica (cómo N, V, P, E, ...) es igual al promedio de
     ensamble de $\mathcal{N}\to\infty$ réplicas con el mismo estado y entorno
-    termodinámico.
-};
-  
-\end{zframe}
-  
-
-      
-\begin{zframe}{remember picture,
-  block/.style={
-		rectangle, draw, fill=bg,
-		minimum height=4em, minimum width=4em,
-    outer sep=0pt,
-    font=\strut},
-  empty/.style={
-    execute at empty cell={\node[draw=none,fill=none]{};},
-    nodes in empty cells=false
-  },
-  overlap lines/.style={
-    row sep=-\pgflinewidth,
-    column sep=-\pgflinewidth}
-}
-
-\matrix(mat) at (cp) [matrix of nodes,ampersand replacement=\&,
-	 nodes=block, overlap lines, empty] {%
-   |(A)| \& |(B)| \& |(C)| \& |(D)| \\
-   |(E)| \& |(F)| \& |(G)| \& |(H)| \\
-   |(I)| \& |(J)| \& |(K)| \& |(L)| \\
-   |(M)| \& |(N)| \& |(O)| \& |(P)| \\
-};
-
-\fill[block](P.south west) rectangle (P.north east) node[pos=.5]{$\mathcal{N}$};
-\path(A.north west) node[anchor=north west]{$I$};
-\path(B.north west) node[anchor=north west]{$II$};
-\path(L) node{$\vdots$};
-\path(K) node{$\ddots$};
-\path(O) node{$\hdots$};
-
-\path(A.south east) node[celeste,anchor=south east]{$NVT$};
-\path(B.south east) node[celeste,anchor=south east]{$NVT$};
-\path(P.south east) node[celeste,anchor=south east]{$NVT$};
-       
-\pgfmathsetseed{12345}
-\path(mat.north west) ++(-.4, .3) ++(.5*rand,.5*rand) coordinate(w) ;
-\path(mat.north)      ++( 0, .5)  ++(.5*rand,.5*rand) coordinate(wx) ;
-\path(mat.north east) ++( .4, .3) ++(.5*rand,.5*rand) coordinate(x) ;
-\path(mat.east)       ++( .4, 0)  ++(.5*rand,.5*rand) coordinate(xy) ;
-\path(mat.south east) ++( .4,-.6) ++(.5*rand,.5*rand) coordinate(y) ;
-\path(mat.south)      ++( 0,-.6)  ++(.5*rand,.5*rand) coordinate(yz) ;
-\path(mat.south west) ++(-.4,-.6) ++(.5*rand,.5*rand) coordinate(z) ;
-\path(mat.west)       ++(-.4, 0)  ++(.5*rand,.5*rand) coordinate(zw) ;
-
-\draw[use Hobby shortcut,closed=true,ultra thick,celeste,fill, fill opacity=.3] 
-(w)..  (wx)..  (x)..  (xy)..  (y)..  (yz)..  (z)..  (zw);
-
-\path(np) ++(0,0) node[celeste,anchor=north]{\LARGE Reservorio a $T$};
-
-\path(ep) ++(0,0) node[anchor=east,align=right]{\LARGE Ensamble \\[2mm] \LARGE Canónico};
-
-\path(sp) ++(0,2) node[anchor=south,naranja,fill=bg,draw,thick,inner sep=7]{\Large ¿Cuál es la probabilidad de observar un sistema del ensamble?};
-
-\end{zframe}
-
-
-\begin{zframe}{}
-
-\large    
-
-\path(t) ++(0,-.5) coordinate(t);
-     
-\path(t) ++(0,0) node(A)[anchor=north west,text width=11cm,align=left]{
-  {\color{verde} POSTULADO 1:}\\
-  El promedio temporal de una propiedad mecánica es igual al promedio de
-    ensamble de $\mathcal{N}\to\infty$ réplicas con el mismo estado y entorno
-    termodinámico.
-};
-      
-\path(t|-cp) ++(0,0) node(A)[anchor=north west,text width=11cm,align=left]{
-  {\color{verde} POSTULADO 2:}\\
+    termodinámico.};
+\path(T.north east) ++(0,0.2) node(H)[defhead, anchor=north east]{\color{black}Postulado 1};
+         
+\path<3->(T.south) ++(0,-1) node(T)[def,anchor=north,text width=11cm]{\\
   Los sistemas de un ensamble $\mathcal{N}\to\infty$ representativo de un sistema aislado
   (i.e. $NVE$) tienen distribución uniforme.
 };
+\path<3->(T.north east) ++(0,0.2) node(H)[defhead, anchor=north east]{\color{black}Postulado 2};
+       
+\path<-2>(T.south) ++(0,-.4) node(T)[anchor=north,align=left]{
+\begin{tabular}{cc}
+Estado Termodinámico&${\ds\rightarrow(N,V,T)}$ \\
+Estado Microscópico&${\ds\rightarrow\vb{q}\in \R^{3N}}$ \\
+\end{tabular}};
+
+\path<-2>(T.south) ++(0,-.4) node(T)[anchor=north,align=left]{
+${\ds \ab<A>=\lim_{\mathcal{N}\to\infty}\sum_{i=0}^{\mathcal{N}}{\color<2>{celeste}P(\vb{q}_i)}A(\vb{q}_i)}$
+\hspace{1cm}
+${\ds \ab<A>=\int_{\Omega}{\color<2>{celeste}\rho(\vb{q})}A(\vb{q})\odif{\vb{q}}}$}; 
+  
+\path<2>(sp) ++(0,.2) node[anchor=south,celeste,fill=bg,draw,thick,inner sep=7]{\Large ¿Cuál es la probabilidad de observar un sistema del ensamble?};
+
+\path<3>(T.south) ++(0,-.4) node(T)[anchor=north,align=left]{
+${\ds P(\vb{q}_i)=\dfrac{1}{\mathcal{N}}}$
+\hspace{1cm}
+${\ds \rho(\vb{q})=\dfrac{1}{\Omega}}$}; 
+ 
+
 \end{zframe}
-         
+  
 \begin{zframe}{remember picture,
   block/.style={
 		rectangle, draw, fill=bg,
@@ -327,19 +295,30 @@
 \path<2>(np) ++(0,0) node[celeste,anchor=north]{\LARGE Reservorio a $\mu,P,T$};
 
 \draw<3->[ultra thick,naranja,fill=celeste, fill opacity=.3] (A.north west) rectangle (P.south east);
-\path<3->(mat.north) ++(0,0) node[naranja,anchor=south]{\LARGE Sistema con $N_T,V_T,E_T$};
+\path<3->(mat.north) ++(0,0) node[anchor=south]{\LARGE En un instante...};
 
-\path<4->(sp) ++(0,4) node(xx)[anchor=south,amarillo,fill=bg,draw,thick,inner sep=7]{\Large $\ds H(N,V)\phi_k(N,V)=E_k(N,V)\phi_k(N,V)$};
+% XXX: En un instante aislo y mido la energia, por ende colapso los sistemas
+% a un determinado autoestado. Por eso puedo pensar que estan en un
+% determinado autoestado.
 
-\draw<4->[<-,amarillo,ultra thick](xx) edge[bend left] (A.center);
-\draw<4->[<-,amarillo,ultra thick](xx) edge[bend left] (F.center);
-\draw<4->[<-,amarillo,ultra thick](xx) edge[bend left] (D.center);
-\draw<4->[<-,amarillo,ultra thick](xx) edge[bend right] (M.center);
-\draw<4->[<-,amarillo,ultra thick](xx) edge[bend left] (O.center);
+\path<3->(mat.south) ++(2,0) node[naranja,anchor=north]{\LARGE Sistema con $N_T,V_T,E_T$}; 
 
-\path<5->(sp) ++(0,2.2) node(xx)[naranja,anchor=south,fill=bg,draw,thick,inner sep=7]{\huge$\ds\psi_j=\phi(I)\phi(II)\cdots\phi(\mathcal{N})$};
+\path<3>(sp) ++(0,4) node(xx)[anchor=south,amarillo,fill=bg,draw,thick,inner sep=7,minimum width=3cm]{\Large $\ds H^{(i)}(N,V)$};
+\path<3>(mat.west) ++(0,0) node[amarillo,anchor=east,align=right]{Cada sistema \\tiene asociado\\ un Hamiltoniano}; 
 
-\path<6->(sp) ++(0,.1) node(xx)[celeste,anchor=south,fill=bg,draw,thick,inner sep=7]{\huge$\ds\Psi=\sum^\Omega c_j\psi_j$ };
+\draw<3->[<-,amarillo,ultra thick](xx) edge[bend left] (A.center);
+\draw<3->[<-,amarillo,ultra thick](xx) edge[bend left] (F.center);
+\draw<3->[<-,amarillo,ultra thick](xx) edge[bend left] (D.center);
+\draw<3->[<-,amarillo,ultra thick](xx) edge[bend right] (M.center);
+\draw<3->[<-,amarillo,ultra thick](xx) edge[bend left] (O.center);
+
+\path<4->(sp) ++(0,4) node(xx)[anchor=south,amarillo,fill=bg,draw,thick,inner sep=7]{\Large $\ds H^{(i)}(N,V)\phi^{(i)}_k(N,V)=E^{(i)}_k(N,V)\phi^{(i)}_k(N,V)$};
+\path<4->(mat.west) ++(0,2) node[amarillo,anchor=east,align=right]{Autoestados \\asociados a\\ cada sistema}; 
+
+\path<5->(sp) ++(0,2.2) node[naranja,anchor=south,fill=bg,draw,thick,inner sep=7]{\Large$\ds\psi_j(N,V)=\phi^{I}_{k(j)}(N,V)\phi^{II}_{k(j)}(N,V)\cdots\phi^{\mathcal{N}}_{k(j)}(N,V)$};
+\path<5->(mat.west) ++(0,-3.4) node[naranja,anchor=east,align=right]{Autoestados \\asociados al\\ sistema ensamble}; 
+
+\path<6->(c1) ++(0,-1.7) node[celeste,anchor=south,fill=bg,draw,thick,inner sep=7]{\huge$\ds\Psi=\sum^\Omega c_j\psi_j$ };
 
 
 \end{zframe}
@@ -411,6 +390,12 @@ $\ds\Omega_{\mathbf{n}}=\dfrac{\mathcal{N}!}{\ds\prod_{k,N,V}n_k^{\mathbf{n}}(N,
 \path(L) node{$\vdots$};
 \path(K) node{$\ddots$};
 \path(O) node{$\hdots$};
+
+% XXX: 2025 Lo que estoy asumiendo es que la funcion de onda es separable como
+% f(t)psi(x) y que el sistema sigue la ecuacion de shcroedinger. Entonces
+% hay un hamiltoniano y hay autoestados asociados a cada sistema (aunque no
+% esten necesariamente preparados en esos sistemas.) Entonces los autoestados
+% del sistema grande son producto de los otros (demostrar)
 
 \draw[ultra thick,naranja,fill=celeste, fill opacity=.3] (A.north west) rectangle (P.south east);
 \path(mat.north) ++(0,0) node[naranja,anchor=south]{\LARGE Sistema con $N_T,V_T,E_T$};

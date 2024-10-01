@@ -11,6 +11,7 @@
 \input{../preambulo/paquetes.tex}
 \input{../preambulo/macros.tex}
 
+\graphicspath{{../img/}{img/}}
 \framebg{bg/pizarron3.png} 
 
 \begin{document}
@@ -18,7 +19,7 @@
 \newcommand\CC{}
 
 \begin{zframe}{}
-\path(vl) ++(0,1.2) node(I)[]{\includegraphics[width=11cm]{img/idiogram/holygrial.png}};
+\path(vl) ++(0,1.2) node(I)[]{\includegraphics[width=11cm]{img/ideogram/holygrial.png}};
 \path(np-|c2) ++(1,-.5) node(A)[anchor=north,align=left]{
   \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
   \color{celeste} \textbf{Simplex}\\[2mm]  
@@ -30,7 +31,7 @@
 \includegraphics[width=3cm]{logos/DQTC_orange.png}};
  
 \path(I.south east) ++(0,.2) node[anchor=north east]{
-  \tiny hecho con \href{https://ideogram.ai/g/5VRNRDQmS4y1CWE0fLyV2Q/3}{idiogram}};
+  \tiny hecho con \href{https://ideogram.ai/g/5VRNRDQmS4y1CWE0fLyV2Q/3}{ideogram}};
                         
 \end{zframe}
 
@@ -85,63 +86,67 @@
 \path<10->(D) coordinate(B);
         
 % Reflexion
-\fill<11,12>[naranja] ($(A)!.5!(B)$) circle(.1) node[right]{Centro};
-\path<11->($(A)+(B)-(C)$) coordinate(D);
-\draw<11,12>[vector,naranja] (C) -- (D) node[right]{Reflexion};
-\path<13->(B) coordinate(C);
-\path<13->(A) coordinate(B);
-\path<13->(D) coordinate(A);
-          
+\newcommand\n{11}\newcommand\nn{12}
+\fill<\n,\nn>[naranja] ($(A)!.5!(B)$) circle(.1) node[right]{Centro};
+\path<\n->($(A)+(B)-(C)$) coordinate(D);
+\draw<\n,\nn>[vector,naranja] (C) -- (D) node[right]{Reflexion};
+
+% Expansion
+\renewcommand\n{12}
+\path<\n>($(D)+(D)-(C)$) coordinate(D);
+\draw<\n>[vector,naranja] (C) -- (D) node[right]{Expansion};            
+
+% Rejected Expansion
+\renewcommand\n{13}
+\path<\n->(B) coordinate(C);
+\path<\n->(A) coordinate(B);
+\path<\n->(D) coordinate(A);
+                                      
 % Reflexion
-\fill<14,15>[naranja] ($(A)!.5!(B)$) circle(.1) node[right]{Centro};
-\path<14->($(A)+(B)-(C)$) coordinate(D);
-\draw<14,15>[vector,naranja] (C) -- (D) node[right]{Reflexion};
-\path<16->(B) coordinate(C);
-\path<16->(D) coordinate(B);
+\renewcommand\n{14}
+\fill<\n>[naranja] ($(A)!.5!(B)$) circle(.1) node[right]{Centro};
+\path<\n->($(A)+(B)-(C)$) coordinate(D);
+\draw<\n>[vector,naranja] (C) -- (D) node[right]{Reflexion};
+\renewcommand\n{15}
+\path<\n->(B) coordinate(C);
+\path<\n->(D) coordinate(B);
             
 % Rejected Reflexion
-\path<17->($(A)!.5!(B)$) coordinate(x);
-\fill<17,18>[naranja] (x) circle(.1) node[right]{Centro};
-\path<17>($(A)+(B)-(C)$) coordinate(D);
-\draw<17>[vector,naranja] (C) -- (D) node[right]{Reflexion};
+\renewcommand\n{16}\renewcommand\nn{17}
+\path<\n->($(A)!.5!(B)$) coordinate(x);
+\fill<\n,\nn>[naranja] (x) circle(.1) node[right]{Centro};
+\path<\n>($(A)+(B)-(C)$) coordinate(D);
+\draw<\n>[vector,naranja] (C) -- (D) node[right]{Reflexion};
 
 % Contraccion
-\path<18->($(C)!.5!(x)$) coordinate(D);
-\draw<18>[vector,naranja] (C) -- (D) node[right]{Contracción};
-\path<19->(B) coordinate(C);
-\path<19->(A) coordinate(B);
-\path<19->(D) coordinate(A);
+\renewcommand\n{17}
+\path<\n->($(C)!.5!(x)$) coordinate(D);
+\draw<\n>[vector,naranja] (C) -- (D) node[right]{Contracción};
+\renewcommand\n{18}
+\path<\n->(B) coordinate(C);
+\path<\n->(A) coordinate(B);
+\path<\n->(D) coordinate(A);
 
 % Rejected Reflexion
-\path<20->($(A)!.5!(B)$) coordinate(x);
-\fill<20,21>[naranja] (x) circle(.1) node[right]{Centro};
-\path<20>($(A)+(B)-(C)$) coordinate(D);
-\draw<20>[vector,naranja] (C) -- (D) node[right]{Reflexion};
+\renewcommand\n{19}\renewcommand\nn{20}
+\path<\n->($(A)!.5!(B)$) coordinate(x);
+\fill<\n,\nn>[naranja] (x) circle(.1) node[right]{Centro};
+\path<\n>($(A)+(B)-(C)$) coordinate(D);
+\draw<\n>[vector,naranja] (C) -- (D) node[right]{Reflexion};
 
 % Contraccion
-\path<21->($(C)!.5!(x)$) coordinate(D);
-\draw<21>[vector,naranja] (C) -- (D) node[right]{Contracción};
-\path<22->(B) coordinate(C);
-\path<22->(D) coordinate(B);
+\renewcommand\n{20}\renewcommand\nn{21}
+\path<\n->($(C)!.5!(x)$) coordinate(D);
+\draw<\n>[vector,naranja] (C) -- (D) node[right]{Contracción};
+\path<\nn->(B) coordinate(C);
+\path<\nn->(D) coordinate(B);
              
 % Simplex
 \path(A) node[celeste,left]{Mejor};
 \path(C) node[celeste,left]{Peor};
 \draw[celeste,ultra thick] (A) -- (B) -- (C) -- cycle;
 \fill[celeste] (A) circle(.08)   (B) circle(.08)   (C) circle(.08);
-               
-% Rejected Reflexion
-\path<20->($(A)!.5!(B)$) coordinate(x);
-\fill<20,21>[naranja] (x) circle(.1) node[right]{Centro};
-\path<20>($(A)+(B)-(C)$) coordinate(D);
-\draw<20>[vector,naranja] (C) -- (D) node[right]{Reflexion};
-
-% Contraccion
-\path<21->($(C)!.5!(x)$) coordinate(D);
-\draw<21>[vector,naranja] (C) -- (D) node[right]{Contracción};
-\path<22->(B) coordinate(C);
-\path<22->(D) coordinate(B);
-                  
+              
 % Contornos de la funcion  
 \foreach \x in {1,2,...,7} {
 \pgfmathsetmacro\lab{\x+0.2}

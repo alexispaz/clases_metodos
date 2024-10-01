@@ -13,23 +13,28 @@
 
 \graphicspath{{../img/}{img/}}
 \framebg{bg/pizarron3.png} 
+\hypersetup{colorlinks=true, urlcolor=azul!40!white}
 
 \begin{document}
 
 \newcommand\CC{}
 
 \begin{zframe}{}
-\path(cp) ++(3,0) node(I)[]{\includegraphics[width=5cm]{idiogram/PVF2.png}};
+\path(cp) ++(3,0) node(I)[]{\includegraphics[width=5cm]{ideogram/PVF2.png}};
 \path(c2|-I.north) ++(0,-1) node(A)[anchor=north,align=left]{
   \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
   \color{celeste} \textbf{Problemas con Valores}\\[2mm]  
   \color{celeste} \textbf{en la Frontera}\\[3mm]  
-  \color{lila} \textit{Abril 16, 2024}
+  \color{lila} \textit{Agosto 28, 2024}
 };
 \normalsize
 \path(A.west|-I.south) ++(0,1) node(B)[anchor=south west,align=left]{
   S. Alexis Paz\\[5mm]
 \includegraphics[width=3cm]{logos/DQTC_orange.png}};
+
+\path(I.south east) ++(0,.2) node[anchor=north east]{
+  \tiny hecho con \href{https://ideogram.ai/g/erc_5PUySXilRwcWlHCHGw/0}{ideogram}};
+
 \end{zframe}
 
 \renewcommand\CC{
@@ -255,7 +260,7 @@ Robin  \& $\ds c_0y(a)+c_1\odv{y}{x}_{a}=\alpha$\& $\ds c_2y(b)+c_3\odv{y}{x}_{b
 ${\ds \frac{\partial^2 u(x, t)}{\partial t^2} = c^2 \frac{\partial^2 u(x, t)}{\partial x^2}}$};
              
 \path($(x)!.5!(A)$) coordinate(m);
-\path(m-|A.east) ++(0.4,0) node(z)[align=left,anchor=west]{\includegraphics[width=4cm]{idiogram/cuerdas2.png}};
+\path(m-|A.east) ++(0.4,0) node(z)[align=left,anchor=west]{\includegraphics[width=4cm]{ideogram/cuerdas2.png}};
 
 \path(A.south west) ++(0.,-.7) node(x)[align=left,anchor=north west]{
   \color{verde} Ecuación del calor};
@@ -264,8 +269,8 @@ ${\ds \frac{\partial^2 u(x, t)}{\partial t^2} = c^2 \frac{\partial^2 u(x, t)}{\p
 ${\ds \frac{\partial u(x, t)}{\partial t} = \alpha \frac{\partial^2 u(x, t)}{\partial x^2}}$};
    
 \path($(x)!.5!(A)$) coordinate(m);
-\path(m-|A.east) ++(2,.1) node(x)[align=left,anchor=west]{\includegraphics[width=5cm]{idiogram/fourier.png}};
-\path(z) node{\includegraphics[width=4cm]{idiogram/cuerdas2.png}};
+\path(m-|A.east) ++(2,.1) node(x)[align=left,anchor=west]{\includegraphics[width=5cm]{ideogram/fourier.png}};
+\path(z) node{\includegraphics[width=4cm]{ideogram/cuerdas2.png}};
 
 \path(A.south west) ++(0.,-.7) node(x)[align=left,anchor=north west]{
   \color{verde} Ecuación elástica};
@@ -281,6 +286,8 @@ ${\ds \odv[order=2]{v(x)}{x}= \dfrac{M(x)}{EI}}$};
 \path(x.base) node[cc]{\by{domínio público}{https://es.wikipedia.org/wiki/Archivo:Tacoma\_Narrows\_Bridge\_destruction.ogv}};
 
 \end{zframe}  
+
+% TODO 2025 ver que algoritmo es este de aca abajo\ldots verlet? leapfrog? niguno?
                         
 \begin{zframe}{}
 
@@ -291,10 +298,10 @@ ${\ds \odv[order=2]{v(x)}{x}= \dfrac{M(x)}{EI}}$};
 ${\ds a(x) \odv[order=2]{y}{x} + b(x) \odv{y}{x} + c(x)y = f(x)}\quad y(x_0)=a,\; y(x_N)=b$};
 
 \path(A.south) ++(0.,-1) node(A)[align=left,anchor=north]{
-  \centerline{\Large\color{verde} Diferenciacion Finita}};
+  \centerline{Usando {\color{verde}diferencias finitas}, con reglas de 3 puntos:}};
                         
 \path(A.south) ++(0.,-.2) node(A)[align=left,anchor=north]{
-{$\ds y_{n-1}\ab(\frac{a_n}{h^2}-\frac{b_n}{2h})+ y_n\ab(c_n-\frac{2a_n}{h^2})+y_{n+1}\ab(\frac{a_n}{h^2}+\frac{b_n}{2h})=f_n$}};
+{$\ds y_{n-1}\ab(\frac{a_n}{h^2}-\frac{b_n}{2h})+ y_n\ab(c_n-\frac{2a_n}{h^2})+y_{n+1}\ab(\frac{a_n}{h^2}+\frac{b_n}{2h})+O\ab(h^2)=f_n$}};
            
            
 \end{zframe}  
@@ -371,7 +378,7 @@ ${\ds \odv[order=2]{y}{x} + P(x)y = R(x)}\quad \ds P(x)=\frac{c(x)}{a(x)},\; \ds
                         
 \path(A.south) ++(0.,-.2) node(A)[align=center,anchor=north]{
 {$\ds y_{n+1}\ab(1+\frac{h^2}{12}P_{n+1})-2y_{n}\ab(1-\frac{5h^2}{12}P_{n})+y_{n-1}\ab(1+\frac{h^2}{12}P_{n-1})$}\\[2mm]
-{$\ds =\frac{h^2}{12}\ab(R_{n+1}+10R_n+R_{n-1})$}\\[2mm]
+{$\ds =\frac{h^2}{12}\ab(R_{n+1}+10R_n+R_{n-1})+O\ab(h^6)$}\\[2mm]
 };
            
 \end{zframe}  
@@ -393,7 +400,7 @@ ${\ds \odv[order=2]{y}{x} + P(x)y = R(x)}\quad \ds P(x)=\frac{c(x)}{a(x)},\; \ds
 \path<2>(c4) ++(-.7,-.5) node(o)[cuadro,ultra thick,ellipse,rosa,draw,fill=black, fill opacity=1,inner sep=1,align=center]{Raíces de\\ $D(t)=y_{t}(b)-\beta$};
 \draw<2>[rosa,ultra thick,<-] (o.-175) to[bend left] ++(-.7,.2);
 
-\path(T.north east) node(H)[prochead]{\color{black}El método del disparo};
+\path(T.north east) node(H)[prochead,anchor=east]{\color{black}El método del disparo};
 \path(H.south) node(H)[anchor=north]{\bfseries \color{verde} \textit{EDO 2$^\text{do}$, Dirichlet}};
           
 \end{zframe}  
@@ -698,7 +705,37 @@ ${\ds \odv[order=2]{y(x)}{x}=-5\odv{y}{x}-x\quad;\quad y(0)=1 \quad;\quad y(5)=-
 
 
 \end{zframe}  
+         
+\begin{zframe}{}
+       
+\path(t-|np) ++(0,.6) node(T){
+  \centerline{\Large\color{verde} Mecánica Cuántica}};
+             
+\path(T.south) ++(0,-.4) node(T)[def,anchor=north,text width=11cm]{\\
+Todo estado cuántico está representado por un vector normalizado perteneciente
+a un espacio de Hilbert complejo y separable $\mathcal{H}$.};
+\path(T.north east) ++(0,0.2) node(H)[defhead, anchor=north east]{\color{black}Postulado 1};
 
+% Separable si incluye subconjunto denso numerable (ejemplo, los numeros naturales).
+% Un espacio de Hilbert es separable si y solamente si admite una base ortonormal numerable.                           
+
+\path(T.south) ++(0,-.4) node(T)[def,anchor=north,text width=11cm]{\\
+Los observables de un sistema están representados por operadores lineales hermíticos.};
+\path(T.north east) ++(0,0.2) node(H)[defhead, anchor=north east]{\color{black}Postulado 2};
+
+% Lineal. en H son tambien autoadjuntos (adjunto=transpuesto conjugado=operador original)
+% Autovalores reales y autovectores que construyen la base de H
+              
+\path(T.south) ++(0,-.4) node(T)[def,anchor=north,text width=11cm]{\\
+Cuando un sistema está en el estado normalizado ${|\psi \rangle}$, la medida de
+un observable dará como resultado el valor propio $a$, con una probabilidad
+${\ds P_{A|\psi \rangle }=|\langle a|\psi \rangle |^2}$,  donde ${\ds
+|a\rangle}$ es el vector propio correspondiente a $a$.};
+\path(T.north east) ++(0,0.2) node(H)[defhead, anchor=north east]{\color{black}Postulado 3};
+                           
+
+\end{zframe}  
+          
 \begin{zframe}{} \large
 
 \path(t-|np) ++(0,.2) node(A){
@@ -751,12 +788,12 @@ $\checkmark$
                                           
                                           
 \path(cp) ++(0.,-.1) node(A)[anchor=north,align=center]{
-¿Resolvamos el PVI con ${\ds \psi_t'(x)=t}$?
+¿Resolvamos el PVI con ${\ds \psi_t'(0)=t}$?
 };                                  
 \path(A.south-|t) ++(0.,-.1) node(A)[anchor=north west,align=left, execute at begin node=\setlength{\baselineskip}{4ex}]{
 ¡Un momento! ${\ds c\psi(x)}$ es también solución.\\
-Entonces ${\ds \psi_t'(0)=c_t\psi'(0)}$ y ${\ds\psi_t(x)=c_t\psi(x)}$.\\
-Además ${\ds c_t\psi_t(L)=\psi(L)=0}$ y ${\ds c_t\neq0}$\ldots
+$\Rightarrow$ existe $c_t$ tal que ${\ds \psi_t'(0)=t=c_t\psi'(0)}$ y ${\ds\psi_t(x)=c_t\psi(x)}$.\\
+Además ${\ds \psi'_t(L)=c_t\psi(L)=0}$ y ${\ds c_t\neq0}$\ldots
 };
 
 
@@ -794,12 +831,12 @@ $\checkmark$
 
 \draw[amarillo,thick,->](z.south) -- ++(0,-.5) node[pos=1,below]{¡Obvio! es numérico};
 
-\path(ne) ++(-.4,-.3) node[rotate=-5,anchor=north east,align=center,amarillo]{
+\path<2>(ne) ++(-.4,-.3) node[rotate=-5,anchor=north east,align=center,amarillo]{
 ¡Nos interesa \\ conocer E!
 };                                  
                                           
 
-\path(A.south-|cp) ++(0.,-2.5) node(A)[anchor=north,align=left, execute at begin node=\setlength{\baselineskip}{4ex}]{
+\path<2>(A.south-|cp) ++(0.,-2.5) node(A)[anchor=north,align=left, execute at begin node=\setlength{\baselineskip}{4ex}]{
 Cada disparo tiene el mismo ${\ds \psi_t'(x)=c}$ pero \color{amarillo}$E=t_k$\\
 Luego podemos normalizar $\psi_t$ para aproximar la función de onda.
 };                                  
@@ -819,7 +856,7 @@ Luego podemos normalizar $\psi_t$ para aproximar la función de onda.
 ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
                       
 \path(np|-t) ++(-.5,-2) node(A)[align=center]{
-  Es EDO 1$^\text{er}$ en $t\Rightarrow$ PVI, necesito $\Psi(x,0)$};
+  ¿Es parcial? Naaa\ldots EDO1 (en t), y con $\Psi(x,0)$ un PVI};
                     
 \path(A.south) ++(.5,-.5) node(A)[anchor=north,align=left, execute at begin node=\setlength{\baselineskip}{4ex}]{
   {\color{naranja} Opción 1:} Euler, RK4, Leap-Frog\ldots\\[3mm]
