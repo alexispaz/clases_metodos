@@ -11,7 +11,9 @@
 \input{../preambulo/paquetes.tex}
 \input{../preambulo/macros.tex}
 
+\graphicspath{{../img/}{img/}}
 \framebg{bg/pizarron3.png} 
+\hypersetup{colorlinks=true, urlcolor=azul!40!white}
 
 \begin{document}
 
@@ -22,7 +24,7 @@
 \path(c2|-I.north) ++(0,-.5) node(A)[anchor=north,align=left]{
   \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
   \color{celeste} \textbf{Cadenas de Markov}\\[2mm]  
-  \color{lila} \textit{Octubre 18, 2023}
+  \color{lila} \textit{Octubre 14, 2024}
 };
 \normalsize
 \path(A.west|-I.south) ++(0,.5) node(B)[anchor=south west,align=left]{
@@ -43,7 +45,8 @@
 \renewcommand\CC{
   \path(se) node[anchor=south east]{\tiny\color{gray} MC2024 - S.A.Paz};}
 
-\begin{zframe}{}
+\begin{zframe}{
+  texto/.style={anchor=north west,align=left}}
                           
 \path<1-3>(cp) ++(0,0) node(A){\includegraphics[width=12cm]{louvre.png}};
 
@@ -137,32 +140,38 @@
 }
 }
 
-\path<6>(vu) ++(0,.5) node[text width=11cm, align=center]
-{En un instante $t$ la probabilidad de estar en $X_i$ es\\[2mm]
-  $\rho_i(t)=P\ab[X_i(t)]$\\[2mm]
+\path<7>(vu) ++(0,.5) node[text width=11cm, align=center]
+{En un instante $t$ la probabilidad de estar en $x_i$ es\\[2mm]
+  ${\rho_i(t)=P\ab[X=x_i(t)]}$\\[2mm]
 };
+          
+\path<6>(vu) ++(0,.5) node(T)[texto]{
+  $X_1\rightarrow X_2\rightarrow X_3\rightarrow X_4\rightarrow X_5\rightarrow \cdots$\\[2mm]
+\color{naranja}\textit{¡Caminar es una forma de generar estados aleatorios!}
+};        
 
-\path<4->(R1) node[amarillo,above]{$X_1$};
-\path<4->(D1) node[amarillo,left]{$X_2$};
-\path<4->(R2) node[amarillo,above]{$X_3$};
-\path<4->(D2) node[amarillo,below]{$X_4$};
-\path<4->(D3) node[amarillo,below]{$X_5$};
-\path<4->(R8) node[amarillo,above]{$X_n$};
+\path<4->(R1) node[amarillo,above]{$x_1$};
+\path<4->(D1) node[amarillo,left]{$x_2$};
+\path<4->(R2) node[amarillo,above]{$x_3$};
+\path<4->(D2) node[amarillo,below]{$x_4$};
+\path<4->(D3) node[amarillo,below]{$x_5$};
+\path<4->(R8) node[amarillo,above]{$x_n$};
 
 \path<5>(vu) ++(0,.5) node[text width=11cm, align=center]
-{Un caminante forma una cadena de estados\\[2mm]
-  $X_1(t_0)\rightarrow X_2(t_1)\rightarrow X_1(t_2)\rightarrow X_3(t_3)\rightarrow X_3(t_4)\rightarrow \cdots$
+{La trayectoria $x(t)$ de un caminante forma una cadena de estados\\[2mm] 
+  $x_1(t_0)\rightarrow x_2(t_1)\rightarrow x_1(t_2)\rightarrow x_3(t_3)\rightarrow x_3(t_4)\rightarrow \cdots$\\[2mm] 
+   forma una cadena de estados
 };
  
 % \path<5->(c2) ++(0,.5) node{$P_t(\rho_1,\rho_2,\cdots,\rho_n)$};
-\path<7>(vu) ++(0,.5) node[text width=11cm, align=center]{
-  Estando en $X_i$ a tiempo $t_0$, la probabilidad de pasar a $X_j$ en $t_1$ es\\[2mm] 
-  ${t_{i,j}^{(1)}=P[X_j(t_1)|X_i(t_0),X_k(t_{-1}),\cdots,X_m(t_{-n})]}$\\[2mm]
+\path<8>(vu) ++(0,.5) node[text width=11cm, align=center]{
+  Estando en $x_i$ a tiempo $t_0$, la probabilidad de pasar a $x_j$ en $t_1$ es\\[2mm] 
+  ${t_{i,j}^{(1)}=P[X=x_j(t_1)|x_i(t_0),x_k(t_{-1}),\cdots,x_m(t_{-n})]}$\\[2mm]
 };
 
-\path<8>(vu) ++(0,.5) node[text width=11cm, align=center]{
+\path<9>(vu) ++(0,.5) node[text width=11cm, align=center]{
   En un proceso de Markov, la probabilidad de transición no depende de estados pasados\\[2mm]
-  ${t_{i,j}^{(1)}=P[X_j(t_1)|X_i(t_0)]}$\\[2mm]
+  ${t_{i,j}^{(1)}=P[X=x_j|x_i]}$\\[2mm]
    \textit{Como todo proceso determinista}
 };
  

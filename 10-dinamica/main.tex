@@ -11,7 +11,9 @@
 \input{../preambulo/paquetes.tex}
 \input{../preambulo/macros.tex}
 
+\graphicspath{{../img/}{img/}}
 \framebg{bg/pizarron3.png} 
+\hypersetup{colorlinks=true, urlcolor=azul!40!white}
 
 \begin{document}
 
@@ -22,7 +24,7 @@
 \path(c2|-I.north) ++(0,-.5) node(A)[anchor=north,align=left]{
   \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
   \color{celeste} \textbf{Dinámica Molecular}\\[2mm]  
-  \color{lila} \textit{Octubre 23, 2023}
+  \color{lila} \textit{Octubre 23, 2024}
 };
 \normalsize
 \path(A.west|-I.south) ++(0,.5) node(B)[anchor=south west,align=left]{
@@ -76,10 +78,10 @@
 
 \large
 
-\path(cp|-t) ++(0,.2) node(T)[titulo]{
+\path(cp|-t) ++(0,.3) node(T)[titulo]{
 \LARGE Dinámica};
 
-\path(cp|-T.south) ++(0,-.1) node(T)[texto]{
+\path(cp|-T.south) ++(0,0) node(T)[texto]{
 Estudia el {\color{naranja}movimiento en relación con las causas} que lo
   producen.
 };
@@ -124,7 +126,7 @@ ${\ds\odv[order=2]{V}{t}=\dfrac{p_0}{M}+\dfrac{\ab(\vb{p}^2/m-\nabla U)}{3MV}}$
 };
  
     
-\path(cp|-T.east) ++(-2,.15) node(T)[texto,anchor=west]{
+\path(cp|-T.east) ++(-1.9,.3) node(T)[texto,anchor=west]{
 {\color{celeste}Langevin}
 ${\ds m \pdv{\vb{v}}{t}=-\nabla U-\gamma \vb{v}+\sqrt{2\gamma k_BT}\boldsymbol\eta }$\\[2mm]
 };
@@ -220,12 +222,12 @@ $NPH\to NPT$
 % approximate the true dynamics of the system because the time evolution of
 % the particles is deterministic, and doesn’t involve stochastic changes. 
     
-\path(cp|-T.east) ++(-2,.15) node(T)[texto,anchor=west]{
+\path(cp|-T.east) ++(-1.8,.4) node(T)[texto,anchor=west]{
 {\color{celeste}Langevin}
 $\ds\rho(\vb{r})=Z^{-1}e^{\beta U(\vb{r})}$,\  $NVT$
 };
                   
-\path(cp|-T.south) ++(-2,-.3) node(T)[texto,anchor=north west]{
+\path(cp|-T.south) ++(-1.8,-.3) node(T)[texto,anchor=north west]{
 {\color{celeste}Browniano}
 $\ds\rho(\vb{r})=Z^{-1}e^{\beta U(\vb{r})}$,\  $NVT$
 };

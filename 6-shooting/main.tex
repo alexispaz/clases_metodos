@@ -313,36 +313,36 @@ ${\ds a(x) \odv[order=2]{y}{x} + b(x) \odv{y}{x} + c(x)y = f(x)}\quad y(x_0)=a,\
 
 \path(A.south-|t) ++(0.,.0) node(M)[anchor=north west,matrix,matrix of nodes,
 column sep=0 mm,row sep=2 mm]{
-$\ds c_0y_0+c_1\odv{y}{x}_0=a$ \& $\ds c_2y_N+c_3\odv{y}{x}_N=b$\\
-$\ds c_0y_0+c_1\ab(\dfrac{y_0-{\color{naranja}y_{-1}}}{h})=a\quad$ \& $\quad\ds c_2y_N+c_3\ab(\dfrac{{\color{naranja}y_{N+1}}-y_N}{h})=b$\\
-$\ds{\color{naranja} y_{-1}}=a'+y_0c_1'\quad$\&$\ds{\color{naranja}\quad y_{N+1}}=b'+y_Nc_2'$\\ };
+$\ds py_1+q\odv{y}{x}_1=r$ \& $\ds sy_N+t\odv{y}{x}_N=u$\\
+$\ds py_1+q\ab(\dfrac{y_1-{\color{naranja}y_0}}{h})=r\quad$ \& $\quad\ds sy_N+t\ab(\dfrac{{\color{naranja}y_{N+1}}-y_N}{h})=u$\\
+$\ds{\color{naranja} y_0}=r'+p'y_1\quad$\&$\ds{\color{naranja}\quad y_{N+1}}=u'+s'y_N$\\ };
                    
 \path(M.south-|cp) ++(0,-.3) node(A)[anchor=north]{
   \centerline{\color{naranja}2. Expresar Sistema de Ecuaciones}};
                        
 \path<1>(A.south) ++(0,.1) node(A)[align=left,anchor=north,text width=12cm]{
 \begin{align*}
-\ds n & =0 &  & {\color{naranja}y_{-1}}A_0 &  & +y_0B_0 &  & +y_1                     A_0 & = & f_0\\
-\ds n & =k &  & y_{k-1}                A_k &  & +y_kB_k &  & +y_{k+1}                 A_k & = & f_k\\
-\ds n & =N &  & y_{N-1}                A_N &  & +y_NB_N &  & +{\color{naranja}y_{N+1}}A_N & = & f_N
+\ds n & =1 &  & {\color{naranja}y_{0}}A_1 &  & +y_1B_1 &  & +y_2                     C_1 & = & f_1\\
+\ds n & =k &  & y_{k-1}               A_k &  & +y_kB_k &  & +y_{k+1}                 C_k & = & f_k\\
+\ds n & =N &  & y_{N-1}               A_N &  & +y_NB_N &  & +{\color{naranja}y_{N+1}}C_N & = & f_N
 \end{align*}
 };    
     
 \path<2>(A.south) ++(0,.1) node(A)[align=left,anchor=north,text width=12cm]{
 \begin{align*}
-\ds n & =0 &  &            &  & +y_0{\color{naranja}B_0'} & &  +y_1    A_0  & = & {\color{naranja}f'_0}\\
-\ds n & =k &  & y_{k-1}A_k &  & +y_kB_k  & &  +y_{k+1}A_k  & = & f_k\\
-\ds n & =N &  & y_{N-1}A_N &  & +y_N{\color{naranja}B'_N}  & &  +            & = & {\color{naranja}f'_N}
+\ds n & =1 &  &            &  & y_1{\color{naranja}B_1'} & &  +y_1    C_1  & = & {\color{naranja}f'_1}\\
+\ds n & =k &  & y_{k-1}A_k &  +& y_kB_k  & &  +y_{k+1}C_k  & = & f_k\\
+\ds n & =N &  & y_{N-1}A_N &  +& y_N{\color{naranja}B'_N}  & &               & = & {\color{naranja}f'_N}
 \end{align*}
 };    
       
         
 \path<3>(A.south) ++(0.,.1) node(A)[align=left,anchor=north]{$
 \begin{pmatrix}
-{\color{naranja}B'_0} & A_0    &         &        &        & \\
-A_0  & B_1    & A_1     &        &        & \\
+{\color{naranja}B'_1} & C_1    &         &        &        & \\
+A_2  & B_2    & C_2     &        &        & \\
      & \ddots & \ddots  & \ddots &        & \\
-     &        & A_{N-1} & B_N    & A_N \\
+     &        & A_{N-1} & B_{N-1}    & C_{N-1} \\
      &        &         & A_N    & {\color{naranja}B'_N}
 \end{pmatrix}
 \begin{pmatrix}
@@ -894,7 +894,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
 \draw[energy] (-2.5,0.15) -- (2.5,0.15) node(E)[energy,pos=1,right]{E};;
 % \draw[axis] (0,0) -- (0,4);
 
-\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {curves/curva1.dat};
+\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {img/curves/curva1.dat};
 \end{scope}
 
 
@@ -908,7 +908,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
 \draw[energy] (-2.5,0.15) -- (2.5,0.15) node(E)[energy,pos=1,right]{E};;
 % \draw[axis] (0,0) -- (0,4);
 
-\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {curves/curva2.dat};
+\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {img/curves/curva2.dat};
 
 \end{scope}
                           
@@ -925,7 +925,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
 \draw[energy] (-2.5,0.298) -- (2.5,0.298) node(E)[energy,pos=1,right]{E};;
 % \draw[axis] (0,0) -- (0,4);
 
-\draw[funcion,y=0.002cm,x=1.5cm] plot[smooth] file {curves/curva3.dat};
+\draw[funcion,y=0.002cm,x=1.5cm] plot[smooth] file {img/curves/curva3.dat};
 
 \end{scope}
 
@@ -940,7 +940,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
 \draw[energy] (-2.5,0.298) -- (2.5,0.298) node(E)[energy,pos=1,right]{E};;
 % \draw[axis] (0,0) -- (0,4);
 
-\draw[funcion,y=0.002cm,x=1.5cm] plot[smooth] file {curves/curva4.dat};
+\draw[funcion,y=0.002cm,x=1.5cm] plot[smooth] file {img/curves/curva4.dat};
 
 \end{scope}
 
@@ -956,7 +956,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
 \draw[energy] (-2.5,0.953) -- (2.5,0.953) node(E)[energy,pos=1,right]{E};;
 % \draw[axis] (0,0) -- (0,4);
 
-\draw[funcion,y=0.3cm,x=1.5cm] plot[smooth] file {curves/curva5.dat};
+\draw[funcion,y=0.3cm,x=1.5cm] plot[smooth] file {img/curves/curva5.dat};
 
 \end{scope}
 
@@ -972,7 +972,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
 \draw[energy] (-2.5,0.953) -- (2.5,0.953) node(E)[energy,pos=1,right]{E};;
 % \draw[axis] (0,0) -- (0,4);
 
-\draw[funcion,y=0.3cm,x=1.5cm] plot[smooth] file {curves/curva6.dat};
+\draw[funcion,y=0.3cm,x=1.5cm] plot[smooth] file {img/curves/curva6.dat};
 
 \end{scope}
 
@@ -1000,7 +1000,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
 \draw[energy] (-2.5,0.15) -- (2.5,0.15) node(E)[energy,pos=1,right]{E};;
 % \draw[axis] (0,0) -- (0,4);
 
-\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {curves/curva1.dat};
+\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {img/curves/curva1.dat};
 \end{scope}
 
 
@@ -1014,7 +1014,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
 \draw[energy] (-2.5,0.15) -- (2.5,0.15) node(E)[energy,pos=1,right]{E};;
 % \draw[axis] (0,0) -- (0,4);
 
-\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {curves/curva2.dat};
+\draw[funcion,y=0.001cm,x=1.5cm] plot[smooth] file {img/curves/curva2.dat};
 
 \end{scope}
                           
@@ -1030,7 +1030,7 @@ ${\ds i\hbar {\frac {\partial }{\partial t}}\Psi (x,t)=\vb{H}\Psi (x,t).}$};
   \path(0,2) node[above]{$a$};
   \path(-1.3,0) node[below]{$L$};
 
-  \draw[funcion,y=2cm,x=1.5cm] plot[smooth] file {dinamica/paquete.dat};
+  \draw[funcion,y=2cm,x=1.5cm] plot[smooth] file {img/curves/paquete.dat};
 \end{scope}                         
 
 
