@@ -22,8 +22,8 @@
 \path(vl) ++(0,1.2) node(I)[]{\includegraphics[width=11cm]{img/ideogram/holygrial.png}};
 \path(np-|c2) ++(1,-.5) node(A)[anchor=north,align=left]{
   \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
-  \color{celeste} \textbf{Simplex}\\[2mm]  
-  \color{lila} \textit{Agosto 19, 2024}
+  \color{celeste} \textbf{Minimización}\\[2mm]  
+  \color{lila} \textit{Agosto 19, 2025}
 };
 \normalsize
 \path(c1) ++(0.5,0.7) node(B)[align=center]{
@@ -36,15 +36,102 @@
 \end{zframe}
 
 \renewcommand\CC{
-  \path(se) node[anchor=south east]{\tiny\color{gray} MC2024 - S.A.Paz};}
+  \path(se) node[anchor=south east]{\tiny\color{gray} MC2025 - S.A.Paz};}
+         
+\begin{zframe}{
+  line cap=round,
+  flecha/.style={->,>=stealth,line width=1mm},
+  vector/.style={->,>=stealth,ultra thick},
+}
+        
+% parámetros de la elipse centrada en cero y de eje x 1. 
+% x**2+y**2/b**2
+\pgfmathsetmacro{\b}{.5} % eje y
+\pgfmathsetmacro{\learning}{1}
+\path(cp) ++(0,-2) coordinate(c);
+\path(cp) ++(-4.5,2) coordinate(x0);
 
+\input{frames/graddesc.tex}
+                            
+\path(t) ++(0,.6) node[anchor=north west,align=center]{
+   \Large\color{verde} Gradient Descent};
+                            
+\path(t-|np) ++(1,.6) node[anchor=north west,align=left]{
+${\color{celeste}x_{k+1}}=\color{celeste}x_k\color{amarillo}-\alpha p$\\[2mm]
+¿$\alpha=$constante?\\[2mm]
+¿$\vb{p}=\nabla f(x)/\ab|\nabla f(x)|?$
+};
+ 
+\end{zframe}  
+         
           
+\begin{zframe}{}
+    
+\path(t) ++(0,.6) node[anchor=north west,align=center]{
+   \Large\color{verde} Gradient Descent - estrategias de aprendizaje};
+                            
+                  
+\path(c2) ++(0.6,.8) node[anchor=north,align=left]{
+   \large\color{celeste} Barzilai–Borwein (BB) \\[2mm]
+  $\begin{aligned}
+% \alpha_k&=\dfrac{\ab||\vb{\vb{x}_k}-\vb{k_{k-1}}||}{\ab(\vb{\vb{x}_k}-\vb{k_{k-1}})\cdot\ab(\nabla f_k-\nabla f_{k-1})}\\[2mm]
+\alpha_k&=\dfrac{\ab(\vb{x}_k-\vb{x}_{k-1})\cdot\ab(\nabla f_k-\nabla f_{k-1})}{\ab||\nabla f_k-\nabla f_{k-1}||}\\[2mm]
+\vb{x}_{k+1}&=\vb{x}_k-\alpha_k\nabla f(x)
+   \end{aligned}$ \\ 
+};       
+                 
+\path(c1) ++(.1,.8) node[anchor=north,align=center]{
+   \large\color{celeste} Momentum\\[2mm]
+  $\begin{aligned}
+     \vb{v}_{k+1} &= \beta \vb{v}_k + \eta \nabla f(\vb{x}_k) \\[2mm]
+     \vb{x}_{k+1} &= \vb{x}_k - \vb{v}_{k+1}
+   \end{aligned}$ \\ 
+};       
+     
+\path(cp) ++(0,.3) node[anchor=north,align=center]{
+   \large\color{celeste} Adam\\[2mm]
+  $\begin{aligned}
+     \vb{m}_k &= \beta_1 \vb{m}_{k-1} + (1-\beta_1)\nabla f(\vb{x}_k) \\[2mm]
+     \vb{v}_k &= \beta_2 \vb{v}_{k-1} + (1-\beta_2)\nabla f(\vb{x}_k)^2 \\[2mm]
+     \hat{\vb{m}}_k &= \frac{\vb{m}_k}{1-\beta_1^k},\quad
+     \hat{\vb{v}}k = \frac{\vb{v}_k}{1-\beta_2^k} \\[2mm]
+     \vb{x}_{k+1} &= \vb{x}_k - \eta \frac{\hat{\vb{m}}_k}{\sqrt{\hat{\vb{v}}_k}+\epsilon}
+   \end{aligned}$ \\ 
+};       
+       
+\end{zframe}  
+      
+\begin{zframe}{
+  line cap=round,
+  flecha/.style={->,>=stealth,line width=1mm},
+  vector/.style={->,>=stealth,ultra thick},
+}
+        
+% parámetros de la elipse centrada en cero y de eje x 1. 
+% x**2+y**2/b**2
+\pgfmathsetmacro{\b}{.5} % eje y
+\pgfmathsetmacro{\learning}{1}
+\path(cp) ++(0,-2) coordinate(c);
+\path(cp) ++(-4.5,2) coordinate(x0);
+
+\input{frames/bb.tex}
+ 
+\path(t) ++(0,.6) node[anchor=north west,align=center]{
+   \Large\color{verde} Barzilai–Borwein};
+                            
+
+\end{zframe}  
+                 
 \begin{zframe}{
   line cap=round,
   flecha/.style={->,>=stealth,line width=1mm},
   vector/.style={->,>=stealth,ultra thick},
 }
                
+                            
+\path(t-|c1) ++(0,.6) node[anchor=north,align=center]{
+   \Large\color{verde} Simplex};
+                            
 % Simplex
 \path(1,6) coordinate(B) +(30:2) coordinate(A) +(90:2) coordinate(C);
 
@@ -158,18 +245,11 @@
 
 \begin{zframe}{}
  
-\path<2>(cp) ++(0,-.5) node{\movie[loop,autostart,poster]
-  {\includegraphics[width=9cm]{peli/p1.png}}
-  {peli/p1.avi}};
+\path(cp) ++(0,-.5) coordinate(media); 
+\only<2>{\zfmedia[anchor=north east]{peli/p1.ff}{9cm}}
+\only<3>{\zfmedia[anchor=north east]{peli/p2.ff}{9cm}}
+\only<1>{\zfmedia[anchor=north east]{peli/outland.ff}{9cm}}
   
-\path<3>(cp) ++(0,-.5) node{\movie[loop,autostart,poster]
-  {\includegraphics[width=9cm]{peli/p2.png}}
-  {peli/p2.avi}};
-   
-\path<1>(cp) ++(0,-.5) node{\movie[loop,autostart,poster]
-  {\includegraphics[width=9cm]{peli/outland.png}}
-  {peli/outland.avi}};
-                    
 \end{zframe}  
 
 \end{document}

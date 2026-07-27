@@ -1,0 +1,68 @@
+
+\begin{scope}[rotate=0,thick,shift={(A)}]
+
+  % current minima
+  \pgfmathsetseed{123456}
+  \pgfmathsetmacro{\rad}{2.0}
+  \pgfmathsetmacro{\xy}{0.9*\rad}
+  \path(0,0) coordinate (A1);
+  \path(A1) node[rotate=30,penciline={jag ratio=0},draw=celeste,ellipse,minimum height=\rad*10,minimum width=\xy*10]{};  
+  \path(A1) node[rotate=30,penciline={jag ratio=0},draw=celeste,ellipse,minimum height=\rad*20,minimum width=\xy*20]{};  
+  \path(A1) node[rotate=30,penciline={jag ratio=0},draw=celeste,ellipse,minimum height=\rad*30,minimum width=\xy*30]{};  
+  \path(A1) node[rotate=30,penciline={jag ratio=0},draw=celeste,ellipse,minimum height=\rad*40,minimum width=\xy*40]{};  
+
+  % neighboor minima 1
+  \pgfmathsetseed{321346}
+  \pgfmathsetmacro{\rad}{1.6}
+  \pgfmathsetmacro{\xy}{1.1*\rad}
+  \path(3,0.5) coordinate (A2);
+  \path(A2) node[rotate=30,penciline={jag ratio=0},draw=celeste,ellipse,minimum height=\rad*10,minimum width=\xy*10]{};  
+  \path(A2) node[rotate=30,penciline={jag ratio=0},draw=celeste,ellipse,minimum height=\rad*20,minimum width=\xy*20]{};  
+  \path(A2) node[rotate=30,penciline={jag ratio=0},draw=celeste,ellipse,minimum height=\rad*30,minimum width=\xy*30]{};  
+       
+  % neighboor minima 2
+  \pgfmathsetseed{879821}
+  \pgfmathsetmacro{\rad}{1.2}
+  \pgfmathsetmacro{\xy}{1.1*\rad}
+  \path(-1,-2.5) coordinate (A3);
+  \path(A3) node[rotate=30,penciline={jag ratio=0},draw=celeste,ellipse,minimum height=\rad*10,minimum width=\xy*10]{};  
+  \path(A3) node[rotate=30,penciline={jag ratio=0},draw=celeste,ellipse,minimum height=\rad*20,minimum width=\xy*20]{};  
+  \path(A3) node[rotate=30,penciline={jag ratio=0},draw=celeste,ellipse,minimum height=\rad*30,minimum width=\xy*30]{};  
+
+  % Transition line 1
+  \pgfmathsetseed{834297}
+  \path(A1) +($(A1)!0.6!(A3)$) +([turn]90:1) coordinate(aux1);
+  \path(A1) +($(A1)!0.6!(A3)$) +([turn]-90:1) coordinate(aux2);
+  \draw[penciline={jag ratio=0},draw=celeste,] (aux1) -- (aux2);
+
+  % Transition line 2
+  \pgfmathsetseed{134127}
+  \path(A1) +($(A1)!0.55!(A2)$) +([turn]90:1) coordinate(aux1);
+  \path(A1) +($(A1)!0.55!(A2)$) +([turn]-90:1) coordinate(aux2);
+  \draw[penciline={jag ratio=0},draw=celeste,] (aux1) -- (aux2);
+
+  % Trajectory on first minima
+  \pgfmathsetmacro{\rad}{0.3}
+  \pgfmathsetseed{169221}
+  \foreach \c in {0,...,30}{
+    \path(A1) ++({\rad*(rand+rand+rand+rand+rand)},{\rad*(rand+rand+rand+rand+rand)}) coordinate (sum-\c);
+  }
+
+  \path(A1) +($(A1)!0.2!(A2)$) coordinate (sum-31);
+  \path(A1) +($(A1)!0.4!(A2)$) +([turn]-30:0.5) coordinate (sum-32);
+  \path(A1) +($(A1)!0.6!(A2)$) +([turn]30:0.5) coordinate (sum-33);
+  \path(A2) coordinate (sum-34);
+     
+  \pgfmathsetseed{932121}
+  \pgfmathsetmacro{\rad}{0.2}
+  \foreach \c in {35,...,50}{
+    \path(A2) ++({\rad*(rand+rand+rand+rand+rand)},{\rad*(rand+rand+rand+rand+rand)}) coordinate (sum-\c);
+  }
+       
+  \def\pts{}
+  \foreach \x in {0,...,50} { \xdef\pts{\pts (sum-\x)}; }
+
+  \draw[naranja] plot[smooth] coordinates {\pts};
+
+\end{scope}
+      

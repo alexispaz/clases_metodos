@@ -26,7 +26,9 @@
 
 % Set relevant coordinates for the frame  
 \pcuad{\paperwidth}{\paperheight}
-\path(1,8.5) coordinate(t);
+% \path(1,8.5) coordinate(t);
+\path(nw) ++(1,-1) coordinate(t);
+\path(ne) ++(-1,-1) coordinate(te);
 
 
 % Include name/licence mark
@@ -42,13 +44,97 @@
 \end{frame}
 }
 
+% Estilos
+% -------
+%
+% /tikz/zf is a directory of styles useful for zframe presentation.
+%
+% Some convention used:
+%  - Each key has diferent styles to choose.
+%  - For each key, base style is the default one.
+%  - base style do not set the node position.
+%  - All styles sets the node name as ``last''.
+%  - Derived styles sets the node position in different ways.
+%  - Some derived styles may set the position using zcuad coordinates.
+%  - Other derived styles may set position using ``last'' node.
+%
+% Usage example: 
+%   \node[zf/title]{Titulo}; 
+%
+% Note: Settin position of derived styles will not work:
+%   \path(cp) node[zf/text=center]{Titulo}; % NOT WORK
+% use base style instead:
+%   \path(cp) node[zf/text]{Titulo};
+% or shift:
+%   \path(cp) node[zf/text=center,shift={(1,1)}]{Titulo};
+
+\tikzset{
+ zf/.cd,
+ title/.is choice,
+   title/base/.style={name=title,alias=last,verde,font={\bfseries\Large\color{bg}}},
+   title/left/.style={zf/title/base,at={(t)},anchor=west},
+   title/center/.style={zf/title/base,at={(t-|cp)},anchor=center},
+   title/.default=base
+}
+ 
+\tikzset{
+ zf/.cd,
+ text/.is choice,
+   text/base/.style={name=text,alias=last,shift={(0,-.2)},anchor=north west,align=left},
+   text/right/.style={at=(te|-last.south),zf/text/base,anchor=north east,align=right},
+   text/end/.style={at=(last.south east),zf/text/base,anchor=north east,align=right},
+   text/next/.style={at=(last.south west),zf/text/base,anchor=north west},
+   text/first/.style={at=(t),zf/text/base,shift={(0,.2)},anchor=west},
+   text/center/.style={at=(last.south),zf/text/base,anchor=north},
+   text/middle/.style={at=(cp|-last.south),zf/text/base,anchor=north},
+   text/return/.style={at=(t|-last.south),zf/text/base,anchor=north west},
+   text/.default=base
+}
+  
+
+
 % Peliculas
 % =========
 
 % \usepackage{movie15} % obsolete, superseed by media9 but not in gif.. puaj
-% \usepackage{media9} % use the Flash Player plugin.. puaj
 % \usepackage{animate} % uses a QuickTime sub-plugin.. puaj
-\usepackage{multimedia} % avi
+
+% \usepackage{multimedia} % avi
+%   \movie[loop,autostart,poster]{\includegraphics[width=6cm]{peli/mario.png}}{peli/mario.mp4}
+
+\usepackage{media9} % use the Flash Player plugin..
+% \includemedia[
+%   width=0.45\textwidth,
+%   height=0.3\textwidth,
+%   activate=pageopen,
+%   addresource=img/diffund.mp4,
+%   flashvars={source=img/diffund.mp4}
+% ]{\includegraphics[width=0.45\textwidth]{img/diffund_00.png}}{VPlayer.swf}
+\usepackage{graphicx}
+\usepackage{media9}
+\usepackage{tikz}
+\usepackage{hyperref}
+
+% --- Comando personalizado ---
+\newcommand{\zfmedia}[3][anchor=south east]{%
+  % #1 = esquina donde se coloca el punto (default: south east)
+  % #2 = imagen de previsualización
+  % #3 = archivo de video (para embebido)
+  % #4 = ancho del video
+  \path(media) node[inner sep=0pt] (vid) {%
+    \includemedia[
+      width=#3,
+      activate=pageopen,
+      addresource=#2.mp4,
+      flashvars={source=#2.mp4&autoPlay=true&loop=true}
+    ]{\includegraphics[width=#3]{#2.png}}{VPlayer.swf}%
+  };
+  \node[draw, circle, fill=red!80, inner sep=1pt,anchor=north east,#1]
+    at (vid.north east)
+    {\href{run:#2.mp4}{\phantom{.}}};
+}
+
+
 
 % Animaciones
 % -----------

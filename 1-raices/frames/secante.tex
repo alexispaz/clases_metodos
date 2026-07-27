@@ -1,17 +1,3 @@
-
-\path(hl) ++(1.0,0) coordinate(scope);
-
-\path(np) ++(0,-0.5) node[anchor=north]{Secante};
-
-% \path<2->(hr) ++(-1,1) node[anchor=west]{${\color{lila}a'}=\dfrac{\Delta y}{\Delta x}\quad \forall \Delta x\neq 0$};
-% \path<15->(hr) ++(-1,-1) node[anchor=west]{$\ds {\color{verde}a}=\lim_{\Delta x\to 0} \dfrac{\Delta y}{\Delta x}$};
-
-% \path(cp) ++(-1,2.1) node[verde]{$ax+b$};
-% \path<2->(cp) ++(-1,0.7) node[lila]{$a'x+b'$};
-
-
-\path(hl) ++(1.0,0) coordinate(scope);
-
 \begin{scope}[x=1cm,y=0.8cm,shift=(scope),thick]
 
 % Definir
@@ -48,9 +34,12 @@
 
 \ifundef{\globalxa}{\gdef\globalxa{-1.5}}{}
 \ifundef{\globalxb}{\gdef\globalxb{1.2}}{}
-\pgfmathtruncatemacro\N{9}
-\foreach \mm in {3,5,...,\N}{ 
+\pgfmathtruncatemacro\nn{7}
+\foreach \mm in {3,5,...,\nn}{ 
 \pgfmathsetmacro\m{int(\mm-1)}
+\pgfmathsetmacro\n{int(\mm/2-1)}
+\pgfmathsetmacro\nn{int(\n+1)}
+\pgfmathsetmacro\nnn{int(\nn+1)}
 \only<\m,\mm>{
                                               
   % Punto b
@@ -59,8 +48,8 @@
   \pgfmathsetmacro\la{sign(\y)*(-7)}
 
   \fill[verde] (\x,\y) circle(0.1cm);
-  \draw[verde,dashed] (\x,0) -- (\x,\y) node[pos=0,yshift=\la]{$x_n$};
-  \draw[verde,dashed] (O|-{0,\y}) -- (\x,\y) node[pos=0,left]{$f(x_n)$};
+  \draw[verde,dashed] (\x,0) -- (\x,\y) node[pos=0,yshift=\la]{$x_\nn$};
+  \draw[verde,dashed] (O|-{0,\y}) -- (\x,\y) node[pos=0,left]{$f(x_\nn)$};
     
   % Punto a
   \pgfmathsetmacro\xx{\globalxa}
@@ -68,23 +57,19 @@
   \pgfmathsetmacro\lb{sign(\yy)*(-7)}
   
   \fill[verde] (\xx,\yy) circle(0.1cm);
-  \draw[verde,dashed] (\xx,0) -- (\xx,\yy) node[pos=0,yshift=\lb]{$x_{n-1}$};
-  \draw[verde,dashed] (O|-{0,\yy}) -- (\xx,\yy) node[pos=0,left]{$f(x_{n-1})$};
+  \draw[verde,dashed] (\xx,0) -- (\xx,\yy) node[pos=0,yshift=\lb]{$x_\n$};
+  \draw[verde,dashed] (O|-{0,\yy}) -- (\xx,\yy) node[pos=0,left]{$f(x_\n)$};
  
   % Etiquetas
-  \path(4,3) node[anchor=north west,align=left]{
-    $x_{n-1}=\xx$\\
-    $x_n=\x$};
+  \path(3.6,3) node[anchor=north west,align=left]{
+    {\color{rosa} 1.} $x_\n=\xx$\\
+    \hspace{2ex} $x_\nn=\x$};
   \pgfmathsetmacro\iter{int((\mm-1)/2)}
-  \path(6,4) node[circle,draw=white,anchor=north west,align=left]{
-    \iter};
+  \path(6,4.5) node(Bi)[rectangle,draw=white,anchor=north west]{
+    Iteración \iter};
+  \path(Bi.south) node[anchor=north]{
+    $\epsilon_T=0.4$};
 
-  % Distancia
-  \pgfmathsetmacro\d{\x-\xx}
-  \path<3->(4,-2) node[anchor=south west,align=left]{
-    Convergencia: ($\epsilon=0.4$)\\
-    $x_n-x_{n-1}=\d$
-  };
 }  
 
 \only<\mm>{
@@ -95,22 +80,35 @@
   \pgfmathsetmacro\lc{sign(\yc)*(-7)}
   
   \fill[celeste] (\xc,\yc) circle(0.1cm);
-  \draw[celeste,dashed] (\xc,\yc) -- (\xc,0) node[pos=1,yshift=\lc]{$x_{n+1}$};
-  \draw[celeste,dashed] (O|-{0,\yc}) -- (\xc,\yc) node[pos=0,left]{$f(x_{n+1})$};
+  \draw[celeste,dashed] (\xc,\yc) -- (\xc,0) node[pos=1,yshift=\lc]{$x_\nnn$};
+  \draw[celeste,dashed] (O|-{0,\yc}) -- (\xc,\yc) node[pos=0,left]{$f(x_\nnn)$};
      
   % Secante
   \draw[color=celeste, domain=-3:3, yrange=-4:4] plot[smooth,id=parabola] function{(x-\x)*\a+\y};
+ 
+  % Distancia
+  \pgfmathsetmacro\d{abs((\xc-\x)/\xc)}
+  \path(3.6,-4) node[anchor=south west,align=left]{
+    {\color{rosa} 3.} Convergencia (opción 2): \\
+    $\left|x_\nnn-x_\nn/x_\nnn\right|=\d$
+  };
 
+  \pgfmathsetmacro\d{abs(\xc-\x)}
+  \path(3.6,-2) node[anchor=south west,align=left]{
+    {\color{rosa} 3.} Convergencia (opción 1): \\
+    $\left|x_\nnn-x_\nn\right|=\d$
+  };
+ 
   % Avance
   \global\let\globalxb=\xc
   \global\let\globalxa=\x 
-  \path(4,0.5) node[anchor=west,align=left]{
-    $x=\xc$};
+  \path(3.6,0.5) node[anchor=west,align=left]{
+    {\color{rosa} 2.} $x_\nnn=\xc$};
 
 }
 }
 
-\only<\N>{
+\only<\nn>{
   \global\let\globalxa\undefined
   \global\let\globalxb\undefined
 }

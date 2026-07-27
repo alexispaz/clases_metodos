@@ -1,0 +1,81 @@
+% Realiza Barzilai–Borwein con el paso corto en una funcion modelo con
+% contornos elipticos. Necesita que este definido:
+%  - path(c)   : el mínimo
+%  - path(x0)  : el initial guess
+%  - \b        : aspect ratio de la elipse
+%  - \learning : factor de aprendizaje primer paso
+
+% Obtengo el centro
+\path(c); \getlastxy
+\pgfmathsetmacro{\cx}{\x}
+\pgfmathsetmacro{\cy}{\y}
+
+\fill[celeste](x0) circle(3pt) node[above right] {$x_0$};
+               
+% Posicion
+\path(x0); \getlastxy
+
+% Calculo el gradiente
+\pgfmathsetmacro{\dx}{2.*(\x-\cx)} % 2(x-x0)/a^2
+\pgfmathsetmacro{\dy}{2.*(\y-\cy)/(\b*\b)} % 2(y-y0)/b^2
+
+% Primer paso con leraning constante
+\pgfmathsetmacro{\norm}{sqrt(\dx*\dx+\dy*\dy)}
+\pgfmathsetmacro{\learning}{\learning/\norm}
+               
+% Move
+\pgfmathsetmacro{\vx}{-\learning*\dx}
+\pgfmathsetmacro{\vy}{-\learning*\dy}
+\draw[->,shorten >=5, thick, amarillo] (x0) --  ++(\vx,\vy);
+\path(x0) ++(\vx,\vy) coordinate(x1);
+\fill[celeste](x1) circle(3pt) node[above right] {$x1$};
+ 
+% Save last position as the new x0
+\path(x1) coordinate(x0);       
+        
+% Save last gradient
+\pgfmathsetmacro{\dxx}{\dx}
+\pgfmathsetmacro{\dyy}{\dy}
+
+\foreach \m in {2,...,25} {
+
+  % Posicion
+  \path(x0); \getlastxy
+
+  % Gradiente
+  \pgfmathsetmacro{\dx}{2.*(\x-\cx)} % 2(x-x0)/a^2
+  \pgfmathsetmacro{\dy}{2.*(\y-\cy)/(\b*\b)} % 2(y-y0)/b^2
+ 
+  % Compute learning rate from previous iteration information
+  \pgfmathsetmacro{\ddx}{\dx-\dxx}
+  \pgfmathsetmacro{\ddy}{\dy-\dyy}
+  % \pgfmathsetmacro{\learning}{(\ddx*\vx+\ddy*\vy)/(\ddx*\ddx+\ddy*\ddy)} % short
+  \pgfmathsetmacro{\learning}{(\vx*\vx+\vy*\vy)/(\ddx*\vx+\ddy*\vy)} % long
+                            
+  % Move
+  \pgfmathsetmacro{\vx}{-\learning*\dx}
+  \pgfmathsetmacro{\vy}{-\learning*\dy}
+  \path(x0) ++(\vx,\vy) coordinate(x\m);
+  \ifthenelse{\m<5}{
+    \draw[->,shorten >=5, thick, amarillo] (x0) --  ++(\vx,\vy);
+    \fill[celeste](x\m) circle(3pt) node[above] {$x_\m$};
+  }{
+    \fill[celeste](x\m) circle(3pt);
+  }
+
+  % Save last position as the new x0
+  \path(x\m) coordinate(x0);
+ 
+  % Save last gradient
+  \pgfmathsetmacro{\dxx}{\dx}
+  \pgfmathsetmacro{\dyy}{\dy}
+               
+}
+
+ 
+% Contornos de la funcion  
+\foreach \i in {1,2,...,11} {
+\pgfmathsetmacro\lab{\i+0.1}
+\scriptsize\draw[rosa,thick] (c) ellipse  [x radius=\i*1cm, y radius=\i*\b*1cm] node[xshift=\lab cm]{\i};
+}
+     

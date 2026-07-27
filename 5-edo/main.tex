@@ -26,7 +26,7 @@
 \path(c2|-I.north) ++(0,-1) node(A)[anchor=north,align=left]{
   \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
   \color{celeste} \textbf{Ec. Diferenciales Ordinarias}\\[2mm]  
-  \color{lila} \textit{Agosto 21, 2024}
+  \color{lila} \textit{Agosto 27, 2025}
 };
 \normalsize
 \path(A.west|-I.south) ++(0,1) node(B)[anchor=south west,align=left]{
@@ -38,8 +38,118 @@
 % 
 \end{zframe}
 \renewcommand\CC{
-\path(se) node[anchor=south east]{\tiny\color{gray} MC2024 - S.A.Paz};}
+\path(se) node[anchor=south east]{\tiny\color{gray} MC2025 - S.A.Paz};}
+ 
+% TODO 2025: Filmina con particula en caja 2D
 
+% TODO 2025: Filmina que muestre una grilla en 2D como la del paper de OTFP2D
+
+% TODO 2026: 
+% Las EDO se pueden clasificar en niveles jerárquicos .. segun chatgpt:
+%   AUTONOMA o NO (si aparece la vairable dependiente o no en f)
+%    si defino una nueva variable y=t, y luego le doy una ecuacion trivial
+%    dy/dt=1, consigo que un sistema no autonomo sea autonomo.
+%    Las trayectorias en un espacio de fases autonomo nunca se cruzan (teorema de unicidad de Picard–Lindelöf)
+%    Las trayectorias en funcion del tiempo son una proyeccion del espacio de las fases y las trayectorais nunca se cruzan.
+%    Se peude ver como una consecuencia obvia de la unicidad tambien.
+%   Naturaleza de la variable independiente: ODE vs PDE.
+%   Naturaleza del proceso (o de la incertidumbre): determinista vs estocástico.
+%   Segun dominio: Discretas vs Continuas
+%   Orden y grado.
+%   Linealidad y homogeneidad.
+%   Forma (explícita/implícita).
+%   Propiedades especiales (autónomas, separables, etc.).
+%   Marco matematico (Clasicas, fraccionarias, funcionales, integro-diferenciales).
+% ¿Quizás deberia hacer una filmina con esto para entender que vamos a ver y que no?
+
+\begin{zframe}{ampersand replacement=\&}
+      
+\path(t) ++(-.3,.5) coordinate(t);
+                
+\path(t-|np) ++(0,0) node(x){
+  \centerline{\Large\color{verde} Problema con Valores Iniciales (PVI)}};
+                
+\path(x.south-|t) ++(0.,-.3) node(A)[align=left,anchor=north west]{
+  ${\ds \odv{y(t)}{t}=F\ab(t,y)}\quad;\quad y(a)=\alpha_0$};
+\path(A.south west) ++(1,0) node(x)[anchor=north west,celeste]{1er orden};
+                
+\path(x.south west-|t) ++(0.,-.5) node(B)[align=left,anchor=north west]{
+  ${\ds \odv[order=2]{y(t)}{t}=F\ab(t,y,\odv{y}{t})}\quad;y(a)=\alpha_0;\quad\odv{y}{t}_a=\alpha_1$};
+\path(B.south west) ++(1,0) node[anchor=north west,celeste]{2do orden};
+
+\path(c1) ++(0,1) node(c)[naranja]
+{Condiciones de Cauchy};
+
+\draw[->,naranja, ultra thick](c) edge[bend left] (A.0);
+\draw[->,naranja, ultra thick](c) edge[bend left] (B.0);
+
+\path(c4) ++(.3,-.2) node(A)[ellipse,celeste,ultra thick,inner sep=1,draw,align=center]
+{Teorema de existencia\\ y unicidad};
+               
+\path(sp) ++(-3.5,0.3) coordinate(scope);
+\begin{scope}[x=1cm,y=1cm,scale=1.2,shift=(scope),thick]
+  \newcommand\xmin{-1}
+  \newcommand\xmax{3}
+  \newcommand\xstp{1}
+  \newcommand\xtra{1}
+  \newcommand\ymin{0.5}
+  \newcommand\yorg{0.5}
+  \newcommand\ymax{3}
+  \newcommand\ystp{1}
+  \newcommand\nfra{1}
+
+
+  {\scriptsize \input{frames/euler0.tex}}
+
+    
+  % yn
+  \pgfmathsetmacro\x{0}
+  \pgfmathsetmacro\y{sin((\x-(\xtra))/3.1415*180)+2}
+  \fill[celeste](\x,\y) circle(.1) node[fg,above=.1]{\scriptsize $y_{0}$};
+  \path(0,.5) ++(1,.5) node(x){$a$};
+  \draw[thick,dashed,<-,shorten <=0.2] (0,.5) to[bend left] (x);
+  \draw[thick,celeste](\x,\y) +(-153:0.5) -- ++(27:0.5) node[right]{\scriptsize $y'_{0}$};
+
+  % % Pendiente
+  % \pgfmathsetmacro\a{cos((\x-(\xtra))/3.1415*180)}
+  % \draw[color=celeste, thick, domain=\xmin:\xmax] plot[smooth] function{(\a*(x-\x)+\y)};
+  %
+  % % yn+1
+  % \pgfmathsetmacro\xx{1}
+  % \pgfmathsetmacro\y{(\a*(\xx-\x)+\y)}
+  % \fill[naranja](\xx,\y) circle(.1) node[fg,below=.1]{\scriptsize $y_{1}$};
+\end{scope}
+                                                 
+      
+\end{zframe}
+      
+\begin{zframe}{}
+               
+\path(t-|np) ++(.5,.3) node(T){
+Dado {${\ds\odv{y}{t}=f(t,y),\quad a\leq t\leq b,\quad y(a)=\alpha}$} };
+
+\path(T.south) ++(-.4,-.4) node(T)[def,anchor=north,text width=11cm, inner sep=6,align=left]{
+$\bullet$ {\color{celeste}Existe} una {\color{celeste}única} y(t) \\[2mm]
+$\bullet$ Existen constantes ${\epsilon_0>0}$ y ${k>0}$, tales que para cualquier ${\epsilon\in(0,\epsilon_0)}$,
+siempre que $\delta(t)$ es continua con ${|\delta(t)|<\epsilon}$ para toda ${t\in[a,b]}$, y cuando $|\delta_0|<\epsilon$, el PVI\\[2mm]
+\hspace{8mm}${\ds \odv{z}{t}=f(t,z)+{\color{celeste}\delta(t)},\quad a\leq t\leq b,\quad z(a)=\alpha+\color{celeste}\delta_0}$\\[2mm]
+tiene una única solución $z(t)$ que satistace\\[2mm]
+\hspace{8mm}${|z(t)-y(t)|<k\epsilon}$ para toda $t\in[a,b]$};
+
+\path(T.north east) node(H)[defhead,anchor=east,fill=black]{\color{white}\it Problema Bien Planteado (EDO1, PVI)};
+                      
+\path(c4) ++(1.6,-.2) node(H)[draw=celeste,very thick, inner sep=0,rotate=-5]{\includegraphics[width=2.7cm]{bib/Burden.png}};
+                                
+\path(T.south west) ++(0,-.3) node[anchor=north west,align=left]{Ejemplo, toda $f$ que satisface Lipschitz:\\[2mm] ${\ab|f(t,y_1)-f(t,y_2)|\leq L\ab|y_1-y_2|}$};
+                         
+\Large
+\path(nw) +(1.2,-0.8) node[align=center,rectangle,red,draw,fill=white,text width=5cm,rotate=30, ultra thick]{\bfseries ``REPASO''};
+                        
+\end{zframe} 
+        
+% \begin{zframe}{}
+% TODO 2026: Ecuaciones de 2do orden\ldots repasar solucion?.
+% \end{zframe} 
                
 \begin{zframe}{}
 
@@ -85,16 +195,19 @@
 \draw[verde,<-,ultra thick] (T1.east) ++(0.2,0) -- ++(1,0) node[right,shift={(.1,0)}]{
   EDO de orden $k$};
 
-\path(T1.south west) ++(0,-.7) node(T2)[anchor=north west,align=left]{
-  $\ds z_i\equiv\odv[order=i]{y}{x}\quad\quad i=1,\dotsc,k-1$\\[2mm]
-  $\ds F\ab(x,y,z_1,z_2,\dotsc,z_{k-1},\odv[order=k]{y}{x})=0$
+\path(T1.south west) ++(0,-.1) node(T2)[anchor=north west,align=left]{
+  $\ds z_1\equiv\odv{y}{x}$\\[2mm]
+  $\ds z_2=\odv{z_1}{x}\quad\quad \ab(z_2\equiv\odv[order=2]{y}{x})$\\
+  \hspace{3.3ex}\vdots\\[2mm]
+  $\ds F\ab(x,y,z_1,z_2,\dotsc,\odv{z_{k-1}}{x})=0$
 };
    
-\path(T2.south west) ++(.5,-1) node(T3)[anchor=north west,align=left]{
+\path(T2.south west) ++(.5,-.3) node(T3)[anchor=north west,align=left]{
   $\ds \vb{F}\ab(x,\vb{y},\odv{\vb{y}}{x})=0$
 };
-\draw[verde,decorate, decoration={brace,raise=2,amplitude=5}, ultra thick] (T2.north east) --  (T2.south east) node[midway,right,shift={(.3,0)}]{
+\draw[verde,decorate, decoration={brace,raise=2,amplitude=5}, ultra thick] (T2.north east) --  (T2.south east) node(x)[midway,right,shift={(.3,0)}]{
   $k$ EDO de orden 1}; 
+\path(x.north) ++(0.3,0.7) node[celeste,align=left]{\small Agrego ${k-1}$ \\ \small variables dependientes}; 
      
 \path(T3.east) ++(3,0) node(T4)[draw=verde,inner sep=8,anchor=west,align=left]{
   $\ds \odv{\vb{y}}{x}=\vb{F}\ab(x,\vb{y})$
@@ -179,35 +292,7 @@ $\odv{z}{t} = x y - \beta z$
 % CC BY-NC-ND 3.0
 
 \end{zframe}  
-
-% TODO 2025: Filmina con particula en caja 2D
-
-% TODO 2025: Filmina que muestre una grilla en 2D como la del paper de OTFP2D
-
-\begin{zframe}{}
-               
-\path(t-|np) ++(.5,.3) node(T){
-Dado {${\ds\odv{y}{t}=f(t,y),\quad a\leq t\leq b,\quad y(a)=\alpha}$} };
-
-\path(T.south) ++(-.4,-.4) node(T)[def,anchor=north,text width=11cm, inner sep=6,align=left]{
-$\bullet$ {\color{celeste}Existe} una {\color{celeste}única} y(x) \\[2mm]
-$\bullet$ Existen constantes ${\epsilon_0>0}$ y ${k>0}$, tales que para cualquier ${\epsilon\in(0,\epsilon_0)}$,
-siempre que $\delta(t)$ es continua con ${|\delta(t)|<\epsilon}$ para toda ${t\in[a,b]}$, y cuando $|\delta_0|<\epsilon$, el PVI\\[2mm]
-\hspace{8mm}${\ds \odv{z}{t}=f(t,z)+{\color{celeste}\delta(t)},\quad a\leq t\leq b,\quad z(a)=\alpha+\color{celeste}\delta_0}$\\[2mm]
-tiene una única solución $z(t)$ que satistace\\[2mm]
-\hspace{8mm}${|z(t)-y(t)|<k\epsilon}$ para toda $t\in[a,b]$};
-
-\path(T.north east) node(H)[defhead,anchor=east,fill=black]{\color{white}\it Problema Bien Planteado (EDO1, PVI)};
-                      
-\path(c4) ++(1.6,-.2) node(H)[draw=celeste,very thick, inner sep=0,rotate=-5]{\includegraphics[width=2.7cm]{bib/Burden.png}};
-                                
-\path(T.south west) ++(0,-.3) node[anchor=north west,align=left]{Ejemplo, toda $f$ que satisface Lipschitz:\\[2mm] ${\ab|f(t,y_1)-f(t,y_2)|\leq L\ab|y_1-y_2|}$};
-                         
-\Large
-\path(nw) +(1.2,-0.8) node[align=center,rectangle,red,draw,fill=white,text width=5cm,rotate=30, ultra thick]{\bfseries ``REPASO''};
-                        
-\end{zframe} 
-                
+        
 \begin{zframe}{}
 
 \path(ne) +(-1.2,-0.8) node[align=center,rectangle,red,draw,fill=white,text width=5cm,rotate=-30, ultra thick]{\Large\bfseries ``REPASO''};
@@ -269,9 +354,48 @@ $\ds \odv{v}{t} = -kr$};
 
 \path(t|-np) ++(-.4,-1) node(T)[align=left,anchor=north west]{\Large $\ds \odv{y}{x}=y+x$};
 
+\path<2>(c4) ++(0.5,1) node(T)[anchor=north west,naranja]{¡independiente!};
+
+% TODO 2026, Esta ecuacion no es autonoma (si aparece la vairable dependiente en f)
+%    si defino una nueva variable nueva p=x, y luego le doy una ecuacion trivial
+%    dp/dx=1, consigo que un sistema no autonomo sea autonomo. En ese caso este
+%    dibujo si es un diagrama de fases. Y ahi las trayectorias nunca se cruzan.
+%    Porque el teorema de unicidad dice que dada una condicion inicial (x,t) hay
+%    una unica solucion. Convendria poner un sistema 2D posta para que el plano
+%    sea la proyeccion de una sola de sus variables.
 
 \end{zframe}  
-            
+ 
+% XXX: Comienzo con Taylor porque es el predictor por excelencia. Luego veo que hay que combinar
+% taylors para evitar terminos... 
+
+% XXX: hacer un ejemplo 1D en el pizarron para ver que son las derivadas parciales
+
+\begin{zframe}{} %yscale=0.9
+
+              
+\path(ne) ++(-.3,-.4) node(T)[align=left,anchor=north east]{
+{\Large \color{celeste}$\ds\odv{y}{x}=F(x,y)$}
+};
+ 
+\path(t) node[title]{Taylor};
+  
+\large
+\path(t|-title.south) ++(-.4,-.5) node(T)[align=left,anchor=north west,text width=6cm]{
+\begin{align*}
+\ds y_{n+1}&=y_{n}+{\color{celeste}\odv{y}{x}_{n}}h+{\color{celeste}\odv[order=2]{y}{x}_n}\dfrac{h^2}{2}+{\color{celeste}\odv[order=2]{y}{x}_n}\dfrac{h^3}{6}+O\ab(h^4)
+\end{align*}\\[2mm]
+\begin{align*}
+\ds y_{n+1}&=y_{n}+F\ab(x_n,y_n)h\\[2mm]
+\ds &+\ab[\pdv{F\ab(x_n,y_n)}{y}F\ab(x_n,y_n)+\pdv{F\ab(x_n,y_n)}{x}]\dfrac{h^2}{2}\\[2mm]
+\ds &+\odv{}{x}\ab[\pdv{F\ab(x_n,y_n)}{y}F\ab(x_n,y_n)+\pdv{F\ab(x_n,y_n)}{x}]\dfrac{h^3}{6}+O\ab(h^4)
+\end{align*}
+};
+
+\path(c4) ++(1,.6) node[lila]{\Ninja[3][bg][rojo]};
+                             
+\end{zframe}
+                 
          
 \begin{zframe}{} %yscale=0.9
                       
@@ -369,50 +493,24 @@ MÉTODO IMPLÍCITO\\[2mm]
 \end{scope}
                  
 \end{zframe}
-      
-\begin{zframe}{}
-
-\Large
-
-\path(t-|np) ++(-4.5,-1.2) node(T)[align=left]{
-  Ejemplo:\\[3mm]
-$\odv{y}{x} = yx$ \\[2mm]
-};
-
-\path(vl) ++(0.8,2) node(F){
-  \includegraphics[width=8cm]{yx.png}};
-           
-\end{zframe}  
- 
-% TODO 2025 hacer un taylor con un ejemplo 1D para ver que son las derivadas parciales
+    
 
 \begin{zframe}{} %yscale=0.9
                       
 % \path(np) ++(0.,-.7) node(A)[align=left,anchor=north,text width=11cm]{
 % Notación: $f_n=f(x_n)$
 % };
- 
-\path(t) ++(0,.2) node(T)[align=left,anchor=north west,text width=6cm]{
-{\color{verde} \Large Taylor:} $${\ds y_{n+1}=y_{n}+F\ab(x_n,y_n)h+\dfrac{h^2}{2}\ab[\pdv{F\ab(x_n,y_n)}{y}F\ab(x_n,y_n)]+O\ab(h^4)}$$
+               
+\path(ne) ++(-.3,-.3) node(T)[align=left,anchor=north east]{
+{\Large \color{celeste}$\ds\odv{y}{x}=F(x,y)$}
 };
-  
-\path(T.south west) ++(0,-.7) node(A)[align=left,anchor=north west,text width=6cm]{
-{\Large Ejemplo:} 
-};
-  
-\end{zframe}
-           
 
-\begin{zframe}{} %yscale=0.9
-                      
-% \path(np) ++(0.,-.7) node(A)[align=left,anchor=north,text width=11cm]{
-% Notación: $f_n=f(x_n)$
-% };
+\path(t) node[title]{Leap-Frog};
  
-\path(nw) ++(1,-.7) node(A)[align=left,anchor=north west,text width=6cm]{
-{\color{verde} \Large Leap-Frog:} $${\ds y_{n+1}=y_{n-1}+2hF\ab(x_n,y_n)+O\ab(h^3)}$$
+\path(t|-title.south) ++(0,-.5) node(T)[align=left,anchor=north west,text width=6cm]{
+${\ds y_{n+1}=y_{n-1}+2hF\ab(x_n,y_n)+O\ab(h^3)}$
 };
-              
+
 \path(vl) ++(0,-1) coordinate(scope);
 \begin{scope}[x=1cm,y=1cm,scale=1.5,shift=(scope),thick]
   \newcommand\xmin{-2}
@@ -427,7 +525,6 @@ $\odv{y}{x} = yx$ \\[2mm]
 
   { \input{frames/euler.tex}}
 
-  
   % Pendiente
   \pgfmathsetmacro\y{sin((-(\xtra))/3.1415*180)+2}
   \pgfmathsetmacro\a{cos((0-(\xtra))/3.1415*180)}
@@ -456,18 +553,17 @@ $\odv{y}{x} = yx$ \\[2mm]
 % \path(np) ++(0.,-.7) node(A)[align=left,anchor=north,text width=11cm]{
 % Notación: $f_n=f(x_n)$
 % };
- 
-\path(nw) ++(1,-.7) node(A)[anchor=north west]{
-% {\color{verde} \Large Verlet:} $${\ds \vb{y}_{n+1}=2\vb{y}_{n}-\vb{y}_{n-1}+h^2\ab\ab[\pdv{\vb{F}\ab(x,\vb{y})}{\vb{y}}]_{(x_n,\vb{y}_n)}\vb{F}\ab(x_n,\vb{y}_n)+O\ab(h^4)}$$
- \Large{\color{verde} Verlet:} \hspace{5mm} ${\ds y_{n+1}=2y_{n}-y_{n-1}+{\color{amarillo}\odv{y}{x}_{n}}h^2+O\ab(h^4)}$
-%  {\hspace{4mm}\small\color{verde}Verlet}\\[5mm]
-};
    
-\path(A.south) ++(1,-.4) node(B)[anchor=north]{
-\color{amarillo} \Large ${\ds\ab[\pdv{F\ab(x_n,y_n)}{x}+\pdv{F\ab(x_n,y_n)}{y}F\ab(x_n,y_n)]}$
+\path(ne) ++(-.3,-.3) node(T)[align=left,anchor=north east]{
+{\Large \color{celeste}$\ds\odv[order=2]{y}{x}=G(x,y)$}
 };
-
-\path(vl) ++(0,-2) coordinate(scope);
+                       
+\path(t) node[title]{Verlet};
+ 
+\path(t|-title.south) ++(0,-.5) node(T)[align=left,anchor=north west,text width=6cm]{
+${\ds y_{n+1}=2y_{n}-y_{n-1}+G(x_n,y_n)h^2+O\ab(h^4)}$ };
+  
+\path(vl) ++(0,-1) coordinate(scope);
 \begin{scope}[x=1cm,y=1cm,scale=1.5,shift=(scope),thick,yrange=-1:3]
   \newcommand\xmin{-2}
   \newcommand\xmax{2}
@@ -511,7 +607,24 @@ $\odv{y}{x} = yx$ \\[2mm]
 \end{scope}
           
 \end{zframe}
-      
+     
+\begin{zframe}{}
+
+% TODO 2026: Mejorar esto poniendo otros metodos aca tambien
+
+\Large
+
+\path(t-|np) ++(-4.5,-1.2) node(T)[align=left]{
+  Ejemplo:\\[3mm]
+$\odv{y}{x} = yx$ \\[2mm]
+};
+
+\path(vl) ++(0.8,2) node(F){
+  \includegraphics[width=8cm]{yx.png}};
+           
+\end{zframe}  
+ 
+        
 \begin{zframe}{}
  
 \path(np) ++(0,-.6) node(A)[anchor=north,text width=12cm]{
@@ -567,10 +680,18 @@ si el error disminuye en cada iteración\ldots}\\[4mm]
   \centerline{\Large\color{verde} ESTABILIDAD}};
 
 \path(A.south-|t) ++(0.,-.3) node(A)[align=left,anchor=north west,text width=11cm]{
-{Si hacemos $(N-1)$ aproximaciones de forma recurrente,
-además del error global, hay que ver si una perturbación no se propaga por la recurrencia\ldots}\\[4mm]
+{Si hacemos $(N-1)$ aproximaciones de forma recurrente, hay que ver si una
+perturbación (e.g. el error local del paso anterior) no se amplifica por la
+recurrencia. En ese caso el algoritmo es\ldots}\\[4mm]
  \hspace{1cm}  {\small \color{naranja} ESTABLE:} $\ds\fdif{y_{n+1}}/\fdif{y_n}\leq1$\\[2mm]
 };
+
+% TODO 2026: sea o no estable la EDO, queremos que el algoritmo no sea inestable. Se puede
+% integrar una EDO inestable, si el problema igual esta bien planteado, la solucion no
+% va a alejarse de forma discontinua de la condicion inicial, es decir, por un tiempo
+% vamos a estar cerca de la solucion, aunque ese tiempo sea corto (por ser inestable la edo).
+% Ejemplo de de EDO inestable dy/dx=x, y de estable dy/dx=-x.
+
 \end{zframe}
           
 \begin{zframe}{
@@ -696,18 +817,25 @@ ${\ds k_1=hF\ab(x_n,y_n)}$
 def/.style={rectangle,draw=verde,dashed, rounded corners=1ex, anchor=north,inner sep=6,align=center},
 defhead/.style={inner sep=4,align=center,anchor=north,font={\bfseries}}}
  
-\path(t-|cp) node(T)[verde]{\Large Algoritmos EDO1};
+\path(t-|cp) node(T)[verde]{\Large Algoritmos EDO};
 
-\path(T.south-|t) ++(-.5,-.5) node(A)[anchor=north west,align=left]{
-${\ds y_{n+1}=y_n+hF\ab(x_n,y_n)+O\ab(h^2)}$ {\hspace{4mm}\small\color{verde}Euler hacia adelante}\\[5mm]
-${\ds y_{n+1}=y_n+hF\ab(x_{n+1},y_{n+1})+O\ab(h^2)}$ {\hspace{4mm}\small\color{verde}Euler hacia atrás}\\[5mm]
-${\ds y_{n+1}= y_n + \frac{1}{6}(k_1 + 2k_2 + 2k_3 + k_4)+O\ab(h^5)}$ {\small\color{verde}RK4}\\[5mm]
+\path(T.south-|t) ++(0,-.7) node(A)[anchor=north west,align=left]{
+${\ds y_{n+1}=y_n+hF\ab(x_n,y_n)+O\ab(h^2)}$ {\hspace{4mm}\color{verde}Euler hacia adelante}\\[5mm]
+${\ds y_{n+1}=y_n+hF\ab(x_{n+1},y_{n+1})+O\ab(h^2)}$ {\hspace{4mm}\color{verde}Euler hacia atrás}\\[5mm]
+${\ds y_{n+1}= y_n + \frac{1}{6}(k_1 + 2k_2 + 2k_3 + k_4)+O\ab(h^5)}$ {\color{verde}RK4}\\[5mm]
 % ${\ds y_{n+1}=y_n+hF\ab(x_n,y_n)+\dfrac{h^2}{2}\ab[\pdv{F\ab(x,y)}{y}]_{(x_n,y_n)}F\ab(x_n,y_n)+O\ab(h^3)}$ {\small\color{verde}Taylor}\\[5mm]
-${\ds y_{n+1}=y_{n-1}+2hF\ab(x_n,y_n)+O\ab(h^3)}$ {\hspace{4mm}\small\color{verde}Leap-Frog}\\[5mm]
-${\ds y_{n+1}=2y_{n}-y_{n-1}+h^2\ab[\pdv{F\ab(x_n,y_n)}{x}+\pdv{F\ab(x_n,y_n)}{y}F\ab(x_n,y_n)]+O\ab(h^4)}$\\[5mm]
+${\ds y_{n+1}=y_{n-1}+2hF\ab(x_n,y_n)+O\ab(h^3)}$ {\hspace{4mm}\color{verde}Leap-Frog}\\[5mm]
+${\ds y_{n+1}=2y_{n}-y_{n-1}+h^2G\ab(x_n,y_n)+O\ab(h^4)}$ {\hspace{4mm}\color{verde}Verlet}\\[5mm]
 };
 
-\path(c4) ++(2,.5) node(A){\small\color{verde}Verlet};
+\path(ne) ++(-.3,-.3) node(T)[align=left,anchor=north east]{
+\Large {\color{celeste}$\ds\odv{y}{x}=F(x,y)$}
+};
+                      
+\path(se) ++(-.3,.5) node(T)[align=left,anchor=south east]{
+{\color{celeste}$\ds\odv[order=2]{y}{x}=G(x,y)$}
+};
+                      
 \end{zframe}
 
 % XXX: no tiene sentido generalizar asi me parece. Estos algoritmos son para

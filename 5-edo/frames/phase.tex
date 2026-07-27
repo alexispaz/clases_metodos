@@ -12,6 +12,6 @@
 \foreach \j in {0,...,\yn}{
   \pgfmathsetmacro{\xprime}{f({\xmin+\i*\hx},{\ymin+\j*\hy})}
   \pgfmathsetmacro{\yprime}{g({\xmin+\i*\hx},{\ymin+\j*\hy})}
-  \draw[celeste,-stealth,shift={({\xmin+\i*\hx},{\ymin+\j*\hy})}] (0,0)--(.1*\xprime,.1*\yprime);
+  \draw[celeste,stealth-,shift={({\xmin+\i*\hx},{\ymin+\j*\hy})}] (0,0)--(.1*\xprime,.1*\yprime);
 }
 

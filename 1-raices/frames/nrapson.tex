@@ -1,17 +1,4 @@
 
-\path(hl) ++(1.0,0) coordinate(scope);
-
-\path(np) ++(0,-0.5) node[anchor=north]{Newton-Raphson};
-
-% \path<2->(hr) ++(-1,1) node[anchor=west]{${\color{lila}a'}=\dfrac{\Delta y}{\Delta x}\quad \forall \Delta x\neq 0$};
-% \path<15->(hr) ++(-1,-1) node[anchor=west]{$\ds {\color{verde}a}=\lim_{\Delta x\to 0} \dfrac{\Delta y}{\Delta x}$};
-
-% \path(cp) ++(-1,2.1) node[verde]{$ax+b$};
-% \path<2->(cp) ++(-1,0.7) node[lila]{$a'x+b'$};
-
-
-\path(hl) ++(1.0,0) coordinate(scope);
-
 \begin{scope}[x=1cm,y=0.8cm,shift=(scope),thick]
 
 % Definir
@@ -49,11 +36,11 @@
 
 \ifundef{\globalxa}{\gdef\globalxa{-0.8}}{}
 \ifundef{\globalN}
-  {\pgfmathtruncatemacro\N{8}}
+  {\pgfmathtruncatemacro\N{4}}
   {\pgfmathtruncatemacro\N{\globalN}}
-\foreach \m in {1,2,...,\N}{
-\only<\m>{
-  \pgfmathsetmacro\mm{int((\m-1)/2)}
+\foreach \n in {1,2,...,\N}{
+\pgfmathsetmacro\m{int((\n-1))}
+\only<\n>{
 
   % Punto x0
   \pgfmathsetmacro\x{\globalxa}
@@ -61,22 +48,19 @@
   \pgfmathsetmacro\lc{sign(\y)*(-7)}
 
   \fill[verde] (\x,\y) circle(0.1cm);
-  \draw[verde,dashed] (\x,0) -- (\x,\y) node[pos=0,yshift=\lc]{$x_\mm$};
-  \draw[verde,dashed] (O|-{0,\y}) -- (\x,\y) node[pos=0,left]{$f(x_\mm)$};
+  \draw[verde,dashed] (\x,0) -- (\x,\y) node[pos=0,yshift=\lc]{$x_\m$};
+  \draw[verde,dashed] (O|-{0,\y}) -- (\x,\y) node[pos=0,left]{$f(x_\m)$};
        
   % Etiquetas
-  \path(4,3) node[anchor=north west,align=left]{
-    $x_\mm=\x$};
-  \pgfmathsetmacro\iter{int(\mm+1)}
-  \path(6,4) node[circle,draw=white,anchor=north west,align=left]{
-    \iter};
+  \path(4,2) node[anchor=north west,align=left]{
+    {\color{rosa} 1.} $x_\m=\x$};
 
-}}
+  \path(6,4.5) node(Bi)[rectangle,draw=white,anchor=north west]{
+    Iteración \n};
+  \path(Bi.south) node[anchor=north]{
+    $\epsilon_T=0.4$};
 
-\foreach \m in {2,4,...,\N}{
-\only<\m>{
-  \pgfmathsetmacro\mm{int((\m-1)/2)}
-  \pgfmathsetmacro\nn{int(\m/2)}
+
 
   % Tangente
   \pgfmathsetmacro\x{\globalxa}
@@ -85,18 +69,18 @@
   \draw[color=celeste, domain=-3:3, yrange=-4:4] plot[smooth,id=parabola] function{(x-\x)*\a+\y};
 
   \pgfmathsetmacro\xx{-\y/\a+\x}
-  \fill[celeste] (\xx,0) circle(0.1cm) node[above]{$x_\nn$};
+  \fill[celeste] (\xx,0) circle(0.1cm) node[above]{$x_\n$};
   \global\let\globalxa=\xx
 
   % Etiquetas
   \path(4,0.5) node[anchor=west,align=left]{
-    $x_\nn=\xx$};
+    {\color{rosa} 2.} $x_\n=\xx$};
  
   % Distancia
   \pgfmathsetmacro\d{abs(\x-\xx)}
-  \path(4,-2) node[anchor=south west,align=left]{
-    Convergencia: ($\epsilon=0.4$)\\
-    $\left|x_\mm-x_\nn\right|=\d$
+  \path(4,-1.8) node[anchor=south west,align=left]{
+    {\color{rosa} 3.} Convergencia:\\
+    $\left|x_\m-x_\n\right|=\d$
   };        
 
 }

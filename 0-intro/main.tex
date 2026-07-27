@@ -22,8 +22,8 @@
 \path(cp) ++(3,0) node(I)[]{\includegraphics[width=5cm]{ideogram/cover.png}};
 \path(c2|-I.north) ++(0,-1) node(A)[anchor=north,align=left]{
   \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
-  % \color{celeste} \textbf{2024}\\[2mm]  
-  \color{celeste} \textit{Agosto 5, 2024}
+  % \color{celeste} \textbf{2025}\\[2mm]  
+  \color{celeste} \textit{Agosto 4, 2025}
 };
 \normalsize
 \path(A.west|-I.south) ++(0,1) node(B)[anchor=south west,align=left]{
@@ -31,13 +31,85 @@
 \includegraphics[width=3cm]{logos/DQTC_orange.png}};
  
 \path(I.south east) ++(0,.2) node[anchor=north east]{
-  \tiny hecho con \href{https://ideogram.ai/g/D3j2DRuIR7W-Qz3f-qOLVg/1}{ideogram}};
+  \tiny hecho con ideogram \zlink{https://ideogram.ai/g/D3j2DRuIR7W-Qz3f-qOLVg/1}};
                         
 \end{zframe}
 
 \renewcommand\CC{
-  \path(se) node[anchor=south east]{\tiny\color{gray} MC2024 - S.A.Paz};}
+  \path(se) node[anchor=south east]{\tiny\color{gray} MC2025 - S.A.Paz};}
+               
 
+% \begin{zframe}{
+%   itema/.style={anchor=north west},
+%   itemb/.style={anchor=north west, text
+%     width=.9\textwidth,
+%     align=justify,
+%     text=white,
+%     font={\baselineskip=3.6mm}}}
+% \path(t-|np) ++(0.,0.6) node(T)[inner sep=4,anchor=north,verde]{\Large\textbf{Primera parte\ldots}};
+%
+% \scriptsize
+%
+% \colorlet{teorico}{celeste!30}
+% \colorlet{practico}{verde!30}
+% \colorlet{teorico2}{celeste!80}
+% \colorlet{practico2}{verde!80}
+% \definecolor{gris}{gray}{0.95}
+% \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+% \renewcommand{\arraystretch}{1.4}
+%
+% % Colores intercalados por fila
+% % \definecolor{azulclaro}{RGB}{224,235,255}
+% % \rowcolors{3}{azulclaro}{white}
+%
+%                              
+% \path(hl) ++(.7,0) node(A){\color{black}\tiny
+%   \begin{tabularx}{.6\textwidth}{|>{\columncolor{teorico}}c|>{\columncolor{teorico}}Y|}
+%   \hline
+%   \multicolumn{2}{|>{\columncolor{teorico2}}c|}{\textbf{TEÓRICOS}} \\
+%   \multicolumn{2}{|>{\columncolor{teorico2}}c|}{ Lunes y Miércoles 8:15 a 9:30} \\
+%   \multicolumn{2}{|>{\columncolor{teorico2}}c|}{\textit{Aula DQTC}} \\
+%   \hline
+%   \hline
+%   04/08 & Introducción a la materia \\
+%   06/08 & Operaciones Matemáticas Básicas: raíces \\
+%   11/08 & Operaciones Matemáticas Básicas: derivada \\
+%   13/08 & Operaciones Matemáticas Básicas: cuadratura \\
+%   18/08 & Operaciones Matemáticas Básicas: simplex \\
+%   20/08 & Ecuaciones Diferenciales Ordinarias \\
+%   25/08 & Ecuaciones Diferenciales Ordinarias(2) \\
+%   27/08 & Métodos con valores en el contorno \\
+%   01/09 & Métodos con valores en el contorno(2) \\
+%   03/09 & Métodos con valores en el contorno(3) \\
+%   08/09 & Problemas de autovalores \\
+%   10/09 & Problemas de autovalores(2) \\
+%   15/09 & \sout{Introducción Mecánica Estadística} \\
+%   17/09 & ¿Consulta? 1er Parcial \\
+%   \hline
+%   \end{tabularx}
+% };
+%                             
+% \path(hr) ++(.5,0) node{\color{black}\tiny
+%   \begin{tabularx}{.4\textwidth}{|>{\columncolor{practico}}c|>{\columncolor{practico}}Y|}
+%   \hline
+%   \multicolumn{2}{>{\columncolor{practico2}}c|}{\textbf{PRÁCTICOS}} \\
+%   \multicolumn{2}{>{\columncolor{practico2}}c|}{Jueves 9:00 a 12:00} \\
+%   \multicolumn{2}{>{\columncolor{practico2}}c|}{\textit{Lab 209 – Edificio Integrador}} \\
+%   \hline
+%   \hline
+% 07/08 & NO HAY CLASE \\
+% 14/08 & \sout{¿Consulta? Lenguaje de programación} \\\hline
+% 21/08 & TP1: Operaciones Matemáticas Básicas \\
+% 28/08 & \\\hline
+% 04/09& TP2: Ecuaciones Diferenciales Ordinarias \\   
+% 11/09 & TP3: Autovalores y dinámica cuántica. \\     
+% 18/09 & ¿Consulta? 1er Parcial \\
+%   \hline
+%   \end{tabularx}
+% };
+%
+% \end{zframe}
+      
 \begin{zframe}{
   itema/.style={anchor=north west},
   itemb/.style={anchor=north west, text
@@ -45,7 +117,7 @@
     align=justify,
     text=white,
     font={\baselineskip=3.6mm}}}
-\path(t-|np) ++(0.,0.6) node(inv)[inner sep=4,anchor=north,verde]{\Large\textbf{Sobre la materia\ldots}};
+\path(t-|np) ++(0.,0.8) node(T)[inner sep=4,anchor=north,verde]{\Large\textbf{Sobre la materia\ldots}};
 
 \scriptsize
 % \path(nw) ++(.2,-.1) node(A)[enum]{
@@ -56,7 +128,7 @@
 % \end{tabularx}
 % };
 
-\path(np) ++(.0,-1.5) node{19 teóricos (24hs) / 9 prácticos (36h)};
+\path(np) ++(.0,-1.5) node{\large 22 teóricos (1h) + 2 consultas (1h) / 12 prácticos (3h)};
 
 \path(nw) ++(.17,-2.2) node(itema)[itema]{\color{mcgreen} \textbf{Objetivos:}};
 \path(itema.north east) ++(.0,.0) node(itemb)[itemb]{
@@ -83,6 +155,226 @@ básica de Monte Carlo.
 
 \end{zframe}
 
+% \begin{zframe}{}
+% \path(hl) ++(-2,0) node(A)[rotate=90]{\Large\bf Cronograma};
+% \path(cp) ++(0,0.) node{\includegraphics[width=8cm]{cronograma.png}};
+% \end{zframe}
+\begin{zframe}{}
+\path(t-|np) ++(0.,0.8) node(T)[inner sep=4,anchor=north,verde]{\Large\textbf{Moodle} \zlink{https://distancia.fcq.unc.edu.ar/course/view.php?id=260}};
+\path(cp) ++(0,-.5) node{\includegraphics[width=\textwidth]{moodle.png}};
+\end{zframe} 
+ 
+\begin{zframe}{}
+
+\path(t-|np) ++(0.,0.8) node(T)[inner sep=4,anchor=north,verde]{\Large\textbf{Profes}};
+\path<1>(c2) ++(0,-1) node(A){\includegraphics[width=4cm]{gente/io.png}};
+\path<2>(c2) ++(0,-1) node(A){\includegraphics[width=4cm]{ai/io.png}};
+\path(c3) ++(0,1.5) node[rotate=10]{\includegraphics[width=5cm]{gente/warning.png}};
+
+\path(c1) ++(0,-1) node(A){\includegraphics[width=4cm]{gente/natha.png}};
+\path(c4) ++(0,1.5) node[rotate=-10]{\includegraphics[width=5cm]{gente/warning.png}};
+% \path(c4) ++(0,1) node[]{Jueves de 9 a 13hs.};
+
+\path(vl) ++(0,1) node[]{\includegraphics[width=1.5cm]{gente/siren.png}};
+
+\path<2>(c3) ++(0,0) node(A){\includegraphics[width=4cm]{ai/chatGPT.png}};
+
+\end{zframe}
+          
+\begin{zframe}{}
+\path(t-|np) ++(0.,0.8) node(T)[inner sep=4,anchor=north,verde]{\Large\textbf{ChatGPT}};
+\path<1>(cp) ++(0,-.5) node{\includegraphics[width=\textwidth]{ai/gpt_IA.png}};
+\path<2>(cp) ++(0,-.5) node{\includegraphics[width=\textwidth]{ai/gpt_Estabilidad.png}};
+
+\path<3>(cp) ++(0,-.5) node{\includegraphics[width=\textwidth]{ai/gpt_DM.png}};
+\path<3>(nw) ++(.05,-.05) node(I)[anchor=north west]{\includegraphics[width=5cm]{ai/elefante.png}};
+\path<3>(I.south west) ++(0,.2) node[anchor=north west,fill=black,fill opacity=0.2,text opacity=1]{
+  \tiny hecho con ideogram \zlink{https://ideogram.ai/g/r2NE-GhUTASwqX56OIDo-g/2}};
+
+% \path<3>(cp) ++(0,-.5) node{\includegraphics[width=\textwidth]{ai/gpt_formatos.png}};
+\path<4>(cp) ++(0,-.5) node{\includegraphics[width=\textwidth]{ai/gpt_fe.png}};
+\path<5>(cp) ++(0,-.5) node{\includegraphics[width=\textwidth]{ai/gpt_fe2.png}};
+ 
+\path<4-5>(nw) ++(.05,-.05) node(I)[anchor=north west]{\includegraphics[width=4cm]{ai/chatGPT.png}};
+\path<4-5>(I.south) ++(-.4,.4) node[anchor=north,rotate=10]{\includegraphics[width=4.5cm]{gente/warning.png}};
+
+\path<6>(cp) ++(0,-.5) node{\includegraphics[width=\textwidth]{ai/gpt_warning.png}};
+\path<7>(cp) ++(0,-.5) node{\includegraphics[width=\textwidth]{ai/gpt_warning2.png}};
+\path<6->(nw) ++(.05,-.05) node(I)[anchor=north west]{\includegraphics[width=4.5cm]{ai/feliz.png}};
+\path<6->(I.south west) ++(0,.2) node[anchor=north west,fill=black,fill opacity=0.2,text opacity=1]{
+  \tiny hecho con ideogram \zlink{https://ideogram.ai/g/UVyU29bGRdq5OCYofGUBXg/1}};
+ 
+\end{zframe}
+           
+\begin{zframe}{}
+\path(t-|np) ++(0.,0.6) node(T)[inner sep=4,anchor=north,verde]{\Large\textbf{ChatGPT y muchas más}};
+\path<1>(cp) ++(0,-.5) node{\includegraphics[width=\textwidth]{ai/deepseek.png}};
+\path<2>(cp) ++(0,0) node(I){\includegraphics[width=0.6\textwidth]{ai/idiogram.png }};
+\path<2>(I.south west) ++(0,.2) node[anchor=north west]{
+  \large hecho con ideogram \zlink{https://ideogram.ai/g/_mYRBsf1SOW6uyvPn5d60A/1}};
+\end{zframe}
+
+               
+\begin{zframe}{}
+
+\path(t-|np) ++(0.,0.8) node(T)[inner sep=4,anchor=north,verde]{\Large Métodos Computacionales $\implies$ \textbf{Programar}};
+\path(hl) ++(-.9,0) node(A){\includegraphics[width=3.5cm]{meme1.png}};
+\path(vl) ++(2,0) node(A){\includegraphics[width=8cm]{landau/fig2a.png}};
+\path(c1) ++(-2.8,-.1) node(A){\includegraphics[width=4cm]{landau/fig2b.png}};  
+\path(c1) ++(1.8,-.9) node(A)[rotate=-10]{\includegraphics[width=2.8cm]{bib/Landau.png}};
+
+\end{zframe}  
+
+\begin{zframe}{}
+
+\path(c2) ++(0,-.5) node(A){\includegraphics[width=4cm]{gente/io.png}};
+\path(A.north east) ++(.1,.1) node[anchor=north east]{\includegraphics[width=1cm]{logos/fortran.png}};
+
+\path(c1) ++(0,-.5) node(A){\includegraphics[width=4cm]{gente/natha.png}};
+\path(A.north east) ++(.1,.1) node[anchor=north east]{\includegraphics[width=1cm]{logos/python.png}};
+
+\path(vl) ++(0,0) node(A){\includegraphics[width=4cm]{ai/chatGPT.png}};
+\path(A.north east) ++(.5,.1) node[anchor=north east]{\includegraphics[width=2cm]{aleph.png}};
+
+\end{zframe}
+      
+
+\begin{zframe}{}
+
+\path(c2) ++(1,-2) node(A){\includegraphics[width=4cm]{humor/perroferoz.png}};
+\path(A.north) ++(.1,.1) node[anchor=south]{Fortran};
+\path(A.south) ++(.1,.1) node[anchor=north,align=center]{Puedo reventar la \\ computadora en 10 líneas.};
+
+\path(c1|-A.south) ++(-1,0) node(A)[anchor=south]{\includegraphics[width=2cm]{humor/perrito.png}};
+\path(A.north) ++(.1,.1) node[anchor=south]{Python};
+\path(A.south) ++(.1,.1) node[anchor=north,align=center]{Necesito una libreria \\ para hacer 2+2.};
+
+\end{zframe}
+
+
+\begin{zframe}{}
+
+% \path(c1) ++(0,2) node(A)[anchor=north]{\includegraphics[width=4cm]{fortran_logo.png}};
+
+\path(hl) ++(0,-.4) node(A)[text width=5.5cm]{\inputminted{fortran}{code/rxp.f90}};
+\path(A.west) ++(0,0) node[anchor=west,opacity=0.06]{\includegraphics[width=5.5cm]{logos/fortran.png}};
+\path(A.north)  node(C){\large Fortran};
+
+\path(hr) ++(0,0) node(A)[text width=5cm]{\inputminted{python}{code/rxp.py}};
+\path(A.west) ++(0,0) node[anchor=west,opacity=0.1]{\includegraphics[width=5cm]{logos/python.png}};
+\path(A.north|-C)  node{\large Python};
+
+\end{zframe}
+
+
+\begin{zframe}{}
+
+% \path(c1) ++(0,2) node(A)[anchor=north]{\includegraphics[width=4cm]{fortran_logo.png}};
+
+\path(cp) ++(-.5,-0.5) node(A)[align=left,text width=5.5cm]{\inputminted{bash}{code/rxp.sh}};
+\path(A.west) ++(0,0) node[anchor=west,opacity=0.06]{\includegraphics[width=5.5cm]{logos/bash.png}};
+
+\draw[<-,thick](A.north) ++(-1.5,-.5) -- ++(0,1) node[above]{Compilo};
+\draw[<-,thick](A.west) ++(0,1.6) -- ++(-.4,0) node[left]{Ejecuto};
+\draw[<-,thick](A.west) ++(0,-.4) -- ++(-.4,0) node[left,align=right]{Ejecuto\\s/compilar};
+
+\end{zframe}
+
+\begin{zframe}{}
+
+% \path(c1) ++(0,2) node(A)[anchor=north]{\includegraphics[width=4cm]{fortran_logo.png}};
+
+\path(hl) ++(-.1,-.4) node(A)[text width=5.5cm]{\inputminted{fortran}{code/rxp.f90}};
+\path(A.west) ++(0,0) node[anchor=west,opacity=0.06]{\includegraphics[width=5.5cm]{logos/fortran.png}};
+\path(A.north)  node(C){\large Fortran};
+
+\path(cp) ++(-2,-.5) node(A)[draw=lila,fill=black,text width=5cm]{\\[2.5ex]\inputminted[bgcolor=black]{python}{code/rxp.py}};
+\path(A.west) ++(0,0) node[anchor=west,opacity=0.1]{\includegraphics[width=5cm]{logos/python.png}};
+\path(A.north)  node[anchor=north]{\large Python};
+
+\path(hr) ++(.3,.5) node(A)[draw=naranja,text width=5cm]{\vspace{3mm}\inputminted{python}{code/rxp2.py}};
+\path(A.west) ++(0,0) node[anchor=west,opacity=0.1]{\includegraphics[width=5cm]{logos/python.png}};
+\path(A.north)  node[anchor=north]{\large NumPy };
+
+\path<2>(A.south) ++(0.1,-.3) node(A)[anchor=north,align=left]{
+\tt\scriptsize real \hspace{2mm}   0m8.124s\\[-2mm]
+\tt\scriptsize user \hspace{2mm}   0m6.690s\\[-2mm]
+\tt\scriptsize sys\ \   \hspace{2mm}   0m1.418s
+};
+
+
+\end{zframe}
+
+\begin{zframe}{}
+
+\path(t-|c1) ++(0,.3) node(A){Python};
+\path(A.south) ++(0,-.1) node(B)[anchor=north]{\includegraphics[width=3cm]{python_tools.png}};
+\path(B.south) ++(0,-.1) node(C)[anchor=north,align=left,text width=6cm]{
+  \begin{itemize}
+   \item[\color{lila}$\bullet$]  1991 $\rightarrow$ 2024.\\
+   \item[\color{lila}$\bullet$]  Alto nivel. Interpretado.\\
+   % \item[\color{lila}$\bullet$]  Multiparadigma, tipado dinámico, etc.\\
+   \item[\color{lila}$\bullet$]  Uso extendido. Legible y ``simple''.\\
+   \item[\color{lila}$\bullet$]  Comunidad $\implies$ librerías.
+  \end{itemize}
+};
+ 
+\path(A-|c2) node{Fortran};
+\path(B-|c2) node{\includegraphics[width=4cm]{fortran_tool.png}};
+\path(C.north-|c2) node[anchor=north,align=left,text width=6cm]{
+  \begin{itemize}
+   \item[\color{lila}$\bullet$]  1957 $\rightarrow$ 2023. Retrocompatible.
+   \item[\color{lila}$\bullet$]  Bajo nivel. Compilado.\\
+   % \item[\color{lila}$\bullet$]  Modular, orientado a objetos, parallelo, etc.\\
+   \item[\color{lila}$\bullet$]  HPC (Computación de Alto Rendimiento).\\
+   \item[\color{lila}$\bullet$]  Fuente de LAPACK, NumPy, SciPy, etc.
+  \end{itemize}
+};
+         
+\end{zframe}
+       
+\begin{zframe}{}
+
+\path(t) ++(0.,0.) node[inner sep=4,anchor=west,verde]{\Large\textbf{Hay más\ldots}};
+\path(cp) ++(100:3.5)  node{\includegraphics[width=2cm]{logos/fortran.png}};
+\path(cp) ++(150:2.2) node{\includegraphics[width=2cm]{logos/python.png}};
+\path(cp) ++(180:4.3) node{\includegraphics[width=2cm]{logos/C.png}};
+\path(cp) ++(-90:3.8) node{\includegraphics[width=3cm]{logos/latex.png}};
+\path(cp) ++(-140:5.8) node{\includegraphics[width=2cm]{logos/R.png}};
+\path(cp) ++(-140:3.2) node[inner sep=5,fill=white]{\includegraphics[width=2cm]{logos/julia.png}};
+\path(cp) ++(-45:1.0)  node[inner sep=5,fill=white]{\includegraphics[width=3cm]{logos/bash2.png}};
+\path(cp) ++(-45:4.5) node{\includegraphics[width=3.5cm]{logos/tcl.png}};
+\path(cp) ++(-10:5) node[inner sep=1,fill=white,align=center]{\includegraphics[width=2cm]{logos/gnuplot.png}\\[-1mm]\color{black}GNUplot}; 
+\path(cp) ++(50:4.1)  node{\includegraphics[width=2.2cm]{logos/makefile.png}};
+\path(cp) ++(15:4.)  node{\includegraphics[width=3.8cm]{logos/meson.png}};
+         
+\end{zframe}
+                     
+\begin{zframe}{}
+
+\path<1>(t-|np) ++(-.4,0.8) node(T)[inner sep=4,anchor=north,verde]{\Large Métodos Computacionales};
+\path<1>(cp) ++(0,-.5) node(A){\includegraphics[width=\textwidth]{landau/fig1.png}};
+\path<1>(ne) ++(-.4,-.1) node(A)[anchor=north east,rotate=10]{\includegraphics[width=3cm]{bib/Landau.png}};
+
+\path<2->(cp) ++(0,0) node(A){\includegraphics[width=\textwidth]{landau/fig3.png}};
+\path<3>(hl) ++(.5,.7) node(A)[red,rectangle,ultra thick,draw,minimum width=3ex]{};
+
+\draw<3>[<->,red,thick](A) -- +(-40:3);
+\draw<3>[<->,red,thick](A) -- +(-20:3);
+\draw<3>[<->,red,thick](A) -- +(0:3);
+\draw<3>[<->,red,thick](A) -- +(20:3);
+\draw<3>[<->,red,thick](A) -- +(40:3);
+ 
+\draw<3>[<->,shorten <=1mm,red,thick](A) -- +(-50:6);
+\draw<3>[<->,shorten <=1mm,red,thick](A) -- +(-30:7);
+\draw<3>[<->,shorten <=1mm,red,thick](A) -- +(-10:7);
+\draw<3>[<->,shorten <=1mm,red,thick](A) -- +(0:7);
+\draw<3>[<->,shorten <=1mm,red,thick](A) -- +(10:7);
+\draw<3>[<->,shorten <=1mm,red,thick](A) -- +(30:5);
+ 
+
+\end{zframe}  
+      
 \begin{zframe}{
   itema/.style={anchor=north west},
   itemb/.style={anchor=north west, text
@@ -90,7 +382,7 @@ básica de Monte Carlo.
     align=justify,
     text=white,
     font={\baselineskip=3.6mm}}}
-\path(t-|np) ++(0.,0.6) node(inv)[inner sep=4,anchor=north,verde]{\Large\textbf{Programa}};
+\path(t-|np) ++(0.,0.6) node(T)[inner sep=4,anchor=north,verde]{\Large\textbf{Programa}};
 
 \scriptsize
 % \path(nw) ++(.2,-.1) node(A)[enum]{
@@ -191,7 +483,9 @@ básica de Monte Carlo.
 \end{tikzpicture}
 \end{frame}
 
-
+                          
+\againframe<2>{teorias}
+    
 \begin{zframe}{}
 \path(t-|np) ++(0,.2) node(A){\Large\bf Bibliografía};
 \path(cp) ++(-1.3,0.) node[rotate=8]{\includegraphics[width=4cm]{bib/Koonin.png}};
@@ -200,123 +494,7 @@ básica de Monte Carlo.
 \path(c3) ++(-1.5,0) node[rotate=0]{\includegraphics[width=2.5cm]{bib/Allen.png}};
 \path(c1) ++(1.5,0) node[rotate=0]{\includegraphics[width=2.5cm]{bib/Landau.png}};
 \path(c2) ++(-1.5,0) node[rotate=0]{\includegraphics[width=2.5cm]{bib/Hill.png}};
+\path(sp) ++(0,.1) node[anchor=south]{\includegraphics[width=2.5cm]{safe.png}};
 \end{zframe}
- 
-\begin{zframe}{}
-\path(hl) ++(-2,0) node(A)[rotate=90]{\Large\bf Cronograma};
-\path(cp) ++(0,0.) node{\includegraphics[width=8cm]{cronograma.png}};
-\end{zframe}
-                
-\begin{zframe}{}
-
-\path(c2) ++(0,-1) node(A){\includegraphics[width=4cm]{gente/io.png}};
-\path(A.north east) ++(.1,.1) node[anchor=north east]{\includegraphics[width=1cm]{logos/fortran.png}};
-\path(c3) ++(0,.5) node[rotate=10]{\includegraphics[width=5cm]{gente/warning.png}};
-
-\path(c1) ++(0,-1) node(A){\includegraphics[width=4cm]{gente/natha.png}};
-\path(A.north east) ++(.1,.1) node[anchor=north east]{\includegraphics[width=1cm]{logos/python.png}};
-\path(c4) ++(0,.5) node[rotate=-10]{\includegraphics[width=5cm]{gente/warning.png}};
-% \path(c4) ++(0,1) node[]{Jueves de 9 a 13hs.};
-
-\path(vl) ++(0,-1) node[]{\includegraphics[width=1.5cm]{gente/siren.png}};
-
-\end{zframe}
-
-
-\begin{zframe}{}
-
-\path(c2) ++(1,-2) node(A){\includegraphics[width=4cm]{humor/perroferoz.png}};
-\path(A.north) ++(.1,.1) node[anchor=south]{Fortran};
-\path(A.south) ++(.1,.1) node[anchor=north,align=center]{Puedo reventar la \\ computadora en 10 líneas.};
-
-\path(c1|-A.south) ++(-1,0) node(A)[anchor=south]{\includegraphics[width=2cm]{humor/perrito.png}};
-\path(A.north) ++(.1,.1) node[anchor=south]{Python};
-\path(A.south) ++(.1,.1) node[anchor=north,align=center]{Necesito una libreria \\ para hacer 2+2.};
-
-\end{zframe}
-
-
-\begin{zframe}{}
-
-% \path(c1) ++(0,2) node(A)[anchor=north]{\includegraphics[width=4cm]{fortran_logo.png}};
-
-\path(hl) ++(0,-.4) node(A)[text width=5.5cm]{\inputminted{fortran}{code/rxp.f90}};
-\path(A.west) ++(0,0) node[anchor=west,opacity=0.06]{\includegraphics[width=5.5cm]{logos/fortran.png}};
-\path(A.north)  node(C){\large Fortran};
-
-\path(hr) ++(0,0) node(A)[text width=5cm]{\inputminted{python}{code/rxp.py}};
-\path(A.west) ++(0,0) node[anchor=west,opacity=0.1]{\includegraphics[width=5cm]{logos/python.png}};
-\path(A.north|-C)  node{\large Python};
-
-\end{zframe}
-
-
-\begin{zframe}{}
-
-% \path(c1) ++(0,2) node(A)[anchor=north]{\includegraphics[width=4cm]{fortran_logo.png}};
-
-\path(cp) ++(-.5,-0.5) node(A)[align=left,text width=5.5cm]{\inputminted{bash}{code/rxp.sh}};
-\path(A.west) ++(0,0) node[anchor=west,opacity=0.06]{\includegraphics[width=5.5cm]{logos/bash.png}};
-
-\draw[<-,thick](A.north) ++(-1.5,-.5) -- ++(0,1) node[above]{Compilo};
-\draw[<-,thick](A.west) ++(0,1.6) -- ++(-.4,0) node[left]{Ejecuto};
-\draw[<-,thick](A.west) ++(0,-.4) -- ++(-.4,0) node[left,align=right]{Ejecuto\\s/compilar};
-
-\end{zframe}
-
-\begin{zframe}{}
-
-% \path(c1) ++(0,2) node(A)[anchor=north]{\includegraphics[width=4cm]{fortran_logo.png}};
-
-\path(hl) ++(-.1,-.4) node(A)[text width=5.5cm]{\inputminted{fortran}{code/rxp.f90}};
-\path(A.west) ++(0,0) node[anchor=west,opacity=0.06]{\includegraphics[width=5.5cm]{logos/fortran.png}};
-\path(A.north)  node(C){\large Fortran};
-
-\path(cp) ++(-2,-.5) node(A)[draw=lila,fill=black,text width=5cm]{\inputminted[bgcolor=black]{python}{code/rxp.py}};
-\path(A.west) ++(0,0) node[anchor=west,opacity=0.1]{\includegraphics[width=5cm]{logos/python.png}};
-\path(A.north)  node[anchor=north]{\large Python};
-
-\path(hr) ++(.3,.5) node(A)[draw=naranja,text width=5cm]{\vspace{3mm}\inputminted{python}{code/rxp2.py}};
-\path(A.west) ++(0,0) node[anchor=west,opacity=0.1]{\includegraphics[width=5cm]{logos/python.png}};
-\path(A.north)  node[anchor=north]{\large NumPy };
-
-\path<2>(A.south) ++(0.1,-.3) node(A)[anchor=north,align=left]{
-\tt\scriptsize real \hspace{2mm}   0m8.124s\\[-2mm]
-\tt\scriptsize user \hspace{2mm}   0m6.690s\\[-2mm]
-\tt\scriptsize sys\ \   \hspace{2mm}   0m1.418s
-};
-
-
-\end{zframe}
-
-\begin{zframe}{}
-
-\path(c2) ++(0,-1) node(A){\includegraphics[width=4cm]{fortran_tool.png}};
-\path(A.north) ++(.1,.1) node[anchor=south]{Fortran};
-\path(A.south) ++(0,-.1) node[anchor=north,align=left,text width=5cm]{
-  \begin{itemize}
-   \item[\color{lila}$\bullet$]  1957 (2018).\\
-   \item[\color{lila}$\bullet$]  Compilado.\\
-   % \item[\color{lila}$\bullet$]  Modular, orientado a objetos, parallelo, etc.\\
-   \item[\color{lila}$\bullet$]  Computación de Alto Rendimiento.\\
-   \item[\color{lila}$\bullet$]  Fuente de Numpy, Scipy, LAPACK, etc.
-  \end{itemize}
-};
-
-\path(c1|-A.south) ++(0,0) node(A)[anchor=south]{\includegraphics[width=3cm]{python_tools.png}};
-\path(A.north) ++(.1,.1) node[anchor=south]{Python};
-\path(A.south) ++(0,-.1) node[anchor=north,align=left,text width=5cm]{
-  \begin{itemize}
-   \item[\color{lila}$\bullet$]  1991.\\
-   \item[\color{lila}$\bullet$]  Interpretado.\\
-   % \item[\color{lila}$\bullet$]  Multiparadigma, tipado dinámico, etc.\\
-   \item[\color{lila}$\bullet$]  Legible, simple.\\
-   \item[\color{lila}$\bullet$]  Universo de librerías.
-  \end{itemize}
-};
-
-\end{zframe}
-
-\againframe<2>{teorias}
-
+            
 \end{document}

@@ -1,6 +1,8 @@
 import numpy as np
 
-f = lambda x : np.sin(x)+x
+def f(x):
+    g=np.sin(x)+x
+    return g
 
 a=-1.5; b=1.2; et=0.4
 x=(a+b)/2

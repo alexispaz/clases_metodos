@@ -1,5 +1,8 @@
 \RequirePackage{tikz,pgf}
 
+% Emoticons y similares
+\usepackage{tikzsymbols}
+
 \usepackage{xifthen}
 
 % Fixing the seed
@@ -188,7 +191,16 @@
   %\fill[red](cp|-c1) circle(.1) node[anchor=north]{cp|-c1};
 
 }
- 
+
+% Para extraer las coordenadas del ultimo path
+\makeatletter
+\newcommand{\getlastxy}{%
+  \pgfgetlastxy{\x}{\y}
+  \pgfmathsetmacro{\x}{\x / \pgf@xx}
+  \pgfmathsetmacro{\y}{\y / \pgf@yy}
+}
+\makeatother
+
 
 %\usepackage{eso-pic} % This give absolut positioning in the page:
 %\AddToShipoutPictureBG{}
@@ -282,7 +294,7 @@
 %\usetikzlibrary{fpu} % Float point unit para operar
 \usetikzlibrary{%
 arrows,% Mas flechas que las de pgf
-calc,% Para operar con coordnadas. Por ejemplo: ($(0,1)+(1,0)$) es (1,1) 
+calc,% Operar con coordnadas. e.g. ($(0,1)+(1,0)$)
 fit,%
 patterns,%
 plotmarks,%
@@ -924,7 +936,22 @@ color(20mm)=(pgftransparent!100)%
  
 % Estilos
 % =======
-% Estos estilos son mas portables si se pegan en cada tikzpicture.
+
+\tikzset{
+ texto/.style={anchor=north west,align=center},
+ title/.style={name=title,verde,anchor=west,font={\bfseries\Large\color{bg}}},
+ cuadro/.style={execute at begin node=\setlength{\baselineskip}{4ex},rectangle, rounded corners=1ex,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=left},
+ def/.style={cuadro,draw=amarillo,fill=amarillo},
+ defhead/.style={def,inner sep=4,fill opacity=1,font={\bfseries\color{bg}}},
+ proc/.style={cuadro,draw=verde,fill=verde},
+ prochead/.style={proc,inner sep=4,fill opacity=1,font={\bfseries\color{bg}}},
+ theo/.style={cuadro,draw=naranja,fill=naranja},
+ theohead/.style={theo,inner sep=4,fill opacity=1,font={\bfseries\color{bg}}},
+ alg/.style={cuadro,draw=celeste,fill=celeste},
+ alghead/.style={alg,inner sep=4,fill opacity=1,anchor=west,font={\bfseries\color{bg}}},
+ ej/.style={cuadro,draw=lila,fill=lila},
+ ejhead/.style={ej,inner sep=4,fill opacity=1,anchor=west,font={\bfseries\color{bg}}},
+}
 
 % To avoid pading around figures in nodes with figures
 \tikzset{graphics/.style={inner sep=0,outer sep=0}}
@@ -948,6 +975,9 @@ color(20mm)=(pgftransparent!100)%
 
 % Teorema, definiciones, algoritmos
 \tikzset{
+ texto/.style={anchor=north west,align=center},
+ title/.style={name=title,verde,anchor=west,font={\bfseries\Large\color{bg}}},
+  title/.cd, center/.style={anchor=center,align=center},
  cuadro/.style={execute at begin node=\setlength{\baselineskip}{4ex},rectangle, rounded corners=1ex,fill opacity=0.2,text opacity=1, anchor=north west,inner sep=6,align=left},
  def/.style={cuadro,draw=amarillo,fill=amarillo},
  defhead/.style={def,inner sep=4,fill opacity=1,font={\bfseries\color{bg}}},
@@ -957,6 +987,8 @@ color(20mm)=(pgftransparent!100)%
  theohead/.style={theo,inner sep=4,fill opacity=1,font={\bfseries\color{bg}}},
  alg/.style={cuadro,draw=celeste,fill=celeste},
  alghead/.style={alg,inner sep=4,fill opacity=1,anchor=west,font={\bfseries\color{bg}}},
+ ej/.style={cuadro,draw=lila,fill=lila},
+ ejhead/.style={ej,inner sep=4,fill opacity=1,anchor=west,font={\bfseries\color{bg}}},
 }
 
 \tikzset{cc/.style={anchor=north, inner sep=1, scale=0.8}}

@@ -29,7 +29,7 @@
 \path(c2|-I.north) ++(0,-1) node(A)[anchor=north,align=left]{
   \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
   \color{celeste} \textbf{Mecánica Estadística}\\[2mm]  
-  \color{lila} \textit{Septiembre 9, 2024}
+  \color{lila} \textit{Septiembre 10, 2025}
 };
 \normalsize
 \path(A.west|-I.south) ++(0,1) node(B)[anchor=south west,align=left]{
@@ -41,7 +41,7 @@
 \end{zframe}
 
 \renewcommand\CC{
-  \path(se) node[anchor=south east]{\tiny\color{gray} MC2024 - S.A.Paz};}
+  \path(se) node[anchor=south east]{\tiny\color{gray} MC2025 - S.A.Paz};}
 
          
 \begin{zframe}{}
@@ -49,10 +49,10 @@
 \large    
 
 \path(t) ++(0,0) node(A)[anchor=north west,align=left]{
-  { MECÁNICA}};
+  MECÁNICA \\ (estado microscópico)};
       
 \path(t|-cp) ++(0,0) node(B)[anchor=north west,align=left]{
-  { TERMODINÁMICA} };
+  TERMODINÁMICA \\ (estado macroscópico)};
 
 \draw[->,ultra thick,verde](A.south) -- (A.south|-B.north) 
   node[pos=0.48,left,align=right]{Propiedad\\ Mecánica}
@@ -97,6 +97,10 @@
    |(M)| \& |(N)| \& |(O)| \& |(P)| \\
 };
 
+\path<1,2>(A) node{\includegraphics[width=14mm]{img/kinetics_low_2.png}};
+\path<1,2>(B) ++(0.05,-0.05) node[rotate=180]{\includegraphics[width=12mm]{img/kinetics_low.png}};
+\path<1,2>(E) node[rotate=90]{\includegraphics[width=13mm]{img/kinetics_low.png}};
+
 \fill[block](P.south west) rectangle (P.north east) node[pos=.5]{$\mathcal{N}$};
 \path(L) node{$\vdots$};
 \path(K) node{$\ddots$};
@@ -117,7 +121,7 @@
 \path(B.north west) node[anchor=north west]{$II$};
 \end{zframe}
              
-\begin{zframe}[<2->]{remember picture,
+\begin{zframe}{remember picture,
   block/.style={
 		rectangle, draw, fill=bg,
 		minimum height=4em, minimum width=4em,
@@ -206,13 +210,6 @@ nos permiten realizar un análisis estadístico de dicho conjunto.};
 
 \large    
 
-% \path(t) ++(0,-.5) coordinate(t);
-% \path(t) ++(0,0) node(A)[anchor=north west,text width=11cm,align=left]{
-%   {\color{verde} POSTULADO 1:}\\
-%   El promedio temporal de una propiedad mecánica es igual al promedio de
-%     ensamble de $\mathcal{N}\to\infty$ réplicas con el mismo estado y entorno
-%     termodinámico.
-% };
 \path(t-|np) ++(0,.6) node(T){
   \centerline{\Large\color{verde} Mecánica Estadística}};
 
@@ -299,6 +296,8 @@ ${\ds \rho(\vb{q})=\dfrac{1}{\Omega}}$};
 
 \path<2>(np) ++(0,0) node[celeste,anchor=north]{\LARGE Reservorio a $\mu,P,T$};
 
+\path<2>(mat.south) node[anchor=north,fill=bg,opacity=0.8,text opacity=1]{\Large ¿Cual es la probabilidad de ver un estado?}; 
+
 \draw<3->[ultra thick,naranja,fill=celeste, fill opacity=.3] (A.north west) rectangle (P.south east);
 \path<3->(mat.north) ++(0,0) node[anchor=south]{\LARGE En un instante...};
 
@@ -306,9 +305,9 @@ ${\ds \rho(\vb{q})=\dfrac{1}{\Omega}}$};
 % a un determinado autoestado. Por eso puedo pensar que estan en un
 % determinado autoestado.
 
-\path<3->(mat.south) ++(2,0) node[naranja,anchor=north]{\LARGE Sistema con $N_T,V_T,E_T$}; 
+\path<4->(mat.south) ++(2,0) node[naranja,anchor=north]{\LARGE Gran Sistema con $N_T,V_T,E_T$}; 
 
-\path<3>(sp) ++(0,4) node(xx)[anchor=south,amarillo,fill=bg,draw,thick,inner sep=7,minimum width=3cm]{\Large $\ds H^{(i)}(N,V)$};
+\path<3->(sp) ++(0,4) node(xx)[anchor=south,amarillo,fill=bg,draw,thick,inner sep=7,minimum width=3cm]{\Large $\ds H^{(i)}(N,V)$};
 \path<3>(mat.west) ++(0,0) node[amarillo,anchor=east,align=right]{Cada sistema \\tiene asociado\\ un Hamiltoniano}; 
 
 \draw<3->[<-,amarillo,ultra thick](xx) edge[bend left] (A.center);
@@ -317,48 +316,19 @@ ${\ds \rho(\vb{q})=\dfrac{1}{\Omega}}$};
 \draw<3->[<-,amarillo,ultra thick](xx) edge[bend right] (M.center);
 \draw<3->[<-,amarillo,ultra thick](xx) edge[bend left] (O.center);
 
-\path<4->(sp) ++(0,4) node(xx)[anchor=south,amarillo,fill=bg,draw,thick,inner sep=7]{\Large $\ds H^{(i)}(N,V)\phi^{(i)}_k(N,V)=E^{(i)}_k(N,V)\phi^{(i)}_k(N,V)$};
-\path<4->(mat.west) ++(0,2) node[amarillo,anchor=east,align=right]{Autoestados \\asociados a\\ cada sistema}; 
-
-\path<5->(sp) ++(0,2.2) node[naranja,anchor=south,fill=bg,draw,thick,inner sep=7]{\Large$\ds\psi_j(N,V)=\phi^{I}_{k(j)}(N,V)\phi^{II}_{k(j)}(N,V)\cdots\phi^{\mathcal{N}}_{k(j)}(N,V)$};
-\path<5->(mat.west) ++(0,-3.4) node[naranja,anchor=east,align=right]{Autoestados \\asociados al\\ sistema ensamble}; 
-
-\path<6->(c1) ++(0,-1.7) node[celeste,anchor=south,fill=bg,draw,thick,inner sep=7]{\huge$\ds\Psi=\sum^\Omega c_j\psi_j$ };
+\path<4>(sp) ++(0,2.2) node[naranja,anchor=south,fill=bg,draw,thick,inner sep=7]{\Large $\ds \mathcal{H}(N_T,V_T)=\sum_{i,N,V} H^{(i)}(N,V)$};
+\path<4>(mat.west) ++(-0.4,-1.4) node[naranja,anchor=east,align=right]{Sistemas\\ Independientes}; 
 
 
-\end{zframe}
-       
-\begin{zframe}{ampersand replacement=\&}
+\path<5->(sp) ++(0,4) node[anchor=south,amarillo,fill=bg,draw,thick,inner sep=7]{\Large $\ds H(N,V)\phi_k(N,V)=E_k(N,V)\phi_k(N,V)$};
+\path<5->(mat.west) ++(0,2) node[amarillo,anchor=east,align=right]{Autoestados \\asociados a\\ cada sistema}; 
 
-\Large    
+\path<6->(sp) ++(0,2.2) node[naranja,anchor=south,fill=bg,draw,thick,inner sep=7]{\Large$\ds\psi_j(N_T,V_T)=\phi_{k_I}(N_I,V_I)\phi_{k_{II}}(N_{II},V_{II})\cdots\phi_{k_\mathcal{N}}(N_\mathcal{N},V_\mathcal{N})$};
+\path<6->(mat.west) ++(0,-3.4) node[naranja,anchor=east,align=right]{Autoestados \\asociados al\\ Gran Sistema}; 
 
-% \path(t) ++(0,-.5) coordinate(t);
-     
-% \path(t-|np) ++(0,0) node(A)[anchor=north]{
-%   {\LARGE \color{verde} Ensamble Generalizado ($\mu$,$T$,$P$)}\\
-% };
-      
-        
-\path<1>(cp) ++(0,0) node(X)[fg,align=center,text width=11cm]{
-$\ds n_k(N,V)\rightarrow$ {\color{naranja} Número de estados $\phi$ con $k,N,V$}\\[5mm]
-$\ds\mathbf{n}\rightarrow$ Distribución de $n_k(N,V)$\\[8mm]
-$\left\lbrace \begin{array}{rclc}
-    n_1(V_1,N_1) & n_1(V_2,N_2) &  \hdots \\
-    n_1(V_2,N_2) & n_2(V_2,N_2) &  \hdots \\
-    \vdots       &   \vdots     &  \ddots \\
-\end{array} \right\rbrace = 
-\left\lbrace \begin{array}{rclc}
-    3 & 4 &  \hdots \\
-    2 & 1 &  \hdots \\
-    \vdots       &   \vdots     &  \ddots \\
-\end{array} \right\rbrace $
-  \\[5mm]
-¿Cuantos sistemas se pueden hacer con una cierta $\mathbf{n}$?\\[5mm]
-$\ds\Omega_{\mathbf{n}}=\dfrac{\mathcal{N}!}{\ds\prod_{k,N,V}n_k^{\mathbf{n}}(N,V)!}$\\[5mm]
-};     
+\path<7->(c1) ++(0,-1.7) node[celeste,anchor=south,fill=bg,draw,thick,inner sep=7]{\huge$\ds\Psi=\sum^\Omega c_j\psi_j$ };
 
-\draw[<-,ultra thick,naranja](cp) ++(1.9,.6) -- ++(0,1.1) node[above]{Ejemplo};
-  
+
 \end{zframe}
        
 \begin{zframe}{remember picture,
@@ -428,7 +398,40 @@ $\ds\Omega_{\mathbf{n}}=\dfrac{\mathcal{N}!}{\ds\prod_{k,N,V}n_k^{\mathbf{n}}(N,
 \path(sp) ++(0,.1) node(xx)[celeste,anchor=south,fill=bg,draw,thick,inner sep=7]{\LARGE$\ds\Psi=\sum^\Omega c_j\psi_j$ };
 
 \end{zframe}
-       
+ 
+\begin{zframe}{ampersand replacement=\&}
+
+\Large    
+
+% \path(t) ++(0,-.5) coordinate(t);
+     
+% \path(t-|np) ++(0,0) node(A)[anchor=north]{
+%   {\LARGE \color{verde} Ensamble Generalizado ($\mu$,$T$,$P$)}\\
+% };
+      
+        
+\path<1>(cp) ++(0,0) node(X)[fg,align=center,text width=11cm]{
+$\ds n_k(N,V)\rightarrow$ {\color{naranja} Número de estados $\phi$ con $k,N,V$}\\[5mm]
+$\ds\mathbf{n}\rightarrow$ Distribución de $n_k(N,V)$\\[8mm]
+$\left\lbrace \begin{array}{rclc}
+    n_1(V_1,N_1) & n_2(V_1,N_1) &  \hdots \\
+    n_1(V_2,N_2) & n_2(V_2,N_2) &  \hdots \\
+    \vdots       &   \vdots     &  \ddots \\
+\end{array} \right\rbrace = 
+\left\lbrace \begin{array}{rclc}
+    3 & 4 &  \hdots \\
+    2 & 1 &  \hdots \\
+    \vdots       &   \vdots     &  \ddots \\
+\end{array} \right\rbrace $
+  \\[5mm]
+¿Cuantos sistemas se pueden hacer con una cierta $\mathbf{n}$?\\[5mm]
+$\ds\Omega_{\mathbf{n}}=\dfrac{\mathcal{N}!}{\ds\prod_{k,N,V}n_k^{\mathbf{n}}(N,V)!}$\\[5mm]
+};     
+
+\draw[<-,ultra thick,naranja](cp) ++(1.9,.6) -- ++(0,1.1) node[above]{Ejemplo};
+  
+\end{zframe}
+                
 \begin{zframe}{ampersand replacement=\&}
 \Large
 \path(cp) ++(0,0) node(X)[fg,align=center,text width=11cm]{

@@ -1,0 +1,662 @@
+\documentclass{beamer}
+
+\input{../preambulo/inputenc.tex}
+\input{../preambulo/fuente.tex}
+\input{../preambulo/spanish.tex}
+\input{../preambulo/tikz.tex}
+\input{../preambulo/matematica.tex}
+\input{../preambulo/colors.tex}
+\input{../preambulo/flotantes.tex}
+\input{../preambulo/beamer_zub.tex}
+\input{../preambulo/paquetes.tex}
+\input{../preambulo/macros.tex}
+
+\graphicspath{{../img/}{img/}}
+\framebg{bg/pizarron3.png} 
+\hypersetup{colorlinks=true, urlcolor=azul!40!white}
+
+\begin{document}
+
+\newcommand\CC{}
+
+\begin{zframe}{}% yscale=0.9, % with frametitle
+\path(cp) ++(3,0) node(I)[]{\includegraphics[angle=90,width=6cm]{img/35.png}};
+\path(c2|-I.north) ++(0,-.5) node(A)[anchor=north,align=left]{
+  \color{verde} \large\textbf{Métodos Computacionales}\\[3mm]  
+  \color{celeste} \textbf{Modelado Molecular}\\[2mm]  
+  \color{lila} \textit{Octubre 22, 2025}
+};
+\normalsize
+\path(A.west|-I.south) ++(0,.5) node(B)[anchor=south west,align=left]{
+  S. Alexis Paz\\[5mm]
+\includegraphics[width=3cm]{logos/DQTC_orange.png}};
+
+\path(I.south east) ++(0,0) node[anchor=north east,inner sep=0]{
+  \tiny Bernal \textit{et al.}, \href{https://doi.org/10.1098/rspa.1964.0147}{Proc. Roy. Soc. A 280(1964)16}};
+ 
+\end{zframe}
+
+\renewcommand\CC{
+  \path(se) node[anchor=south east]{\tiny\color{gray} MC2025 - S.A.Paz};}
+
+\begin{zframe}{}
+
+\path(t-|np) ++(-.5,.1) node(last)[def,anchor=north,align=left,text width=10cm]{\\
+Sistema lógico y matemático, construido a partir de un conjunto de postulados y
+conceptos fundamentales, cuyo propósito es explicar y predecir el comportamiento de un
+sistema físico dentro de un determinado dominio de aplicación.};
+\path(last.north west) node(H)[defhead,anchor=west]{Teoría}; 
+                                                        
+\node[zf/text=next,shift={(0,-1)},def,text width=10cm]{\\[1mm]
+  Representación simplificada y controlada de un sistema
+  físico real, construida con el propósito de entender, describir o predecir su
+  comportamiento, ya sea mediante experimentos, análisis matemático o
+  simulación.};
+\path(last.north west) node(H)[defhead,anchor=west]{Modelo}; 
+                                                         
+% \node[zf/text=next,def,text width=10cm]{\\[1mm]
+%   Representación matemática y computacional del sistema físico que se desea
+%   estudiar, construida con el objetivo de describir su comportamiento a nivel
+%   atómico o molecular};
+% \path(last.north west) node(H)[defhead,anchor=west]{Simulación}; 
+                
+\path(ne) ++(.2,-.1) node(last)[anchor=north east,rotate=-10]{\includegraphics[width=2cm]{bib/Cramers.png}};
+\path(last.south) ++(0,.1) node[anchor=north,rotate=10]{\includegraphics[width=2cm]{bib/Allen.png}};
+%
+% \node[zf/text=next, text width=12cm]{
+% Representación matemática y computacional del sistema físico
+% que se desea estudiar, construida con el objetivo de describir su
+% comportamiento a nivel atómico o molecular.};
+
+\end{zframe}
+
+
+\begin{zframe}{yscale=0.9}
+\frametitle{Modelos moleculares}
+
+\path<1>(cp) ++(0,0) node(A){\includegraphics[width=10cm]{33.png}};
+\path<2>(cp) ++(0,0) node(A){\includegraphics[width=10cm]{34.png}};
+\path<3>(cp) ++(0,0) node(A){\includegraphics[width=10cm]{32.png}};
+\path(A.south west) ++(0,0) node[anchor=north west,inner sep=0]{
+  \tiny Bernal \textit{et al.}, \href{https://doi.org/10.1098/rspa.1964.0147}{Proc. Roy. Soc. A 280(1964)16}};
+\end{zframe}
+  
+\begin{zframe}{}
+                          
+\path<1>(cp) ++(0,0) node(A){\includegraphics[width=10cm]{36.png}};
+\path<2>(cp) ++(0,0) node(A){\includegraphics[width=10cm]{37.png}};
+\path(A.south west) ++(0,0) node[anchor=north west,inner sep=0]{
+  \tiny Bernal \textit{et al.}, \href{https://doi.org/10.1098/rspa.1964.0147}{Proc. Roy. Soc. A 280(1964)16}};
+                    
+\end{zframe}
+             
+\begin{zframe}{
+}
+                          
+\path(hl) ++(.5,0) node(A){\includegraphics[width=7cm]{29b.png}};
+\path(A.south west) ++(.1,0) node[anchor=north west,inner sep=0]{
+  \tiny Bernal \textit{et al.}, \href{https://doi.org/10.1098/rspa.1964.0147}{Proc. Roy. Soc. A 280(1964)16}};
+\path(hr) ++(.5,0) node(A){\includegraphics[width=5cm]{31.png}};
+\path(A.south west) ++(.1,0) node[anchor=north west,inner sep=0]{
+  \tiny Bernal \textit{et al.}, \href{https://doi.org/10.1098/rspa.1964.0147}{Proc. Roy. Soc. A 280(1964)16}};
+                    
+\end{zframe}
+ 
+\begin{zframe}{yscale=0.9}
+\frametitle{Mecánica Molecular}
+ 
+\node[zf/text=first,shift={(0,.4)}]{\Large Mecánica Clásica $\rightarrow$ \color{amarillo} Born-Oppenheimer};
+\draw[verde,ultra thick,<-](last.west) -- ++(-.5,0) -- ++(0,.5); 
+
+\node[zf/text=next]{
+${\ds \hat H=\color{celeste}-\sum_{i}\frac {\nabla _{i}^{2}}{2}-\sum_{i,A}\frac {Z_{A}}{r_{iA}}+\sum_{i>j}\frac {1}{r_{ij}}\color{naranja}-\sum_{A}\frac{\nabla _{A}^{2}}{2M_{A}}+\sum_{B>A}\frac {Z_{A}Z_{B}}{R_{AB}}}$\\[2mm]
+${\ds \hat H=\color{celeste}\hat H_e(R,r)\color{naranja}-\sum _{A}{{\frac {\nabla _{A}^{2}}{2M_{A}}}}+\sum _{B>A}{\frac {Z_{A}Z_{B}}{R_{AB}}}}\quad{\ds \Psi(R,r)=\color{celeste}\psi(R,r)\color{naranja}\phi(R)}$
+};
+    
+\node[zf/text=next,shift={(0,.3)},text width=11cm]{
+\begin{align*}
+\ds \text{Schrödinger: }\quad \hat H\Psi(R,r)&=E\Psi(R,r)\\
+\ds {\color{celeste}\psi(R,r)}\ab[{\color{celeste}E_e(R)}{\color{naranja}-\sum _{A}\frac{\nabla_{A}^{2}}{2M_{A}}+\sum_{B>A}\frac {Z_{A}Z_{B}}{R_{AB}}}]{\color{naranja}\phi(R)}&={\color{celeste}\psi(R,r)}E{\color{naranja}\phi(R)}\\
+\ds \ab[ {\color{naranja}-\sum_{A}\frac{\nabla_{A}^{2}}{2M_{A}}}+{\color{verde}U(R)} ]{\color{naranja}\phi(R)}&=E\color{naranja}\phi(R)\\
+\end{align*}
+};
+       
+                   
+\end{zframe} 
+                  
+\begin{zframe}{yscale=0.9}
+\frametitle{Mecánica Molecular}
+                          
+\path(c1) ++(0,0) node(A){\includegraphics[width=4cm]{CAS1.png}};
+\path(c4) ++(0,0) node(A){\includegraphics[width=4cm]{DOS.png}};
+
+\path(hl) ++(.5,0) node(A){\includegraphics[width=6cm]{DSC02426.JPG}};
+                    
+\end{zframe}
+              
+\begin{zframe}{} %yscale=0.9
+
+\path(t) ++(0,0) node(T)[align=left,anchor=north west]{
+{\color{verde} \Large Potencial de a pares:}
+};
+                                
+
+\path(t|-T.south) ++(0,-.1) node(Tx)[align=left,anchor=north west]{
+${\ds U(\vb{r})=\sum_{i}U_{1}(\vb{x_i})+\sum_{i<j}U_{2}(\vb{x_i},\vb{x_j})+\sum_{i<j<k}U_{3}(\vb{x_i},\vb{x_j},\vb{x_k})+\dotsb \label{e_exppot}}$\\[2mm]
+${\ds U(\vb{r})=\sum_{i<j}U_{2}(r_{ij})+\sum_{i<j<k}U_{3}(\vb{r}_{ij},\vb{r}_{jk})+\dotsb \label{e_exppot}}$\\[2mm]
+};
+    
+\path(t|-Tx.south) ++(0,-.2) node(T)[align=left,anchor=north west]{
+\color{celeste}Lennard-Jones\\[2mm] %\cite{Jones1924,Jones1931} %\cite{Rahman1964,Alder1959}
+${\ds U_2(r_{ij})=4\epsilon\ab[\ab(\frac{\sigma}{r_{ij}})^{12}-\ab(\frac{\sigma}{r_{ij}})^{6}]}$
+};
+       
+     
+\path(t|-T.south) ++(0,-.2) node(T)[align=left,anchor=north west]{
+\color{celeste}Morse\\[2mm]
+${\ds U_2(r_{ij})=D_e(1-e^{\alpha(r_{ij}-r_e)})^2-D_e}$
+};
+                               
+\path(cp|-Tx.south) ++(2,-.2) node(T)[align=left,anchor=north west]{
+\color{celeste}Fuerza\\[2mm]
+${\ds \vb{F}_{r_i}=\left.\nabla_{r_i} U_2(r_{ij})\right|_{r1}}$\\[2mm]
+${\ds \quad=\pdv{U_2(r_{ij})}{r_{ij}}\nabla_{r_i}r_{ij}}$\\[2mm]
+${\ds \quad=\pdv{U_2(r_{ij})}{r_{ij}}\vu{r}_{ij}}$
+};
+                     
+\end{zframe} 
+         
+\begin{zframe}{} %yscale=0.9
+
+\path(t) ++(0,0) node(T)[align=left,anchor=north west]{
+{\color{verde} \Large Campo de Fuerzas:}
+};
+                                
+\path(t|-T.south) ++(-.2,-.2) node(T)[align=left,anchor=north west]{
+\color{celeste}Hill (1942)\\[2mm]
+${\ds U\ab(\ab\{r_{ij}\}, \ab\{d\}, \ab\{\phi\})=U^{\text{LJ}}_2(r_{ij}) + \sum_{d} k_d\ab(d-d_{eq})^2 + \sum_{\phi} k_\phi\ab(\phi-\phi_{eq})^2}$
+};
+
+\path(t|-T.south) ++(-.2,-.2) node(T)[align=left,anchor=north west]{
+\color{celeste}OPLS (1984)\\[2mm]
+${\ds U\ab(\ab\{r_{ij}\},\ab\{d\},\ab\{\phi\},\ab\{\theta\})=\sum_{i<j}f_{ij}\ab(\frac{q_iq_je_0^2}{r_{ij}}+U^{\text{LJ}}_2(r_{ij}))}$ \\[2mm]
+${\ds +\sum_{d} k_d\left(d-d_{eq}\right)^2 + \sum_{\phi} k_\phi\left(\phi-\phi_{eq}\right)^2 + \sum_{\theta} \sum_{j=0}^{5} C_j\cos^j(\theta)}$
+};
+   
+\path(t|-T.south) ++(-.2,-.2) node(T)[align=left,anchor=north west]{
+\color{celeste}CHARMM, GROMOS, AMBER, Tersoff, ReaxFF, \ldots
+};
+
+\path(ep) ++(1.2,-.5) node(A)[anchor=east]{\includegraphics[angle=150,width=5.6cm]{dihedrals.png}};
+                   
+\end{zframe} 
+           
+\begin{zframe}{} %yscale=0.9
+
+\path(t) ++(0,0) node(T)[align=left,anchor=north west]{
+{\color{verde} \Large Muchos Cuerpos:}
+};
+                                
+\path(t|-T.south) ++(-.2,-.2) node(T)[align=left,anchor=north west]{
+\color{celeste}El método del átomo embebido, EAM (1984)\\[2mm]
+${\ds  U(\vb{r})=\frac{1}{2}\sum_{i<j}U_2(r_{ij})+\sum_{i}E_i\ab(\rho_i\ab(\ab\{r_{ij}\}))}$
+};
+
+\path(t|-T.south) ++(1,-.2) node(T)[align=left,anchor=north west]{
+${\rho_i=\sum_{j\neq i}\psi_j\ab(r_{ij})}$
+};
+                   
+           
+\path(vl) ++(0,0) node(A){\includegraphics[width=9cm]{SS_rot.png}};
+\path(c1) ++(.3,-.7) node(A){\includegraphics[width=5cm]{F4_PCCP.png}};
+                    
+\end{zframe}
+            
+\begin{zframe}{}
+         
+\path<-2>(t) ++(0,.5) node(T)[align=left,anchor=north west]{
+{\color{verde} \Large Lista de Vecinos}
+};                                    
+                           
+\path<-2>(t-|c1) ++(0,.5) node(T)[align=left,anchor=north west]{
+\color{celeste} Escalea con $N^{2}$
+};                                    
+          
+\path<3->(t) ++(0,.5) node(T)[align=left,anchor=north west]{
+{\color{verde} \Large Lista de Vecinos - Verlet}
+};                                    
+                          
+\path<3->(t-|c1) ++(0,.5) node(T)[align=left,anchor=north west]{
+\color{celeste} Escalea con $N^{5/3}$
+};                                    
+                  
+\path<4->(2.2,1) node[align=left]{Actualizo si por ejemplo\\$\max\ab(\ab|r_n-r_0|)>d/2$};
+
+\path(5,2) coordinate(scope);
+\begin{scope}[x=1cm,y=1cm,amarillo,shift=(scope),thick]
+
+% % Definir
+% \path(0,0) coordinate(O);
+% \path(5,5) coordinate(K1);          % Esquina del cuadrante 1
+% \path(K1-|{(0,5)}) coordinate(K2); % Esquina del cuadrante 2
+% \path(K2|-{(0,0)}) coordinate(K3); % Esquina del cuadrante 3
+%
+% % Emergentes
+% \path(K3-|K1) coordinate(K4);       % Esquina del cuadrante 4
+% \path(O-|K1) coordinate(xp);       % Punta de eje +x
+% \path(O-|K2) coordinate(xn);       % Punta de eje -x
+% \path(O|-K1) coordinate(yp);       % Punta de eje +y
+% \path(O|-K3) coordinate(yn);       % Punta de eje -y
+
+
+% grid
+% \draw[ystep=5, xstep=5, celeste] (K3) grid (K1);
+
+\fill(-3,3)  circle(.1) coordinate(V);
+\fill(2,2)  circle(.1) coordinate(W);
+\fill(1,.2) circle(.1) coordinate(X);
+\fill(3,4)  circle(.1) coordinate(Y);
+\fill(3.6,.7)  circle(.1) coordinate(Z);
+     
+\draw[dashed](V) circle(1);
+\draw[dashed](W) circle(1);
+\draw[dashed](X) circle(1);
+\draw[dashed](Y) circle(1);
+\draw[dashed](Z) circle(1);
+\draw[thick](V) -- ++(20:1) node[pos=.5,above]{$\sigma$};
+\draw<2->[rojo,thick](V) -- ++(120:2.5) node[pos=.5,above right]{$r_{\text{cut}}$};
+\draw<3->[lila,thick](V) -- ++(-90:3) node[pos=.5,right]{$d$};
+             
+\draw<2->[rojo,dashed](V) circle(2.5);
+\draw<2->[rojo,dashed](W) circle(2.5);
+\draw<2->[rojo,dashed](X) circle(2.5);
+\draw<2->[rojo,dashed](Y) circle(2.5);
+\draw<2->[rojo,dashed](Z) circle(2.5);
+                 
+\draw<3->[lila,dashed](V) circle(3);
+\draw<3->[lila,dashed](W) circle(3);
+\draw<3->[lila,dashed](X) circle(3);
+\draw<3->[lila,dashed](Y) circle(3);
+\draw<3->[lila,dashed](Z) circle(3);
+
+\draw<4->[verde](Z) -- (W);
+\draw<4->[verde](Z) -- (X);
+\draw<4->[verde](X) -- (W);
+\draw<4->[verde](W) -- (Y);
+                 
+\end{scope} 
+      
+\end{zframe}
+                        
+\begin{zframe}{}
+         
+\path(t) ++(0,.5) node(T)[align=left,anchor=north west]{
+{\color{verde} \Large Celdas Vecinas}
+};                                    
+                         
+\path(t-|c1) ++(0,.5) node(T)[align=left,anchor=north west]{
+\color{celeste} Escalea con $N$
+};                                    
+                  
+\path(3,2) coordinate(scope);
+\begin{scope}[x=1cm,y=1cm,amarillo,shift=(scope),thick]
+
+% Definir
+\path(-2,-2) coordinate(O);
+\path(9,5.8) coordinate(K1);          % Esquina del cuadrante 1
+\path(K1-|{(-1.8,5.8)}) coordinate(K2); % Esquina del cuadrante 2
+\path(K2|-{(-1.8,-1.8)}) coordinate(K3); % Esquina del cuadrante 3
+ 
+% Emergentes
+\path(K3-|K1) coordinate(K4);       % Esquina del cuadrante 4
+\path(O-|K1) coordinate(xp);       % Punta de eje +x
+\path(O-|K2) coordinate(xn);       % Punta de eje -x
+\path(O|-K1) coordinate(yp);       % Punta de eje +y
+\path(O|-K3) coordinate(yn);       % Punta de eje -y
+
+
+% grid
+\draw[ystep=2.5, xstep=2.5, celeste] (K3) grid (K1);
+
+\fill(-1,3)  circle(.1) coordinate(V);
+\fill(4,2)  circle(.1) coordinate(W);
+\fill(3,.2) circle(.1) coordinate(X);
+\fill(5,4)  circle(.1) coordinate(Y);
+\fill(5.6,.7)  circle(.1) coordinate(Z);
+     
+\draw[dashed](V) circle(1);
+\draw[dashed](W) circle(1);
+\draw[dashed](X) circle(1);
+\draw[dashed](Y) circle(1);
+\draw[dashed](Z) circle(1);
+\draw[thick](V) -- ++(20:1) node[pos=.5,above]{$\sigma$};
+\draw[rojo,thick](V) -- ++(120:2.5) node[pos=.5,above right]{$r_{\text{cut}}$};
+\draw[<->,ultra thick,celeste](5,3) -- (7.5,3) node[pos=.5,below]{$r_{\text{cut}}$};
+         
+\draw[rojo,dashed](V) circle(2.5);
+\draw[rojo,dashed](W) circle(2.5);
+\draw[rojo,dashed](X) circle(2.5);
+\draw[rojo,dashed](Y) circle(2.5);
+\draw[rojo,dashed](Z) circle(2.5);
+                
+\end{scope} 
+      
+\end{zframe}
+      
+            
+\begin{zframe}{}
+         
+\path(t) ++(0,0) node(T)[align=left,anchor=north west]{
+{\color{verde} \Large Configuración Inicial:}
+};                                    
+
+
+\path<-3>(c2) ++(-1.5,-.5) node(A)[naranja]{$U(\vb{r})$};
+\path<3->(3,1.4) node(A)[naranja]{$\approx U(\vb{r})$};
+
+
+\draw<3,4>[ultra thick,naranja](1,4) -- (3,2) -- (5,4) -- (3,5) -- cycle;
+\fill<3,4>[azul,yshift=4](2,3) -- (3,2) -- (4,3) -- (3,3.75) -- cycle;
+\fill<3,4>[lila,yshift=7](4,3) -- (5,4) -- (4,4.5) -- (3,3.75)  -- cycle;
+\fill<3,4>[amarillo,yshift=15](4,4.5) -- (3,3.75) -- (2,4.5) -- (3,5) -- cycle;
+\fill<3,4>[naranja,yshift=25](3,3.75) -- (2,4.5) -- (1,4) -- (2,3) -- cycle;
+ 
+\path<1-3>(hl) ++(0,0) node(A){\includegraphics[width=4cm]{CAS1.png}};
+\draw<1>[<-,ultra thick,verde](3.8,6.2) -- ++(90:1);
+\draw<2->[<-,ultra thick,verde](2.5,3.3) -- ++(-120:1);
+ 
+
+
+
+\path(6,2) coordinate(scope);
+\begin{scope}[x=1cm,y=1cm,amarillo,shift=(scope),thick]
+
+% Definir
+\path(0,0) coordinate(O);
+\path(5,5) coordinate(K1);          % Esquina del cuadrante 1
+\path(K1-|{(0,5)}) coordinate(K2); % Esquina del cuadrante 2
+\path(K2|-{(0,0)}) coordinate(K3); % Esquina del cuadrante 3
+
+% Emergentes
+\path(K3-|K1) coordinate(K4);       % Esquina del cuadrante 4
+\path(O-|K1) coordinate(xp);       % Punta de eje +x
+\path(O-|K2) coordinate(xn);       % Punta de eje -x
+\path(O|-K1) coordinate(yp);       % Punta de eje +y
+\path(O|-K3) coordinate(yn);       % Punta de eje -y
+
+
+% grid
+\draw[ystep=5, xstep=5, celeste] (K3) grid (K1);
+\fill(2,2)  circle(.1) coordinate(W);
+\fill(1,.2) circle(.1) coordinate(X);
+\fill(3,4)  circle(.1) coordinate(Y);
+\fill<1>(2.5,.7)  circle(.1) coordinate(Z);
+\fill<2->(3.6,.7)  circle(.1) coordinate(Z);
+      
+\draw<1>[ultra thick,dashed,naranja](W) circle(1);
+\draw<1>[ultra thick,dashed,naranja](X) circle(1);
+\draw<1>[dashed](Y) circle(1);
+\draw<1>[ultra thick,dashed,naranja](Z) circle(1);
+      
+\draw<2->[dashed](W) circle(1);
+\draw<2->[dashed](X) circle(1);
+\draw<2->[dashed](Y) circle(1);
+\draw<2->[dashed](Z) circle(1);
+
+\draw[thick](Y) -- ++(20:1) node[pos=.5,above]{$r_{\text{cut}}$};
+ 
+\end{scope} 
+      
+
+\end{zframe}
+ 
+\begin{zframe}{}
+         
+\path(t-|cp) ++(0,0) node(A){\includegraphics[width=9cm]{lmartinez/packmol.png}};
+
+\path(c3) ++(0,-.4) node(A){\includegraphics[width=5.5cm]{lmartinez/bilayer2.jpg}};
+\path(cp) ++(0,.5) node(A){\includegraphics[width=10cm]{lmartinez/mfig002.jpg}};
+\path(c4) ++(0,-.4) node(A){\includegraphics[width=5.5cm]{lmartinez/mixture2.jpg}};
+
+\path(sw) ++(1,.1) node[anchor=south west,inner sep=2]{
+  \scriptsize Martinez  \textit{et al.}, \href{https://doi.org/10.1002/jcc.21224}{J. Comp. Chem. 30(2009)2157}};
+\path(sw) ++(1,.4) node[anchor=south west,inner sep=2]{
+  \scriptsize Martinez \textit{et al.}, \href{https://doi.org/10.1002/jcc.10216}{J. Comp. Chem. 24(2003)819}};
+ 
+                    
+\end{zframe}
+                
+
+\begin{zframe}{}
+          
+\path(t) ++(0,.5) node(T)[align=left,anchor=north west]{
+{\color{verde} \Large Condiciones de Contorno \color{naranja} Periódicas}
+};                                    
+  
+\path(3,2) coordinate(scope);
+\begin{scope}[x=1cm,y=1cm,amarillo,shift=(scope), thick]
+
+% Definir
+\path<1>(0,0) coordinate(O);
+\path<1>(4,4) coordinate(K1);          % Esquina del cuadrante 1
+\path<1>(K1-|{(0,4)}) coordinate(K2); % Esquina del cuadrante 2
+\path<1>(K2|-{(0,0)}) coordinate(K3); % Esquina del cuadrante 3
+\path<2>(-2,-2) coordinate(O);
+\path<2>(9,5.8) coordinate(K1);          % Esquina del cuadrante 1
+\path<2>(K1-|{(-1.8,5.8)}) coordinate(K2); % Esquina del cuadrante 2
+\path<2>(K2|-{(-1.8,-1.8)}) coordinate(K3); % Esquina del cuadrante 3
+
+
+% Emergentes
+\path(K3-|K1) coordinate(K4);       % Esquina del cuadrante 4
+\path(O-|K1) coordinate(xp);       % Punta de eje +x
+\path(O-|K2) coordinate(xn);       % Punta de eje -x
+\path(O|-K1) coordinate(yp);       % Punta de eje +y
+\path(O|-K3) coordinate(yn);       % Punta de eje -y
+
+
+% grid
+\draw[ystep=4, xstep=4, ultra thick, celeste] (K3) grid (K1);
+
+\fill(2,2)    circle(.1) coordinate(W);
+\fill(1,.2)   circle(.1) coordinate(X);
+\fill(3,3.8)  circle(.1) coordinate(Y);
+\fill(3.6,.7) circle(.1) coordinate(Z);
+\fill<2>(W) ++(0,-4) circle(.1) coordinate(W2);
+\fill<2>(Y) ++(0,-4) circle(.1) coordinate(Y2);
+\fill<2>(X) ++(0,4) circle(.1) coordinate(X2);
+\fill<2>(Z) ++(0,4) circle(.1) coordinate(Z2);
+\draw<2>[dashed](W2) circle(1);
+\draw<2>[dashed](X2) circle(1);
+\draw<2>[dashed](Y2) circle(1);
+\draw<2>[dashed](Z2) circle(1);
+\draw[dashed](W) circle(1);
+\draw[dashed](X) circle(1);
+\draw[dashed](Y) circle(1);
+\draw[dashed](Z) circle(1);
+\draw[thick](Y) -- ++(20:1) node[pos=.5,above]{$r_{\text{cut}}$};
+
+\fill<2>(W) ++(4,0) circle(.1) coordinate(W);
+\fill<2>(X) ++(4,0) circle(.1) coordinate(X);
+\fill<2>(Y) ++(4,0) circle(.1) coordinate(Y);
+\fill<2>(Z) ++(4,0) circle(.1) coordinate(Z);
+\fill<2>(W) ++(0,-4) circle(.1) coordinate(W2);
+\fill<2>(Y) ++(0,-4) circle(.1) coordinate(Y2);
+\fill<2>(X) ++(0,4) circle(.1) coordinate(X2);
+\fill<2>(Z) ++(0,4) circle(.1) coordinate(Z2);
+\draw<2>[dashed](W2) circle(1);
+\draw<2>[dashed](X2) circle(1);
+\draw<2>[dashed](Y2) circle(1);
+\draw<2>[dashed](Z2) circle(1);
+\draw<2>[dashed](W) circle(1);
+\draw<2>[dashed](X) circle(1);
+\draw<2>[dashed](Y) circle(1);
+\draw<2>[dashed](Z) circle(1);
+
+\fill<2>(W) ++(4,0) circle(.1) coordinate(W);
+\fill<2>(X) ++(4,0) circle(.1) coordinate(X);
+\fill<2>(Y) ++(4,0) circle(.1) coordinate(Y);
+\fill<2>(Z) ++(4,0) circle(.1) coordinate(Z);
+\fill<2>(W) ++(0,-4) circle(.1) coordinate(W2);
+\fill<2>(Y) ++(0,-4) circle(.1) coordinate(Y2);
+\fill<2>(X) ++(0,4) circle(.1) coordinate(X2);
+\fill<2>(Z) ++(0,4) circle(.1) coordinate(Z2);
+\draw<2>[dashed](W2) circle(1);
+\draw<2>[dashed](X2) circle(1);
+\draw<2>[dashed](Y2) circle(1);
+\draw<2>[dashed](Z2) circle(1);
+\draw<2>[dashed](W) circle(1);
+\draw<2>[dashed](X) circle(1);
+\draw<2>[dashed](Y) circle(1);
+\draw<2>[dashed](Z) circle(1);
+
+\fill<2>(W) ++(-12,0) circle(.1) coordinate(W);
+\fill<2>(X) ++(-12,0) circle(.1) coordinate(X);
+\fill<2>(Y) ++(-12,0) circle(.1) coordinate(Y);
+\fill<2>(Z) ++(-12,0) circle(.1) coordinate(Z);
+\fill<2>(W) ++(0,-4) circle(.1) coordinate(W2);
+\fill<2>(Y) ++(0,-4) circle(.1) coordinate(Y2);
+\fill<2>(X) ++(0,4) circle(.1) coordinate(X2);
+\fill<2>(Z) ++(0,4) circle(.1) coordinate(Z2);
+\draw<2>[dashed](W2) circle(1);
+\draw<2>[dashed](X2) circle(1);
+\draw<2>[dashed](Y2) circle(1);
+\draw<2>[dashed](Z2) circle(1);
+\draw<2>[dashed](W) circle(1);
+\draw<2>[dashed](X) circle(1);
+\draw<2>[dashed](Y) circle(1);
+\draw<2>[dashed](Z) circle(1);
+           
+\end{scope} 
+      
+
+\end{zframe}
+ 
+\begin{zframe}{}
+          
+\path<1-5>(t) ++(0,.5) node(T)[align=left,anchor=north west]{
+{\color{verde} \Large Condiciones de Contorno \color{naranja} Periódicas}
+};                                    
+                                  
+\path<6>(t) ++(0,.5) node(T)[align=left,anchor=north west]{
+{\color{verde} \Large Conveción de Imagen Mínima}
+};                                    
+                                   
+\path<7>(t) ++(0,.5) node(T)[align=left,anchor=north west]{
+{\color{verde} \Large Partículas Fantasma}
+};                                    
+                                   
+\path<7>(vu) ++(1,.8) node(T)[align=left,anchor=north west]{
+\color{celeste} ¡Paralelización!
+};                                    
+                                           
+\path(3,2) coordinate(scope);
+\begin{scope}[x=1cm,y=1cm,amarillo,shift=(scope),thick]
+
+\clip<7>(-1,-1) rectangle (5,5);
+\draw<7>[<->,ultra thick,celeste](4,3) -- (5,3) node[pos=.5,below]{$r_{\text{cut}}$};
+
+% Definir
+\path(-2,-2) coordinate(O);
+\path(9,5.8) coordinate(K1);          % Esquina del cuadrante 1
+\path(K1-|{(-1.8,5.8)}) coordinate(K2); % Esquina del cuadrante 2
+\path(K2|-{(-1.8,-1.8)}) coordinate(K3); % Esquina del cuadrante 3
+
+
+% Emergentes
+\path(K3-|K1) coordinate(K4);       % Esquina del cuadrante 4
+\path(O-|K1) coordinate(xp);       % Punta de eje +x
+\path(O-|K2) coordinate(xn);       % Punta de eje -x
+\path(O|-K1) coordinate(yp);       % Punta de eje +y
+\path(O|-K3) coordinate(yn);       % Punta de eje -y
+
+
+% grid
+\draw[ystep=4, xstep=4, ultra thick, celeste] (K3) grid (K1);
+
+\fill(2,2)    circle(.1) coordinate(W);
+\fill[rojo](1,.2)   circle(.1) coordinate(X);
+\fill[lila](3,3.8)  circle(.1) coordinate(Y);
+\fill[naranja](3.6,.7) circle(.1) coordinate(Z);
+\fill(W) ++(0,-4) circle(.1) coordinate(W2);
+\fill[lila](Y) ++(0,-4) circle(.1) coordinate(Y2);
+\fill(X) ++(0,4) circle(.1) coordinate(X2);
+\fill[naranja](Z) ++(0,4) circle(.1) coordinate(Z2);
+\draw[dashed](W2) circle(1);
+\draw[dashed](X2) circle(1);
+\draw[ultra thick, lila,dashed](Y2) circle(1);
+\draw[ultra thick, naranja,dashed](Z2) circle(1);
+\draw[dashed](W) circle(1);
+\draw[ultra thick, rojo](X) circle(1);
+\draw[ultra thick, lila](Y) circle(1);
+\draw[ultra thick, naranja](Z) circle(1);
+% \draw[thick](Y) -- ++(20:1) node[pos=.5,above]{$\sigma$};
+
+\draw<2-6>[verde,->,ultra thick,dashed](X) -- (Z);
+\draw<3-6>[verde,<-,ultra thick](Z) ++(-4,0) -- (X);
+\draw<3-6>[celeste,<-,ultra thick,dashed](Z) ++(-4,0) -- (Z);
+        
+\draw<4-6>[verde,->,ultra thick,dashed](Z) -- (Y);
+\draw<5-6>[verde,<-,ultra thick](Y) ++(0,-4) -- (Z);
+\draw<5-6>[celeste,<-,ultra thick,dashed](Y) ++(0,-4) -- (Y);
+
+
+\fill(W) ++(4,0) circle(.1) coordinate(W);
+\fill[rojo](X) ++(4,0) circle(.1) coordinate(X);
+\fill(Y) ++(4,0) circle(.1) coordinate(Y);
+\fill(Z) ++(4,0) circle(.1) coordinate(Z);
+\fill(W) ++(0,-4) circle(.1) coordinate(W2);
+\fill(Y) ++(0,-4) circle(.1) coordinate(Y2);
+\fill(X) ++(0,4) circle(.1) coordinate(X2);
+\fill(Z) ++(0,4) circle(.1) coordinate(Z2);
+\draw[dashed](W2) circle(1);
+\draw[dashed](X2) circle(1);
+\draw[dashed](Y2) circle(1);
+\draw[dashed](Z2) circle(1);
+\draw[dashed](W) circle(1);
+\draw[ultra thick, rojo,dashed](X) circle(1);
+\draw[dashed](Y) circle(1);
+\draw[dashed](Z) circle(1);
+
+\fill(W) ++(4,0) circle(.1) coordinate(W);
+\fill(X) ++(4,0) circle(.1) coordinate(X);
+\fill(Y) ++(4,0) circle(.1) coordinate(Y);
+\fill(Z) ++(4,0) circle(.1) coordinate(Z);
+\fill(W) ++(0,-4) circle(.1) coordinate(W2);
+\fill(Y) ++(0,-4) circle(.1) coordinate(Y2);
+\fill(X) ++(0,4) circle(.1) coordinate(X2);
+\fill(Z) ++(0,4) circle(.1) coordinate(Z2);
+\draw[dashed](W2) circle(1);
+\draw[dashed](X2) circle(1);
+\draw[dashed](Y2) circle(1);
+\draw[dashed](Z2) circle(1);
+\draw[dashed](W) circle(1);
+\draw[dashed](X) circle(1);
+\draw[dashed](Y) circle(1);
+\draw[dashed](Z) circle(1);
+
+\fill(W) ++(-12,0) circle(.1) coordinate(W);
+\fill(X) ++(-12,0) circle(.1) coordinate(X);
+\fill(Y) ++(-12,0) circle(.1) coordinate(Y);
+\fill[naranja](Z) ++(-12,0) circle(.1) coordinate(Z);
+\fill(W) ++(0,-4) circle(.1) coordinate(W2);
+\fill(Y) ++(0,-4) circle(.1) coordinate(Y2);
+\fill(X) ++(0,4) circle(.1) coordinate(X2);
+\fill(Z) ++(0,4) circle(.1) coordinate(Z2);
+\draw[dashed](W2) circle(1);
+\draw[dashed](X2) circle(1);
+\draw[dashed](Y2) circle(1);
+\draw[dashed](Z2) circle(1);
+\draw[dashed](W) circle(1);
+\draw[dashed](X) circle(1);
+\draw[dashed](Y) circle(1);
+\draw[ultra thick, naranja,dashed](Z) circle(1);
+           
+\end{scope} 
+      
+
+\end{zframe}
+         
+           
+ 
+\end{document}

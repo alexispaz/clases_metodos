@@ -9,10 +9,9 @@
 % this generates the files figure.parabola.gnuplot and figure.parabola.table 
 \ifundef{\globalxa}{\gdef\globalxa{-1.5}}{}
 \ifundef{\globalxb}{\gdef\globalxb{1.2}}{}
-\pgfmathtruncatemacro\N{9}
-\foreach \mm in {3,5,...,\N}{ 
-\pgfmathsetmacro\m{int(\mm-1)}
-\only<\m,\mm>{
+\pgfmathtruncatemacro\N{7}
+\foreach \m in {4,5,...,\N}{ 
+\only<\m>{
                                               
   % Punto b
   \pgfmathsetmacro\x{\globalxb}
@@ -33,22 +32,23 @@
   \draw[verde,dashed] (o|-{0,\yy}) -- (\xx,\yy) node[pos=0,left]{$f(a)$};
  
   % Etiquetas
-  \path(4,2.9) node[anchor=north west,align=left]{
-    a=\xx\\
-    b=\x};
-  \pgfmathsetmacro\iter{int((\mm-1)/2)}
-  \path(6,2.9) node[circle,draw=white,anchor=north west,align=left]{
-    \iter};
+  \path(3.8,2.9) node(ab)[anchor=north west,align=left]{
+   {\color{rosa} 1.} a=\xx\\
+    \hspace{2ex}     b=\x};
+  \pgfmathsetmacro\iter{int(\m-1))}
+  \path(6.5,3.0) node(Bi)[rectangle,draw=white,anchor=north west]{
+    Iteración \iter};
+  \path(Bi.south) node[anchor=north]{
+    $\epsilon_T=0.4$};
 
   % Distancia
   \pgfmathsetmacro\d{\x-\xx}
-  \path<3->(4,-1.9) node[anchor=south west,align=left]{
-    Convergencia: ($\epsilon=0.4$)\\
-    $b-a=\d$
+  \path(3.8,-0.7) node[anchor=south west,align=left]{
+    {\color{rosa} 3.} Convergencia:\\
+    \hspace{2ex}$b-a=\d$
   };
-}  
 
-\only<\mm>{
+
   % Punto c
   \pgfmathsetmacro\xc{(\xx+\x)*.5}
   \pgfmathsetmacro\yc{sin(2*\xc*180/3.1415)+\xc}
@@ -58,16 +58,22 @@
   \draw[celeste,dashed] (\xc,\yc) -- (\xc,0) node[pos=1,yshift=\lc]{$x$};
   \draw[celeste,dashed] (o|-{0,\yc}) -- (\xc,\yc) node[pos=0,left,yshift=-5]{$f(x)$};
 
+  \path(3.8,1.1) node(x)[anchor=west,align=left]{
+  {\color{rosa} 2.} $x=\xc$};
+
   \pgfmathsetmacro\test{sign(\yc*\yy)}
   \ifthenelse{\test>0}{
     \global\let\globalxa=\xc
-    \path(4,0.4) node[anchor=west,align=left]{
-      $x=\xc$\\$f(a)f(x)>0$};
+    \path(3.8,-1.4) node[anchor=west,align=left]{
+     {\color{rosa} 4.} $f(a)f(x)>0$};
+    \draw[rosa] (ab.0) ++(0,.4) edge[<-,>=stealth,double=black,double distance=1pt,bend left] (x.15);
   }{
-    \path(4,0.4) node[anchor=west,align=left]{
-      $f(a)f(x)<0$\\$x=\xc$};
     \global\let\globalxb=\xc
+    \path(3.8,-1.4) node[anchor=west,align=left]{
+      {\color{rosa} 4.} $f(a)f(x)<0$};
+    \draw[rosa] (ab.0) ++(0,-.4)  edge[<-,>=stealth,double=black,double distance=1pt,bend left] (x.15);
   }
+
 
 }
 }
